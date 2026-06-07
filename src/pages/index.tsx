@@ -6,32 +6,30 @@ import { motion, AnimatePresence } from 'framer-motion';
 // =====================================================================
 // BANNER IMAGES
 // =====================================================================
-// Dark mode banner — Cloudflare Image Resizing, same approach.
-// ✏️  Swap just the base filename when updating the dark banner.
-const BANNER_DARK = {
-  src:    'https://assets.nikxart.xyz/Banner-Medium.jpg?width=1400&quality=85&format=auto',
-  srcSet: [
-    'https://assets.nikxart.xyz/Banner-Min.jpg?width=640&quality=85&format=auto 640w',
-    'https://assets.nikxart.xyz/Banner-Small.jpg?width=960&quality=85&format=auto 960w',
-    'https://assets.nikxart.xyz/Banner-Medium.jpg?width=1400&quality=85&format=auto 1400w',
-  ].join(', '),
-};
+// Each banner has a base state (blank puzzle grid) and evolved state (with piece 01).
+// The evolved banner shows automatically once a connected wallet has minted piece 01.
+// All images use Cloudflare Image Resizing — one master file, infinite sizes.
+// New banners are 2500×1266px — aspect ratio ~1.976:1 (close to 2:1).
+// ✏️  Swap base filenames to update. Never change the ?width= params.
 
-// Light mode banner — Cloudflare Image Resizing handles all sizes automatically.
-// The 2500px master on R2 is resized on the fly and cached at Cloudflare's edge.
-// ✏️  Only this one URL needs updating if you change the light banner image.
-const BANNER_LIGHT = {
-  src:    'https://assets.nikxart.xyz/main_grid_light_2500px.jpg?width=1400&quality=85&format=auto',
-  srcSet: [
-    'https://assets.nikxart.xyz/main_grid_light_2500px.jpg?width=640&quality=85&format=auto 640w',
-    'https://assets.nikxart.xyz/main_grid_light_2500px.jpg?width=960&quality=85&format=auto 960w',
-    'https://assets.nikxart.xyz/main_grid_light_2500px.jpg?width=1400&quality=85&format=auto 1400w',
-  ].join(', '),
-};
-
-// Shared sizes hint — tells browser the image renders at max 1400px
-// regardless of screen width (due to our max-width cap on the container)
 const BANNER_SIZES = '(max-width: 680px) calc(100vw - 32px), (max-width: 1100px) calc(100vw - 64px), 1400px';
+
+const makeBanner = (base: string) => ({
+  src:    `${base}?width=1400&quality=88&format=auto`,
+  srcSet: [
+    `${base}?width=640&quality=85&format=auto 640w`,
+    `${base}?width=960&quality=85&format=auto 960w`,
+    `${base}?width=1400&quality=88&format=auto 1400w`,
+  ].join(', '),
+});
+
+// Base banners — blank puzzle grid
+const BANNER_DARK       = makeBanner('https://assets.nikxart.xyz/Banner-Medium.jpg');
+const BANNER_LIGHT      = makeBanner('https://assets.nikxart.xyz/main_grid_light_2500px.jpg');
+
+// Evolved banners — puzzle grid with piece 01 revealed (shown after minting)
+const BANNER_DARK_PC01  = makeBanner('https://assets.nikxart.xyz/Banner-Main-Pc001-Dark.jpg');
+const BANNER_LIGHT_PC01 = makeBanner('https://assets.nikxart.xyz/Banner-Main-Pc001-Light.jpg');
 
 // Current piece - update every drop
 const CURRENT_PIECE = {
@@ -42,8 +40,8 @@ const CURRENT_PIECE = {
   // Change mediaType to 'video' and update the URL when you have the final MP4.
   mediaUrl:  'https://assets.nikxart.xyz/PuzzlePc-PH01.jpg',
   mediaType: 'image' as 'video' | 'image',
-  instanceId:  '3821601009',
-  manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/3821601009',
+  instanceId:  '4056113392',
+  manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4056113392',
 };
 
 // Drop schedule - UTC (EST = UTC-5, so 10am EST = 15:00 UTC)
@@ -172,9 +170,18 @@ export default function Home() {
   useEffect(() => {
     const fetchGas = async () => {
       try {
-        const r = await fetch('https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=YourApiKeyToken');
+        // Cloudflare's public Ethereum RPC — free, no API key, very reliable
+        const r = await fetch('https://cloudflare-eth.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ jsonrpc: '2.0', method: 'eth_gasPrice', params: [], id: 1 }),
+        });
         const d = await r.json();
-        if (d.status === '1') setGwei(Number(d.result.SafeGasPrice));
+        if (d.result) {
+          // Convert hex wei to gwei and round
+          const gweiVal = Math.round(parseInt(d.result, 16) / 1e9);
+          setGwei(gweiVal);
+        }
       } catch {}
     };
     fetchGas();
@@ -220,6 +227,9 @@ export default function Home() {
       .map((qty, i) => ({ tokenId: i + 1, qty: Number(qty) }))
       .filter(p => p.qty > 0);
   }, [rawBalances]);
+
+  // Banner evolves once connected wallet holds piece 01
+  const bannerEvolved = isConnected && ownedPieces.some(p => p.tokenId === 1 && p.qty > 0);
 
   useEffect(() => {
     if (!entered) return;
@@ -281,10 +291,10 @@ export default function Home() {
         .glow-r { top:-28vw; right:-14vw; width:68vw; height:68vw; background: radial-gradient(circle, var(--red-glow) 0%, transparent 68%); }
         .glow-b { bottom:-22vw; left:-12vw; width:60vw; height:60vw; background: radial-gradient(circle, var(--blue-glow) 0%, transparent 68%); }
 
-        .theme-light { --bg:#d9d0c8; --surface:#cfc5bc; --red:#6b1020; --red-glow:rgba(107,16,32,0.11); --blue-glow:rgba(8,14,55,0.04); --cream:#16110d; --cream-dim:rgba(22,17,13,0.72); --silver:rgba(40,28,20,0.62); --border:rgba(40,28,20,0.12); }
-        .theme-light .nav { background: rgba(212,203,196,0.85); }
+        .theme-light { --bg:#cec4ba; --surface:#c5bab0; --red:#6b1020; --red-glow:rgba(107,16,32,0.11); --blue-glow:rgba(8,14,55,0.04); --cream:#16110d; --cream-dim:rgba(22,17,13,0.72); --silver:rgba(40,28,20,0.62); --border:rgba(40,28,20,0.12); }
+        .theme-light .nav { background: rgba(200,193,184,0.87); }
         .theme-light .manifold-wrap, .theme-light .manifold-wrap div, .theme-light .manifold-wrap m-claim-complete { background: #0f0d16 !important; color: #e6ddd0 !important; }
-        .theme-light .piece-video { box-shadow: 0 24px 64px rgba(28,21,16,0.18), 0 2px 8px rgba(28,21,16,0.08); }
+        .theme-light .piece-video { border-color: rgba(40,28,20,0.15); }
         .theme-light .divider { background: linear-gradient(90deg, transparent, rgba(107,16,32,0.3), transparent); }
 
         .intro { position: fixed; inset: 0; z-index: 200; background: var(--bg); display: flex; align-items: center; justify-content: center; transition: background 0.55s ease; }
@@ -293,14 +303,12 @@ export default function Home() {
         .ring { position: absolute; border-radius: 50%; border: 1px solid var(--cream); pointer-events: none; animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
         .ring-1 { width:clamp(260px,40vw,440px); height:clamp(260px,40vw,440px); animation: pulse-ring 3.8s infinite; }
         .ring-2 { width:clamp(360px,56vw,600px); height:clamp(360px,56vw,600px); animation: pulse-ring-outer 3.8s 0.9s infinite; }
-        .pz-btn { position: relative; z-index: 2; cursor: pointer; background: none; border: none; outline: none; display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 0; transition: transform 0.55s cubic-bezier(0.34,1.56,0.64,1); }
+        .pz-btn { position: relative; z-index: 2; cursor: pointer; background: none; border: none; outline: none; display: flex; flex-direction: column; align-items: center; gap: 0; padding: 0; transition: transform 0.55s cubic-bezier(0.34,1.56,0.64,1); }
         .pz-btn:hover { transform: scale(1.07); }
-        .pz-svg { width: clamp(96px, 13vw, 140px); display: flex; align-items: center; justify-content: center; }
+        .pz-svg { width: clamp(88px, 11vw, 130px); display: flex; align-items: center; justify-content: center; position: relative; }
         .pz-svg svg { width: 100%; height: auto; overflow: visible; }
         .pz-glow { opacity: 0; transition: opacity 0.5s; }
         .pz-btn:hover .pz-glow { opacity: 1; }
-        .pz-text { font-family: var(--font); font-style: italic; font-weight: 300; font-size: clamp(11px,1.4vw,13px); letter-spacing: 0.44em; text-transform: uppercase; color: var(--cream-dim); transition: color 0.5s, letter-spacing 0.5s; }
-        .pz-btn:hover .pz-text { color: var(--cream); letter-spacing: 0.54em; }
 
         .site { position: relative; z-index: 1; min-height: 100svh; background: var(--bg); transition: background 0.55s ease; }
 
@@ -358,7 +366,7 @@ export default function Home() {
         .hero-sub { font-family: var(--font); font-style: italic; font-weight: 300; font-size: clamp(13px,1.5vw,15px); letter-spacing: 0.18em; color: var(--silver); opacity: 0.62; }
 
         .banner-outer { padding: clamp(16px,2.5vw,36px) clamp(16px,4.5vw,64px); max-width: 1528px; margin: 0 auto; }
-        .banner-inner { position: relative; width: 100%; aspect-ratio: 16/9; border-radius: clamp(10px,1.4vw,18px); overflow: hidden; border: none; background: transparent; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .banner-inner { position: relative; width: 100%; aspect-ratio: 2500/1266; border-radius: clamp(10px,1.4vw,18px); overflow: hidden; border: none; background: transparent; }
         .banner-inner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.5s ease; }
         .theme-light .banner-inner { box-shadow: 0 12px 40px rgba(28,21,16,0.12); }
 
@@ -373,36 +381,77 @@ export default function Home() {
         .cd-sep { font-family: var(--font); font-style: italic; font-size: clamp(22px,3.2vw,38px); line-height: 1.5; color: var(--red); opacity: 0.4; user-select: none; padding-bottom: 8px; }
         .cd-note { margin-top: 20px; font-family: var(--font); font-style: italic; font-weight: 300; font-size: clamp(13px,1.5vw,15px); color: var(--silver); opacity: 0.6; letter-spacing: 0.1em; }
 
-        .piece-section { padding: 0 clamp(16px,4vw,64px) clamp(48px,7vw,100px); max-width: 860px; margin: 0 auto; width: 100%; }
+        .piece-section { padding: 0 clamp(40px,9vw,140px) clamp(48px,7vw,100px); max-width: 700px; margin: 0 auto; width: 100%; }
         .section-lbl { text-align: center; margin-bottom: 18px; font-family: var(--font); font-style: italic; font-size: clamp(11px,1.2vw,13px); letter-spacing: 0.3em; text-transform: uppercase; color: var(--silver); opacity: 0.62; }
-        .piece-video { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: clamp(8px,1.2vw,14px); overflow: hidden; border: 1px solid var(--border); background: var(--surface); box-shadow: 0 32px 80px rgba(0,0,0,0.68); }
+        .piece-video { position: relative; width: 100%; aspect-ratio: 1/1; border-radius: clamp(8px,1.2vw,14px); overflow: hidden; border: 1px solid var(--border); background: var(--surface); }
         .piece-video video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
         .piece-video img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
         .piece-video-overlay { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(6,6,10,0.55) 0%, transparent 42%); }
         .piece-ghost { position: absolute; bottom: 14px; left: 18px; font-family: var(--font); font-style: italic; font-weight: 300; font-size: clamp(48px,10vw,92px); line-height: 1; color: rgba(230,221,208,0.07); user-select: none; pointer-events: none; }
         .piece-frag { position: absolute; bottom: 20px; right: 20px; font-family: var(--font); font-style: italic; font-size: clamp(10px,1.2vw,12px); letter-spacing: 0.14em; color: var(--cream-dim); }
         .piece-placeholder { background: var(--surface); pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; position: absolute; inset: 0; }
-        .piece-tease-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.32; filter: brightness(0.65) saturate(0.7); }
-        .piece-tease-overlay { position: absolute; inset: 0; background: rgba(6,6,10,0.38); pointer-events: none; }
-        .piece-tease-badge { position: absolute; bottom: 28px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-        .piece-tease-label { font-family: var(--font); font-style: italic; font-size: clamp(10px,1.2vw,12px); letter-spacing: 0.34em; text-transform: uppercase; color: var(--cream-dim); opacity: 0.6; }
-        @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } }
-        .piece-shimmer {
-          position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+        .piece-tease-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.30; filter: brightness(0.6) saturate(0.65); }
+        .piece-tease-overlay { position: absolute; inset: 0; background: rgba(6,6,10,0.35); pointer-events: none; }
+        .piece-tease-badge { position: absolute; bottom: 24px; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .piece-tease-label { font-family: var(--font); font-style: italic; font-size: clamp(10px,1.2vw,12px); letter-spacing: 0.34em; text-transform: uppercase; color: var(--cream-dim); opacity: 0.55; }
+        @keyframes shimmer {
+          0%   { transform: translateX(-130%) skewX(-15deg); opacity: 0; }
+          12%  { opacity: 1; }
+          88%  { opacity: 1; }
+          100% { transform: translateX(230%) skewX(-15deg); opacity: 0; }
         }
+        .piece-shimmer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; border-radius: inherit; }
         .piece-shimmer::after {
-          content: '';
-          position: absolute; top: 0; bottom: 0;
-          width: 40%; left: 0;
-          background: linear-gradient(105deg, transparent 20%, rgba(240,232,220,0.055) 50%, transparent 80%);
-          animation: shimmer 3.8s cubic-bezier(0.4,0,0.6,1) infinite;
-          animation-delay: 0.8s;
+          content: ''; position: absolute; top: -30%; bottom: -30%; width: 22%;
+          background: linear-gradient(105deg, transparent 0%, rgba(240,232,220,0.025) 35%, rgba(240,232,220,0.07) 50%, rgba(240,232,220,0.025) 65%, transparent 100%);
+          animation: shimmer 3.2s cubic-bezier(0.4,0,0.2,1) infinite;
+          animation-delay: 1.2s;
         }
-
         .manifold-wrap { width: 100%; border-radius: clamp(8px,1.2vw,14px); overflow: hidden; border: 1px solid var(--border); background: var(--surface); margin-top: clamp(12px,2vw,20px); contain: paint; will-change: contents; display: block; }
         .manifold-wrap div, .manifold-wrap m-claim-complete { width: 100% !important; max-width: 100% !important; box-sizing: border-box; background: #0f0d16 !important; color: #e6ddd0 !important; }
-        .manifold-wrap .m-btn-primary, .manifold-wrap .buy-btn, .manifold-wrap .mint-btn, .manifold-wrap .claim-btn { background: rgba(122,20,36,0.2) !important; border: 1px solid rgba(122,20,36,0.6) !important; color: #e6ddd0 !important; border-radius: 8px !important; letter-spacing: 0.1em !important; transition: background 0.4s !important; }
-        .collect-fallback { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: clamp(24px,4vw,36px); padding-top: 0; }
+        .manifold-wrap button {
+          font-family: 'Cormorant Garamond', Georgia, serif !important;
+          font-style: italic !important; font-weight: 300 !important;
+          letter-spacing: 0.28em !important; text-transform: uppercase !important;
+          border-radius: 10px !important;
+          transition: background 0.45s, border-color 0.45s, transform 0.3s !important;
+        }
+        .manifold-wrap button[class*="buy"],
+        .manifold-wrap button[class*="mint"],
+        .manifold-wrap button[class*="claim"],
+        .manifold-wrap .m-btn-primary {
+          background: linear-gradient(135deg, rgba(122,20,36,0.18) 0%, rgba(80,12,50,0.12) 100%) !important;
+          border: 1px solid rgba(122,20,36,0.5) !important;
+          color: #f0e8dc !important;
+        }
+        .manifold-wrap button[class*="buy"]:hover,
+        .manifold-wrap button[class*="mint"]:hover,
+        .manifold-wrap button[class*="claim"]:hover,
+        .manifold-wrap .m-btn-primary:hover {
+          background: linear-gradient(135deg, rgba(122,20,36,0.28) 0%, rgba(80,12,50,0.20) 100%) !important;
+          border-color: rgba(122,20,36,0.8) !important;
+          transform: translateY(-1px) !important;
+        }
+        .collect-fallback { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: clamp(16px,2.5vw,24px) 0 0; }
+        .collect-meta { font-family: var(--font); font-style: italic; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--silver); opacity: 0.28; }
+        .collect-btn {
+          display: inline-flex; align-items: center; justify-content: center; gap: 11px;
+          width: 100%; padding: 17px 28px; border-radius: 10px;
+          border: 1px solid rgba(122,20,36,0.45);
+          background: linear-gradient(135deg, rgba(122,20,36,0.16) 0%, rgba(80,12,50,0.10) 100%);
+          font-family: var(--font); font-style: italic;
+          font-size: clamp(12px,1.5vw,14px); letter-spacing: 0.3em; text-transform: uppercase;
+          color: var(--cream); text-decoration: none; cursor: pointer; position: relative; overflow: hidden;
+          transition: border-color 0.45s, background 0.45s, transform 0.3s;
+        }
+        .collect-btn::before {
+          content: ''; position: absolute; inset: 0;
+          background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.04) 50%, transparent 70%);
+          transform: translateX(-100%); transition: transform 0.7s ease;
+        }
+        .collect-btn:hover::before { transform: translateX(100%); }
+        .collect-btn:hover { border-color: rgba(122,20,36,0.75); background: linear-gradient(135deg, rgba(122,20,36,0.24) 0%, rgba(80,12,50,0.16) 100%); transform: translateY(-1px); }
+        .collect-btn:active { transform: translateY(0); }
         .collect-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px 24px; border-radius: 10px; border: 1px solid rgba(122,20,36,0.5); background: rgba(122,20,36,0.10); font-family: var(--font); font-style: italic; font-size: clamp(11px,1.4vw,13px); letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream-dim); text-decoration: none; cursor: pointer; transition: background 0.4s, border-color 0.4s, color 0.4s; }
         .collect-btn:hover { background: rgba(122,20,36,0.18); border-color: rgba(122,20,36,0.8); color: var(--cream); }
         .collect-meta { font-family: var(--font); font-style: italic; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--silver); opacity: 0.28; }
@@ -433,8 +482,8 @@ export default function Home() {
         .footer-right { display: flex; align-items: center; gap: clamp(16px,2.5vw,28px); }
         .footer-link { font-family: 'SF Mono', 'Fira Mono', 'Consolas', monospace; font-size: 10px; letter-spacing: 0.06em; color: var(--cream); opacity: 0.28; text-decoration: none; white-space: nowrap; transition: opacity 0.3s; cursor: pointer; background: none; border: none; padding: 0; }
         .footer-link:hover { opacity: 0.6; }
-        .footer-gwei { display: flex; align-items: center; gap: 5px; opacity: 0.3; transition: opacity 0.3s; cursor: default; }
-        .footer-gwei:hover { opacity: 0.6; }
+        .footer-gwei { display: flex; align-items: center; gap: 5px; opacity: 0.32; transition: opacity 0.3s; cursor: pointer; text-decoration: none; }
+        .footer-gwei:hover { opacity: 0.65; }
         .footer-gwei-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
         .footer-gwei-dot.low  { background: #4ade80; box-shadow: 0 0 5px rgba(74,222,128,0.5); }
         .footer-gwei-dot.mid  { background: #facc15; box-shadow: 0 0 5px rgba(250,204,21,0.5); }
@@ -485,27 +534,50 @@ export default function Home() {
                   aria-label="Enter the experience"
                 >
                   <div className="pz-svg">
-                    <svg viewBox="450 80 130 185" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ overflow: 'visible' }}>
+                    <svg viewBox="2800 2150 2450 3750" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ overflow: 'visible' }}>
                       <defs>
                         <radialGradient id="pz-a" cx="50%" cy="50%" r="50%">
-                          <stop offset="0%" stopColor="#7a1424" stopOpacity="0.2"/>
+                          <stop offset="0%" stopColor="#7a1424" stopOpacity="0.25"/>
                           <stop offset="100%" stopColor="#7a1424" stopOpacity="0"/>
                         </radialGradient>
                         <radialGradient id="pz-b" cx="50%" cy="50%" r="50%">
-                          <stop offset="0%" stopColor="#9a1830" stopOpacity="0.62"/>
+                          <stop offset="0%" stopColor="#9a1830" stopOpacity="0.65"/>
                           <stop offset="100%" stopColor="#7a1424" stopOpacity="0"/>
                         </radialGradient>
-                        <filter id="pz-f" x="-30%" y="-30%" width="160%" height="160%">
-                          <feGaussianBlur stdDeviation="5" result="b"/>
+                        <filter id="pz-f" x="-15%" y="-15%" width="130%" height="130%">
+                          <feGaussianBlur stdDeviation="60" result="b"/>
                           <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
                         </filter>
                       </defs>
-                      <ellipse cx="513" cy="171" rx="56" ry="74" fill="url(#pz-a)" />
-                      <ellipse className="pz-glow" cx="513" cy="171" rx="66" ry="86" fill="url(#pz-b)" />
-                      <path filter="url(#pz-f)" fill="rgba(230,221,208,0.055)" stroke="rgba(230,221,208,0.2)" strokeWidth="1.2" d="M458.753235,132.001770 C458.755554,127.504929 458.911346,123.500244 458.716980,119.512619 C458.535492,115.789352 460.113708,114.564713 463.730499,114.614639 C474.554260,114.764023 485.381500,114.678162 496.207306,114.655212 C498.665497,114.649994 501.366821,115.139023 502.906708,112.445747 C504.507050,109.646790 501.995697,108.244270 500.713654,106.448624 C497.899780,102.507446 497.817932,98.277412 500.012787,94.196426 C502.851837,88.917679 507.635498,86.115837 513.543701,86.370087 C519.176697,86.612488 523.864319,89.348610 526.276306,94.685829 C528.339600,99.251511 527.997375,103.727791 524.319092,107.620728 C523.056519,108.957001 521.935242,110.544472 523.131897,112.539101 C524.209473,114.335304 525.964783,114.650681 527.890137,114.648964 C538.882568,114.639183 549.874939,114.652794 560.867371,114.669273 C568.346252,114.680481 568.349060,114.688400 568.354614,121.933983 C568.362976,132.759827 568.380432,143.585693 568.361938,154.411484 C568.358093,156.682327 568.653259,158.818420 570.861877,160.004593 C573.127197,161.221252 574.559204,159.461060 576.136658,158.298141 C580.685181,154.944839 585.544250,154.707870 590.034729,157.600037 C594.858643,160.706970 597.863403,167.150391 596.823303,172.157471 C594.484741,183.415070 584.680969,187.368134 575.133057,180.890991 C573.714233,179.928467 572.325806,179.003052 570.572876,180.115707 C568.622009,181.353989 568.364502,183.301712 568.366272,185.365448 C568.375549,196.191299 568.379944,207.017136 568.386108,217.842987 C568.387024,219.508469 568.259827,221.186096 568.415771,222.836945 C568.758972,226.470062 567.239014,227.958939 563.570435,227.910278 C552.415222,227.762283 541.257080,227.838150 530.101440,227.710922 C527.554077,227.681854 524.953125,227.303482 523.362427,229.801300 C521.654236,232.483521 524.056213,234.034607 525.348206,235.861282 C528.263428,239.982986 528.286438,244.401672 525.802124,248.537292 C522.774963,253.576508 518.066467,256.580170 512.085144,256.056976 C506.462555,255.565186 501.988434,252.578796 499.673004,247.222885 C497.638885,242.517715 498.342804,238.128021 502.066162,234.365204 C503.140472,233.279495 504.019775,231.979416 503.250549,230.340515 C502.230774,228.167709 500.175049,227.953491 498.148071,227.946945 C487.322479,227.911987 476.496643,227.954941 465.671051,227.916885 C458.879700,227.893005 458.784637,227.764313 458.774231,220.822540 C458.757507,209.663651 458.677765,198.503906 458.790436,187.346207 C458.835815,182.852707 459.989441,182.322739 463.875916,184.489380 C471.188171,188.565842 478.085114,187.374481 483.553345,181.090286 C488.653503,175.229095 489.105164,166.402176 484.617584,160.291534 C479.136719,152.828323 471.728119,151.196396 463.718506,155.897446 C460.026398,158.064438 458.820740,156.498535 458.782257,152.986511 C458.707489,146.158859 458.756287,139.329834 458.753235,132.001770 Z" />
+                      <ellipse cx="4008" cy="4000" rx="950" ry="1400" fill="url(#pz-a)" />
+                      <ellipse className="pz-glow" cx="4008" cy="4000" rx="1100" ry="1600" fill="url(#pz-b)" />
+                      <path
+                        filter="url(#pz-f)"
+                        fill="rgba(230,221,208,0.08)"
+                        stroke="rgba(230,221,208,0.26)"
+                        strokeWidth="28"
+                        strokeLinejoin="round"
+                        d="M5066,2799.68 C5093.33,2799.68 5116.66,2799.67 5140,2799.68 C5144,2799.69 5148,2799.56 5152,2799.75 C5169.6,2800.56 5178.7,2809.64 5179.38,2827.31 C5179.58,2832.62 5178.86,2837.96 5178.86,2843.28 C5178.88,2902.61 5179.17,2961.94 5178.93,3021.27 C5178.8,3055.23 5177.48,3089.19 5177.3,3123.16 C5177.05,3172.49 5177.49,3221.82 5177.38,3271.15 C5177.19,3353.8 5176.84,3436.45 5176.49,3519.1 C5176.25,3575.75 5175.92,3632.41 5175.62,3689.06 C5175.6,3693.06 5175.47,3697.06 5175.57,3701.06 C5176.2,3726.72 5148.12,3734.54 5132.63,3725.56 C5123.49,3720.25 5114.98,3713.83 5106.32,3707.72 C5100.36,3703.51 5094.97,3698.4 5088.74,3694.69 C5037.73,3664.38 4982.26,3648.39 4923.15,3648.67 C4842.35,3649.05 4769.94,3675.41 4707.79,3727.24 C4634.28,3788.54 4592.1,3867.72 4581.28,3962.53 C4566.81,4089.25 4621.96,4220.41 4737.8,4293.36 C4798.91,4331.85 4866.03,4349.03 4937.98,4343.12 C5006.08,4337.52 5067.33,4312.9 5121.15,4270.41 C5125.84,4266.71 5130.43,4262.71 5135.61,4259.81 C5151.63,4250.83 5172.7,4260.51 5173.14,4280.68 C5173.62,4302.64 5175.69,4324.58 5175.7,4346.53 C5175.89,4619.19 5175.82,4891.85 5175.81,5164.5 C5175.81,5171.83 5176.16,5179.21 5175.53,5186.49 C5173.84,5206.1 5161.25,5217.93 5141.72,5218.7 C5137.06,5218.89 5132.39,5218.76 5127.72,5218.76 C4870.4,5218.77 4613.08,5218.76 4355.75,5218.82 C4337.1,5218.82 4318.44,5219.44 4299.78,5219.63 C4266.18,5219.98 4236.63,5242.25 4227.13,5274.69 C4218.66,5303.6 4226.35,5329.1 4245.77,5350.74 C4270.21,5377.97 4288.36,5408.82 4300.68,5442.89 C4332.2,5530 4323.48,5613.57 4274,5691.77 C4232.9,5756.72 4173.03,5796.97 4099.05,5816.11 C4042.61,5830.72 3985.19,5831.72 3928.72,5818.54 C3831.11,5795.77 3758.86,5739.6 3720.15,5645.83 C3689.68,5572.02 3692.07,5497.47 3724.9,5424.42 C3737.24,5396.95 3753.63,5372.15 3773.45,5349.15 C3811.78,5304.69 3794.03,5247.56 3747.38,5225.14 C3740.08,5221.63 3732.51,5219.61 3724.29,5219.59 C3706.3,5219.53 3688.31,5218.82 3670.32,5218.81 C3410.99,5218.76 3151.67,5218.77 2892.35,5218.76 C2887.02,5218.76 2881.68,5218.88 2876.35,5218.71 C2857.42,5218.09 2845.23,5207.23 2843.07,5188.44 C2842.23,5181.19 2842.56,5173.8 2842.56,5166.47 C2842.54,4986.48 2842.54,4806.48 2842.54,4626.49 C2842.54,4539.16 2842.4,4451.83 2842.63,4364.5 C2842.69,4337.86 2843.86,4311.22 2844.33,4284.57 C2844.45,4277.71 2845.53,4271.31 2849.79,4265.77 C2857.03,4256.31 2870.72,4253.51 2882.33,4259.75 C2887.55,4262.55 2892.1,4266.63 2896.81,4270.33 C2957.01,4317.6 3025.5,4344.42 3101.86,4343.8 C3229.38,4342.77 3326.53,4285.37 3392.32,4176.18 C3424.01,4123.59 3439.15,4065.37 3439.11,4004.5 C3439.06,3917.69 3411.92,3839.43 3355.57,3772.33 C3312.01,3720.47 3258.11,3683.81 3193.29,3663.91 C3100.9,3635.56 3012.81,3646.59 2929.4,3694.8 C2916.28,3702.39 2904.66,3712.58 2892.39,3721.63 C2883.89,3727.9 2874.6,3730.28 2864.12,3728.18 C2852.08,3725.76 2844.21,3717.41 2843.12,3704.95 C2842.65,3699.65 2842.82,3694.29 2842.82,3688.96 C2842.8,3650.29 2843.62,3611.61 2842.65,3572.97 C2840.35,3481.68 2841.58,3390.38 2841.17,3299.09 C2840.86,3227.77 2840.65,3156.45 2840.33,3085.14 C2839.95,2999.82 2839.83,2914.5 2838.82,2829.2 C2838.61,2811.43 2850.36,2797.83 2868.13,2799.6 C2874.73,2800.26 2881.45,2799.68 2888.12,2799.68 C3142.78,2799.68 3397.43,2799.7 3652.09,2799.64 C3672.08,2799.63 3692.07,2799.18 3712.06,2798.77 C3745.23,2798.1 3776.38,2772.3 3783.91,2739.65 C3790.26,2712.07 3782.79,2687.87 3764.59,2667.33 C3724.95,2622.55 3700.78,2570.63 3693.48,2511.59 C3685.26,2445.11 3698.86,2382.68 3735.76,2326.4 C3780.95,2257.46 3844.71,2213.33 3924.49,2194.61 C4033.59,2169.02 4134.02,2190.91 4222.23,2259.94 C4283.9,2308.21 4318.06,2373.23 4324.99,2451.7 C4332.04,2531.53 4307.8,2601.42 4257.1,2662.79 C4251.19,2669.95 4245.27,2677.38 4240.97,2685.54 C4216.65,2731.65 4243.26,2783.26 4290.28,2797.03 C4294.67,2798.31 4299.46,2798.6 4304.09,2798.71 C4323.41,2799.16 4342.73,2799.63 4362.06,2799.64 C4596.7,2799.7 4831.35,2799.68 5066,2799.68 Z"
+                      />
+                      <rect
+                        x="3620" y="3880"
+                        width="780" height="340"
+                        rx="60"
+                        fill="rgba(6,6,10,0.35)"
+                      />
+                      <text
+                        x="4008" y="4060"
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        fontFamily="Cormorant Garamond, Georgia, serif"
+                        fontStyle="italic"
+                        fontWeight="300"
+                        fontSize="300"
+                        letterSpacing="120"
+                        fill="rgba(240,232,220,0.75)"
+                      >{'Enter'}</text>
                     </svg>
                   </div>
-                  <span className="pz-text">Welcome</span>
                 </motion.button>
               )}
             </AnimatePresence>
@@ -598,7 +670,7 @@ export default function Home() {
                   </button>
                   <div className="about-collections">
                     {[
-                      { label: 'Together We Bloom', href: 'https://manifold.xyz/@nikxnames-art' },
+                      { label: 'Together In Bloom', href: 'https://manifold.xyz/@nikxnames-art' },
                       { label: 'The Void',           href: 'https://manifold.xyz/@nikxnames-art/p/thevoid' },
                       { label: 'Life Impressions',   href: 'https://manifold.xyz/@nikxnames-art/p/1913617113' },
                       { label: '1/1 Artworks',       href: 'https://manifold.xyz/@nikxnames-art/p/nikxname1of1s' },
@@ -618,7 +690,7 @@ export default function Home() {
                 <div className="collection-header">
                   <span className="collection-title">Your Collection</span>
                   {ownedPieces.length > 0 && (
-                    <span className="collection-count">{ownedPieces.length} of 27 fragments</span>
+                    <span className="collection-count">{ownedPieces.length} of 27</span>
                   )}
                 </div>
                 {!isConnected && <p className="collection-state">Connect your wallet to view what you own.</p>}
@@ -650,21 +722,25 @@ export default function Home() {
                 Collection &nbsp;|&nbsp; A Familiar Burn
               </motion.p>
               <motion.h1 className="hero-title" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1, duration: 1.1 }}>
-                Together We Bloom
+                Together It Blooms
               </motion.h1>
               <motion.p className="hero-sub" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 1 }}>
-                An on-chain art discovery experience &nbsp;·&nbsp; 27 fragments
+                An on-chain art discovery experience
               </motion.p>
             </header>
 
             <motion.div className="banner-outer" initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.3, duration: 1.2 }}>
               <div className="banner-inner">
                 <img
-                  key={dark ? 'banner-dark' : 'banner-light'}
-                  src={dark ? BANNER_DARK.src : BANNER_LIGHT.src}
-                  srcSet={dark ? BANNER_DARK.srcSet : BANNER_LIGHT.srcSet}
+                  key={`${dark ? 'dark' : 'light'}-${bannerEvolved ? 'evolved' : 'base'}`}
+                  src={dark
+                    ? (bannerEvolved ? BANNER_DARK_PC01.src  : BANNER_DARK.src)
+                    : (bannerEvolved ? BANNER_LIGHT_PC01.src : BANNER_LIGHT.src)}
+                  srcSet={dark
+                    ? (bannerEvolved ? BANNER_DARK_PC01.srcSet  : BANNER_DARK.srcSet)
+                    : (bannerEvolved ? BANNER_LIGHT_PC01.srcSet : BANNER_LIGHT.srcSet)}
                   sizes={BANNER_SIZES}
-                  alt="Together We Bloom — A Familiar Burn"
+                  alt="Together In Bloom — A Familiar Burn"
                   loading="eager"
                   decoding="async"
                 />
@@ -817,12 +893,26 @@ export default function Home() {
               <div className="footer-right">
                 <a href="https://manifold.xyz/@nikxnames-art" target="_blank" rel="noopener noreferrer" className="footer-link">Manifold</a>
                 {gwei !== null ? (
-                  <span className="footer-gwei" title={`Gas: ${gwei} gwei (safe)`}>
+                  <a
+                    href="https://etherscan.io/gastracker"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-gwei"
+                    title={`Ethereum gas: ${gwei} gwei — click to view gas tracker`}
+                    style={{ textDecoration: 'none' }}
+                  >
                     <span className={`footer-gwei-dot ${gwei < 15 ? 'low' : gwei < 40 ? 'mid' : 'high'}`} />
                     <span className="footer-gwei-text">{gwei} gwei</span>
-                  </span>
+                  </a>
                 ) : (
-                  <span className="footer-link" style={{ cursor: 'default', pointerEvents: 'none' }}>Ethereum</span>
+                  <a
+                    href="https://etherscan.io/gastracker"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-link"
+                  >
+                    Ethereum
+                  </a>
                 )}
               </div>
             </footer>
