@@ -38,7 +38,7 @@ const CURRENT_PIECE = {
   // ✏️  Placeholder image until the real piece is ready.
   // Upload PuzzlePc-PH01.jpg to your Cloudflare R2 bucket, then swap this URL.
   // Change mediaType to 'video' and update the URL when you have the final MP4.
-  mediaUrl:  'https://assets.nikxart.xyz/PuzzlePc-PH01.jpg',
+  mediaUrl:  'https://assets.nikxart.xyz/E2_VF_Grid_Optimized.gif',
   mediaType: 'image' as 'video' | 'image',
   instanceId:  '4056113392',
   manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4056113392',
@@ -76,7 +76,7 @@ const DROP_SCHEDULE: { piece: number; startsUTC: string }[] = [
 ];
 
 // Set to false on launch day (Jun 8) to hide content before drops begin
-const PREVIEW_MODE = true;
+const PREVIEW_MODE = false;
 
 // Share assets - add entries as pieces are released
 const SHARE_PIECES: { number: number; label: string; thumbUrl: string; downloadUrl: string }[] = [];
