@@ -38,7 +38,7 @@ const CURRENT_PIECE = {
   // ✏️  Placeholder image until the real piece is ready.
   // Upload PuzzlePc-PH01.jpg to your Cloudflare R2 bucket, then swap this URL.
   // Change mediaType to 'video' and update the URL when you have the final MP4.
-  mediaUrl:  'https://assets.nikxart.xyz/E2_VF_Grid_Optimized.gif',
+  mediaUrl:  'https://assets.nikxart.xyz/web_square_E2.mp4',
   mediaType: 'image' as 'video' | 'image',
   instanceId:  '4056113392',
   manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4056113392',
