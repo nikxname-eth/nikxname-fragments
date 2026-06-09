@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTokenMetadata } from '../hooks/useTokenMetadata';
 
+/** Playback level when sound is on — present but not overpowering. */
+const PIECE_AUDIO_VOLUME = 0.38;
+
 type Props = {
   tokenId: number;
   fallbackTitle: string;
@@ -39,6 +42,7 @@ export function FragmentMedia({ tokenId, fallbackTitle, preferAudio }: Props) {
     if (!video) return;
 
     video.muted = false;
+    video.volume = PIECE_AUDIO_VOLUME;
     video
       .play()
       .then(() => setMuted(false))
@@ -54,6 +58,7 @@ export function FragmentMedia({ tokenId, fallbackTitle, preferAudio }: Props) {
 
     const nextMuted = !video.muted;
     video.muted = nextMuted;
+    if (!nextMuted) video.volume = PIECE_AUDIO_VOLUME;
     setMuted(nextMuted);
 
     if (!nextMuted) {
@@ -104,12 +109,44 @@ export function FragmentMedia({ tokenId, fallbackTitle, preferAudio }: Props) {
         {metadata.hasAudio && shouldLoadVideo && (
           <button
             type="button"
-            className="piece-audio-toggle"
+            className={`piece-audio-toggle${muted ? '' : ' is-on'}`}
             onClick={toggleAudio}
             aria-label={muted ? 'Turn sound on' : 'Turn sound off'}
             aria-pressed={!muted}
           >
-            {muted ? 'Sound on' : 'Sound off'}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              {muted ? (
+                <>
+                  <path
+                    d="M11 5L6 9H3v6h3l5 4V5z"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M16 9l5 5M21 9l-5 5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </>
+              ) : (
+                <>
+                  <path
+                    d="M11 5L6 9H3v6h3l5 4V5z"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M15.5 9.5a4.5 4.5 0 010 5"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </>
+              )}
+            </svg>
           </button>
         )}
       </div>

@@ -135,9 +135,14 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;mix
 .piece-video{position:relative;width:100%;aspect-ratio:1/1;border-radius:clamp(8px,1.2vw,14px);overflow:hidden;border:1px solid var(--border);background:var(--surface)}
 .piece-media-frame{position:absolute;inset:0}
 .piece-video video,.piece-video img,.piece-media-frame video,.piece-media-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.piece-audio-toggle{position:absolute;top:clamp(12px,2vw,18px);right:clamp(12px,2vw,18px);z-index:2;padding:7px 14px;border-radius:20px;border:1px solid var(--border);background:rgba(6,6,10,0.62);backdrop-filter:blur(8px);font-family:var(--font);font-style:italic;font-size:clamp(9px,1vw,11px);letter-spacing:0.22em;text-transform:uppercase;color:var(--cream-dim);cursor:pointer;transition:opacity 0.3s,border-color 0.3s,background 0.3s}
-.piece-audio-toggle:hover{opacity:0.92;border-color:rgba(122,20,36,0.45);background:rgba(6,6,10,0.78)}
-.theme-light .piece-audio-toggle{background:rgba(244,236,224,0.82);color:rgba(40,28,20,0.72)}
+.piece-audio-toggle{position:absolute;top:clamp(10px,1.6vw,14px);right:clamp(10px,1.6vw,14px);z-index:2;display:flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;border:none;border-radius:50%;background:transparent;color:var(--cream-dim);opacity:0.22;cursor:pointer;transition:opacity 0.45s ease,background 0.45s ease,transform 0.3s ease}
+.piece-video:hover .piece-audio-toggle,.piece-audio-toggle:hover,.piece-audio-toggle:focus-visible{opacity:0.55}
+.piece-audio-toggle.is-on{opacity:0.38}
+.piece-video:hover .piece-audio-toggle.is-on,.piece-audio-toggle.is-on:hover,.piece-audio-toggle.is-on:focus-visible{opacity:0.62}
+.piece-audio-toggle:hover,.piece-audio-toggle:focus-visible{background:rgba(6,6,10,0.28)}
+.piece-audio-toggle:focus-visible{outline:1px solid rgba(200,188,170,0.25);outline-offset:2px}
+.theme-light .piece-audio-toggle{color:rgba(40,28,20,0.55)}
+.theme-light .piece-audio-toggle:hover,.theme-light .piece-audio-toggle:focus-visible{background:rgba(244,236,224,0.45)}
 .piece-video-overlay{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(6,6,10,0.55) 0%,transparent 42%)}
 .piece-ghost{position:absolute;bottom:14px;left:18px;font-family:var(--font);font-style:italic;font-weight:300;font-size:clamp(48px,10vw,92px);line-height:1;color:rgba(230,221,208,0.07);user-select:none;pointer-events:none}
 .piece-frag{position:absolute;bottom:20px;right:20px;font-family:var(--font);font-style:italic;font-size:clamp(10px,1.2vw,12px);letter-spacing:0.14em;color:var(--cream-dim)}
