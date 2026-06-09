@@ -825,7 +825,7 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
-                  <p className="cd-note">slow down &nbsp;·&nbsp; sit with this</p>
+                  <p className="cd-note">slow down &nbsp;·&nbsp; sit with the art</p>
                 </>
               ) : (
                 <p className="cd-note" style={{ opacity: 0.45, fontSize: 'clamp(13px,1.8vw,16px)' }}>The collection is complete.</p>
