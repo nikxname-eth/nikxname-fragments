@@ -184,8 +184,12 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;mix
 .share-drawer-inner{padding:clamp(20px,3vw,36px) 0 clamp(36px,5vw,64px)}
 .share-intro{text-align:center;margin-bottom:clamp(16px,2.5vw,24px);font-family:var(--font);font-style:italic;font-size:clamp(11px,1.4vw,13px);color:var(--silver);opacity:0.45;letter-spacing:0.08em}
 .share-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
-.share-tag{font-family:var(--font);font-style:italic;font-size:clamp(11px,1.2vw,13px);letter-spacing:0.16em;text-transform:uppercase;color:var(--silver);opacity:0.72;padding:6px 16px;border:1px solid var(--border);border-radius:20px;text-decoration:none;transition:opacity 0.3s,border-color 0.3s;white-space:nowrap}
-.share-tag:hover{opacity:1;border-color:var(--silver)}
+.share-tag{display:inline-flex;align-items:center;gap:10px;font-family:var(--font);font-style:italic;font-size:clamp(11px,1.2vw,13px);letter-spacing:0.16em;text-transform:uppercase;color:var(--silver);opacity:0.82;padding:8px 16px 8px 18px;border:1px solid var(--border);border-radius:20px;text-decoration:none;transition:opacity 0.3s,border-color 0.3s,background 0.3s;white-space:nowrap}
+.share-tag-hint{font-size:clamp(10px,1.1vw,12px);letter-spacing:0.12em;text-transform:lowercase;opacity:0.55}
+.share-tag-icon{flex-shrink:0;opacity:0.7}
+.share-tag:hover{opacity:1;border-color:var(--silver);background:rgba(200,188,170,0.04)}
+.share-tag:hover .share-tag-hint{opacity:0.75}
+.share-tag:hover .share-tag-icon{opacity:1}
 .share-empty{text-align:center;font-family:var(--font);font-style:italic;font-size:clamp(11px,1.4vw,13px);color:var(--silver);opacity:0.35;padding:12px 0;letter-spacing:0.1em}
 
 /* FOOTER */

@@ -697,7 +697,30 @@ export default function Home() {
                           download={piece.downloadName}
                           className="share-tag"
                         >
-                          {piece.label}
+                          <span>{piece.label}</span>
+                          <span className="share-tag-hint">click here</span>
+                          <svg
+                            className="share-tag-icon"
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M12 3v12M12 15l4-4M12 15L8 11"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                            />
+                          </svg>
                         </a>
                       ))}
                     </div>
