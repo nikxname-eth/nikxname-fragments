@@ -14,6 +14,7 @@ import {
 import { FragmentMedia } from '../components/FragmentMedia';
 import { ManifoldBuyButton } from '../components/ManifoldBuyButton';
 import { ManifoldConnect } from '../components/ManifoldConnect';
+import { WalletButton } from '../components/WalletButton';
 import { ManifoldMintCount } from '../components/ManifoldMintCount';
 import { useCountdown } from '../hooks/useCountdown';
 import { useManifoldWallet } from '../hooks/useManifoldWallet';
@@ -26,7 +27,7 @@ const ABOUT_COLLECTIONS = [
 ] as const;
 
 export default function Home() {
-  const { address } = useManifoldWallet();
+  const { address, shortAddress, isConnecting, connect } = useManifoldWallet();
 
   const [entered, setEntered] = useState(false);
   const [introGone, setIntroGone] = useState(false);
@@ -186,15 +187,15 @@ export default function Home() {
             transition={{ duration: 1.9, delay: 0.3, ease: 'easeInOut' }}
           >
             <nav className="nav">
-              <motion.span
-                className="nav-mark"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.7, duration: 1 }}
-              >
-                Nikxname
-              </motion.span>
-              <div className="nav-center">
+              <div className="nav-left">
+                <motion.span
+                  className="nav-mark"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.7, duration: 1 }}
+                >
+                  Nikxname
+                </motion.span>
                 <motion.button
                   className="nav-about"
                   onClick={() => {
@@ -260,7 +261,7 @@ export default function Home() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.8, duration: 0.9 }}
-                  aria-label="Toggle theme"
+                  aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
                 >
                   <div className="nav-theme-circle" />
                   <span className="nav-theme-label">{dark ? 'Light' : 'Dark'}</span>
@@ -272,6 +273,12 @@ export default function Home() {
                   transition={{ delay: 0.8, duration: 0.9 }}
                 >
                   <ManifoldConnect />
+                  <WalletButton
+                    address={address}
+                    shortAddress={shortAddress}
+                    isConnecting={isConnecting}
+                    connect={connect}
+                  />
                 </motion.div>
               </div>
             </nav>
