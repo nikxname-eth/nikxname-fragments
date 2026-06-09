@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ON_CHAIN_MEDIA, PIECE_NAMES } from '../config/artist';
+import { FRAGMENT_SITE_MEDIA, ON_CHAIN_MEDIA, PIECE_NAMES } from '../config/artist';
 import { CONTRACT_ADDRESS, ERC721_ABI } from '../lib/contract';
 import {
   inferMediaType,
@@ -34,6 +34,7 @@ export function useTokenMetadata(tokenId: number | null) {
     const id = tokenId;
     const title = PIECE_NAMES[id] ?? `Fragment ${id}`;
     const knownMedia = ON_CHAIN_MEDIA[id];
+    const siteMedia = FRAGMENT_SITE_MEDIA[id];
 
     async function load() {
       setIsLoading(true);
@@ -53,7 +54,16 @@ export function useTokenMetadata(tokenId: number | null) {
         const json = await response.json();
         let parsed = parseTokenMetadata(json);
 
-        if (knownMedia) {
+        if (siteMedia) {
+          parsed = {
+            ...parsed,
+            mediaUrl: siteMedia.displayUrl,
+            image: siteMedia.posterUrl ?? parsed.image,
+            mediaType: inferMediaType(siteMedia.displayUrl),
+            posterUrl: siteMedia.posterUrl,
+            hasAudio: siteMedia.hasAudio,
+          };
+        } else if (knownMedia) {
           parsed = {
             ...parsed,
             mediaUrl: knownMedia,
@@ -64,7 +74,16 @@ export function useTokenMetadata(tokenId: number | null) {
 
         if (!cancelled) setMetadata(parsed);
       } catch {
-        if (knownMedia && !cancelled) {
+        if (siteMedia && !cancelled) {
+          setMetadata({
+            name: title,
+            image: siteMedia.posterUrl ?? siteMedia.displayUrl,
+            mediaUrl: siteMedia.displayUrl,
+            mediaType: inferMediaType(siteMedia.displayUrl),
+            posterUrl: siteMedia.posterUrl,
+            hasAudio: siteMedia.hasAudio,
+          });
+        } else if (knownMedia && !cancelled) {
           setMetadata(mediaFromUrl(knownMedia, title));
         } else if (!cancelled) {
           setError(true);

@@ -29,11 +29,32 @@ export function getEvolvedBanner(pieceLevel: number, theme: 'dark' | 'light') {
 
 /**
  * Direct on-chain media URLs per fragment (from token metadata).
- * Used as the display source and as fallback if metadata fetch is slow.
+ * Used as fallback if metadata fetch is slow.
  * Fragment 01: Arweave gateway for the minted ERC-721 token media.
  */
 export const ON_CHAIN_MEDIA: Record<number, string> = {
   1: 'https://bofrf7ruayhxwfcht2a3bw2h4hcfpulrekva5xqch6iky5j5o6ba.arweave.net/C4sS_jQGD3sUR56BsNtH4cRX0XEiqg7eAj-QrHU9d4I',
+};
+
+/**
+ * Web-optimised playback + share assets (Cloudflare CDN).
+ * Add a row when each fragment drops.
+ */
+export const FRAGMENT_SITE_MEDIA: Record<
+  number,
+  {
+    displayUrl: string;
+    posterUrl?: string;
+    hasAudio?: boolean;
+    shareUrl?: string;
+  }
+> = {
+  1: {
+    displayUrl: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
+    posterUrl: 'https://assets.nikxart.xyz/PuzzlePc-PH01.jpg',
+    hasAudio: true,
+    shareUrl: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
+  },
 };
 
 /**
@@ -147,13 +168,6 @@ export const PROJECT_X_ARTICLE = 'https://x.com/Nikxname/status/2064076924138172
 
 export const PREVIEW_MODE = false;
 
-export const SHARE_PIECES: {
-  number: number;
-  label: string;
-  thumbUrl: string;
-  downloadUrl: string;
-}[] = [];
-
 export const PIECE_NAMES: Record<number, string> = {
   1: 'Fragment I',
   2: 'Fragment II',
@@ -183,3 +197,23 @@ export const PIECE_NAMES: Record<number, string> = {
   26: 'Fragment XXVI',
   27: 'Fragment XXVII',
 };
+
+export const SHARE_PIECES: {
+  number: number;
+  label: string;
+  thumbUrl: string;
+  downloadUrl: string;
+  downloadName: string;
+}[] = Object.entries(FRAGMENT_SITE_MEDIA)
+  .filter(([, media]) => media.shareUrl)
+  .map(([piece, media]) => {
+    const number = Number(piece);
+    return {
+      number,
+      label: PIECE_NAMES[number] ?? `Fragment ${number}`,
+      thumbUrl: media.posterUrl ?? media.displayUrl,
+      downloadUrl: media.shareUrl!,
+      downloadName: `Fragment-${String(number).padStart(2, '0')}-1080p.mp4`,
+    };
+  })
+  .sort((a, b) => a.number - b.number);

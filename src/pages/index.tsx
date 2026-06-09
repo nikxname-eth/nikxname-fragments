@@ -75,6 +75,9 @@ export default function Home() {
     ? getEvolvedBanner(highestOwnedPiece, dark ? 'dark' : 'light')
     : null;
   const themeClass = dark ? '' : ' theme-light';
+  const releasedSharePieces = SHARE_PIECES.filter(
+    (piece) => (dropsStarted || PREVIEW_MODE) && piece.number <= livePieceNumber,
+  );
 
   const handleEnter = () => {
     setEntered(true);
@@ -576,7 +579,11 @@ export default function Home() {
 
                 <div className="piece-video">
                   {dropsStarted ? (
-                    <FragmentMedia tokenId={livePieceNumber} fallbackTitle={livePieceTitle} />
+                    <FragmentMedia
+                      tokenId={livePieceNumber}
+                      fallbackTitle={livePieceTitle}
+                      preferAudio={entered}
+                    />
                   ) : (
                     <>
                       <img
@@ -651,32 +658,22 @@ export default function Home() {
                     Download optimised files for sharing on Instagram, X, or sending to a friend.
                   </p>
                   <div className="share-grid">
-                    {SHARE_PIECES.length === 0 ? (
+                    {releasedSharePieces.length === 0 ? (
                       <p className="share-empty">Assets will appear here as pieces are released.</p>
                     ) : (
-                      SHARE_PIECES.map((piece) => (
-                        <div
-                          key={piece.number}
-                          style={{
-                            position: 'relative',
-                            aspectRatio: '1/1',
-                            borderRadius: 10,
-                            overflow: 'hidden',
-                            border: '1px solid var(--border)',
-                            background: 'var(--surface)',
-                          }}
-                        >
+                      releasedSharePieces.map((piece) => (
+                        <div key={piece.number} className="share-card">
                           <img
                             src={piece.thumbUrl}
                             alt={piece.label}
                             loading="lazy"
                             decoding="async"
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                           />
-                          <div style={{ position: 'absolute', bottom: 12, left: 0, right: 0, textAlign: 'center' }}>
+                          <span className="share-card-label">{piece.label}</span>
+                          <div className="share-card-action">
                             <a
                               href={piece.downloadUrl}
-                              download
+                              download={piece.downloadName}
                               className="collect-btn"
                               style={{ width: 'auto', padding: '8px 20px', fontSize: 10 }}
                             >

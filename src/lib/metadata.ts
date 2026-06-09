@@ -4,6 +4,8 @@ export type TokenMetadata = {
   animationUrl?: string;
   mediaUrl: string;
   mediaType: 'image' | 'video';
+  posterUrl?: string;
+  hasAudio?: boolean;
 };
 
 export function resolveTokenUri(uri: string): string {
