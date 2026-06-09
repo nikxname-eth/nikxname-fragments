@@ -1,7 +1,7 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
 const META = {
-  title: 'Together In Bloom — Nikxname',
+  title: 'Together It Blooms — Nikxname',
   description: 'An on-chain art discovery experience. 27 fragments revealed over time. Collection I — A Familiar Burn.',
   url: 'https://nikxart.xyz',
   ogImage: 'https://assets.nikxart.xyz/Banner-Medium.jpg?width=1200&quality=88&format=auto',
@@ -52,9 +52,6 @@ export default function Document() {
           rel="stylesheet"
         />
 
-        {/* MANIFOLD DIRECT ON-PAGE CONNECT AND INTERACTIVE MINT SCRIPTS */}
-        <script src="https://manifoldxyz.dev" defer />
-        <link rel="stylesheet" href="https://manifoldxyz.dev" />
       </Head>
       <body>
         <Main />
