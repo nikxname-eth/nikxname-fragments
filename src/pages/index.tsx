@@ -44,39 +44,39 @@ const CURRENT_PIECE = {
   manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4056113392',
 };
 
-// Drop schedule - UTC (Summer EDT = UTC-4, so 10am EDT = 14:00 UTC)
+// Drop schedule - UTC (EST = UTC-5, so 10am EST = 15:00 UTC)
 const DROP_SCHEDULE: { piece: number; startsUTC: string }[] = [
-  { piece: 1,  startsUTC: '2026-06-08T14:00:00Z' },
-  { piece: 2,  startsUTC: '2026-06-12T14:00:00Z' },
-  { piece: 3,  startsUTC: '2026-06-15T14:00:00Z' },
-  { piece: 4,  startsUTC: '2026-06-17T14:00:00Z' },
-  { piece: 5,  startsUTC: '2026-06-19T14:00:00Z' },
-  { piece: 6,  startsUTC: '2026-06-22T14:00:00Z' },
-  { piece: 7,  startsUTC: '2026-06-24T14:00:00Z' },
-  { piece: 8,  startsUTC: '2026-06-26T14:00:00Z' },
-  { piece: 9,  startsUTC: '2026-06-29T14:00:00Z' },
-  { piece: 10, startsUTC: '2026-07-01T14:00:00Z' },
-  { piece: 11, startsUTC: '2026-07-03T14:00:00Z' },
-  { piece: 12, startsUTC: '2026-07-07T14:00:00Z' },
-  { piece: 13, startsUTC: '2026-07-09T14:00:00Z' },
-  { piece: 14, startsUTC: '2026-07-11T14:00:00Z' },
-  { piece: 15, startsUTC: '2026-07-13T14:00:00Z' },
-  { piece: 16, startsUTC: '2026-07-15T14:00:00Z' },
-  { piece: 17, startsUTC: '2026-07-17T14:00:00Z' },
-  { piece: 18, startsUTC: '2026-07-20T14:00:00Z' },
-  { piece: 19, startsUTC: '2026-07-22T14:00:00Z' },
-  { piece: 20, startsUTC: '2026-07-24T14:00:00Z' },
-  { piece: 21, startsUTC: '2026-07-27T14:00:00Z' },
-  { piece: 22, startsUTC: '2026-07-29T14:00:00Z' },
-  { piece: 23, startsUTC: '2026-07-31T14:00:00Z' },
-  { piece: 24, startsUTC: '2026-08-03T14:00:00Z' },
-  { piece: 25, startsUTC: '2026-08-05T14:00:00Z' },
-  { piece: 26, startsUTC: '2026-08-07T14:00:00Z' },
-  { piece: 27, startsUTC: '2026-08-10T14:00:00Z' },
+  { piece: 1,  startsUTC: '2026-06-08T15:00:00Z' },
+  { piece: 2,  startsUTC: '2026-06-12T15:00:00Z' },
+  { piece: 3,  startsUTC: '2026-06-15T15:00:00Z' },
+  { piece: 4,  startsUTC: '2026-06-17T15:00:00Z' },
+  { piece: 5,  startsUTC: '2026-06-19T15:00:00Z' },
+  { piece: 6,  startsUTC: '2026-06-22T15:00:00Z' },
+  { piece: 7,  startsUTC: '2026-06-24T15:00:00Z' },
+  { piece: 8,  startsUTC: '2026-06-26T15:00:00Z' },
+  { piece: 9,  startsUTC: '2026-06-29T15:00:00Z' },
+  { piece: 10, startsUTC: '2026-07-01T15:00:00Z' },
+  { piece: 11, startsUTC: '2026-07-03T15:00:00Z' },
+  { piece: 12, startsUTC: '2026-07-07T15:00:00Z' },
+  { piece: 13, startsUTC: '2026-07-09T15:00:00Z' },
+  { piece: 14, startsUTC: '2026-07-11T15:00:00Z' },
+  { piece: 15, startsUTC: '2026-07-13T15:00:00Z' },
+  { piece: 16, startsUTC: '2026-07-15T15:00:00Z' },
+  { piece: 17, startsUTC: '2026-07-17T15:00:00Z' },
+  { piece: 18, startsUTC: '2026-07-20T15:00:00Z' },
+  { piece: 19, startsUTC: '2026-07-22T15:00:00Z' },
+  { piece: 20, startsUTC: '2026-07-24T15:00:00Z' },
+  { piece: 21, startsUTC: '2026-07-27T15:00:00Z' },
+  { piece: 22, startsUTC: '2026-07-29T15:00:00Z' },
+  { piece: 23, startsUTC: '2026-07-31T15:00:00Z' },
+  { piece: 24, startsUTC: '2026-08-03T15:00:00Z' },
+  { piece: 25, startsUTC: '2026-08-05T15:00:00Z' },
+  { piece: 26, startsUTC: '2026-08-07T15:00:00Z' },
+  { piece: 27, startsUTC: '2026-08-10T15:00:00Z' },
 ];
 
 // Set to false on launch day (Jun 8) to hide content before drops begin
-const PREVIEW_MODE = false;
+const PREVIEW_MODE = true;
 
 // Share assets - add entries as pieces are released
 const SHARE_PIECES: { number: number; label: string; thumbUrl: string; downloadUrl: string }[] = [];
@@ -152,13 +152,15 @@ export default function Home() {
   const [aboutOpen, setAboutOpen]           = useState(false);
   const [bioExpanded, setBioExpanded]       = useState(false);
   const [collectionOpen, setCollectionOpen] = useState(false);
+  const [projectAboutOpen, setProjectAboutOpen] = useState(false);
   const [gwei, setGwei]                     = useState<number | null>(null);
   const [toast, setToast]                   = useState<string | null>(null);
   const [pieceVisible, setPieceVisible]     = useState(false);
 
-  const manifoldRef    = useRef<HTMLDivElement>(null);
-  const widgetInjected = useRef(false);
-  const videoRef       = useRef<HTMLVideoElement>(null);
+  const manifoldRef       = useRef<HTMLDivElement>(null);
+  const manifoldCountRef  = useRef<HTMLSpanElement>(null);
+  const widgetInjected    = useRef(false);
+  const videoRef          = useRef<HTMLVideoElement>(null);
   const toastTimer     = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const showToast = (msg: string) => {
@@ -237,24 +239,45 @@ export default function Home() {
   }, [entered]);
 
   useEffect(() => {
-    if (!showContent || widgetInjected.current) return;
-    const id = setTimeout(() => {
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          if (!manifoldRef.current || widgetInjected.current) return;
-          widgetInjected.current = true;
-          const el = document.createElement('div');
-          el.setAttribute('data-widget', 'm-claim-complete');
-          el.setAttribute('data-id', CURRENT_PIECE.instanceId);
-          manifoldRef.current.appendChild(el);
-          requestAnimationFrame(() => {
-            window.dispatchEvent(new Event('m-refresh-widgets'));
-          });
-        });
-      });
-    }, 800);
+    if (!showContent || !dropsStarted) return;
+    if (widgetInjected.current) return;
+
+    let attempts = 0;
+    const tryInject = () => {
+      attempts++;
+      if (!manifoldRef.current) {
+        if (attempts < 40) setTimeout(tryInject, 250);
+        return;
+      }
+      if (widgetInjected.current) return;
+      widgetInjected.current = true;
+
+      // Inject buy-button-only widget into the mint button container
+      manifoldRef.current.innerHTML = '';
+      const buyBtn = document.createElement('div');
+      buyBtn.setAttribute('data-widget', 'm-claim-buy-only');
+      buyBtn.setAttribute('data-id', CURRENT_PIECE.instanceId);
+      buyBtn.setAttribute('data-claim-text', 'Collect this piece');
+      buyBtn.setAttribute('data-network', '1');
+      manifoldRef.current.appendChild(buyBtn);
+
+      // Inject mint-count widget into the count container
+      if (manifoldCountRef.current) {
+        manifoldCountRef.current.innerHTML = '';
+        const countEl = document.createElement('div');
+        countEl.setAttribute('data-widget', 'm-claim-mint-count');
+        countEl.setAttribute('data-id', CURRENT_PIECE.instanceId);
+        manifoldCountRef.current.appendChild(countEl);
+      }
+
+      setTimeout(() => {
+        window.dispatchEvent(new Event('m-refresh-widgets'));
+      }, 300);
+    };
+
+    const id = setTimeout(tryInject, 2200);
     return () => clearTimeout(id);
-  }, [showContent]);
+  }, [showContent, dropsStarted]);
 
   const handleEnter = () => {
     setEntered(true);
@@ -407,31 +430,27 @@ export default function Home() {
           animation: shimmer 3.2s cubic-bezier(0.4,0,0.2,1) infinite;
           animation-delay: 1.2s;
         }
-        .manifold-wrap { width: 100%; border-radius: clamp(8px,1.2vw,14px); overflow: hidden; border: 1px solid var(--border); background: var(--surface); margin-top: clamp(12px,2vw,20px); contain: paint; will-change: contents; display: block; }
-        .manifold-wrap div, .manifold-wrap m-claim-complete { width: 100% !important; max-width: 100% !important; box-sizing: border-box; background: #0f0d16 !important; color: #e6ddd0 !important; }
-        .manifold-wrap button {
-          font-family: 'Cormorant Garamond', Georgia, serif !important;
-          font-style: italic !important; font-weight: 300 !important;
-          letter-spacing: 0.28em !important; text-transform: uppercase !important;
+        .mint-card { margin-top: clamp(12px,2vw,20px); border: 1px solid var(--border); border-radius: clamp(8px,1.2vw,14px); background: var(--surface); overflow: hidden; }
+        .mint-card-row { display: flex; align-items: stretch; border-bottom: 1px solid var(--border); }
+        .mint-card-meta { flex: 1; display: flex; flex-direction: column; gap: 4px; padding: clamp(14px,2vw,20px) clamp(14px,2vw,20px); border-right: 1px solid var(--border); }
+        .mint-card-meta:last-child { border-right: none; }
+        .mint-card-label { font-family: var(--font); font-style: italic; font-size: clamp(9px,1vw,11px); letter-spacing: 0.28em; text-transform: uppercase; color: var(--silver); opacity: 0.55; }
+        .mint-card-value { font-family: var(--font); font-style: italic; font-weight: 300; font-size: clamp(13px,1.6vw,16px); color: var(--cream); letter-spacing: 0.04em; }
+        .mint-card-value div, .mint-card-value span { font-family: var(--font) !important; font-style: italic !important; font-weight: 300 !important; font-size: clamp(13px,1.6vw,16px) !important; color: var(--cream) !important; background: none !important; }
+        .mint-btn-wrap { padding: clamp(14px,2vw,20px); }
+        .mint-btn-wrap button, .mint-btn-wrap [class*="buy"], .mint-btn-wrap [class*="mint"], .mint-btn-wrap [class*="claim"] {
+          width: 100% !important; padding: 16px 24px !important;
           border-radius: 10px !important;
-          transition: background 0.45s, border-color 0.45s, transform 0.3s !important;
-        }
-        .manifold-wrap button[class*="buy"],
-        .manifold-wrap button[class*="mint"],
-        .manifold-wrap button[class*="claim"],
-        .manifold-wrap .m-btn-primary {
-          background: linear-gradient(135deg, rgba(122,20,36,0.18) 0%, rgba(80,12,50,0.12) 100%) !important;
           border: 1px solid rgba(122,20,36,0.5) !important;
-          color: #f0e8dc !important;
+          background: linear-gradient(135deg, rgba(122,20,36,0.16) 0%, rgba(80,12,50,0.10) 100%) !important;
+          font-family: var(--font) !important; font-style: italic !important; font-weight: 300 !important;
+          font-size: clamp(12px,1.5vw,14px) !important; letter-spacing: 0.3em !important;
+          text-transform: uppercase !important; color: var(--cream) !important;
+          cursor: pointer !important; transition: border-color 0.45s, background 0.45s, transform 0.3s !important;
+          box-shadow: none !important;
         }
-        .manifold-wrap button[class*="buy"]:hover,
-        .manifold-wrap button[class*="mint"]:hover,
-        .manifold-wrap button[class*="claim"]:hover,
-        .manifold-wrap .m-btn-primary:hover {
-          background: linear-gradient(135deg, rgba(122,20,36,0.28) 0%, rgba(80,12,50,0.20) 100%) !important;
-          border-color: rgba(122,20,36,0.8) !important;
-          transform: translateY(-1px) !important;
-        }
+        .mint-btn-wrap button:hover { border-color: rgba(122,20,36,0.8) !important; background: linear-gradient(135deg, rgba(122,20,36,0.26) 0%, rgba(80,12,50,0.18) 100%) !important; transform: translateY(-1px) !important; }
+        .mint-fallback { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0 clamp(14px,2vw,20px) clamp(14px,2vw,20px); }
         .collect-fallback { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: clamp(16px,2.5vw,24px) 0 0; }
         .collect-meta { font-family: var(--font); font-style: italic; font-size: 9px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--silver); opacity: 0.28; }
         .collect-btn {
@@ -461,6 +480,34 @@ export default function Home() {
         .share-trigger-inner { display: flex; align-items: center; gap: 10px; margin: 14px 0 10px; font-family: var(--font); font-style: italic; font-size: clamp(11px,1.3vw,13px); letter-spacing: 0.3em; text-transform: uppercase; color: var(--silver); opacity: 0.55; transition: opacity 0.3s; }
         .share-trigger:hover .share-trigger-inner { opacity: 0.9; }
         .share-trigger-label { font-family: var(--font); font-style: italic; }
+
+        .project-about-trigger { width: 100%; background: none; border: none; cursor: pointer; padding: 0; display: flex; flex-direction: column; align-items: center; gap: 0; }
+        .project-about-inner { display: flex; align-items: center; gap: 10px; margin: 14px 0 10px; font-family: var(--font); font-style: italic; font-size: clamp(11px,1.3vw,13px); letter-spacing: 0.3em; text-transform: uppercase; color: var(--silver); opacity: 0.55; transition: opacity 0.3s; }
+        .project-about-trigger:hover .project-about-inner { opacity: 0.9; }
+        .project-about-drawer { overflow: hidden; transition: max-height 0.72s cubic-bezier(0.16,1,0.3,1), opacity 0.5s ease; max-height: 0; opacity: 0; }
+        .project-about-drawer.open { max-height: 600px; opacity: 1; }
+        .project-about-content {
+          max-width: 620px; margin: 0 auto;
+          padding: clamp(24px,4vw,44px) clamp(16px,4vw,40px) clamp(32px,5vw,56px);
+          display: flex; flex-direction: column; gap: 20px; text-align: center;
+        }
+        .project-about-title {
+          font-family: var(--font); font-style: italic; font-weight: 300;
+          font-size: clamp(18px,2.5vw,24px); color: var(--cream);
+          letter-spacing: 0.04em; opacity: 0.9;
+        }
+        .project-about-body {
+          font-family: var(--font); font-style: italic; font-weight: 300;
+          font-size: clamp(14px,1.7vw,17px); line-height: 2;
+          color: var(--cream-dim); letter-spacing: 0.02em;
+        }
+        .project-about-body p { margin-bottom: 0; }
+        .project-about-body .gap { height: 8px; }
+        .project-about-sig {
+          font-family: var(--font); font-style: italic;
+          font-size: clamp(11px,1.3vw,13px); letter-spacing: 0.22em;
+          color: var(--silver); opacity: 0.5;
+        }
         .share-chevron { transition: transform 0.4s; }
         .share-chevron.open { transform: rotate(180deg); }
         .share-drawer { max-height: 0; overflow: hidden; transition: max-height 0.65s cubic-bezier(0.16,1,0.3,1), opacity 0.5s ease; opacity: 0; }
@@ -785,7 +832,44 @@ export default function Home() {
               )}
             </motion.section>
 
-            <div className="divider" style={{ marginBottom: 'clamp(32px, 5vw, 60px)' }} />
+            <div style={{ padding: '0 clamp(16px,4vw,64px)' }}>
+              <button
+                className="project-about-trigger"
+                onClick={() => setProjectAboutOpen(o => !o)}
+                aria-expanded={projectAboutOpen}
+              >
+                <div style={{ width:'100%', height:1, background:'var(--border)' }} />
+                <div className="project-about-inner">
+                  <span style={{ fontFamily:'var(--font)', fontStyle:'italic' }}>About the project</span>
+                  <svg
+                    style={{ transition:'transform 0.45s cubic-bezier(0.34,1.56,0.64,1)', transform: projectAboutOpen ? 'rotate(180deg)' : 'rotate(0deg)', opacity:0.5 }}
+                    width="12" height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                </div>
+                <div style={{ width:'100%', height:1, background:'var(--border)' }} />
+              </button>
+
+              <div className={`project-about-drawer${projectAboutOpen ? ' open' : ''}`}>
+                <div className="project-about-content">
+                  <p className="project-about-title">A Familiar Burn</p>
+                  <div className="project-about-body">
+                    <p>A Familiar Burn is an art experiment designed to reward presence.</p>
+                    <div className="gap" />
+                    <p>It challenges the instant-reveal culture of Web3 by unfolding as a slow burn. New pieces are released gradually over weeks and days, guided by a public countdown. Each release adds another fragment to the puzzle.</p>
+                    <div className="gap" />
+                    <p>Collectors who return and claim every piece become eligible for the primary work.</p>
+                    <div className="gap" />
+                    <p>The journey itself — showing up, waiting, discovering — is the art. Every step contributes to the living collection:</p>
+                  </div>
+                  <p className="project-about-sig">A Familiar Burn</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="divider" style={{ marginBottom: 'clamp(32px, 5vw, 60px)', marginTop: 'clamp(16px, 3vw, 32px)' }} />
 
             {showContent && (
               <motion.div className="piece-section" initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.55, duration: 1.1 }}>
@@ -827,22 +911,36 @@ export default function Home() {
                 </div>
 
                 {dropsStarted && (
-                  <>
-                    <div className="manifold-wrap" ref={manifoldRef} />
-                    <div className="collect-fallback">
+                  <div className="mint-card">
+                    <div className="mint-card-row">
+                      <div className="mint-card-meta">
+                        <span className="mint-card-label">Mint price</span>
+                        <span className="mint-card-value">0.00044 ETH</span>
+                      </div>
+                      <div className="mint-card-meta">
+                        <span className="mint-card-label">Collected</span>
+                        <span className="mint-card-value" ref={manifoldCountRef} />
+                      </div>
+                      <div className="mint-card-meta">
+                        <span className="mint-card-label">Edition</span>
+                        <span className="mint-card-value">Open</span>
+                      </div>
+                    </div>
+                    <div className="mint-btn-wrap" ref={manifoldRef} />
+                    <div className="mint-fallback">
                       <a href={CURRENT_PIECE.manifoldUrl} target="_blank" rel="noopener noreferrer" className="collect-btn">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ opacity: 0.45 }}>
                           <path d="M12 2L4 12l8 4 8-4L12 2z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/>
                           <path d="M4 12l8 10 8-10" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"/>
                         </svg>
-                        Collect this piece
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" style={{ marginLeft: 'auto', opacity: 0.3 }}>
+                        Collect on Manifold
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" style={{ marginLeft:'auto', opacity:0.3 }}>
                           <path d="M7 17L17 7M17 7H7M17 7v10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                       </a>
-                      <span className="collect-meta">Ethereum · ERC-1155 · Manifold</span>
+                      <span className="collect-meta">Ethereum · ERC-721 · Manifold</span>
                     </div>
-                  </>
+                  </div>
                 )}
 
               </motion.div>
