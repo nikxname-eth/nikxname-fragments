@@ -44,7 +44,9 @@ export default function Document() {
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-        {/* Fonts */}
+        {/* CDN + fonts */}
+        <link rel="preconnect" href="https://assets.nikxart.xyz" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://assets.nikxart.xyz" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

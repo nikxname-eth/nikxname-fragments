@@ -18,9 +18,25 @@ function mediaFromUrl(url: string, name: string): TokenMetadata {
   };
 }
 
+function metadataFromSiteMedia(id: number): TokenMetadata {
+  const siteMedia = FRAGMENT_SITE_MEDIA[id]!;
+  const title = PIECE_NAMES[id] ?? `Fragment ${id}`;
+  return {
+    name: title,
+    image: siteMedia.posterUrl ?? siteMedia.displayUrl,
+    mediaUrl: siteMedia.displayUrl,
+    mediaType: inferMediaType(siteMedia.displayUrl),
+    posterUrl: siteMedia.posterUrl,
+    hasAudio: siteMedia.hasAudio,
+  };
+}
+
 export function useTokenMetadata(tokenId: number | null) {
-  const [metadata, setMetadata] = useState<TokenMetadata | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const siteMedia = tokenId != null && tokenId > 0 ? FRAGMENT_SITE_MEDIA[tokenId] : undefined;
+  const [metadata, setMetadata] = useState<TokenMetadata | null>(() =>
+    siteMedia && tokenId ? metadataFromSiteMedia(tokenId) : null,
+  );
+  const [isLoading, setIsLoading] = useState(!siteMedia);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -30,11 +46,19 @@ export function useTokenMetadata(tokenId: number | null) {
       return;
     }
 
-    let cancelled = false;
     const id = tokenId;
     const title = PIECE_NAMES[id] ?? `Fragment ${id}`;
     const knownMedia = ON_CHAIN_MEDIA[id];
-    const siteMedia = FRAGMENT_SITE_MEDIA[id];
+    const localSiteMedia = FRAGMENT_SITE_MEDIA[id];
+
+    if (localSiteMedia) {
+      setMetadata(metadataFromSiteMedia(id));
+      setIsLoading(false);
+      setError(false);
+      return;
+    }
+
+    let cancelled = false;
 
     async function load() {
       setIsLoading(true);
@@ -54,16 +78,7 @@ export function useTokenMetadata(tokenId: number | null) {
         const json = await response.json();
         let parsed = parseTokenMetadata(json);
 
-        if (siteMedia) {
-          parsed = {
-            ...parsed,
-            mediaUrl: siteMedia.displayUrl,
-            image: siteMedia.posterUrl ?? parsed.image,
-            mediaType: inferMediaType(siteMedia.displayUrl),
-            posterUrl: siteMedia.posterUrl,
-            hasAudio: siteMedia.hasAudio,
-          };
-        } else if (knownMedia) {
+        if (knownMedia) {
           parsed = {
             ...parsed,
             mediaUrl: knownMedia,
@@ -74,16 +89,7 @@ export function useTokenMetadata(tokenId: number | null) {
 
         if (!cancelled) setMetadata(parsed);
       } catch {
-        if (siteMedia && !cancelled) {
-          setMetadata({
-            name: title,
-            image: siteMedia.posterUrl ?? siteMedia.displayUrl,
-            mediaUrl: siteMedia.displayUrl,
-            mediaType: inferMediaType(siteMedia.displayUrl),
-            posterUrl: siteMedia.posterUrl,
-            hasAudio: siteMedia.hasAudio,
-          });
-        } else if (knownMedia && !cancelled) {
+        if (knownMedia && !cancelled) {
           setMetadata(mediaFromUrl(knownMedia, title));
         } else if (!cancelled) {
           setError(true);

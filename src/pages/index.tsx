@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   BANNER_DARK,
@@ -85,6 +86,8 @@ export default function Home() {
   };
 
   useEffect(() => {
+    let intervalId: ReturnType<typeof setInterval> | undefined;
+
     const fetchGas = async () => {
       try {
         const response = await fetch('https://cloudflare-eth.com', {
@@ -98,13 +101,38 @@ export default function Home() {
         /* gas display is optional */
       }
     };
-    fetchGas();
-    const id = setInterval(fetchGas, 30_000);
-    return () => clearInterval(id);
+
+    const start = () => {
+      fetchGas();
+      intervalId = setInterval(fetchGas, 30_000);
+    };
+
+    const delayId = window.setTimeout(start, 5_000);
+    return () => {
+      window.clearTimeout(delayId);
+      if (intervalId) clearInterval(intervalId);
+    };
   }, []);
+
+  const bannerPreload = entered
+    ? dark
+      ? BANNER_DARK
+      : BANNER_LIGHT
+    : null;
 
   return (
     <>
+      <Head>
+        {bannerPreload && (
+          <link
+            rel="preload"
+            as="image"
+            href={bannerPreload.src}
+            imageSrcSet={bannerPreload.srcSet}
+            imageSizes={BANNER_SIZES}
+          />
+        )}
+      </Head>
       <div className="glow glow-r" />
       <div className="glow glow-b" />
 
@@ -433,6 +461,7 @@ export default function Home() {
                   alt="Together It Blooms — A Familiar Burn"
                   loading="eager"
                   decoding="async"
+                  fetchPriority="high"
                 />
               </div>
             </motion.div>

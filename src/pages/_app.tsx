@@ -29,11 +29,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
       <Script
         src={`https://connect.manifoldxyz.dev/${CONNECT_VERSION}/connect.umd.min.js`}
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
       />
       <Script
         src={`https://claims.manifoldxyz.dev/${CLAIM_VERSION}/claimComplete.umd.min.js`}
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
       />
 
       <WagmiProvider config={config}>

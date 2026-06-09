@@ -10,11 +10,31 @@ type Props = {
 
 export function FragmentMedia({ tokenId, fallbackTitle, preferAudio }: Props) {
   const { metadata, isLoading, error } = useTokenMetadata(tokenId);
+  const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   const [muted, setMuted] = useState(true);
 
   useEffect(() => {
-    if (!preferAudio || !metadata?.hasAudio) return;
+    const root = rootRef.current;
+    if (!root || !metadata || metadata.mediaType !== 'video') return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoadVideo(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '120px' },
+    );
+
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, [metadata]);
+
+  useEffect(() => {
+    if (!preferAudio || !metadata?.hasAudio || !shouldLoadVideo) return;
     const video = videoRef.current;
     if (!video) return;
 
@@ -26,7 +46,7 @@ export function FragmentMedia({ tokenId, fallbackTitle, preferAudio }: Props) {
         video.muted = true;
         setMuted(true);
       });
-  }, [preferAudio, metadata?.hasAudio, metadata?.mediaUrl]);
+  }, [preferAudio, metadata?.hasAudio, metadata?.mediaUrl, shouldLoadVideo]);
 
   const toggleAudio = () => {
     const video = videoRef.current;
@@ -60,19 +80,28 @@ export function FragmentMedia({ tokenId, fallbackTitle, preferAudio }: Props) {
 
   if (metadata.mediaType === 'video') {
     return (
-      <>
-        <video
-          ref={videoRef}
-          src={metadata.mediaUrl}
-          poster={metadata.posterUrl}
-          autoPlay
-          loop
-          muted={muted}
-          playsInline
-          preload="auto"
-          aria-label={alt}
-        />
-        {metadata.hasAudio && (
+      <div ref={rootRef} className="piece-media-frame">
+        {shouldLoadVideo ? (
+          <video
+            ref={videoRef}
+            src={metadata.mediaUrl}
+            poster={metadata.posterUrl}
+            autoPlay
+            loop
+            muted={muted}
+            playsInline
+            preload="metadata"
+            aria-label={alt}
+          />
+        ) : (
+          <img
+            src={metadata.posterUrl ?? metadata.mediaUrl}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+        {metadata.hasAudio && shouldLoadVideo && (
           <button
             type="button"
             className="piece-audio-toggle"
@@ -83,7 +112,7 @@ export function FragmentMedia({ tokenId, fallbackTitle, preferAudio }: Props) {
             {muted ? 'Sound on' : 'Sound off'}
           </button>
         )}
-      </>
+      </div>
     );
   }
 
@@ -91,7 +120,7 @@ export function FragmentMedia({ tokenId, fallbackTitle, preferAudio }: Props) {
     <img
       src={metadata.mediaUrl}
       alt={alt}
-      loading="eager"
+      loading="lazy"
       decoding="async"
     />
   );

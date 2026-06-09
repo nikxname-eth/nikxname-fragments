@@ -10,6 +10,9 @@ const makeBanner = (base: string) => ({
   ].join(', '),
 });
 
+const optimizeAssetImage = (url: string, width: number) =>
+  `${url}?width=${width}&quality=82&format=auto`;
+
 export const BANNER_DARK = makeBanner('https://assets.nikxart.xyz/Banner-Medium.jpg');
 export const BANNER_LIGHT = makeBanner('https://assets.nikxart.xyz/main_grid_light_2500px.jpg');
 
@@ -51,7 +54,7 @@ export const FRAGMENT_SITE_MEDIA: Record<
 > = {
   1: {
     displayUrl: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
-    posterUrl: 'https://assets.nikxart.xyz/PuzzlePc-PH01.jpg',
+    posterUrl: optimizeAssetImage('https://assets.nikxart.xyz/PuzzlePc-PH01.jpg', 900),
     hasAudio: true,
     shareUrl: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
   },
@@ -211,7 +214,9 @@ export const SHARE_PIECES: {
     return {
       number,
       label: PIECE_NAMES[number] ?? `Fragment ${number}`,
-      thumbUrl: media.posterUrl ?? media.displayUrl,
+      thumbUrl: media.posterUrl
+        ? optimizeAssetImage(media.posterUrl.split('?')[0], 480)
+        : media.displayUrl,
       downloadUrl: media.shareUrl!,
       downloadName: `Fragment-${String(number).padStart(2, '0')}-1080p.mp4`,
     };
