@@ -39,8 +39,13 @@ export const ON_CHAIN_MEDIA: Record<number, string> = {
   1: 'https://bofrf7ruayhxwfcht2a3bw2h4hcfpulrekva5xqch6iky5j5o6ba.arweave.net/C4sS_jQGD3sUR56BsNtH4cRX0XEiqg7eAj-QrHU9d4I',
 };
 
+/** Web-optimised share downloads (Cloudflare CDN) — one URL per released fragment. */
+export const FRAGMENT_SHARE_URLS: Record<number, string> = {
+  1: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
+};
+
 /**
- * Web-optimised playback + share assets (Cloudflare CDN).
+ * Web-optimised playback assets (Cloudflare CDN).
  * Add a row when each fragment drops.
  */
 export const FRAGMENT_SITE_MEDIA: Record<
@@ -49,14 +54,12 @@ export const FRAGMENT_SITE_MEDIA: Record<
     displayUrl: string;
     posterUrl?: string;
     hasAudio?: boolean;
-    shareUrl?: string;
   }
 > = {
   1: {
-    displayUrl: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
+    displayUrl: FRAGMENT_SHARE_URLS[1],
     posterUrl: optimizeAssetImage('https://assets.nikxart.xyz/PuzzlePc-PH01.jpg', 900),
     hasAudio: true,
-    shareUrl: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
   },
 };
 
@@ -207,17 +210,17 @@ export const SHARE_PIECES: {
   thumbUrl: string;
   downloadUrl: string;
   downloadName: string;
-}[] = Object.entries(FRAGMENT_SITE_MEDIA)
-  .filter(([, media]) => media.shareUrl)
-  .map(([piece, media]) => {
+}[] = Object.entries(FRAGMENT_SHARE_URLS)
+  .map(([piece, downloadUrl]) => {
     const number = Number(piece);
+    const media = FRAGMENT_SITE_MEDIA[number];
     return {
       number,
       label: PIECE_NAMES[number] ?? `Fragment ${number}`,
-      thumbUrl: media.posterUrl
+      thumbUrl: media?.posterUrl
         ? optimizeAssetImage(media.posterUrl.split('?')[0], 480)
-        : media.displayUrl,
-      downloadUrl: media.shareUrl!,
+        : downloadUrl,
+      downloadUrl,
       downloadName: `Fragment-${String(number).padStart(2, '0')}-1080p.mp4`,
     };
   })

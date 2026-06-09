@@ -703,10 +703,11 @@ export default function Home() {
                             <a
                               href={piece.downloadUrl}
                               download={piece.downloadName}
+                              type="video/mp4"
                               className="collect-btn"
                               style={{ width: 'auto', padding: '8px 20px', fontSize: 10 }}
                             >
-                              Save
+                              Save MP4
                             </a>
                           </div>
                         </div>
