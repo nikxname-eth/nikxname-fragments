@@ -686,34 +686,22 @@ export default function Home() {
                   <p className="share-intro">
                     Download optimised files for sharing on Instagram, X, or sending to a friend.
                   </p>
-                  <div className="share-grid">
-                    {releasedSharePieces.length === 0 ? (
-                      <p className="share-empty">Assets will appear here as pieces are released.</p>
-                    ) : (
-                      releasedSharePieces.map((piece) => (
-                        <div key={piece.number} className="share-card">
-                          <img
-                            src={piece.thumbUrl}
-                            alt={piece.label}
-                            loading="lazy"
-                            decoding="async"
-                          />
-                          <span className="share-card-label">{piece.label}</span>
-                          <div className="share-card-action">
-                            <a
-                              href={piece.downloadUrl}
-                              download={piece.downloadName}
-                              type="video/mp4"
-                              className="collect-btn"
-                              style={{ width: 'auto', padding: '8px 20px', fontSize: 10 }}
-                            >
-                              Save MP4
-                            </a>
-                          </div>
-                        </div>
-                      ))
-                    )}
-                  </div>
+                  {releasedSharePieces.length === 0 ? (
+                    <p className="share-empty">Assets will appear here as pieces are released.</p>
+                  ) : (
+                    <div className="share-tags">
+                      {releasedSharePieces.map((piece) => (
+                        <a
+                          key={piece.number}
+                          href={piece.downloadUrl}
+                          download={piece.downloadName}
+                          className="share-tag"
+                        >
+                          {piece.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
