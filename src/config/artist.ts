@@ -36,6 +36,15 @@ export const ON_CHAIN_MEDIA: Record<number, string> = {
   1: 'https://bofrf7ruayhxwfcht2a3bw2h4hcfpulrekva5xqch6iky5j5o6ba.arweave.net/C4sS_jQGD3sUR56BsNtH4cRX0XEiqg7eAj-QrHU9d4I',
 };
 
+/**
+ * On-chain tokenURI markers for each fragment's Manifold claim mints.
+ * Only tokens matching these are counted in collection / banner evolution.
+ * (Earlier contract tokens 1–5 used legacy metadata and are excluded.)
+ */
+export const FRAGMENT_CLAIM_URI_MARKERS: Record<number, string[]> = {
+  1: ['y59jKPO1M12WQ81y-h4sRouWXegvhxYV_Wxg1ccjyQk'],
+};
+
 /** Manifold claim instance per fragment — add a row when each piece drops. */
 export const CLAIM_INSTANCES: Record<
   number,

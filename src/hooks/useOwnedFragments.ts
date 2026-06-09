@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { PIECE_NAMES } from '../config/artist';
 import { CONTRACT_ADDRESS, ERC721_ABI } from '../lib/contract';
+import { pieceFromClaimTokenUri } from '../lib/fragments';
 import { publicClient } from '../lib/publicClient';
 
 export type OwnedFragment = {
@@ -39,20 +40,28 @@ async function scanOwnedTokenIds(wallet: `0x${string}`): Promise<number[]> {
   return owned;
 }
 
-/** Map minted token IDs to fragment numbers for the current drop schedule. */
-function pieceNumberForToken(_tokenId: number, livePieceNumber: number): number {
-  // Open-edition ERC-721: each mint gets a new token ID, but all current mints are Fragment 01.
-  // Extend mapping when additional claim instances go live.
-  return livePieceNumber > 0 ? 1 : 1;
-}
-
-function groupOwnedTokens(tokenIds: number[], livePieceNumber: number): OwnedFragment[] {
+async function classifyClaimFragments(tokenIds: number[]): Promise<OwnedFragment[]> {
   const counts = new Map<number, number>();
 
-  for (const tokenId of tokenIds) {
-    const piece = pieceNumberForToken(tokenId, livePieceNumber);
-    counts.set(piece, (counts.get(piece) ?? 0) + 1);
-  }
+  await Promise.all(
+    tokenIds.map(async (tokenId) => {
+      try {
+        const tokenUri = await publicClient.readContract({
+          address: CONTRACT_ADDRESS,
+          abi: ERC721_ABI,
+          functionName: 'tokenURI',
+          args: [BigInt(tokenId)],
+        });
+
+        const piece = pieceFromClaimTokenUri(tokenUri);
+        if (piece == null) return;
+
+        counts.set(piece, (counts.get(piece) ?? 0) + 1);
+      } catch {
+        /* skip unverifiable tokens */
+      }
+    }),
+  );
 
   return [...counts.entries()]
     .sort(([a], [b]) => a - b)
@@ -63,10 +72,7 @@ function groupOwnedTokens(tokenIds: number[], livePieceNumber: number): OwnedFra
     }));
 }
 
-export function useOwnedFragments(
-  address: `0x${string}` | undefined,
-  livePieceNumber: number,
-) {
+export function useOwnedFragments(address: `0x${string}` | undefined) {
   const [owned, setOwned] = useState<OwnedFragment[]>([]);
   const [balance, setBalance] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -81,26 +87,19 @@ export function useOwnedFragments(
 
     setIsLoading(true);
     try {
-      const [balanceResult, tokenIds] = await Promise.all([
-        publicClient.readContract({
-          address: CONTRACT_ADDRESS,
-          abi: ERC721_ABI,
-          functionName: 'balanceOf',
-          args: [address],
-        }),
-        scanOwnedTokenIds(address),
-      ]);
+      const tokenIds = await scanOwnedTokenIds(address);
+      const grouped = await classifyClaimFragments(tokenIds);
+      const claimBalance = grouped.reduce((sum, fragment) => sum + fragment.quantity, 0);
 
-      const grouped = groupOwnedTokens(tokenIds, livePieceNumber);
-      setBalance(Number(balanceResult));
       setOwned(grouped);
+      setBalance(claimBalance);
     } catch {
       setOwned([]);
       setBalance(0);
     } finally {
       setIsLoading(false);
     }
-  }, [address, livePieceNumber]);
+  }, [address]);
 
   useEffect(() => {
     refresh();

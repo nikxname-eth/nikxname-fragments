@@ -60,10 +60,7 @@ export default function Home() {
     { label: 'Seconds', val: countdown.s },
   ];
 
-  const { owned, balance, isLoading: collectionLoading } = useOwnedFragments(
-    address,
-    livePieceNumber,
-  );
+  const { owned, balance, isLoading: collectionLoading } = useOwnedFragments(address);
   const highestOwnedPiece = owned.reduce((max, fragment) => Math.max(max, fragment.pieceNumber), 0);
   const walletOwnsAny = !!address && (balance > 0 || owned.length > 0);
   const bannerEvolved = walletOwnsAny && highestOwnedPiece > 0;
