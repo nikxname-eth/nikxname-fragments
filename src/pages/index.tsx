@@ -6,6 +6,8 @@ import {
   BANNER_SIZES,
   CLAIM_INSTANCES,
   DROP_SCHEDULE,
+  formatDropArrivalNote,
+  getDropWindowNote,
   getEvolvedBanner,
   PIECE_NAMES,
   PREVIEW_MODE,
@@ -48,8 +50,12 @@ export default function Home() {
   const liveClaim = CLAIM_INSTANCES[livePieceNumber];
   const livePieceTitle = PIECE_NAMES[livePieceNumber] ?? `Fragment ${livePieceNumber}`;
   const dropsStarted = livePieceIdx >= 0;
-  const nextDropTime =
-    livePieceIdx < DROP_SCHEDULE.length - 1 ? DROP_SCHEDULE[livePieceIdx + 1].startsUTC : null;
+  const liveDrop = livePieceIdx >= 0 ? DROP_SCHEDULE[livePieceIdx] : null;
+  const nextDrop =
+    livePieceIdx >= 0 && livePieceIdx < DROP_SCHEDULE.length - 1
+      ? DROP_SCHEDULE[livePieceIdx + 1]
+      : null;
+  const nextDropTime = nextDrop?.startsUTC ?? null;
   const showContent = dropsStarted || PREVIEW_MODE;
 
   const countdown = useCountdown(dropsStarted ? nextDropTime : DROP_SCHEDULE[0].startsUTC);
@@ -447,12 +453,12 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
-                  <p className="cd-note">Piece one arrives Monday, June 8th — 10 am EST</p>
+                  <p className="cd-note">{formatDropArrivalNote(DROP_SCHEDULE[0])}</p>
                 </>
-              ) : nextDropTime ? (
+              ) : nextDrop && liveDrop ? (
                 <>
                   <p className="cd-lbl">
-                    Fragment {String(livePieceIdx + 2).padStart(2, '0')} arrives in
+                    Fragment {String(nextDrop.piece).padStart(2, '0')} arrives in
                   </p>
                   <div className="cd-row">
                     {cdUnits.map(({ label, val }, index) => (
@@ -465,7 +471,9 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
-                  <p className="cd-note">slow down &nbsp;·&nbsp; sit with this</p>
+                  <p className="cd-note">
+                    {livePieceTitle} · {getDropWindowNote(liveDrop)}
+                  </p>
                 </>
               ) : (
                 <p className="cd-note" style={{ opacity: 0.45, fontSize: 'clamp(13px,1.8vw,16px)' }}>

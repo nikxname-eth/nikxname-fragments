@@ -57,35 +57,90 @@ export const CLAIM_INSTANCES: Record<
   },
 };
 
-export const DROP_SCHEDULE: { piece: number; startsUTC: string }[] = [
-  { piece: 1, startsUTC: '2026-06-08T15:00:00Z' },
-  { piece: 2, startsUTC: '2026-06-12T15:00:00Z' },
-  { piece: 3, startsUTC: '2026-06-15T15:00:00Z' },
-  { piece: 4, startsUTC: '2026-06-17T15:00:00Z' },
-  { piece: 5, startsUTC: '2026-06-19T15:00:00Z' },
-  { piece: 6, startsUTC: '2026-06-22T15:00:00Z' },
-  { piece: 7, startsUTC: '2026-06-24T15:00:00Z' },
-  { piece: 8, startsUTC: '2026-06-26T15:00:00Z' },
-  { piece: 9, startsUTC: '2026-06-29T15:00:00Z' },
-  { piece: 10, startsUTC: '2026-07-01T15:00:00Z' },
-  { piece: 11, startsUTC: '2026-07-03T15:00:00Z' },
-  { piece: 12, startsUTC: '2026-07-07T15:00:00Z' },
-  { piece: 13, startsUTC: '2026-07-09T15:00:00Z' },
-  { piece: 14, startsUTC: '2026-07-11T15:00:00Z' },
-  { piece: 15, startsUTC: '2026-07-13T15:00:00Z' },
-  { piece: 16, startsUTC: '2026-07-15T15:00:00Z' },
-  { piece: 17, startsUTC: '2026-07-17T15:00:00Z' },
-  { piece: 18, startsUTC: '2026-07-20T15:00:00Z' },
-  { piece: 19, startsUTC: '2026-07-22T15:00:00Z' },
-  { piece: 20, startsUTC: '2026-07-24T15:00:00Z' },
-  { piece: 21, startsUTC: '2026-07-27T15:00:00Z' },
-  { piece: 22, startsUTC: '2026-07-29T15:00:00Z' },
-  { piece: 23, startsUTC: '2026-07-31T15:00:00Z' },
-  { piece: 24, startsUTC: '2026-08-03T15:00:00Z' },
-  { piece: 25, startsUTC: '2026-08-05T15:00:00Z' },
-  { piece: 26, startsUTC: '2026-08-07T15:00:00Z' },
-  { piece: 27, startsUTC: '2026-08-10T15:00:00Z' },
-];
+export type DropWindowType = 'launch' | 'weekend' | 'forty-eight';
+
+export type DropScheduleEntry = {
+  piece: number;
+  startsUTC: string;
+  windowType: DropWindowType;
+  windowHours: number;
+};
+
+const DROP_LAUNCH_START_MS = Date.parse('2026-06-08T15:00:00Z');
+const HOUR_MS = 3_600_000;
+
+function toDropISO(ms: number): string {
+  return `${new Date(ms).toISOString().slice(0, 19)}Z`;
+}
+
+function getDropWindowMeta(piece: number): Pick<DropScheduleEntry, 'windowType' | 'windowHours'> {
+  if (piece === 1) return { windowType: 'launch', windowHours: 96 };
+  if (piece % 3 === 2) return { windowType: 'weekend', windowHours: 72 };
+  return { windowType: 'forty-eight', windowHours: 48 };
+}
+
+/** Fragment 01: Mon 10am EST (96h). Then weekend → 48h → 48h, repeating through 27. */
+function buildDropSchedule(): DropScheduleEntry[] {
+  const schedule: DropScheduleEntry[] = [];
+  let t = DROP_LAUNCH_START_MS;
+
+  for (let piece = 1; piece <= 27; piece++) {
+    const meta = getDropWindowMeta(piece);
+    schedule.push({ piece, startsUTC: toDropISO(t), ...meta });
+    t += meta.windowHours * HOUR_MS;
+  }
+
+  return schedule;
+}
+
+export const DROP_SCHEDULE = buildDropSchedule();
+
+function formatEastern(iso: string, options: Intl.DateTimeFormatOptions = {}): string {
+  return new Date(iso).toLocaleString('en-US', {
+    timeZone: 'America/New_York',
+    ...options,
+  });
+}
+
+export function getDropEndUTC(entry: DropScheduleEntry): string {
+  const next = DROP_SCHEDULE.find((item) => item.piece === entry.piece + 1);
+  if (next) return next.startsUTC;
+  return toDropISO(Date.parse(entry.startsUTC) + entry.windowHours * HOUR_MS);
+}
+
+export function getDropWindowNote(entry: DropScheduleEntry): string {
+  const endDay = formatEastern(getDropEndUTC(entry), {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  switch (entry.windowType) {
+    case 'launch':
+      return `four days · through ${endDay}, 10 am EST`;
+    case 'weekend':
+      return `over the weekend · through ${endDay}, 10 am EST`;
+    case 'forty-eight':
+      return `48 hours · through ${endDay}, 10 am EST`;
+  }
+}
+
+export function formatDropArrivalNote(entry: DropScheduleEntry): string {
+  const startDay = formatEastern(entry.startsUTC, {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  switch (entry.windowType) {
+    case 'launch':
+      return `${startDay} — 10 am EST · four days`;
+    case 'weekend':
+      return `${startDay} — 10 am EST · over the weekend`;
+    case 'forty-eight':
+      return `${startDay} — 10 am EST · 48 hours`;
+  }
+}
 
 export const PREVIEW_MODE = false;
 
