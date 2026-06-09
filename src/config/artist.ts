@@ -142,6 +142,9 @@ export function formatDropArrivalNote(entry: DropScheduleEntry): string {
   }
 }
 
+/** Pinned X post introducing Together It Blooms / Fragment 01. */
+export const PROJECT_X_ARTICLE = 'https://x.com/Nikxname/status/2064076924138172738';
+
 export const PREVIEW_MODE = false;
 
 export const SHARE_PIECES: {
