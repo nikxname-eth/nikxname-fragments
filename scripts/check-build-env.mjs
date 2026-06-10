@@ -28,6 +28,7 @@ function loadEnvFile(path) {
 }
 
 loadEnvFile(resolve(process.cwd(), '.env'));
+loadEnvFile(resolve(process.cwd(), '.env.production'));
 loadEnvFile(resolve(process.cwd(), '.env.local'));
 
 const required = [
