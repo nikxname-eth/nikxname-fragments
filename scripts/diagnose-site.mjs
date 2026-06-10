@@ -18,7 +18,8 @@ const CHECKS = [
   { id: 'wc-relay', label: 'WalletConnect relay preconnect', pattern: /relay\.walletconnect\.org/ },
   { id: 'delay-auth', label: 'delay-auth on m-connect', pattern: /delay-auth/ },
   { id: 'm-connect', label: 'm-connect widget', pattern: /m-connect|data-widget/ },
-  { id: 'm-claim', label: 'm-claim-buy-only widget', pattern: /m-claim-buy-only/ },
+  { id: 'm-claim', label: 'm-claim-complete widget (SDK 9.x)', pattern: /m-claim-complete/ },
+
   { id: 'rose-connect', label: 'Rose-gold nav connect CSS', pattern: /manifold-connect-host--visible[\s\S]{0,400}var\(--cta-border\)/ },
   { id: 'nav-chip', label: 'Connected wallet chip CSS', pattern: /nav-connect-chip/ },
   { id: 'collect-cta', label: 'Collect button CTA CSS', pattern: /\.collect-btn[\s\S]{0,200}var\(--cta-border\)/ },

@@ -708,8 +708,8 @@ export default function Home() {
                     </div>
                     <ManifoldBuyButton
                       instanceId={liveClaim.instanceId}
-                      manifoldUrl={liveClaim.manifoldUrl}
                       active={dropsStarted}
+                      sessionKey={address ?? 'anon'}
                     />
                   </div>
                 )}
