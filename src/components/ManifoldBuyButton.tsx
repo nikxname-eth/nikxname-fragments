@@ -8,21 +8,22 @@ type Props = {
 };
 
 /**
- * On-site Manifold claim — matches manifold.xyz claim pages (SDK 9.0.1).
- * Uses m-claim-complete (m-claim-buy-only was removed in Claims 9.x).
+ * Clean on-site buy button — m-claim-buy-only (Claims 1.x).
+ * Connect 6.1.0 handles wallet auth; this widget renders only the CTA.
  */
 export function ManifoldBuyButton({ instanceId, active, sessionKey = 'anon' }: Props) {
-  useManifoldRefresh('claim', instanceId, active, sessionKey);
+  useManifoldRefresh('buy', instanceId, active, sessionKey);
 
   if (!active) return null;
 
   return (
     <div className="mint-btn-wrap">
       <div
-        key={`claim-${instanceId}-${sessionKey}`}
-        data-widget="m-claim-complete"
+        key={`buy-${instanceId}-${sessionKey}`}
+        data-widget="m-claim-buy-only"
         data-id={instanceId}
         data-network="1"
+        data-claim-text="Collect this piece"
       />
     </div>
   );

@@ -11,14 +11,15 @@ const OUT_DIR = resolve(process.cwd(), 'out');
 
 const CHECKS = [
   { id: 'connect-sdk', label: 'Manifold Connect SDK', pattern: /connect\.manifoldxyz\.dev\/(6\.1\.0)/ },
-  { id: 'claims-sdk', label: 'Manifold Claims SDK', pattern: /claims\.manifoldxyz\.dev\/(9\.0\.1)/ },
+  { id: 'claims-sdk', label: 'Manifold Claims SDK (buy-only)', pattern: /claims\.manifoldxyz\.dev\/(1\.16\.1)/ },
   { id: 'manifold-client', label: 'Manifold client ID', pattern: /e6f73b910ba04cb82818dd3b66829f6af38da06eb07b80aacc0490251178fda2/ },
   { id: 'wc-id', label: 'WalletConnect project ID', pattern: /001f1fbca842d394c7baa1638a2600c6/ },
 
   { id: 'wc-relay', label: 'WalletConnect relay preconnect', pattern: /relay\.walletconnect\.org/ },
   { id: 'delay-auth', label: 'delay-auth on m-connect', pattern: /delay-auth/ },
   { id: 'm-connect', label: 'm-connect widget', pattern: /m-connect|data-widget/ },
-  { id: 'm-claim', label: 'm-claim-complete widget (SDK 9.x)', pattern: /m-claim-complete/ },
+  { id: 'm-claim', label: 'm-claim-buy-only widget', pattern: /m-claim-buy-only/ },
+  { id: 'mint-count', label: 'm-claim-mint-count widget', pattern: /m-claim-mint-count/ },
 
   { id: 'rose-connect', label: 'Rose-gold nav connect CSS', pattern: /manifold-connect-host--visible[\s\S]{0,400}var\(--cta-border\)/ },
   { id: 'nav-chip', label: 'Connected wallet chip CSS', pattern: /nav-connect-chip/ },
