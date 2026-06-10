@@ -43,7 +43,7 @@ const ABOUT_COLLECTIONS = [
 ] as const;
 
 export default function Home() {
-  const { address, shortAddress, isConnecting, connect } = useManifoldWallet();
+  const { address, shortAddress, isConnecting } = useManifoldWallet();
 
   const [entered, setEntered] = useState(false);
   const [introGone, setIntroGone] = useState(false);
@@ -357,13 +357,12 @@ export default function Home() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.8, duration: 0.9 }}
                 >
-                  <ManifoldConnect />
                   <WalletButton
                     address={address}
                     shortAddress={shortAddress}
                     isConnecting={isConnecting}
-                    connect={connect}
                   />
+                  <ManifoldConnect visible sessionActive={!!address} />
                 </motion.div>
               </div>
             </nav>
@@ -711,7 +710,16 @@ export default function Home() {
                         <span className="mint-card-value">Open</span>
                       </div>
                     </div>
-                    <ManifoldBuyButton instanceId={liveClaim.instanceId} active={dropsStarted} />
+                    {!address && (
+                      <p className="mint-connect-note">
+                        Connect above and sign the message — then return here to collect.
+                      </p>
+                    )}
+                    <ManifoldBuyButton
+                      instanceId={liveClaim.instanceId}
+                      active={dropsStarted}
+                      sessionKey={address ?? 'anon'}
+                    />
                   </div>
                 )}
               </motion.div>

@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
-  openManifoldConnect,
+  authenticateWithManifold,
   readManifoldSession,
   refreshManifoldWidgets,
-  waitForManifoldAuthentication,
 } from '../lib/manifoldConnect';
 
 function shortenAddress(address: string): string {
@@ -23,14 +22,13 @@ export function useManifoldWallet() {
       return;
     }
 
-     setAddress(undefined);
+    setAddress(undefined);
     setIsConnecting(false);
   }, []);
 
   const connect = useCallback(async () => {
-    const session = readManifoldSession();
-    if (session.isAuthenticated && session.address) {
-      setAddress(session.address);
+    if (readManifoldSession().isAuthenticated) {
+      sync();
       return;
     }
 
@@ -38,19 +36,12 @@ export function useManifoldWallet() {
     setIsConnecting(true);
 
     try {
-      refreshManifoldWidgets();
-      await openManifoldConnect();
-
-      const authenticated = await waitForManifoldAuthentication(90_000);
+      const authed = await authenticateWithManifold();
       if (attempt !== connectAttemptRef.current) return;
 
-      if (authenticated) {
+      if (authed) {
         sync();
         refreshManifoldWidgets();
-      }
-    } catch {
-      if (attempt === connectAttemptRef.current) {
-        setIsConnecting(false);
       }
     } finally {
       if (attempt === connectAttemptRef.current) {
@@ -65,6 +56,7 @@ export function useManifoldWallet() {
 
     const onWallet = () => {
       sync();
+      refreshManifoldWidgets();
     };
 
     const onVisible = () => {
@@ -80,9 +72,7 @@ export function useManifoldWallet() {
     window.addEventListener('pageshow', onVisible);
     window.addEventListener('focus', onVisible);
 
-    const poll = window.setInterval(() => {
-      sync();
-    }, 2_000);
+    const poll = window.setInterval(sync, 1_500);
 
     return () => {
       window.removeEventListener('m-authenticated', onWallet);
