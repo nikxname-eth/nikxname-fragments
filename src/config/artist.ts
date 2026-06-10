@@ -50,8 +50,8 @@ export const THEATRE_VIDEO_URLS: Record<
   { url: string; fallbackUrl?: string; hasAudio?: boolean }
 > = {
   1: {
-    url: 'https://assets.nikxart.xyz/Fragment-01-4k.mp4',
-    fallbackUrl: FRAGMENT_SHARE_URLS[1],
+    /* When Fragment-01-4k.mp4 is on CDN: set url to 4k, fallbackUrl to 1080p */
+    url: FRAGMENT_SHARE_URLS[1],
     hasAudio: true,
   },
 };

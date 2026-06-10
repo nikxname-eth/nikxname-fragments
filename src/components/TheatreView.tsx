@@ -5,6 +5,7 @@ import {
   THEATRE_PREP_SUBTEXT,
 } from '../config/artist';
 import { inferMediaType } from '../lib/metadata';
+import { probeImage, resolveTheatrePlaybackUrl } from '../lib/theatreMedia';
 
 const MESSAGE_INTERVAL_MS = 5_600;
 const MESSAGE_FADE_MS = 1_800;
@@ -48,56 +49,42 @@ export function TheatreView({ open, onClose, tokenId, title, theme }: Props) {
   }, []);
 
   useEffect(() => {
-    if (!open || !source) return;
-    setPlaybackUrl(source.url);
-  }, [open, source]);
-
-  useEffect(() => {
     if (!open) {
       reset();
       return;
     }
 
-    if (!source || !playbackUrl) return;
+    if (!source) return;
 
     let cancelled = false;
 
-    if (mediaType === 'video') {
-      const video = document.createElement('video');
-      video.preload = 'auto';
-      video.src = playbackUrl;
-      video.muted = true;
-      video.playsInline = true;
+    const prepare = async () => {
+      setIsReady(false);
+      setShowMedia(false);
 
-      const onReady = () => {
-        if (!cancelled) setIsReady(true);
-      };
+      const formatHint = source.formatHint;
+      const isVideo = inferMediaType(source.url, formatHint) === 'video';
 
-      video.addEventListener('canplaythrough', onReady, { once: true });
-      video.addEventListener('loadeddata', onReady, { once: true });
-      video.load();
+      if (isVideo) {
+        const resolved = await resolveTheatrePlaybackUrl(source.url, source.fallbackUrl);
+        if (cancelled) return;
+        setPlaybackUrl(resolved);
+        setIsReady(true);
+        return;
+      }
 
-      return () => {
-        cancelled = true;
-        video.removeAttribute('src');
-        video.load();
-      };
-    }
-
-    const image = new Image();
-    image.decoding = 'async';
-    image.src = playbackUrl;
-    image.onload = () => {
-      if (!cancelled) setIsReady(true);
+      const imageOk = await probeImage(source.url);
+      if (cancelled) return;
+      setPlaybackUrl(source.url);
+      setIsReady(imageOk);
     };
-    image.onerror = () => {
-      if (!cancelled) setIsReady(true);
-    };
+
+    void prepare();
 
     return () => {
       cancelled = true;
     };
-  }, [open, source, playbackUrl, mediaType, reset]);
+  }, [open, source, reset]);
 
   useEffect(() => {
     if (!open || isReady) return;
@@ -152,11 +139,38 @@ export function TheatreView({ open, onClose, tokenId, title, theme }: Props) {
     };
   }, [open, onClose]);
 
-  if (!open || !source || !playbackUrl) return null;
+  if (!open || !source || !playbackUrl || !isReady) {
+    if (!open || !source) return null;
+
+    return (
+      <div
+        className={`theatre-view theatre-view--${theme}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label={`Theatre view — ${title}`}
+      >
+        <div className="theatre-view-veil" aria-hidden="true" />
+        <div className="theatre-view-prep" aria-live="polite">
+          <div className="theatre-view-prep-rings" aria-hidden="true">
+            <div className="ring ring-1" />
+            <div className="ring ring-2" />
+          </div>
+          <div className="theatre-view-prep-copy">
+            <p className={`theatre-view-message${messageVisible ? ' is-visible' : ''}`}>
+              {THEATRE_PREP_MESSAGES[messageIndex]}
+            </p>
+            <p className="theatre-view-prep-sub">{THEATRE_PREP_SUBTEXT}</p>
+          </div>
+        </div>
+        <button type="button" className="theatre-view-close" onClick={onClose}>
+          Exit
+        </button>
+      </div>
+    );
+  }
 
   const handleVideoError = () => {
     if (source.fallbackUrl && playbackUrl !== source.fallbackUrl) {
-      setIsReady(false);
       setShowMedia(false);
       setPlaybackUrl(source.fallbackUrl);
     }
