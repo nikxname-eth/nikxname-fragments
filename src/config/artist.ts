@@ -62,6 +62,8 @@ export const THEATRE_PREP_MESSAGES = [
   'Breathe..',
 ] as const;
 
+export const THEATRE_PREP_SUBTEXT = 'while we prepare your experience';
+
 export function getTheatreSource(
   piece: number,
 ): { url: string; fallbackUrl?: string; formatHint?: string; hasAudio?: boolean } | null {

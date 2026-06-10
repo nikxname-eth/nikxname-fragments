@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { getTheatreSource, THEATRE_PREP_MESSAGES } from '../config/artist';
+import {
+  getTheatreSource,
+  THEATRE_PREP_MESSAGES,
+  THEATRE_PREP_SUBTEXT,
+} from '../config/artist';
 import { inferMediaType } from '../lib/metadata';
 
 const MESSAGE_INTERVAL_MS = 5_600;
@@ -201,12 +205,18 @@ export function TheatreView({ open, onClose, tokenId, title, theme }: Props) {
       <div className="theatre-view-veil" aria-hidden="true" />
 
       {!showMedia && (
-        <p
-          className={`theatre-view-message${messageVisible ? ' is-visible' : ''}`}
-          aria-live="polite"
-        >
-          {THEATRE_PREP_MESSAGES[messageIndex]}
-        </p>
+        <div className="theatre-view-prep" aria-live="polite">
+          <div className="theatre-view-prep-rings" aria-hidden="true">
+            <div className="ring ring-1" />
+            <div className="ring ring-2" />
+          </div>
+          <div className="theatre-view-prep-copy">
+            <p className={`theatre-view-message${messageVisible ? ' is-visible' : ''}`}>
+              {THEATRE_PREP_MESSAGES[messageIndex]}
+            </p>
+            <p className="theatre-view-prep-sub">{THEATRE_PREP_SUBTEXT}</p>
+          </div>
+        </div>
       )}
 
       {showMedia && (

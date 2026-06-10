@@ -186,8 +186,15 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;mix
 .theatre-view--dark{--theatre-veil:#06060a;--theatre-message:rgba(240,232,220,0.68);--theatre-caption:rgba(220,210,198,0.5);--theatre-control:rgba(240,232,220,0.48)}
 .theatre-view--light{--theatre-veil:#ece4da;--theatre-message:rgba(40,28,20,0.58);--theatre-caption:rgba(40,28,20,0.45);--theatre-control:rgba(40,28,20,0.42)}
 .theatre-view-veil{position:absolute;inset:0;background:var(--theatre-veil);opacity:0;animation:theatre-veil 2.4s ease forwards}
+.theatre-view-prep{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:100%;height:100%;min-height:min(72vh,640px)}
+.theatre-view-prep-rings{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.theatre-view-prep-rings .ring{position:relative;top:auto;left:auto}
+.theatre-view-prep-copy{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:clamp(14px,2.4vw,22px);text-align:center;padding:0 clamp(20px,5vw,48px)}
 .theatre-view-message{position:relative;z-index:1;font-family:var(--font);font-style:italic;font-weight:300;font-size:clamp(18px,3.2vw,28px);letter-spacing:0.06em;color:var(--theatre-message);opacity:0;transform:translateY(6px);transition:opacity 1.8s ease,transform 1.8s ease}
 .theatre-view-message.is-visible{opacity:0.72;transform:translateY(0)}
+.theatre-view-prep-sub{font-family:var(--font);font-style:italic;font-weight:300;font-size:clamp(11px,1.35vw,14px);letter-spacing:0.14em;color:var(--theatre-caption);opacity:0;animation:theatre-sub-reveal 2.4s ease 0.8s forwards,theatre-sub-pulse 4.2s ease-in-out 2.4s infinite}
+@keyframes theatre-sub-reveal{from{opacity:0;transform:translateY(4px)}to{opacity:0.42;transform:translateY(0)}}
+@keyframes theatre-sub-pulse{0%,100%{opacity:0.34}50%{opacity:0.48}}
 .theatre-view-stage{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,2.5vw,22px);width:100%;height:100%;opacity:0;animation:theatre-reveal 2.2s cubic-bezier(0.16,1,0.3,1) forwards}
 .theatre-view-stage:fullscreen{background:var(--theatre-veil);display:flex;align-items:center;justify-content:center;padding:0}
 .theatre-view-media-frame{display:flex;align-items:center;justify-content:center;width:100%;flex:1;min-height:0}
