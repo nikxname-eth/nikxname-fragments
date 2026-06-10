@@ -47,6 +47,10 @@ export default function Document() {
         {/* CDN + fonts */}
         <link rel="preconnect" href="https://assets.nikxart.xyz" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://assets.nikxart.xyz" />
+        <link rel="preconnect" href="https://connect.manifoldxyz.dev" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://claims.manifoldxyz.dev" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://relay.walletconnect.org" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://relay.walletconnect.org" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

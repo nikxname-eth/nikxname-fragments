@@ -1,54 +1,18 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  authenticateWithManifold,
-  readManifoldSession,
-  refreshManifoldWidgets,
-} from '../lib/manifoldConnect';
+import { useCallback, useEffect, useState } from 'react';
+import { readManifoldSession, refreshManifoldWidgets } from '../lib/manifoldConnect';
 
 function shortenAddress(address: string): string {
   return `${address.slice(0, 6)}…${address.slice(-4)}`;
 }
 
+/** Read-only sync with Manifold session — connect/collect UI lives in claim widgets. */
 export function useManifoldWallet() {
   const [address, setAddress] = useState<`0x${string}` | undefined>();
-  const [isConnecting, setIsConnecting] = useState(false);
-  const connectAttemptRef = useRef(0);
 
   const sync = useCallback(() => {
     const session = readManifoldSession();
-    if (session.isAuthenticated && session.address) {
-      setAddress(session.address);
-      setIsConnecting(false);
-      return;
-    }
-
-    setAddress(undefined);
-    setIsConnecting(false);
+    setAddress(session.isAuthenticated && session.address ? session.address : undefined);
   }, []);
-
-  const connect = useCallback(async () => {
-    if (readManifoldSession().isAuthenticated) {
-      sync();
-      return;
-    }
-
-    const attempt = ++connectAttemptRef.current;
-    setIsConnecting(true);
-
-    try {
-      const authed = await authenticateWithManifold();
-      if (attempt !== connectAttemptRef.current) return;
-
-      if (authed) {
-        sync();
-        refreshManifoldWidgets();
-      }
-    } finally {
-      if (attempt === connectAttemptRef.current) {
-        setIsConnecting(false);
-      }
-    }
-  }, [sync]);
 
   useEffect(() => {
     sync();
@@ -72,7 +36,7 @@ export function useManifoldWallet() {
     window.addEventListener('pageshow', onVisible);
     window.addEventListener('focus', onVisible);
 
-    const poll = window.setInterval(sync, 1_500);
+    const poll = window.setInterval(sync, 2_000);
 
     return () => {
       window.removeEventListener('m-authenticated', onWallet);
@@ -87,10 +51,8 @@ export function useManifoldWallet() {
 
   return {
     address,
-    isConnecting,
     isConnected: !!address,
     shortAddress: address ? shortenAddress(address) : undefined,
-    connect,
     sync,
   };
 }

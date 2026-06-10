@@ -1,15 +1,19 @@
 import '../styles/globals.css';
 import '../styles/site.css';
+import type { ReactNode } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { WagmiProvider } from 'wagmi';
-import { config } from '../wagmi';
+import { useManifoldMobileRecovery } from '../hooks/useManifoldMobileRecovery';
 
-const CONNECT_VERSION = '3.3.0';
-const CLAIM_VERSION = '1.16.1';
-const client = new QueryClient();
+/** Match manifold.xyz claim pages (e.g. @nikxnames-art/id/4051951856). */
+const CONNECT_VERSION = '6.1.0';
+const CLAIM_VERSION = '9.0.1';
+
+function ManifoldShell({ children }: { children: ReactNode }) {
+  useManifoldMobileRecovery();
+  return <>{children}</>;
+}
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -28,7 +32,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <Script
-        id="manifold-connect"
+        id="manifold-connect-js"
         src={`https://connect.manifoldxyz.dev/${CONNECT_VERSION}/connect.umd.min.js`}
         strategy="afterInteractive"
         onLoad={() => {
@@ -36,7 +40,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         }}
       />
       <Script
-        id="manifold-claims"
+        id="manifold-claims-js"
         src={`https://claims.manifoldxyz.dev/${CLAIM_VERSION}/claimComplete.umd.min.js`}
         strategy="afterInteractive"
         onLoad={() => {
@@ -44,11 +48,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         }}
       />
 
-      <WagmiProvider config={config}>
-        <QueryClientProvider client={client}>
-          <Component {...pageProps} />
-        </QueryClientProvider>
-      </WagmiProvider>
+      <ManifoldShell>
+        <Component {...pageProps} />
+      </ManifoldShell>
     </>
   );
 }

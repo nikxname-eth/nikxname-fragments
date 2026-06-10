@@ -4,22 +4,21 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/check-build-env.mjs",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "@rainbow-me/rainbowkit": "^2.2.11",
-    "@tanstack/react-query": "^5.55.3",
     "framer-motion": "^12.39.0",
     "next": "^16.2.4",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "viem": "2.38.0",
-    "wagmi": "^2.19.3"
+    "viem": "2.38.0"
   },
   "devDependencies": {
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "eslint-config-next": "^16.2.4",
     "typescript": "5.9.3"
   }

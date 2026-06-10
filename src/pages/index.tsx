@@ -43,7 +43,7 @@ const ABOUT_COLLECTIONS = [
 ] as const;
 
 export default function Home() {
-  const { address, shortAddress, isConnecting } = useManifoldWallet();
+  const { address, shortAddress } = useManifoldWallet();
 
   const [entered, setEntered] = useState(false);
   const [introGone, setIntroGone] = useState(false);
@@ -357,11 +357,7 @@ export default function Home() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.8, duration: 0.9 }}
                 >
-                  <WalletButton
-                    address={address}
-                    shortAddress={shortAddress}
-                    isConnecting={isConnecting}
-                  />
+                  <WalletButton address={address} shortAddress={shortAddress} />
                   <ManifoldConnect visible sessionActive={!!address} />
                 </motion.div>
               </div>
@@ -436,7 +432,7 @@ export default function Home() {
                   )}
                 </div>
                 {!address && (
-                  <p className="collection-state">Connect your wallet to view what you own.</p>
+                  <p className="collection-state">Collect a piece to connect your wallet and view what you own.</p>
                 )}
                 {address && collectionLoading && (
                   <p className="collection-state">Reading your collection...</p>
@@ -710,15 +706,10 @@ export default function Home() {
                         <span className="mint-card-value">Open</span>
                       </div>
                     </div>
-                    {!address && (
-                      <p className="mint-connect-note">
-                        Connect above and sign the message — then return here to collect.
-                      </p>
-                    )}
                     <ManifoldBuyButton
                       instanceId={liveClaim.instanceId}
+                      manifoldUrl={liveClaim.manifoldUrl}
                       active={dropsStarted}
-                      sessionKey={address ?? 'anon'}
                     />
                   </div>
                 )}
