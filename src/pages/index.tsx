@@ -10,12 +10,14 @@ import {
   formatDropArrivalNote,
   getDropWindowNote,
   getEvolvedBanner,
+  getTheatreSource,
   PIECE_NAMES,
   PREVIEW_MODE,
   PROJECT_X_ARTICLE,
   SHARE_PIECES,
 } from '../config/artist';
 import { FragmentMedia } from '../components/FragmentMedia';
+import { TheatreView } from '../components/TheatreView';
 import { ManifoldBuyButton } from '../components/ManifoldBuyButton';
 import { ManifoldConnect } from '../components/ManifoldConnect';
 import { WalletButton } from '../components/WalletButton';
@@ -53,6 +55,7 @@ export default function Home() {
   const [bioExpanded, setBioExpanded] = useState(false);
   const [collectionOpen, setCollectionOpen] = useState(false);
   const [projectAboutOpen, setProjectAboutOpen] = useState(false);
+  const [theatreOpen, setTheatreOpen] = useState(false);
   const [gwei, setGwei] = useState<number | null>(null);
   const pieceSectionRef = useRef<HTMLDivElement>(null);
 
@@ -64,6 +67,7 @@ export default function Home() {
   const livePieceNumber = livePieceIdx >= 0 ? livePieceIdx + 1 : 1;
   const liveClaim = CLAIM_INSTANCES[livePieceNumber];
   const livePieceTitle = PIECE_NAMES[livePieceNumber] ?? `Fragment ${livePieceNumber}`;
+  const theatreAvailable = !!getTheatreSource(livePieceNumber);
   const dropsStarted = livePieceIdx >= 0;
   const liveDrop = livePieceIdx >= 0 ? DROP_SCHEDULE[livePieceIdx] : null;
   const nextDrop =
@@ -713,6 +717,25 @@ export default function Home() {
                     </div>
                     <ManifoldBuyButton instanceId={liveClaim.instanceId} active={dropsStarted} />
                   </div>
+                )}
+
+                {dropsStarted && theatreAvailable && (
+                  <>
+                    <button
+                      type="button"
+                      className="theatre-trigger"
+                      onClick={() => setTheatreOpen(true)}
+                    >
+                      Theatre view
+                    </button>
+                    <TheatreView
+                      open={theatreOpen}
+                      onClose={() => setTheatreOpen(false)}
+                      tokenId={livePieceNumber}
+                      title={livePieceTitle}
+                      theme={dark ? 'dark' : 'light'}
+                    />
+                  </>
                 )}
               </motion.div>
             )}
