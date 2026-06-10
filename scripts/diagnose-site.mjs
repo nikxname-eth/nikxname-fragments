@@ -22,7 +22,7 @@ const CHECKS = [
 
   { id: 'rose-connect', label: 'Rose-gold nav connect CSS', pattern: /manifold-connect-host--visible[\s\S]{0,400}var\(--cta-border\)/ },
   { id: 'nav-chip', label: 'Connected wallet chip CSS', pattern: /nav-connect-chip/ },
-  { id: 'collect-cta', label: 'Collect button CTA CSS', pattern: /\.collect-btn[\s\S]{0,200}var\(--cta-border\)/ },
+  { id: 'collect-cta', label: 'Mint button CTA CSS', pattern: /\.mint-btn-wrap[\s\S]{0,400}var\(--cta-border\)/ },
   { id: 'wc-modal-z', label: 'WalletConnect modal z-index', pattern: /z-index:10050/ },
   { id: 'mobile-nav', label: 'Mobile connect button sizing', pattern: /padding:7px 12px!important/ },
   { id: 'mint-overflow', label: 'Mint card overflow visible', pattern: /\.mint-card[^}]*overflow:visible/ },
