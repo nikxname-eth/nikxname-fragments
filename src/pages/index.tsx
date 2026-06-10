@@ -80,6 +80,31 @@ export default function Home() {
     (piece) => (dropsStarted || PREVIEW_MODE) && piece.number <= livePieceNumber,
   );
 
+  const closeAllDrawers = () => {
+    setAboutOpen(false);
+    setCollectionOpen(false);
+    setProjectAboutOpen(false);
+    setShareOpen(false);
+  };
+
+  const anyDrawerOpen = aboutOpen || collectionOpen || projectAboutOpen || shareOpen;
+
+  useEffect(() => {
+    if (!anyDrawerOpen) return;
+
+    const dropdownSelector =
+      '.nav-about,.about-drawer,.nav-collection,.collection-drawer,.project-about-trigger,.project-about-drawer,.share-trigger,.share-drawer';
+
+    const onPointerDown = (event: PointerEvent) => {
+      const target = event.target as Element;
+      if (target.closest(dropdownSelector)) return;
+      closeAllDrawers();
+    };
+
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => document.removeEventListener('pointerdown', onPointerDown);
+  }, [anyDrawerOpen]);
+
   const handleEnter = () => {
     setEntered(true);
     setTimeout(() => setIntroGone(true), 2000);
@@ -236,6 +261,8 @@ export default function Home() {
                   onClick={() => {
                     setAboutOpen((open) => !open);
                     setCollectionOpen(false);
+                    setProjectAboutOpen(false);
+                    setShareOpen(false);
                   }}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -264,6 +291,8 @@ export default function Home() {
                       onClick={() => {
                         setCollectionOpen((open) => !open);
                         setAboutOpen(false);
+                        setProjectAboutOpen(false);
+                        setShareOpen(false);
                       }}
                       initial={{ opacity: 0, x: 8 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -355,14 +384,6 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            {aboutOpen && (
-              <div
-                onClick={() => setAboutOpen(false)}
-                style={{ position: 'fixed', inset: 0, zIndex: 48, cursor: 'default' }}
-                aria-hidden="true"
-              />
-            )}
-
             <div className={`collection-drawer${collectionOpen ? ' open' : ''}`} aria-hidden={!collectionOpen}>
               <div className="collection-drawer-inner">
                 <div className="collection-header">
@@ -399,14 +420,6 @@ export default function Home() {
                 )}
               </div>
             </div>
-            {collectionOpen && (
-              <div
-                onClick={() => setCollectionOpen(false)}
-                style={{ position: 'fixed', inset: 0, zIndex: 48, cursor: 'default' }}
-                aria-hidden="true"
-              />
-            )}
-
             <header className="hero">
               <motion.p
                 className="eyebrow"
@@ -518,7 +531,12 @@ export default function Home() {
             <div style={{ padding: '0 clamp(16px,4vw,64px)' }}>
               <button
                 className="project-about-trigger"
-                onClick={() => setProjectAboutOpen((open) => !open)}
+                onClick={() => {
+                  setProjectAboutOpen((open) => !open);
+                  setAboutOpen(false);
+                  setCollectionOpen(false);
+                  setShareOpen(false);
+                }}
                 aria-expanded={projectAboutOpen}
               >
                 <div style={{ width: '100%', height: 1, background: 'var(--border)' }} />
@@ -659,7 +677,12 @@ export default function Home() {
             <div style={{ padding: '0 clamp(16px,4vw,64px)' }}>
               <button
                 className="share-trigger"
-                onClick={() => setShareOpen((open) => !open)}
+                onClick={() => {
+                  setShareOpen((open) => !open);
+                  setAboutOpen(false);
+                  setCollectionOpen(false);
+                  setProjectAboutOpen(false);
+                }}
                 aria-expanded={shareOpen}
               >
                 <div className="share-trigger-line" />
