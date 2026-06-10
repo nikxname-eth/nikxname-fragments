@@ -44,44 +44,6 @@ export const FRAGMENT_SHARE_URLS: Record<number, string> = {
   1: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
 };
 
-/** High-resolution theatre playback (CDN) — add per fragment as they drop. */
-export const THEATRE_VIDEO_URLS: Record<
-  number,
-  { url: string; fallbackUrl?: string; hasAudio?: boolean }
-> = {
-  1: {
-    /* When Fragment-01-4k.mp4 is on CDN: set url to 4k, fallbackUrl to 1080p */
-    url: FRAGMENT_SHARE_URLS[1],
-    hasAudio: true,
-  },
-};
-
-export const THEATRE_PREP_MESSAGES = [
-  'Take a moment..',
-  'Slow down..',
-  'Breathe..',
-] as const;
-
-export const THEATRE_PREP_SUBTEXT = 'while we prepare your experience';
-
-export function getTheatreSource(
-  piece: number,
-): { url: string; fallbackUrl?: string; formatHint?: string; hasAudio?: boolean } | null {
-  const theatre = THEATRE_VIDEO_URLS[piece];
-  if (theatre) {
-    return {
-      url: theatre.url,
-      fallbackUrl: theatre.fallbackUrl,
-      formatHint: 'mp4',
-      hasAudio: theatre.hasAudio,
-    };
-  }
-
-  const onChain = ON_CHAIN_MEDIA[piece];
-  if (!onChain) return null;
-  return { url: onChain, formatHint: 'gif' };
-}
-
 /**
  * Web-optimised playback assets (Cloudflare CDN).
  * Add a row when each fragment drops.

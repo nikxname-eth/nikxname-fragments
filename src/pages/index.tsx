@@ -10,14 +10,12 @@ import {
   formatDropArrivalNote,
   getDropWindowNote,
   getEvolvedBanner,
-  getTheatreSource,
   PIECE_NAMES,
   PREVIEW_MODE,
   PROJECT_X_ARTICLE,
   SHARE_PIECES,
 } from '../config/artist';
 import { FragmentMedia } from '../components/FragmentMedia';
-import { TheatreView } from '../components/TheatreView';
 import { ManifoldBuyButton } from '../components/ManifoldBuyButton';
 import { ManifoldConnect } from '../components/ManifoldConnect';
 import { WalletButton } from '../components/WalletButton';
@@ -55,7 +53,6 @@ export default function Home() {
   const [bioExpanded, setBioExpanded] = useState(false);
   const [collectionOpen, setCollectionOpen] = useState(false);
   const [projectAboutOpen, setProjectAboutOpen] = useState(false);
-  const [theatreOpen, setTheatreOpen] = useState(false);
   const [gwei, setGwei] = useState<number | null>(null);
   const pieceSectionRef = useRef<HTMLDivElement>(null);
 
@@ -67,7 +64,6 @@ export default function Home() {
   const livePieceNumber = livePieceIdx >= 0 ? livePieceIdx + 1 : 1;
   const liveClaim = CLAIM_INSTANCES[livePieceNumber];
   const livePieceTitle = PIECE_NAMES[livePieceNumber] ?? `Fragment ${livePieceNumber}`;
-  const theatreAvailable = !!getTheatreSource(livePieceNumber);
   const dropsStarted = livePieceIdx >= 0;
   const liveDrop = livePieceIdx >= 0 ? DROP_SCHEDULE[livePieceIdx] : null;
   const nextDrop =
@@ -717,41 +713,6 @@ export default function Home() {
                     </div>
                     <ManifoldBuyButton instanceId={liveClaim.instanceId} active={dropsStarted} />
                   </div>
-                )}
-
-                {dropsStarted && theatreAvailable && (
-                  <>
-                    <button
-                      type="button"
-                      className="theatre-trigger"
-                      onClick={() => setTheatreOpen(true)}
-                    >
-                      <span>Theatre view</span>
-                      <svg
-                        className="theatre-trigger-icon"
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </button>
-                    <TheatreView
-                      open={theatreOpen}
-                      onClose={() => setTheatreOpen(false)}
-                      tokenId={livePieceNumber}
-                      title={livePieceTitle}
-                      theme={dark ? 'dark' : 'light'}
-                    />
-                  </>
                 )}
               </motion.div>
             )}
