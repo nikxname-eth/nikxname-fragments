@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -24,10 +24,22 @@ import { useCountdown } from '../hooks/useCountdown';
 import { useManifoldWallet } from '../hooks/useManifoldWallet';
 import { useOwnedFragments } from '../hooks/useOwnedFragments';
 const ABOUT_COLLECTIONS = [
-  { label: 'Together It Blooms', href: 'https://manifold.xyz/@nikxnames-art' },
-  { label: 'The Void', href: 'https://manifold.xyz/@nikxnames-art/p/thevoid' },
-  { label: 'Life Impressions', href: 'https://manifold.xyz/@nikxnames-art/p/1913617113' },
-  { label: '1/1 Artworks', href: 'https://manifold.xyz/@nikxnames-art/p/nikxname1of1s' },
+  { label: 'Together It Blooms', onSite: true },
+  {
+    label: 'The Void',
+    href: 'https://manifold.xyz/@nikxnames-art/p/thevoid',
+    external: true,
+  },
+  {
+    label: 'Life Impressions',
+    href: 'https://manifold.xyz/@nikxnames-art/p/1913617113',
+    external: true,
+  },
+  {
+    label: '1/1 Artworks',
+    href: 'https://manifold.xyz/@nikxnames-art/p/nikxname1of1s',
+    external: true,
+  },
 ] as const;
 
 export default function Home() {
@@ -42,6 +54,7 @@ export default function Home() {
   const [collectionOpen, setCollectionOpen] = useState(false);
   const [projectAboutOpen, setProjectAboutOpen] = useState(false);
   const [gwei, setGwei] = useState<number | null>(null);
+  const pieceSectionRef = useRef<HTMLDivElement>(null);
 
   const now = Date.now();
   const livePieceIdx = DROP_SCHEDULE.reduce(
@@ -85,6 +98,14 @@ export default function Home() {
     setCollectionOpen(false);
     setProjectAboutOpen(false);
     setShareOpen(false);
+  };
+
+  const scrollToLivePiece = () => {
+    setAboutOpen(false);
+    setCollectionOpen(false);
+    window.requestAnimationFrame(() => {
+      pieceSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   };
 
   const anyDrawerOpen = aboutOpen || collectionOpen || projectAboutOpen || shareOpen;
@@ -358,28 +379,49 @@ export default function Home() {
                   />
                 </div>
                 <div className="about-text">
-                  <div>
+                  <div className="about-heading">
                     <p className="about-name">Nikxname</p>
                     <p className="about-tagline">Telling Human Stories</p>
                   </div>
                   <p className={`about-bio${bioExpanded ? ' expanded' : ''}`}>
-                    Nik is a visionary digital artist whose journey in creation spans decades, beginning in his youth with acrylic painting, sculpting, and intricate model building. These early explorations fostered a profound, multifaceted perspective — one that weaves emotional depth with documentary-like precision, capturing both the chaos of existence and the quiet beauty of fleeting moments. Today, he channels this into digital painting, leveraging blockchain technology to immortalise the present&apos;s ephemeral essence, turning virtual brushstrokes into timeless Life Impressions. At the heart of his ethos is a commitment to iterative growth and stillness amid turmoil — urging creators to &quot;create more than you consume.&quot; His art serves as a bridge between personal introspection and communal connection.
+                    Nik is a visionary digital artist whose journey in creation spans decades,
+                    beginning in his youth with acrylic painting, sculpting, and intricate model
+                    building. These early explorations fostered a profound, multifaceted
+                    perspective — one that weaves emotional depth with documentary-like precision,
+                    capturing both the chaos of existence and the quiet beauty of fleeting moments.
+                    Today, he channels this into digital painting, leveraging blockchain technology
+                    to immortalise the present&apos;s ephemeral essence, turning virtual brushstrokes
+                    into timeless Life Impressions. At the heart of his ethos is a commitment to
+                    iterative growth and stillness amid turmoil — urging creators to &quot;create more
+                    than you consume.&quot; His art serves as a bridge between personal introspection
+                    and communal connection.
                   </p>
                   <button className="about-read-more" onClick={() => setBioExpanded((expanded) => !expanded)}>
                     {bioExpanded ? 'Read less' : 'Read more'}
                   </button>
                   <div className="about-collections">
-                    {ABOUT_COLLECTIONS.map((collection) => (
-                      <a
-                        key={collection.label}
-                        href={collection.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="about-collection-tag"
-                      >
-                        {collection.label}
-                      </a>
-                    ))}
+                    {ABOUT_COLLECTIONS.map((collection) =>
+                      'onSite' in collection ? (
+                        <button
+                          key={collection.label}
+                          type="button"
+                          className="about-collection-tag"
+                          onClick={scrollToLivePiece}
+                        >
+                          {collection.label}
+                        </button>
+                      ) : (
+                        <a
+                          key={collection.label}
+                          href={'href' in collection ? collection.href : undefined}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="about-collection-tag about-collection-tag--external"
+                        >
+                          {collection.label}
+                        </a>
+                      ),
+                    )}
                   </div>
                 </div>
               </div>
@@ -613,6 +655,7 @@ export default function Home() {
 
             {showContent && liveClaim && (
               <motion.div
+                ref={pieceSectionRef}
                 className="piece-section"
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
