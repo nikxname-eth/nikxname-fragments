@@ -28,12 +28,20 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <Script
+        id="manifold-connect"
         src={`https://connect.manifoldxyz.dev/${CONNECT_VERSION}/connect.umd.min.js`}
         strategy="afterInteractive"
+        onLoad={() => {
+          window.dispatchEvent(new Event('m-refresh-widgets'));
+        }}
       />
       <Script
+        id="manifold-claims"
         src={`https://claims.manifoldxyz.dev/${CLAIM_VERSION}/claimComplete.umd.min.js`}
         strategy="afterInteractive"
+        onLoad={() => {
+          window.dispatchEvent(new Event('m-refresh-widgets'));
+        }}
       />
 
       <WagmiProvider config={config}>

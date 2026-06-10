@@ -1,15 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
-
-type EthereumProvider = {
-  request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
-  on?: (event: string, handler: () => void) => void;
-  removeListener?: (event: string, handler: () => void) => void;
-};
-
-function getEthereum(): EthereumProvider | undefined {
-  if (typeof window === 'undefined') return undefined;
-  return (window as Window & { ethereum?: EthereumProvider }).ethereum;
-}
+import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  openManifoldConnect,
+  readManifoldSession,
+  refreshManifoldWidgets,
+  waitForManifoldAuthentication,
+} from '../lib/manifoldConnect';
 
 function shortenAddress(address: string): string {
   return `${address.slice(0, 6)}…${address.slice(-4)}`;
@@ -18,81 +13,84 @@ function shortenAddress(address: string): string {
 export function useManifoldWallet() {
   const [address, setAddress] = useState<`0x${string}` | undefined>();
   const [isConnecting, setIsConnecting] = useState(false);
+  const connectAttemptRef = useRef(0);
 
-  const sync = useCallback(async () => {
-    const manifold = window.manifold;
-    if (manifold?.isAuthenticated && manifold.address) {
-      setAddress(manifold.address);
+  const sync = useCallback(() => {
+    const session = readManifoldSession();
+    if (session.isAuthenticated && session.address) {
+      setAddress(session.address);
       setIsConnecting(false);
       return;
     }
 
-    const eth = getEthereum();
-    if (eth) {
-      try {
-        const accounts = (await eth.request({ method: 'eth_accounts' })) as string[];
-        if (accounts[0]) {
-          setAddress(accounts[0] as `0x${string}`);
-          setIsConnecting(false);
-          return;
-        }
-      } catch {
-        /* wallet read is optional */
-      }
-    }
-
-    setAddress(undefined);
+     setAddress(undefined);
     setIsConnecting(false);
   }, []);
 
   const connect = useCallback(async () => {
-    const eth = getEthereum();
-    if (!eth) {
-      window.open('https://ethereum.org/en/wallets/', '_blank', 'noopener,noreferrer');
+    const session = readManifoldSession();
+    if (session.isAuthenticated && session.address) {
+      setAddress(session.address);
       return;
     }
 
+    const attempt = ++connectAttemptRef.current;
     setIsConnecting(true);
+
     try {
-      const accounts = (await eth.request({ method: 'eth_requestAccounts' })) as string[];
-      if (accounts[0]) {
-        setAddress(accounts[0] as `0x${string}`);
+      refreshManifoldWidgets();
+      await openManifoldConnect();
+
+      const authenticated = await waitForManifoldAuthentication(90_000);
+      if (attempt !== connectAttemptRef.current) return;
+
+      if (authenticated) {
+        sync();
+        refreshManifoldWidgets();
       }
     } catch {
-      setIsConnecting(false);
-      return;
+      if (attempt === connectAttemptRef.current) {
+        setIsConnecting(false);
+      }
+    } finally {
+      if (attempt === connectAttemptRef.current) {
+        setIsConnecting(false);
+      }
     }
-
-    await sync();
-    setIsConnecting(false);
-    window.dispatchEvent(new Event('m-refresh-widgets'));
   }, [sync]);
 
   useEffect(() => {
     sync();
+    refreshManifoldWidgets();
 
     const onWallet = () => {
-      void sync();
+      sync();
+    };
+
+    const onVisible = () => {
+      if (document.visibilityState !== 'visible') return;
+      sync();
+      refreshManifoldWidgets();
     };
 
     window.addEventListener('m-authenticated', onWallet);
     window.addEventListener('m-unauthenticated', onWallet);
     window.addEventListener('m-refresh-widgets', onWallet);
-
-    const eth = getEthereum();
-    eth?.on?.('accountsChanged', onWallet);
-    eth?.on?.('chainChanged', onWallet);
+    document.addEventListener('visibilitychange', onVisible);
+    window.addEventListener('pageshow', onVisible);
+    window.addEventListener('focus', onVisible);
 
     const poll = window.setInterval(() => {
-      void sync();
-    }, 4_000);
+      sync();
+    }, 2_000);
 
     return () => {
       window.removeEventListener('m-authenticated', onWallet);
       window.removeEventListener('m-unauthenticated', onWallet);
       window.removeEventListener('m-refresh-widgets', onWallet);
-      eth?.removeListener?.('accountsChanged', onWallet);
-      eth?.removeListener?.('chainChanged', onWallet);
+      document.removeEventListener('visibilitychange', onVisible);
+      window.removeEventListener('pageshow', onVisible);
+      window.removeEventListener('focus', onVisible);
       window.clearInterval(poll);
     };
   }, [sync]);

@@ -12,7 +12,6 @@ export function WalletButton({ address, shortAddress, isConnecting, connect }: P
       <button
         type="button"
         className="wallet-btn wallet-btn--connected"
-        onClick={() => connect()}
         title={address}
         aria-label={`Connected wallet ${address}`}
       >
@@ -29,7 +28,7 @@ export function WalletButton({ address, shortAddress, isConnecting, connect }: P
       disabled={isConnecting}
       aria-busy={isConnecting}
     >
-      {isConnecting ? 'Connect…' : 'Connect'}
+      {isConnecting ? 'Signing in…' : 'Connect'}
     </button>
   );
 }
