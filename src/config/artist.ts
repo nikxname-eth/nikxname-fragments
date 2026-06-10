@@ -39,23 +39,46 @@ export const ON_CHAIN_MEDIA: Record<number, string> = {
   1: 'https://bofrf7ruayhxwfcht2a3bw2h4hcfpulrekva5xqch6iky5j5o6ba.arweave.net/C4sS_jQGD3sUR56BsNtH4cRX0XEiqg7eAj-QrHU9d4I',
 };
 
-/** Full-resolution on-chain source for Theatre view — add per fragment as they drop. */
+/** Web-optimised share downloads (Cloudflare CDN) — one URL per released fragment. */
+export const FRAGMENT_SHARE_URLS: Record<number, string> = {
+  1: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
+};
+
+/** High-resolution theatre playback (CDN) — add per fragment as they drop. */
+export const THEATRE_VIDEO_URLS: Record<
+  number,
+  { url: string; fallbackUrl?: string; hasAudio?: boolean }
+> = {
+  1: {
+    url: 'https://assets.nikxart.xyz/Fragment-01-4k.mp4',
+    fallbackUrl: FRAGMENT_SHARE_URLS[1],
+    hasAudio: true,
+  },
+};
+
 export const THEATRE_PREP_MESSAGES = [
   'Take a moment..',
   'Slow down..',
   'Breathe..',
 ] as const;
 
-export function getTheatreSource(piece: number): { url: string; formatHint?: string } | null {
-  const url = ON_CHAIN_MEDIA[piece];
-  if (!url) return null;
-  return { url, formatHint: 'gif' };
-}
+export function getTheatreSource(
+  piece: number,
+): { url: string; fallbackUrl?: string; formatHint?: string; hasAudio?: boolean } | null {
+  const theatre = THEATRE_VIDEO_URLS[piece];
+  if (theatre) {
+    return {
+      url: theatre.url,
+      fallbackUrl: theatre.fallbackUrl,
+      formatHint: 'mp4',
+      hasAudio: theatre.hasAudio,
+    };
+  }
 
-/** Web-optimised share downloads (Cloudflare CDN) — one URL per released fragment. */
-export const FRAGMENT_SHARE_URLS: Record<number, string> = {
-  1: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
-};
+  const onChain = ON_CHAIN_MEDIA[piece];
+  if (!onChain) return null;
+  return { url: onChain, formatHint: 'gif' };
+}
 
 /**
  * Web-optimised playback assets (Cloudflare CDN).

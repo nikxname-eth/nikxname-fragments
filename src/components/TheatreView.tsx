@@ -22,11 +22,12 @@ export function TheatreView({ open, onClose, tokenId, title, theme }: Props) {
   const [showMedia, setShowMedia] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [videoMuted, setVideoMuted] = useState(true);
+  const [playbackUrl, setPlaybackUrl] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
 
   const mediaType = source
-    ? inferMediaType(source.url, source.formatHint)
+    ? inferMediaType(playbackUrl ?? source.url, source.formatHint)
     : null;
 
   const reset = useCallback(() => {
@@ -36,10 +37,16 @@ export function TheatreView({ open, onClose, tokenId, title, theme }: Props) {
     setShowMedia(false);
     setIsFullscreen(false);
     setVideoMuted(true);
+    setPlaybackUrl(null);
     if (document.fullscreenElement) {
       document.exitFullscreen().catch(() => undefined);
     }
   }, []);
+
+  useEffect(() => {
+    if (!open || !source) return;
+    setPlaybackUrl(source.url);
+  }, [open, source]);
 
   useEffect(() => {
     if (!open) {
@@ -47,14 +54,14 @@ export function TheatreView({ open, onClose, tokenId, title, theme }: Props) {
       return;
     }
 
-    if (!source) return;
+    if (!source || !playbackUrl) return;
 
     let cancelled = false;
 
     if (mediaType === 'video') {
       const video = document.createElement('video');
       video.preload = 'auto';
-      video.src = source.url;
+      video.src = playbackUrl;
       video.muted = true;
       video.playsInline = true;
 
@@ -75,7 +82,7 @@ export function TheatreView({ open, onClose, tokenId, title, theme }: Props) {
 
     const image = new Image();
     image.decoding = 'async';
-    image.src = source.url;
+    image.src = playbackUrl;
     image.onload = () => {
       if (!cancelled) setIsReady(true);
     };
@@ -86,7 +93,7 @@ export function TheatreView({ open, onClose, tokenId, title, theme }: Props) {
     return () => {
       cancelled = true;
     };
-  }, [open, source, mediaType, reset]);
+  }, [open, source, playbackUrl, mediaType, reset]);
 
   useEffect(() => {
     if (!open || isReady) return;
@@ -141,7 +148,15 @@ export function TheatreView({ open, onClose, tokenId, title, theme }: Props) {
     };
   }, [open, onClose]);
 
-  if (!open || !source) return null;
+  if (!open || !source || !playbackUrl) return null;
+
+  const handleVideoError = () => {
+    if (source.fallbackUrl && playbackUrl !== source.fallbackUrl) {
+      setIsReady(false);
+      setShowMedia(false);
+      setPlaybackUrl(source.fallbackUrl);
+    }
+  };
 
   const toggleVideoAudio = () => {
     const video = videoRef.current;
@@ -150,6 +165,13 @@ export function TheatreView({ open, onClose, tokenId, title, theme }: Props) {
     video.muted = nextMuted;
     if (!nextMuted) video.volume = THEATRE_AUDIO_VOLUME;
     setVideoMuted(nextMuted);
+
+    if (!nextMuted) {
+      video.play().catch(() => {
+        video.muted = true;
+        setVideoMuted(true);
+      });
+    }
   };
 
   const toggleFullscreen = async () => {
@@ -166,6 +188,8 @@ export function TheatreView({ open, onClose, tokenId, title, theme }: Props) {
       /* fullscreen may be blocked */
     }
   };
+
+  const showAudioControl = mediaType === 'video' && source.hasAudio;
 
   return (
     <div
@@ -187,81 +211,56 @@ export function TheatreView({ open, onClose, tokenId, title, theme }: Props) {
 
       {showMedia && (
         <div ref={stageRef} className="theatre-view-stage">
-          <button
-            type="button"
-            className="theatre-view-media-wrap"
-            onClick={toggleFullscreen}
-            aria-label={isFullscreen ? 'Exit full view' : 'Expand to full view'}
-          >
+          <div className="theatre-view-media-frame">
             {mediaType === 'video' ? (
               <video
                 ref={videoRef}
                 className="theatre-view-media"
-                src={source.url}
+                src={playbackUrl}
                 autoPlay
                 loop
                 playsInline
                 muted={videoMuted}
+                onError={handleVideoError}
                 aria-label={title}
               />
             ) : (
               <img
                 className="theatre-view-media"
-                src={source.url}
+                src={playbackUrl}
                 alt={title}
                 decoding="async"
               />
             )}
-          </button>
+          </div>
+
           {!isFullscreen && <p className="theatre-view-caption">{title}</p>}
-          {!isFullscreen && (
-            <button type="button" className="theatre-view-expand" onClick={toggleFullscreen}>
-              Expand
-            </button>
-          )}
-          {mediaType === 'video' && (
-            <button
-              type="button"
-              className={`theatre-view-audio${videoMuted ? '' : ' is-on'}`}
-              onClick={toggleVideoAudio}
-              aria-label={videoMuted ? 'Turn sound on' : 'Turn sound off'}
-              aria-pressed={!videoMuted}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                {videoMuted ? (
-                  <>
-                    <path
-                      d="M11 5L6 9H3v6h3l5 4V5z"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M16 9l5 5M21 9l-5 5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </>
-                ) : (
-                  <>
-                    <path
-                      d="M11 5L6 9H3v6h3l5 4V5z"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M15.5 9.5a4.5 4.5 0 010 5"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </>
-                )}
-              </svg>
-            </button>
-          )}
+
+          <div
+            className={`theatre-view-controls${isFullscreen ? ' theatre-view-controls--overlay' : ''}`}
+          >
+            {showAudioControl && (
+              <button
+                type="button"
+                className={`theatre-view-btn${videoMuted ? '' : ' is-on'}`}
+                onClick={toggleVideoAudio}
+                aria-label={videoMuted ? 'Turn sound on' : 'Turn sound off'}
+                aria-pressed={!videoMuted}
+              >
+                {videoMuted ? 'Sound off' : 'Sound on'}
+              </button>
+            )}
+            {!isFullscreen && (
+              <button
+                type="button"
+                className="theatre-view-btn"
+                onClick={toggleFullscreen}
+                aria-label="Play full screen"
+              >
+                Full screen
+              </button>
+            )}
+          </div>
         </div>
       )}
 
