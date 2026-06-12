@@ -372,10 +372,10 @@ export default function Home() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.8, duration: 0.9 }}
                 >
-                  {address ? (
+                  {/* Keep m-connect mounted after connect — unmounting breaks claim checkout */}
+                  <ManifoldConnect visible={!address} />
+                  {address && (
                     <WalletButton address={address} shortAddress={shortAddress} />
-                  ) : (
-                    <ManifoldConnect visible />
                   )}
                 </motion.div>
               </div>

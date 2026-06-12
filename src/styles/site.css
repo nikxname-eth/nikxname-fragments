@@ -57,6 +57,9 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;mix
 .nav-about-chevron.open,.nav-collection-chevron.open{transform:rotate(180deg)}
 .manifold-connect-host--hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:visible;clip:auto;white-space:nowrap;border:0;opacity:0;pointer-events:none}
 #manifold-connect{display:flex;align-items:center;flex-shrink:0}
+body.wallet-authed #manifold-connect.manifold-connect-host--hidden{position:absolute;width:1px;height:1px;margin:-1px;overflow:visible;clip:auto;opacity:0;pointer-events:none}
+.nav-connect{position:relative}
+.nav-connect .wallet-btn--connected{position:relative;z-index:1}
 .manifold-connect-host--visible{display:flex;align-items:center;flex-shrink:0}
 .manifold-connect-host--visible [data-widget="m-connect"]{display:flex;align-items:center}
 .manifold-connect-host--visible [data-widget="m-connect"] button,.manifold-connect-host--visible [data-widget="m-connect"] a{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;padding:8px 16px!important;border-radius:10px!important;border:1px solid var(--cta-border)!important;background:var(--cta-bg)!important;font-family:var(--font)!important;font-style:italic!important;font-weight:400!important;font-size:clamp(10px,1.2vw,12px)!important;letter-spacing:0.22em!important;text-transform:uppercase!important;color:var(--cta-text)!important;opacity:1!important;cursor:pointer!important;transition:border-color 0.45s,background 0.45s,transform 0.3s,box-shadow 0.45s,color 0.45s!important;box-shadow:var(--cta-shadow)!important;min-height:44px!important;line-height:1.2!important;white-space:nowrap!important;text-decoration:none!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent!important}
