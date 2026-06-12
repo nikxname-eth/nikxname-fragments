@@ -7,22 +7,20 @@ type Props = {
   sessionKey?: string;
 };
 
-/**
- * Full Manifold claim widget — m-claim-complete (Claims 9.x).
- * Auth is deferred until collect (data-delay-auth on m-connect).
- */
+/** Clean on-site buy button — m-claim-buy-only (Claims 1.x). */
 export function ManifoldBuyButton({ instanceId, active, sessionKey = 'anon' }: Props) {
-  useManifoldRefresh('claim', instanceId, active, sessionKey);
+  useManifoldRefresh('buy', instanceId, active, sessionKey);
 
   if (!active) return null;
 
   return (
-    <div className="mint-claim-wrap">
+    <div className="mint-btn-wrap">
       <div
-        key={`claim-${instanceId}-${sessionKey}`}
-        data-widget="m-claim-complete"
+        key={`buy-${instanceId}-${sessionKey}`}
+        data-widget="m-claim-buy-only"
         data-id={instanceId}
         data-network="1"
+        data-claim-text="Collect this piece"
       />
     </div>
   );

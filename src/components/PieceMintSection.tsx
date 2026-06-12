@@ -3,6 +3,7 @@ import type { RefObject } from 'react';
 import { CLAIM_INSTANCES, FRAGMENT_SITE_MEDIA, PIECE_NAMES } from '../config/artist';
 import { FragmentMedia } from './FragmentMedia';
 import { ManifoldBuyButton } from './ManifoldBuyButton';
+import { ManifoldMintCount } from './ManifoldMintCount';
 
 type Props = {
   pieceNumber: number;
@@ -68,7 +69,23 @@ export function PieceMintSection({
       </div>
 
       {mode === 'live' && (
-        <div className="mint-card mint-card--complete">
+        <div className="mint-card">
+          <div className="mint-card-row">
+            <div className="mint-card-meta">
+              <span className="mint-card-label">Mint price</span>
+              <span className="mint-card-value">{claim.mintPrice}</span>
+            </div>
+            <div className="mint-card-meta">
+              <span className="mint-card-label">Collected</span>
+              <span className="mint-card-value">
+                <ManifoldMintCount instanceId={claim.instanceId} active />
+              </span>
+            </div>
+            <div className="mint-card-meta">
+              <span className="mint-card-label">Edition</span>
+              <span className="mint-card-value">Open</span>
+            </div>
+          </div>
           <ManifoldBuyButton
             instanceId={claim.instanceId}
             active

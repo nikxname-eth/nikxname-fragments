@@ -6,9 +6,9 @@ import Head from 'next/head';
 import Script from 'next/script';
 import { useManifoldMobileRecovery } from '../hooks/useManifoldMobileRecovery';
 
-/** Match Manifold Gallery: Connect 6.1.0 + Claims 9.0.1 + delay-auth. */
+/** Connect 6.1.0 + Claims 1.16.1 buy-only; delay-auth defers sign-in until collect. */
 const CONNECT_VERSION = '6.1.0';
-const CLAIM_VERSION = '9.0.1';
+const CLAIM_VERSION = '1.16.1';
 
 function ManifoldShell({ children }: { children: ReactNode }) {
   useManifoldMobileRecovery();
