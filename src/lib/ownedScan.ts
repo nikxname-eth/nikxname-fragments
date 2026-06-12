@@ -13,6 +13,64 @@ const SCAN_MAX_ID = 1_000;
 const OWNER_BATCH = 50;
 const URI_BATCH = 40;
 
+type OwnerReadResult =
+  | { status: 'success'; result: `0x${string}` }
+  | { status: 'failure'; error: unknown };
+
+async function readOwnersBatch(
+  contracts: {
+    address: typeof CONTRACT_ADDRESS;
+    abi: typeof ERC721_ABI;
+    functionName: 'ownerOf';
+    args: readonly [bigint];
+  }[],
+): Promise<OwnerReadResult[]> {
+  try {
+    return await publicClient.multicall({
+      contracts,
+      allowFailure: true,
+    });
+  } catch {
+    return Promise.all(
+      contracts.map(async (contract) => {
+        try {
+          const result = await publicClient.readContract(contract);
+          return { status: 'success' as const, result };
+        } catch (error) {
+          return { status: 'failure' as const, error };
+        }
+      }),
+    );
+  }
+}
+
+async function readTokenUrisBatch(
+  contracts: {
+    address: typeof CONTRACT_ADDRESS;
+    abi: typeof ERC721_ABI;
+    functionName: 'tokenURI';
+    args: readonly [bigint];
+  }[],
+): Promise<({ status: 'success'; result: string } | { status: 'failure'; error: unknown })[]> {
+  try {
+    return await publicClient.multicall({
+      contracts,
+      allowFailure: true,
+    });
+  } catch {
+    return Promise.all(
+      contracts.map(async (contract) => {
+        try {
+          const result = await publicClient.readContract(contract);
+          return { status: 'success' as const, result };
+        } catch (error) {
+          return { status: 'failure' as const, error };
+        }
+      }),
+    );
+  }
+}
+
 async function findLastMintedTokenId(): Promise<number> {
   let lo = 1;
   let hi = SCAN_MAX_ID;
@@ -60,10 +118,7 @@ export async function fetchOwnedClaimFragments(
       });
     }
 
-    const results = await publicClient.multicall({
-      contracts,
-      allowFailure: true,
-    });
+    const results = await readOwnersBatch(contracts);
 
     results.forEach((result, index) => {
       if (
@@ -88,10 +143,7 @@ export async function fetchOwnedClaimFragments(
       args: [BigInt(tokenId)] as const,
     }));
 
-    const results = await publicClient.multicall({
-      contracts,
-      allowFailure: true,
-    });
+    const results = await readTokenUrisBatch(contracts);
 
     results.forEach((result) => {
       if (result.status !== 'success') return;

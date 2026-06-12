@@ -88,6 +88,7 @@ export function PieceMintSection({
           </div>
           <ManifoldBuyButton
             instanceId={claim.instanceId}
+            pieceNumber={pieceNumber}
             active
             sessionKey={sessionKey}
           />

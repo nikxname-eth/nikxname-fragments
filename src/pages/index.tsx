@@ -26,7 +26,7 @@ import { WalletButton } from '../components/WalletButton';
 import { useCountdown } from '../hooks/useCountdown';
 import { useSiteClock } from '../hooks/useSiteClock';
 import { useManifoldWallet } from '../hooks/useManifoldWallet';
-import { useOwnedFragments } from '../hooks/useOwnedFragments';
+import { useEvolvingHolder } from '../hooks/useEvolvingHolder';
 const ABOUT_COLLECTIONS = [
   { label: 'Together It Blooms', onSite: true },
   {
@@ -96,10 +96,14 @@ export default function Home() {
     { label: 'Seconds', val: countdown.s },
   ];
 
-  const { owned, balance, isLoading: collectionLoading, refresh: refreshOwned } =
-    useOwnedFragments(address);
-  const highestOwnedPiece = owned.reduce((max, fragment) => Math.max(max, fragment.pieceNumber), 0);
-  const walletOwnsAny = !!address && (balance > 0 || owned.length > 0);
+  const {
+    owned,
+    balance,
+    isLoading: collectionLoading,
+    highestOwnedPiece,
+    walletOwnsAny,
+    refresh: refreshOwned,
+  } = useEvolvingHolder(address);
   const siteBanner = getSiteBanner({
     theme: dark ? 'dark' : 'light',
     highestOwnedPiece: walletOwnsAny ? highestOwnedPiece : 0,

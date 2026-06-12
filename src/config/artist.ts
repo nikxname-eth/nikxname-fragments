@@ -139,6 +139,15 @@ export const CLAIM_INSTANCES: Record<
   },
 };
 
+/** Resolve fragment number from a Manifold claim instance id. */
+export function getPieceNumberForInstanceId(instanceId: string | null | undefined): number {
+  if (!instanceId) return 0;
+  for (const [piece, claim] of Object.entries(CLAIM_INSTANCES)) {
+    if (claim.instanceId === instanceId) return Number(piece);
+  }
+  return 0;
+}
+
 export type DropWindowType = 'launch' | 'weekend' | 'forty-eight';
 
 export type DropScheduleEntry = {

@@ -4,10 +4,13 @@ import {
   readManifoldSession,
   refreshManifoldWidgets,
 } from '../lib/manifoldConnect';
+import { getPieceNumberForInstanceId } from '../config/artist';
+import { dispatchMintComplete } from '../lib/mintEvents';
 import { useManifoldRefresh } from '../hooks/useManifoldRefresh';
 
 type Props = {
   instanceId: string;
+  pieceNumber: number;
   active: boolean;
   /** Remount claim widget when wallet session changes. */
   sessionKey?: string;
@@ -17,8 +20,14 @@ type Props = {
  * Clean on-site buy button — m-claim-buy-only (Claims 1.x).
  * With delay-auth, wallet connects first; finish Manifold sign-in before checkout opens.
  */
-export function ManifoldBuyButton({ instanceId, active, sessionKey = 'anon' }: Props) {
+export function ManifoldBuyButton({
+  instanceId,
+  pieceNumber,
+  active,
+  sessionKey = 'anon',
+}: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
+  const resolvedPiece = pieceNumber || getPieceNumberForInstanceId(instanceId);
   useManifoldRefresh('buy', instanceId, active, sessionKey);
 
   useEffect(() => {
@@ -26,6 +35,29 @@ export function ManifoldBuyButton({ instanceId, active, sessionKey = 'anon' }: P
 
     const wrap = wrapRef.current;
     if (!wrap) return;
+
+    const onCheckoutSuccess = () => {
+      const success =
+        document.querySelector('.checkout-modal.success') ||
+        document.querySelector('.checkout-success-actions') ||
+        document.querySelector('.checkout-post-mint-message');
+      if (!success) return;
+
+      const session = readManifoldSession();
+      dispatchMintComplete({
+        pieceNumber: resolvedPiece,
+        address: session.address,
+      });
+    };
+
+    const checkoutObserver = new MutationObserver(onCheckoutSuccess);
+    checkoutObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class'],
+    });
+    const checkoutPoll = window.setInterval(onCheckoutSuccess, 1_000);
 
     let authPending = false;
 
@@ -53,8 +85,12 @@ export function ManifoldBuyButton({ instanceId, active, sessionKey = 'anon' }: P
     };
 
     wrap.addEventListener('pointerdown', onPointerDown, true);
-    return () => wrap.removeEventListener('pointerdown', onPointerDown, true);
-  }, [active, sessionKey]);
+    return () => {
+      wrap.removeEventListener('pointerdown', onPointerDown, true);
+      checkoutObserver.disconnect();
+      window.clearInterval(checkoutPoll);
+    };
+  }, [active, sessionKey, resolvedPiece]);
 
   if (!active) return null;
 
