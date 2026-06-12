@@ -27,6 +27,7 @@ import { useCountdown } from '../hooks/useCountdown';
 import { useSiteClock } from '../hooks/useSiteClock';
 import { useManifoldWallet } from '../hooks/useManifoldWallet';
 import { useEvolvingHolder } from '../hooks/useEvolvingHolder';
+import { readSiteEntered, writeSiteEntered } from '../lib/siteSession';
 const ABOUT_COLLECTIONS = [
   { label: 'Together It Blooms', onSite: true },
   {
@@ -51,6 +52,12 @@ export default function Home() {
 
   const [entered, setEntered] = useState(false);
   const [introGone, setIntroGone] = useState(false);
+
+  useEffect(() => {
+    if (!readSiteEntered()) return;
+    setEntered(true);
+    setIntroGone(true);
+  }, []);
   const [dark, setDark] = useState(true);
   const [shareOpen, setShareOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -156,6 +163,7 @@ export default function Home() {
   }, [anyDrawerOpen]);
 
   const handleEnter = () => {
+    writeSiteEntered();
     setEntered(true);
     setTimeout(() => setIntroGone(true), 2000);
   };

@@ -4,7 +4,9 @@ import type { ReactNode } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
+import { useContractMintWatcher } from '../hooks/useContractMintWatcher';
 import { useManifoldMobileRecovery } from '../hooks/useManifoldMobileRecovery';
+import { useManifoldWallet } from '../hooks/useManifoldWallet';
 import { usePostMintRefresh } from '../hooks/usePostMintRefresh';
 
 /** Connect 6.1.0 + Claims 1.16.1 buy-only; delay-auth defers sign-in until collect. */
@@ -12,7 +14,9 @@ const CONNECT_VERSION = '6.1.0';
 const CLAIM_VERSION = '1.16.1';
 
 function ManifoldShell({ children }: { children: ReactNode }) {
+  const { address } = useManifoldWallet();
   useManifoldMobileRecovery();
+  useContractMintWatcher(address);
   usePostMintRefresh();
   return <>{children}</>;
 }
