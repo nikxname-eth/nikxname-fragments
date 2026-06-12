@@ -1,12 +1,16 @@
 import { useEffect } from 'react';
-import { refreshManifoldWidgets } from '../lib/manifoldConnect';
+import { recoverManifoldMobileSession } from '../lib/manifoldConnect';
 
 /** Resume Manifold / WalletConnect sessions when returning from a wallet app on mobile. */
 export function useManifoldMobileRecovery() {
   useEffect(() => {
-    const onReturn = () => {
+    const onReturn = (event: PageTransitionEvent | Event) => {
       if (document.visibilityState !== 'visible') return;
-      refreshManifoldWidgets();
+      recoverManifoldMobileSession();
+
+      if (event.type === 'pageshow' && (event as PageTransitionEvent).persisted) {
+        recoverManifoldMobileSession();
+      }
     };
 
     window.addEventListener('pageshow', onReturn);

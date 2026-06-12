@@ -14,7 +14,8 @@
   --font:'Cormorant Garamond',Georgia,serif;
   --transition-theme:background 0.55s ease,color 0.55s ease,border-color 0.55s ease;
 }
-html,body{background:var(--bg);color:var(--cream);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html{background:var(--bg);color:var(--cream);overflow-x:clip;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--cream);overflow-x:clip;-webkit-font-smoothing:antialiased;min-height:100svh}
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;mix-blend-mode:screen;opacity:0.033;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)'/%3E%3C/svg%3E")}
 .glow{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
@@ -58,12 +59,12 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;mix
 .manifold-connect-host--visible{display:flex;align-items:center;flex-shrink:0}
 .manifold-connect-host--session{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;pointer-events:none}
 .manifold-connect-host--visible [data-widget="m-connect"]{display:flex;align-items:center}
-.manifold-connect-host--visible [data-widget="m-connect"] button,.manifold-connect-host--visible [data-widget="m-connect"] a{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;padding:8px 16px!important;border-radius:10px!important;border:1px solid var(--cta-border)!important;background:var(--cta-bg)!important;font-family:var(--font)!important;font-style:italic!important;font-weight:400!important;font-size:clamp(10px,1.2vw,12px)!important;letter-spacing:0.22em!important;text-transform:uppercase!important;color:var(--cta-text)!important;opacity:1!important;cursor:pointer!important;transition:border-color 0.45s,background 0.45s,transform 0.3s,box-shadow 0.45s,color 0.45s!important;box-shadow:var(--cta-shadow)!important;min-height:0!important;line-height:1.2!important;white-space:nowrap!important;text-decoration:none!important}
+.manifold-connect-host--visible [data-widget="m-connect"] button,.manifold-connect-host--visible [data-widget="m-connect"] a{display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;padding:8px 16px!important;border-radius:10px!important;border:1px solid var(--cta-border)!important;background:var(--cta-bg)!important;font-family:var(--font)!important;font-style:italic!important;font-weight:400!important;font-size:clamp(10px,1.2vw,12px)!important;letter-spacing:0.22em!important;text-transform:uppercase!important;color:var(--cta-text)!important;opacity:1!important;cursor:pointer!important;transition:border-color 0.45s,background 0.45s,transform 0.3s,box-shadow 0.45s,color 0.45s!important;box-shadow:var(--cta-shadow)!important;min-height:44px!important;line-height:1.2!important;white-space:nowrap!important;text-decoration:none!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent!important}
 .manifold-connect-host--visible [data-widget="m-connect"] button *,.manifold-connect-host--visible [data-widget="m-connect"] a *{color:inherit!important;font-family:inherit!important;font-style:inherit!important;font-weight:inherit!important;font-size:inherit!important;letter-spacing:inherit!important;text-transform:inherit!important;opacity:1!important;background:none!important;border:none!important;box-shadow:none!important}
 .manifold-connect-host--visible [data-widget="m-connect"] button:hover,.manifold-connect-host--visible [data-widget="m-connect"] a:hover{border-color:var(--cta-border-hover)!important;background:var(--cta-bg-hover)!important;color:var(--cta-text-hover)!important;transform:translateY(-1px)!important;box-shadow:var(--cta-shadow-hover)!important}
-/* WalletConnect / Reown modals above site chrome (nav z-index 50, intro 200) */
-w3m-modal,wcm-modal,w3m-container,[class*="w3m-modal"],[class*="wcm-modal"],[class*="walletconnect-qrcode"]{z-index:10050!important;position:relative}
-w3m-modal::part(overlay),wcm-modal::part(overlay){z-index:10049!important}
+/* WalletConnect / Reown modals — never override position (breaks mobile wallet picker on iOS) */
+w3m-modal,wcm-modal,w3m-root,wcm-root,w3m-container,wcm-container,[class*="w3m-modal"],[class*="wcm-modal"],[class*="walletconnect-qrcode"]{z-index:10050!important}
+w3m-modal::part(overlay),wcm-modal::part(overlay){z-index:10049!important;position:fixed!important;inset:0!important}
 .nav-connect{position:relative;display:flex;align-items:center;gap:8px;flex-shrink:0;min-height:1.2em;overflow:visible}
 .wallet-btn{font-family:var(--font);font-style:italic;font-weight:300;font-size:clamp(10px,1.3vw,13px);letter-spacing:0.18em;text-transform:uppercase;color:var(--cream);opacity:0.85;background:none;border:none;padding:0;white-space:nowrap}
 .wallet-btn--connected{letter-spacing:0.08em;text-transform:none;font-size:clamp(10px,1.2vw,12px)}
@@ -265,7 +266,7 @@ w3m-modal::part(overlay),wcm-modal::part(overlay){z-index:10049!important}
   .wallet-btn{font-size:10px;letter-spacing:0.12em}
   .wallet-btn--connected{font-size:9px;letter-spacing:0.04em}
   .nav-connect-chip{padding:6px 10px}
-  .manifold-connect-host--visible [data-widget="m-connect"] button,.manifold-connect-host--visible [data-widget="m-connect"] a{padding:7px 12px!important;font-size:9px!important;letter-spacing:0.16em!important}
+  .manifold-connect-host--visible [data-widget="m-connect"] button,.manifold-connect-host--visible [data-widget="m-connect"] a{padding:10px 14px!important;font-size:10px!important;letter-spacing:0.16em!important;min-height:44px!important}
   .about-drawer-inner{grid-template-columns:1fr}
 
   .footer{height:auto;padding:12px clamp(16px,4vw,24px);flex-wrap:wrap;gap:10px}

@@ -16,7 +16,8 @@ const CHECKS = [
   { id: 'wc-id', label: 'WalletConnect project ID', pattern: /001f1fbca842d394c7baa1638a2600c6/ },
 
   { id: 'wc-relay', label: 'WalletConnect relay preconnect', pattern: /relay\.walletconnect\.org/ },
-  { id: 'delay-auth', label: 'delay-auth on m-connect', pattern: /delay-auth/ },
+  { id: 'delay-auth', label: 'delay-auth always on m-connect', pattern: /data-delay-auth="always"|delay-auth.*always/ },
+  { id: 'fallback-provider', label: 'Mobile ETH fallback provider', pattern: /data-fallback-provider|ethereum-rpc\.publicnode/ },
   { id: 'm-connect', label: 'm-connect widget', pattern: /m-connect|data-widget/ },
   { id: 'm-claim', label: 'm-claim-buy-only widget', pattern: /m-claim-buy-only/ },
   { id: 'mint-count', label: 'm-claim-mint-count widget', pattern: /m-claim-mint-count/ },
@@ -25,7 +26,7 @@ const CHECKS = [
   { id: 'nav-chip', label: 'Connected wallet chip CSS', pattern: /nav-connect-chip/ },
   { id: 'collect-cta', label: 'Mint button CTA CSS', pattern: /\.mint-btn-wrap[\s\S]{0,400}var\(--cta-border\)/ },
   { id: 'wc-modal-z', label: 'WalletConnect modal z-index', pattern: /z-index:10050/ },
-  { id: 'mobile-nav', label: 'Mobile connect button sizing', pattern: /padding:7px 12px!important/ },
+  { id: 'mobile-nav', label: 'Mobile connect button sizing (44px tap)', pattern: /min-height:44px!important/ },
   { id: 'mint-overflow', label: 'Mint card overflow visible', pattern: /\.mint-card[^}]*overflow:visible/ },
 
   { id: 'frag-02-instance', label: 'Fragment 02 Manifold instance', pattern: /4058790128/ },

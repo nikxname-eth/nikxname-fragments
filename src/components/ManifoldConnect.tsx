@@ -1,8 +1,11 @@
 import { useManifoldRefresh } from '../hooks/useManifoldRefresh';
 import {
+  ETH_FALLBACK_WSS,
+  hasFallbackProvider,
   isManifoldConnectReady,
   MANIFOLD_APP_NAME,
   MANIFOLD_CLIENT_ID,
+  SITE_URL,
   WALLETCONNECT_PROJECT_ID,
 } from '../lib/manifoldConnect';
 
@@ -36,11 +39,15 @@ export function ManifoldConnect({ visible = false, sessionActive = false }: Prop
         data-client-id={MANIFOLD_CLIENT_ID}
         data-network="1"
         data-multi="true"
-        data-delay-auth="true"
+        data-delay-auth="always"
         data-auto-reconnect="true"
         data-show-balance="false"
         data-show-chain="false"
         data-wallet-connect-project-id={WALLETCONNECT_PROJECT_ID}
+        {...(hasFallbackProvider()
+          ? { 'data-fallback-provider': ETH_FALLBACK_WSS }
+          : {})}
+        {...(SITE_URL ? { 'data-app-url': SITE_URL } : {})}
       />
     </div>
   );

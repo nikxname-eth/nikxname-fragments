@@ -11,7 +11,7 @@ export function useManifoldWallet() {
 
   const sync = useCallback(() => {
     const session = readManifoldSession();
-    setAddress(session.isAuthenticated && session.address ? session.address : undefined);
+    setAddress(session.isConnected && session.address ? session.address : undefined);
   }, []);
 
   useEffect(() => {
