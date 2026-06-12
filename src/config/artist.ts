@@ -1,26 +1,39 @@
 export const BANNER_SIZES =
   '(max-width:680px) calc(100vw - 32px),(max-width:1100px) calc(100vw - 64px),1400px';
 
+/** Bump when banner / fragment assets change — busts CDN & browser caches. */
+export const SITE_ASSET_VERSION = '20260612';
+
 const makeBanner = (base: string) => ({
-  src: `${base}?width=1400&quality=88&format=auto`,
+  src: `${base}?width=1400&quality=88&format=auto&v=${SITE_ASSET_VERSION}`,
   srcSet: [
-    `${base}?width=640&quality=85&format=auto 640w`,
-    `${base}?width=960&quality=85&format=auto 960w`,
-    `${base}?width=1400&quality=88&format=auto 1400w`,
+    `${base}?width=640&quality=85&format=auto&v=${SITE_ASSET_VERSION} 640w`,
+    `${base}?width=960&quality=85&format=auto&v=${SITE_ASSET_VERSION} 960w`,
+    `${base}?width=1400&quality=88&format=auto&v=${SITE_ASSET_VERSION} 1400w`,
   ].join(', '),
 });
 
 const optimizeAssetImage = (url: string, width: number) =>
-  `${url}?width=${width}&quality=82&format=auto`;
+  `${url}?width=${width}&quality=82&format=auto&v=${SITE_ASSET_VERSION}`;
 
 export const BANNER_DARK = makeBanner('https://assets.nikxart.xyz/Banner-Medium.jpg');
 export const BANNER_LIGHT = makeBanner('https://assets.nikxart.xyz/main_grid_light_2500px.jpg');
 
-/** Evolved banner per fragment collected — puzzle piece revealed in the grid. */
+/** Grid after Fragment 01 window closes — public reveal (Dark-2 / Light-2). */
+export const PHASE_ONE_REVEAL_BANNER = {
+  dark: 'https://assets.nikxart.xyz/Banner-Main-Dark-2.jpg',
+  light: 'https://assets.nikxart.xyz/Banner-Main-Light-2.jpg',
+};
+
+/** Evolved banner per highest fragment held — puzzle piece revealed in the grid. */
 export const EVOLVED_BANNERS: Record<number, { dark: string; light: string }> = {
   1: {
-    dark: 'https://assets.nikxart.xyz/Banner-Main-Dark-2.jpg',
-    light: 'https://assets.nikxart.xyz/Banner-Main-Light-2.jpg',
+    dark: PHASE_ONE_REVEAL_BANNER.dark,
+    light: PHASE_ONE_REVEAL_BANNER.light,
+  },
+  2: {
+    dark: 'https://assets.nikxart.xyz/Banner-Main-Dark-3.jpg',
+    light: 'https://assets.nikxart.xyz/Banner-Main-Light-3.jpg',
   },
 };
 
@@ -30,10 +43,39 @@ export function getEvolvedBanner(pieceLevel: number, theme: 'dark' | 'light') {
   return makeBanner(theme === 'dark' ? urls.dark : urls.light);
 }
 
+export function getPhaseOneRevealBanner(theme: 'dark' | 'light') {
+  return makeBanner(theme === 'dark' ? PHASE_ONE_REVEAL_BANNER.dark : PHASE_ONE_REVEAL_BANNER.light);
+}
+
+export function isPhaseOneEnded(now = Date.now()): boolean {
+  const f1 = DROP_SCHEDULE.find((entry) => entry.piece === 1);
+  if (!f1) return false;
+  return now >= Date.parse(getDropEndUTC(f1));
+}
+
+/** Resolve hero banner: holder evolution → post–Frag-01 reveal → original grid. */
+export function getSiteBanner(options: {
+  theme: 'dark' | 'light';
+  highestOwnedPiece: number;
+  now?: number;
+}) {
+  const { theme, highestOwnedPiece, now = Date.now() } = options;
+
+  if (highestOwnedPiece > 0) {
+    const evolved = getEvolvedBanner(highestOwnedPiece, theme);
+    if (evolved) return evolved;
+  }
+
+  if (isPhaseOneEnded(now)) {
+    return getPhaseOneRevealBanner(theme);
+  }
+
+  return theme === 'dark' ? BANNER_DARK : BANNER_LIGHT;
+}
+
 /**
  * Direct on-chain media URLs per fragment (from token metadata).
  * Used as fallback if metadata fetch is slow.
- * Fragment 01: Arweave gateway for the minted ERC-721 token media.
  */
 export const ON_CHAIN_MEDIA: Record<number, string> = {
   1: 'https://bofrf7ruayhxwfcht2a3bw2h4hcfpulrekva5xqch6iky5j5o6ba.arweave.net/C4sS_jQGD3sUR56BsNtH4cRX0XEiqg7eAj-QrHU9d4I',
@@ -42,11 +84,12 @@ export const ON_CHAIN_MEDIA: Record<number, string> = {
 /** Web-optimised share downloads (Cloudflare CDN) — one URL per released fragment. */
 export const FRAGMENT_SHARE_URLS: Record<number, string> = {
   1: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
+  2: 'https://assets.nikxart.xyz/Fragment-02-1080p.mp4',
 };
 
 /**
  * Web-optimised playback assets (Cloudflare CDN).
- * Add a row when each fragment drops.
+ * MP4 preferred in the square frame — smoother loop + audio toggle.
  */
 export const FRAGMENT_SITE_MEDIA: Record<
   number,
@@ -54,6 +97,7 @@ export const FRAGMENT_SITE_MEDIA: Record<
     displayUrl: string;
     posterUrl?: string;
     hasAudio?: boolean;
+    teaserUrl?: string;
   }
 > = {
   1: {
@@ -61,15 +105,21 @@ export const FRAGMENT_SITE_MEDIA: Record<
     posterUrl: optimizeAssetImage('https://assets.nikxart.xyz/PuzzlePc-PH01.jpg', 900),
     hasAudio: true,
   },
+  2: {
+    displayUrl: FRAGMENT_SHARE_URLS[2],
+    posterUrl: 'https://assets.nikxart.xyz/frag_02_web.gif',
+    teaserUrl: 'https://assets.nikxart.xyz/frag_02_web.gif',
+    hasAudio: true,
+  },
 };
 
 /**
  * On-chain tokenURI markers for each fragment's Manifold claim mints.
  * Only tokens matching these are counted in collection / banner evolution.
- * (Earlier contract tokens 1–5 used legacy metadata and are excluded.)
  */
 export const FRAGMENT_CLAIM_URI_MARKERS: Record<number, string[]> = {
   1: ['y59jKPO1M12WQ81y-h4sRouWXegvhxYV_Wxg1ccjyQk'],
+  // Add Fragment 02 marker once first mint confirms on-chain metadata id.
 };
 
 /** Manifold claim instance per fragment — add a row when each piece drops. */
@@ -80,6 +130,11 @@ export const CLAIM_INSTANCES: Record<
   1: {
     instanceId: '4056113392',
     manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4056113392',
+    mintPrice: '0.00044 ETH',
+  },
+  2: {
+    instanceId: '4058790128',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4058790128',
     mintPrice: '0.00044 ETH',
   },
 };
@@ -122,17 +177,59 @@ function buildDropSchedule(): DropScheduleEntry[] {
 
 export const DROP_SCHEDULE = buildDropSchedule();
 
-function formatEastern(iso: string, options: Intl.DateTimeFormatOptions = {}): string {
-  return new Date(iso).toLocaleString('en-US', {
-    timeZone: 'America/New_York',
-    ...options,
-  });
+export function getDropEntry(piece: number): DropScheduleEntry | undefined {
+  return DROP_SCHEDULE.find((item) => item.piece === piece);
 }
 
 export function getDropEndUTC(entry: DropScheduleEntry): string {
   const next = DROP_SCHEDULE.find((item) => item.piece === entry.piece + 1);
   if (next) return next.startsUTC;
   return toDropISO(Date.parse(entry.startsUTC) + entry.windowHours * HOUR_MS);
+}
+
+export function isDropWindowOpen(piece: number, now = Date.now()): boolean {
+  const entry = getDropEntry(piece);
+  if (!entry) return false;
+  const start = Date.parse(entry.startsUTC);
+  const end = Date.parse(getDropEndUTC(entry));
+  return now >= start && now < end;
+}
+
+/** Countdown targets the active phase window end (Frag 01 → Fri, then Frag 02 → Mon 15). */
+export function getCountdownTarget(now = Date.now()): {
+  piece: number;
+  endsUTC: string;
+  activeDrop: DropScheduleEntry;
+} | null {
+  if (isPhaseOneEnded(now)) {
+    const f2 = getDropEntry(2);
+    if (f2 && isDropWindowOpen(2, now)) {
+      return { piece: 2, endsUTC: getDropEndUTC(f2), activeDrop: f2 };
+    }
+  }
+
+  const f1 = getDropEntry(1);
+  if (f1 && isDropWindowOpen(1, now)) {
+    return { piece: 1, endsUTC: getDropEndUTC(f1), activeDrop: f1 };
+  }
+
+  const liveIdx = DROP_SCHEDULE.reduce(
+    (acc, item, index) => (Date.parse(item.startsUTC) <= now ? index : acc),
+    -1,
+  );
+  if (liveIdx >= 0) {
+    const active = DROP_SCHEDULE[liveIdx];
+    return { piece: active.piece, endsUTC: getDropEndUTC(active), activeDrop: active };
+  }
+
+  return null;
+}
+
+function formatEastern(iso: string, options: Intl.DateTimeFormatOptions = {}): string {
+  return new Date(iso).toLocaleString('en-US', {
+    timeZone: 'America/New_York',
+    ...options,
+  });
 }
 
 export function getDropWindowNote(entry: DropScheduleEntry): string {
@@ -167,6 +264,15 @@ export function formatDropArrivalNote(entry: DropScheduleEntry): string {
     case 'forty-eight':
       return `${startDay} — 10 am EST · 48 hours`;
   }
+}
+
+export function formatDropCloseNote(entry: DropScheduleEntry): string {
+  const endDay = formatEastern(getDropEndUTC(entry), {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  });
+  return `through ${endDay}, 10 am EST`;
 }
 
 /** Pinned X post introducing Together It Blooms / Fragment 01. */

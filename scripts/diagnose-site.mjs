@@ -27,6 +27,12 @@ const CHECKS = [
   { id: 'wc-modal-z', label: 'WalletConnect modal z-index', pattern: /z-index:10050/ },
   { id: 'mobile-nav', label: 'Mobile connect button sizing', pattern: /padding:7px 12px!important/ },
   { id: 'mint-overflow', label: 'Mint card overflow visible', pattern: /\.mint-card[^}]*overflow:visible/ },
+
+  { id: 'frag-02-instance', label: 'Fragment 02 Manifold instance', pattern: /4058790128/ },
+  { id: 'frag-02-share', label: 'Fragment 02 share asset', pattern: /Fragment-02-1080p\.mp4/ },
+  { id: 'banner-evolved', label: 'Evolved banner assets (v2/v3)', pattern: /Banner-Main-Dark-2\.jpg[\s\S]{0,200}Banner-Main-Dark-3\.jpg/ },
+  { id: 'phase-evolution', label: 'Phase evolution helpers', pattern: /isPhaseOneEnded|getSiteBanner/ },
+  { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
 ];
 
 function walk(dir, acc = []) {

@@ -2,25 +2,25 @@ import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  BANNER_DARK,
-  BANNER_LIGHT,
   BANNER_SIZES,
   CLAIM_INSTANCES,
   DROP_SCHEDULE,
   formatDropArrivalNote,
+  getCountdownTarget,
   getDropWindowNote,
-  getEvolvedBanner,
+  getSiteBanner,
+  isDropWindowOpen,
+  isPhaseOneEnded,
   PIECE_NAMES,
   PREVIEW_MODE,
   PROJECT_X_ARTICLE,
   SHARE_PIECES,
 } from '../config/artist';
-import { FragmentMedia } from '../components/FragmentMedia';
-import { ManifoldBuyButton } from '../components/ManifoldBuyButton';
 import { ManifoldConnect } from '../components/ManifoldConnect';
+import { PieceMintSection } from '../components/PieceMintSection';
 import { WalletButton } from '../components/WalletButton';
-import { ManifoldMintCount } from '../components/ManifoldMintCount';
 import { useCountdown } from '../hooks/useCountdown';
+import { useSiteClock } from '../hooks/useSiteClock';
 import { useManifoldWallet } from '../hooks/useManifoldWallet';
 import { useOwnedFragments } from '../hooks/useOwnedFragments';
 const ABOUT_COLLECTIONS = [
@@ -56,24 +56,24 @@ export default function Home() {
   const [gwei, setGwei] = useState<number | null>(null);
   const pieceSectionRef = useRef<HTMLDivElement>(null);
 
-  const now = Date.now();
+  const now = useSiteClock();
   const livePieceIdx = DROP_SCHEDULE.reduce(
     (acc, item, index) => (new Date(item.startsUTC).getTime() <= now ? index : acc),
     -1,
   );
   const livePieceNumber = livePieceIdx >= 0 ? livePieceIdx + 1 : 1;
-  const liveClaim = CLAIM_INSTANCES[livePieceNumber];
-  const livePieceTitle = PIECE_NAMES[livePieceNumber] ?? `Fragment ${livePieceNumber}`;
   const dropsStarted = livePieceIdx >= 0;
-  const liveDrop = livePieceIdx >= 0 ? DROP_SCHEDULE[livePieceIdx] : null;
-  const nextDrop =
-    livePieceIdx >= 0 && livePieceIdx < DROP_SCHEDULE.length - 1
-      ? DROP_SCHEDULE[livePieceIdx + 1]
-      : null;
-  const nextDropTime = nextDrop?.startsUTC ?? null;
   const showContent = dropsStarted || PREVIEW_MODE;
+  const phaseOneEnded = isPhaseOneEnded(now);
+  const f2MintLive = isDropWindowOpen(2, now);
+  const f2Teaser = !!CLAIM_INSTANCES[2] && !f2MintLive && !phaseOneEnded;
+  const showF1Mint = dropsStarted && !!CLAIM_INSTANCES[1];
+  const maxSharePiece = f2MintLive || phaseOneEnded ? 2 : livePieceNumber;
 
-  const countdown = useCountdown(dropsStarted ? nextDropTime : DROP_SCHEDULE[0].startsUTC);
+  const countdownPhase = getCountdownTarget(now);
+  const countdown = useCountdown(
+    countdownPhase?.endsUTC ?? (dropsStarted ? null : DROP_SCHEDULE[0].startsUTC),
+  );
   const cdUnits = [
     { label: 'Days', val: countdown.d },
     { label: 'Hours', val: countdown.h },
@@ -84,13 +84,17 @@ export default function Home() {
   const { owned, balance, isLoading: collectionLoading } = useOwnedFragments(address);
   const highestOwnedPiece = owned.reduce((max, fragment) => Math.max(max, fragment.pieceNumber), 0);
   const walletOwnsAny = !!address && (balance > 0 || owned.length > 0);
-  const bannerEvolved = walletOwnsAny && highestOwnedPiece > 0;
-  const evolvedBanner = bannerEvolved
-    ? getEvolvedBanner(highestOwnedPiece, dark ? 'dark' : 'light')
-    : null;
+  const siteBanner = getSiteBanner({
+    theme: dark ? 'dark' : 'light',
+    highestOwnedPiece: walletOwnsAny ? highestOwnedPiece : 0,
+    now,
+  });
+  const bannerKey = `${dark ? 'dark' : 'light'}-${
+    walletOwnsAny ? `own-${highestOwnedPiece}` : 'guest'
+  }-${phaseOneEnded ? 'revealed' : 'base'}`;
   const themeClass = dark ? '' : ' theme-light';
   const releasedSharePieces = SHARE_PIECES.filter(
-    (piece) => (dropsStarted || PREVIEW_MODE) && piece.number <= livePieceNumber,
+    (piece) => (dropsStarted || PREVIEW_MODE) && piece.number <= maxSharePiece,
   );
 
   const closeAllDrawers = () => {
@@ -160,11 +164,7 @@ export default function Home() {
     };
   }, []);
 
-  const bannerPreload = entered
-    ? dark
-      ? BANNER_DARK
-      : BANNER_LIGHT
-    : null;
+  const bannerPreload = entered ? siteBanner : null;
 
   return (
     <>
@@ -492,21 +492,9 @@ export default function Home() {
             >
               <div className="banner-inner">
                 <img
-                  key={`${dark ? 'dark' : 'light'}-${bannerEvolved ? `ev-${highestOwnedPiece}` : 'base'}`}
-                  src={
-                    bannerEvolved && evolvedBanner
-                      ? evolvedBanner.src
-                      : dark
-                        ? BANNER_DARK.src
-                        : BANNER_LIGHT.src
-                  }
-                  srcSet={
-                    bannerEvolved && evolvedBanner
-                      ? evolvedBanner.srcSet
-                      : dark
-                        ? BANNER_DARK.srcSet
-                        : BANNER_LIGHT.srcSet
-                  }
+                  key={bannerKey}
+                  src={siteBanner.src}
+                  srcSet={siteBanner.srcSet}
                   sizes={BANNER_SIZES}
                   alt="Together It Blooms — A Familiar Burn"
                   loading="eager"
@@ -538,10 +526,10 @@ export default function Home() {
                   </div>
                   <p className="cd-note">{formatDropArrivalNote(DROP_SCHEDULE[0])}</p>
                 </>
-              ) : nextDrop && liveDrop ? (
+              ) : countdownPhase ? (
                 <>
                   <p className="cd-lbl">
-                    Fragment {String(nextDrop.piece).padStart(2, '0')} arrives in
+                    Fragment {String(countdownPhase.piece).padStart(2, '0')} closes in
                   </p>
                   <div className="cd-row">
                     {cdUnits.map(({ label, val }, index) => (
@@ -555,8 +543,14 @@ export default function Home() {
                     ))}
                   </div>
                   <p className="cd-note">
-                    {livePieceTitle} · {getDropWindowNote(liveDrop)}
+                    {PIECE_NAMES[countdownPhase.piece] ?? `Fragment ${countdownPhase.piece}`} ·{' '}
+                    {getDropWindowNote(countdownPhase.activeDrop)}
                   </p>
+                  {phaseOneEnded && countdownPhase.piece === 2 && (
+                    <p className="cd-note cd-note--phase">
+                      The grid has evolved · Fragment 01 is revealed for everyone
+                    </p>
+                  )}
                 </>
               ) : (
                 <p className="cd-note" style={{ opacity: 0.45, fontSize: 'clamp(13px,1.8vw,16px)' }}>
@@ -611,8 +605,8 @@ export default function Home() {
                     <p>
                       It challenges the instant-reveal culture of Web3 by unfolding as a slow burn.
                       Twenty-seven fragments are revealed one piece at a time, guided by a public
-                      countdown. As one window closes, another opens — each release adding another
-                      piece to the puzzle.
+                      countdown. As one window closes, the grid evolves for everyone — and a new
+                      window opens with the next piece.
                     </p>
                     <ul className="project-about-features">
                       <li>27 fragments · one living puzzle</li>
@@ -648,72 +642,36 @@ export default function Home() {
               }}
             />
 
-            {showContent && liveClaim && (
-              <motion.div
-                ref={pieceSectionRef}
-                className="piece-section"
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.55, duration: 1.1 }}
-              >
-                <p className="section-lbl">
-                  {dropsStarted
-                    ? `Now available · Fragment ${String(livePieceNumber).padStart(2, '0')}`
-                    : `Coming · Fragment ${String(livePieceNumber).padStart(2, '0')}`}
-                </p>
+            {showContent && showF1Mint && (
+              <PieceMintSection
+                pieceNumber={1}
+                mode="live"
+                sessionKey={address ?? 'anon'}
+                entered={entered}
+                sectionRef={pieceSectionRef}
+              />
+            )}
 
-                <div className="piece-video">
-                  {dropsStarted ? (
-                    <FragmentMedia
-                      tokenId={livePieceNumber}
-                      fallbackTitle={livePieceTitle}
-                      preferAudio={entered}
-                    />
-                  ) : (
-                    <>
-                      <img
-                        src="https://assets.nikxart.xyz/PuzzlePc-PH01.jpg"
-                        alt="Fragment I coming soon"
-                        className="piece-tease-img"
-                      />
-                      <div className="piece-tease-overlay" />
-                      <div className="piece-shimmer" />
-                      <div className="piece-tease-badge">
-                        <span className="piece-tease-label">June 8th &nbsp;·&nbsp; 10 am EST</span>
-                      </div>
-                    </>
-                  )}
-                  <div className="piece-video-overlay" />
-                  <span className="piece-ghost">{String(livePieceNumber).padStart(2, '0')}</span>
-                  <span className="piece-frag">{livePieceTitle}</span>
-                </div>
+            {showContent && f2Teaser && (
+              <PieceMintSection
+                pieceNumber={2}
+                mode="teaser"
+                sessionKey={address ?? 'anon'}
+                entered={entered}
+                motionDelay={1.65}
+                compact
+              />
+            )}
 
-                {dropsStarted && (
-                  <div className="mint-card">
-                    <div className="mint-card-row">
-                      <div className="mint-card-meta">
-                        <span className="mint-card-label">Mint price</span>
-                        <span className="mint-card-value">{liveClaim.mintPrice}</span>
-                      </div>
-                      <div className="mint-card-meta">
-                        <span className="mint-card-label">Collected</span>
-                        <span className="mint-card-value">
-                          <ManifoldMintCount instanceId={liveClaim.instanceId} active={dropsStarted} />
-                        </span>
-                      </div>
-                      <div className="mint-card-meta">
-                        <span className="mint-card-label">Edition</span>
-                        <span className="mint-card-value">Open</span>
-                      </div>
-                    </div>
-                    <ManifoldBuyButton
-                      instanceId={liveClaim.instanceId}
-                      active={dropsStarted}
-                      sessionKey={address ?? 'anon'}
-                    />
-                  </div>
-                )}
-              </motion.div>
+            {showContent && f2MintLive && (
+              <PieceMintSection
+                pieceNumber={2}
+                mode="live"
+                sessionKey={address ?? 'anon'}
+                entered={entered}
+                motionDelay={1.7}
+                compact
+              />
             )}
 
             <div style={{ padding: '0 clamp(16px,4vw,64px)' }}>
