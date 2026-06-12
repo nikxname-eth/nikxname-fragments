@@ -11,7 +11,7 @@
     "perf-budget": "node scripts/check-perf-budget.mjs",
     "smoke": "npx playwright test tests/gate.spec.ts --project=chromium",
     "validate": "npm run build && node scripts/diagnose-site.mjs && node scripts/check-perf-budget.mjs",
-    "deploy": "wrangler pages deploy out"
+    "deploy": "npx wrangler pages deploy out --branch=main"
   },
   "dependencies": {
     "framer-motion": "^12.39.0",
@@ -26,6 +26,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint-config-next": "^16.2.4",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "wrangler": "^4.100.0"
   }
 }
