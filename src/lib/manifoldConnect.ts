@@ -58,6 +58,26 @@ export function refreshManifoldWidgets(): void {
 
 let authInFlight: Promise<boolean> | null = null;
 
+export function waitForManifoldProvider(timeoutMs = 12_000): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (window.ManifoldEthereumProvider?.getOAuth) {
+      resolve(true);
+      return;
+    }
+
+    const started = Date.now();
+    const timer = window.setInterval(() => {
+      if (window.ManifoldEthereumProvider?.getOAuth) {
+        window.clearInterval(timer);
+        resolve(true);
+      } else if (Date.now() - started >= timeoutMs) {
+        window.clearInterval(timer);
+        resolve(false);
+      }
+    }, 100);
+  });
+}
+
 /**
  * Claim widgets need an OAuth token — not just a connected provider.
  * Rainbow/WalletConnect can show an address while mint still fails without this.
@@ -66,14 +86,13 @@ export function ensureManifoldAuthenticated(): Promise<boolean> {
   if (authInFlight) return authInFlight;
 
   authInFlight = (async () => {
-    const session = readManifoldSession();
-    if (session.isAuthenticated) return true;
+    if (readManifoldSession().isAuthenticated) return true;
 
-    const provider = window.ManifoldEthereumProvider;
-    if (!provider?.getOAuth) return false;
+    const ready = await waitForManifoldProvider();
+    if (!ready || !window.ManifoldEthereumProvider?.getOAuth) return false;
 
     try {
-      await provider.getOAuth({
+      await window.ManifoldEthereumProvider.getOAuth({
         appName: MANIFOLD_APP_NAME,
         clientId: MANIFOLD_CLIENT_ID,
       });

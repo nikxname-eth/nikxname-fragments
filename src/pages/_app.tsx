@@ -4,7 +4,9 @@ import type { ReactNode } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
+import { useManifoldAuthBridge } from '../hooks/useManifoldAuthBridge';
 import { useManifoldMobileRecovery } from '../hooks/useManifoldMobileRecovery';
+import { ManifoldConnect } from '../components/ManifoldConnect';
 
 /** Connect 6.1.0 for mobile WalletConnect; Claims 1.16.1 for clean buy-only widget. */
 const CONNECT_VERSION = '6.1.0';
@@ -12,7 +14,13 @@ const CLAIM_VERSION = '1.16.1';
 
 function ManifoldShell({ children }: { children: ReactNode }) {
   useManifoldMobileRecovery();
-  return <>{children}</>;
+  useManifoldAuthBridge();
+  return (
+    <>
+      <ManifoldConnect visible />
+      {children}
+    </>
+  );
 }
 
 export default function MyApp({ Component, pageProps }: AppProps) {

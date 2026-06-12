@@ -18,7 +18,7 @@ import {
   PROJECT_X_ARTICLE,
   SHARE_PIECES,
 } from '../config/artist';
-import { ManifoldConnect } from '../components/ManifoldConnect';
+
 import { PieceMintSection } from '../components/PieceMintSection';
 import { ReleasedFragmentsGallery } from '../components/ReleasedFragmentsGallery';
 import { WalletButton } from '../components/WalletButton';
@@ -58,6 +58,16 @@ export default function Home() {
   const [projectAboutOpen, setProjectAboutOpen] = useState(false);
   const [gwei, setGwei] = useState<number | null>(null);
   const pieceSectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    document.body.classList.toggle('site-entered', entered);
+    return () => document.body.classList.remove('site-entered');
+  }, [entered]);
+
+  useEffect(() => {
+    document.body.classList.toggle('wallet-authed', isAuthenticated);
+    return () => document.body.classList.remove('wallet-authed');
+  }, [isAuthenticated]);
 
   const now = useSiteClock();
   const livePieceIdx = DROP_SCHEDULE.reduce(
@@ -362,7 +372,6 @@ export default function Home() {
                   transition={{ delay: 0.8, duration: 0.9 }}
                 >
                   <WalletButton address={address} shortAddress={shortAddress} />
-                  <ManifoldConnect visible sessionActive={isAuthenticated} />
                 </motion.div>
               </div>
             </nav>
