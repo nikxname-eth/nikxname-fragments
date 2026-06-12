@@ -59,7 +59,7 @@ export function PieceMintSection({
             <div className="piece-tease-overlay" />
             <div className="piece-shimmer" />
             <div className="piece-tease-badge">
-              <span className="piece-tease-label">Opens with the next window</span>
+              <span className="piece-tease-label">Next Window Opening Soon</span>
             </div>
           </>
         )}
