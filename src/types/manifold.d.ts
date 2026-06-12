@@ -5,6 +5,8 @@ interface ManifoldWindow {
 }
 
 interface ManifoldEthereumProvider {
+  address?: string;
+  selectedAddress?: string;
   getOAuth?: (args: { appName: string; clientId: string }) => Promise<unknown>;
   request?: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
 }

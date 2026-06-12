@@ -2,7 +2,7 @@ export const BANNER_SIZES =
   '(max-width:680px) calc(100vw - 32px),(max-width:1100px) calc(100vw - 64px),1400px';
 
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260612';
+export const SITE_ASSET_VERSION = '20260612b';
 
 const makeBanner = (base: string) => ({
   src: `${base}?width=1400&quality=88&format=auto&v=${SITE_ASSET_VERSION}`,

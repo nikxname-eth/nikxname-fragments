@@ -96,7 +96,8 @@ export default function Home() {
     { label: 'Seconds', val: countdown.s },
   ];
 
-  const { owned, balance, isLoading: collectionLoading } = useOwnedFragments(address);
+  const { owned, balance, isLoading: collectionLoading, refresh: refreshOwned } =
+    useOwnedFragments(address);
   const highestOwnedPiece = owned.reduce((max, fragment) => Math.max(max, fragment.pieceNumber), 0);
   const walletOwnsAny = !!address && (balance > 0 || owned.length > 0);
   const siteBanner = getSiteBanner({
@@ -104,6 +105,11 @@ export default function Home() {
     highestOwnedPiece: walletOwnsAny ? highestOwnedPiece : 0,
     now,
   });
+
+  useEffect(() => {
+    if (!address) return;
+    void refreshOwned();
+  }, [address, refreshOwned]);
   const bannerKey = `${dark ? 'dark' : 'light'}-${
     walletOwnsAny ? `own-${highestOwnedPiece}` : 'guest'
   }-${phaseOneEnded ? 'revealed' : 'base'}`;

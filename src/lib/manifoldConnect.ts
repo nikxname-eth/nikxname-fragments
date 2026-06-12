@@ -18,6 +18,17 @@ export function isManifoldConnectReady(): boolean {
   );
 }
 
+function readProviderAddress(): `0x${string}` | undefined {
+  const provider = window.ManifoldEthereumProvider as
+    | { selectedAddress?: string; address?: string }
+    | undefined;
+  const candidate = provider?.selectedAddress ?? provider?.address;
+  if (typeof candidate === 'string' && candidate.startsWith('0x')) {
+    return candidate as `0x${string}`;
+  }
+  return undefined;
+}
+
 export function readManifoldSession(): {
   isAuthenticated: boolean;
   isConnected: boolean;
@@ -31,6 +42,16 @@ export function readManifoldSession(): {
       address: manifold.address,
     };
   }
+
+  const providerAddress = readProviderAddress();
+  if (providerAddress) {
+    return {
+      isAuthenticated: false,
+      isConnected: true,
+      address: providerAddress,
+    };
+  }
+
   return { isAuthenticated: false, isConnected: false };
 }
 

@@ -1,87 +1,48 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { PIECE_NAMES } from '../config/artist';
-import { CONTRACT_ADDRESS, ERC721_ABI } from '../lib/contract';
-import { pieceFromClaimTokenUri } from '../lib/fragments';
 import { MINT_COMPLETE_EVENT } from '../lib/mintEvents';
-import { publicClient } from '../lib/publicClient';
+import { readOwnedCache, writeOwnedCache } from '../lib/ownedCache';
+import { fetchOwnedClaimFragments, type OwnedFragment } from '../lib/ownedScan';
 
-export type OwnedFragment = {
-  pieceNumber: number;
-  title: string;
-  quantity: number;
-};
+export type { OwnedFragment };
 
-const SCAN_MISS_LIMIT = 24;
-const SCAN_MAX_ID = 1_000;
-const MINT_BURST_DELAYS_MS = [0, 1_000, 2_500, 5_000, 10_000, 20_000, 40_000, 60_000];
-
-async function scanOwnedTokenIds(wallet: `0x${string}`): Promise<number[]> {
-  const owned: number[] = [];
-  let misses = 0;
-  let id = 1;
-
-  while (misses < SCAN_MISS_LIMIT && id <= SCAN_MAX_ID) {
-    try {
-      const owner = await publicClient.readContract({
-        address: CONTRACT_ADDRESS,
-        abi: ERC721_ABI,
-        functionName: 'ownerOf',
-        args: [BigInt(id)],
-      });
-
-      misses = 0;
-      if (owner.toLowerCase() === wallet.toLowerCase()) {
-        owned.push(id);
-      }
-    } catch {
-      misses += 1;
-    }
-    id += 1;
-  }
-
-  return owned;
-}
-
-async function classifyClaimFragments(tokenIds: number[]): Promise<OwnedFragment[]> {
-  const counts = new Map<number, number>();
-
-  await Promise.all(
-    tokenIds.map(async (tokenId) => {
-      try {
-        const tokenUri = await publicClient.readContract({
-          address: CONTRACT_ADDRESS,
-          abi: ERC721_ABI,
-          functionName: 'tokenURI',
-          args: [BigInt(tokenId)],
-        });
-
-        const piece = pieceFromClaimTokenUri(tokenUri);
-        if (piece == null) return;
-
-        counts.set(piece, (counts.get(piece) ?? 0) + 1);
-      } catch {
-        /* skip unverifiable tokens */
-      }
-    }),
-  );
-
-  return [...counts.entries()]
-    .sort(([a], [b]) => a - b)
-    .map(([pieceNumber, quantity]) => ({
-      pieceNumber,
-      title: PIECE_NAMES[pieceNumber] ?? `Fragment ${pieceNumber}`,
-      quantity,
-    }));
-}
+const MINT_BURST_DELAYS_MS = [0, 800, 2_000, 4_000, 8_000, 15_000, 30_000, 60_000];
 
 export function useOwnedFragments(address: `0x${string}` | undefined) {
   const [owned, setOwned] = useState<OwnedFragment[]>([]);
   const [balance, setBalance] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const burstTimers = useRef<number[]>([]);
+  const addressRef = useRef(address);
+
+  useEffect(() => {
+    addressRef.current = address;
+    if (!address) {
+      setOwned([]);
+      setBalance(0);
+      return;
+    }
+
+    const cached = readOwnedCache(address);
+    if (cached) {
+      setOwned(cached.owned);
+      setBalance(cached.balance);
+    }
+  }, [address]);
+
+  const applyOwned = useCallback(
+    (nextOwned: OwnedFragment[], nextBalance: number) => {
+      setOwned(nextOwned);
+      setBalance(nextBalance);
+      if (addressRef.current) {
+        writeOwnedCache(addressRef.current, nextOwned, nextBalance);
+      }
+    },
+    [],
+  );
 
   const refresh = useCallback(async () => {
-    if (!address) {
+    const wallet = addressRef.current;
+    if (!wallet) {
       setOwned([]);
       setBalance(0);
       setIsLoading(false);
@@ -90,19 +51,17 @@ export function useOwnedFragments(address: `0x${string}` | undefined) {
 
     setIsLoading(true);
     try {
-      const tokenIds = await scanOwnedTokenIds(address);
-      const grouped = await classifyClaimFragments(tokenIds);
-      const claimBalance = grouped.reduce((sum, fragment) => sum + fragment.quantity, 0);
-
-      setOwned(grouped);
-      setBalance(claimBalance);
+      const result = await fetchOwnedClaimFragments(wallet);
+      if (addressRef.current?.toLowerCase() !== wallet.toLowerCase()) return;
+      applyOwned(result.owned, result.balance);
     } catch {
-      setOwned([]);
-      setBalance(0);
+      /* keep last known owned/balance so banner does not flash back to guest */
     } finally {
-      setIsLoading(false);
+      if (addressRef.current?.toLowerCase() === wallet.toLowerCase()) {
+        setIsLoading(false);
+      }
     }
-  }, [address]);
+  }, [applyOwned]);
 
   const burstRefresh = useCallback(() => {
     for (const timer of burstTimers.current) window.clearTimeout(timer);
@@ -114,9 +73,11 @@ export function useOwnedFragments(address: `0x${string}` | undefined) {
   }, [refresh]);
 
   useEffect(() => {
-    refresh();
-    const interval = window.setInterval(refresh, 8_000);
-    const onWallet = () => refresh();
+    void refresh();
+    const interval = window.setInterval(() => {
+      void refresh();
+    }, 8_000);
+    const onWallet = () => void refresh();
     const onMint = () => burstRefresh();
     const onMintComplete = () => burstRefresh();
 

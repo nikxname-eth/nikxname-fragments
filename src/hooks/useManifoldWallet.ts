@@ -10,24 +10,43 @@ export function useManifoldWallet() {
   const [address, setAddress] = useState<`0x${string}` | undefined>();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const sync = useCallback(() => {
+  const sync = useCallback(async () => {
     const session = readManifoldSession();
-    setIsAuthenticated(session.isAuthenticated);
-    setAddress(session.isConnected && session.address ? session.address : undefined);
+    if (session.address) {
+      setIsAuthenticated(session.isAuthenticated);
+      setAddress(session.address);
+      return;
+    }
+
+    try {
+      const accounts = (await window.ManifoldEthereumProvider?.request?.({
+        method: 'eth_accounts',
+      })) as string[] | undefined;
+      if (accounts?.[0]?.startsWith('0x')) {
+        setAddress(accounts[0] as `0x${string}`);
+        setIsAuthenticated(false);
+        return;
+      }
+    } catch {
+      /* provider not ready */
+    }
+
+    setIsAuthenticated(false);
+    setAddress(undefined);
   }, []);
 
   useEffect(() => {
-    sync();
+    void sync();
     refreshManifoldWidgets();
 
     const onWallet = () => {
-      sync();
+      void sync();
       refreshManifoldWidgets();
     };
 
     const onVisible = () => {
       if (document.visibilityState !== 'visible') return;
-      sync();
+      void sync();
       refreshManifoldWidgets();
     };
 
