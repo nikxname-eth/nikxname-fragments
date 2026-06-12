@@ -21,6 +21,7 @@ import {
 
 import { PieceMintSection } from '../components/PieceMintSection';
 import { ReleasedFragmentsGallery } from '../components/ReleasedFragmentsGallery';
+import { ManifoldConnect } from '../components/ManifoldConnect';
 import { WalletButton } from '../components/WalletButton';
 import { useCountdown } from '../hooks/useCountdown';
 import { useSiteClock } from '../hooks/useSiteClock';
@@ -46,7 +47,7 @@ const ABOUT_COLLECTIONS = [
 ] as const;
 
 export default function Home() {
-  const { address, shortAddress, isAuthenticated } = useManifoldWallet();
+  const { address, shortAddress } = useManifoldWallet();
 
   const [entered, setEntered] = useState(false);
   const [introGone, setIntroGone] = useState(false);
@@ -65,9 +66,9 @@ export default function Home() {
   }, [entered]);
 
   useEffect(() => {
-    document.body.classList.toggle('wallet-authed', isAuthenticated);
+    document.body.classList.toggle('wallet-authed', !!address);
     return () => document.body.classList.remove('wallet-authed');
-  }, [isAuthenticated]);
+  }, [address]);
 
   const now = useSiteClock();
   const livePieceIdx = DROP_SCHEDULE.reduce(
@@ -371,7 +372,11 @@ export default function Home() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.8, duration: 0.9 }}
                 >
-                  <WalletButton address={address} shortAddress={shortAddress} />
+                  {address ? (
+                    <WalletButton address={address} shortAddress={shortAddress} />
+                  ) : (
+                    <ManifoldConnect visible />
+                  )}
                 </motion.div>
               </div>
             </nav>

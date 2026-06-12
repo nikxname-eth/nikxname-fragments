@@ -1,9 +1,3 @@
-import { useEffect, useRef } from 'react';
-import {
-  ensureManifoldAuthenticated,
-  readManifoldSession,
-  refreshManifoldWidgets,
-} from '../lib/manifoldConnect';
 import { useManifoldRefresh } from '../hooks/useManifoldRefresh';
 
 type Props = {
@@ -14,59 +8,21 @@ type Props = {
 };
 
 /**
- * Clean on-site buy button — m-claim-buy-only (Claims 1.x).
- * Intercepts Collect to complete Manifold sign-in before checkout opens.
+ * Full Manifold claim widget — m-claim-complete (Claims 9.x).
+ * Auth is deferred until collect (data-delay-auth on m-connect).
  */
 export function ManifoldBuyButton({ instanceId, active, sessionKey = 'anon' }: Props) {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  useManifoldRefresh('buy', instanceId, active, sessionKey);
-
-  useEffect(() => {
-    if (!active) return;
-
-    const wrap = wrapRef.current;
-    if (!wrap) return;
-
-    let authPending = false;
-
-    const onPointerDown = (event: PointerEvent) => {
-      const target = event.target as Element;
-      if (!target.closest('button')) return;
-      if (readManifoldSession().isAuthenticated) return;
-      if (authPending) {
-        event.preventDefault();
-        event.stopPropagation();
-        return;
-      }
-
-      event.preventDefault();
-      event.stopPropagation();
-
-      authPending = true;
-      void ensureManifoldAuthenticated().then((ok) => {
-        authPending = false;
-        refreshManifoldWidgets();
-        if (ok) {
-          const button = wrap.querySelector('button');
-          button?.click();
-        }
-      });
-    };
-
-    wrap.addEventListener('pointerdown', onPointerDown, true);
-    return () => wrap.removeEventListener('pointerdown', onPointerDown, true);
-  }, [active, sessionKey]);
+  useManifoldRefresh('claim', instanceId, active, sessionKey);
 
   if (!active) return null;
 
   return (
-    <div className="mint-btn-wrap" ref={wrapRef}>
+    <div className="mint-claim-wrap">
       <div
-        key={`buy-${instanceId}-${sessionKey}`}
-        data-widget="m-claim-buy-only"
+        key={`claim-${instanceId}-${sessionKey}`}
+        data-widget="m-claim-complete"
         data-id={instanceId}
         data-network="1"
-        data-claim-text="Collect this piece"
       />
     </div>
   );

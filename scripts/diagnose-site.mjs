@@ -11,21 +11,19 @@ const OUT_DIR = resolve(process.cwd(), 'out');
 
 const CHECKS = [
   { id: 'connect-sdk', label: 'Manifold Connect SDK', pattern: /connect\.manifoldxyz\.dev\/(6\.1\.0)/ },
-  { id: 'claims-sdk', label: 'Manifold Claims SDK (buy-only)', pattern: /claims\.manifoldxyz\.dev\/(1\.16\.1)/ },
+  { id: 'claims-sdk', label: 'Manifold Claims SDK (complete)', pattern: /claims\.manifoldxyz\.dev\/(9\.0\.1)/ },
   { id: 'manifold-client', label: 'Manifold client ID', pattern: /e6f73b910ba04cb82818dd3b66829f6af38da06eb07b80aacc0490251178fda2/ },
   { id: 'wc-id', label: 'WalletConnect project ID', pattern: /001f1fbca842d394c7baa1638a2600c6/ },
 
   { id: 'wc-relay', label: 'WalletConnect relay preconnect', pattern: /relay\.walletconnect\.org/ },
-  { id: 'no-delay-auth', label: 'Auth on connect (no delay-auth)', pattern: /delay-auth/, negative: true },
-  { id: 'ensure-auth', label: 'Mint auth guard (getOAuth)', pattern: /ensureManifoldAuthenticated/ },
+  { id: 'delay-auth', label: 'Delay auth until collect (delay-auth)', pattern: /data-delay-auth="true"/ },
   { id: 'fallback-provider', label: 'Mobile ETH fallback provider', pattern: /data-fallback-provider|ethereum-rpc\.publicnode/ },
   { id: 'm-connect', label: 'm-connect widget', pattern: /m-connect|data-widget/ },
-  { id: 'm-claim', label: 'm-claim-buy-only widget', pattern: /m-claim-buy-only/ },
-  { id: 'mint-count', label: 'm-claim-mint-count widget', pattern: /m-claim-mint-count/ },
+  { id: 'm-claim', label: 'm-claim-complete widget', pattern: /m-claim-complete/ },
 
   { id: 'rose-connect', label: 'Rose-gold nav connect CSS', pattern: /manifold-connect-host--visible[\s\S]{0,400}var\(--cta-border\)/ },
   { id: 'nav-chip', label: 'Connected wallet chip CSS', pattern: /nav-connect-chip/ },
-  { id: 'collect-cta', label: 'Mint button CTA CSS', pattern: /\.mint-btn-wrap[\s\S]{0,400}var\(--cta-border\)/ },
+  { id: 'collect-cta', label: 'Mint claim CTA CSS', pattern: /\.mint-claim-wrap[\s\S]{0,400}var\(--cta-border\)/ },
   { id: 'wc-modal-z', label: 'WalletConnect modal z-index', pattern: /z-index:10050/ },
   { id: 'mobile-nav', label: 'Mobile connect button sizing (44px tap)', pattern: /min-height:44px!important/ },
   { id: 'mint-overflow', label: 'Mint card overflow visible', pattern: /\.mint-card[^}]*overflow:visible/ },

@@ -45,9 +45,7 @@ export function recoverManifoldMobileSession(): void {
     window.setTimeout(() => {
       refreshManifoldWidgets();
       const session = readManifoldSession();
-      if (session.isConnected && !session.isAuthenticated) {
-        void ensureManifoldAuthenticated();
-      }
+      /* delay-auth: claim widget triggers getOAuth at collect time */
     }, ms);
   }
 }
