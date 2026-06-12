@@ -16,7 +16,8 @@ const CHECKS = [
   { id: 'wc-id', label: 'WalletConnect project ID', pattern: /001f1fbca842d394c7baa1638a2600c6/ },
 
   { id: 'wc-relay', label: 'WalletConnect relay preconnect', pattern: /relay\.walletconnect\.org/ },
-  { id: 'delay-auth', label: 'delay-auth always on m-connect', pattern: /data-delay-auth="always"|delay-auth.*always/ },
+  { id: 'no-delay-auth', label: 'Auth on connect (no delay-auth)', pattern: /delay-auth/, negative: true },
+  { id: 'ensure-auth', label: 'Mint auth guard (getOAuth)', pattern: /ensureManifoldAuthenticated/ },
   { id: 'fallback-provider', label: 'Mobile ETH fallback provider', pattern: /data-fallback-provider|ethereum-rpc\.publicnode/ },
   { id: 'm-connect', label: 'm-connect widget', pattern: /m-connect|data-widget/ },
   { id: 'm-claim', label: 'm-claim-buy-only widget', pattern: /m-claim-buy-only/ },

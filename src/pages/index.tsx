@@ -46,7 +46,7 @@ const ABOUT_COLLECTIONS = [
 ] as const;
 
 export default function Home() {
-  const { address, shortAddress } = useManifoldWallet();
+  const { address, shortAddress, isAuthenticated } = useManifoldWallet();
 
   const [entered, setEntered] = useState(false);
   const [introGone, setIntroGone] = useState(false);
@@ -362,7 +362,7 @@ export default function Home() {
                   transition={{ delay: 0.8, duration: 0.9 }}
                 >
                   <WalletButton address={address} shortAddress={shortAddress} />
-                  <ManifoldConnect visible sessionActive={!!address} />
+                  <ManifoldConnect visible sessionActive={isAuthenticated} />
                 </motion.div>
               </div>
             </nav>

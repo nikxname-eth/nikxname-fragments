@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { ensureManifoldAuthenticated, readManifoldSession } from '../lib/manifoldConnect';
 import { useManifoldRefresh } from '../hooks/useManifoldRefresh';
 
 type Props = {
@@ -13,6 +15,15 @@ type Props = {
  */
 export function ManifoldBuyButton({ instanceId, active, sessionKey = 'anon' }: Props) {
   useManifoldRefresh('buy', instanceId, active, sessionKey);
+
+  useEffect(() => {
+    if (!active) return;
+
+    const session = readManifoldSession();
+    if (session.isConnected && !session.isAuthenticated) {
+      void ensureManifoldAuthenticated();
+    }
+  }, [active, sessionKey]);
 
   if (!active) return null;
 

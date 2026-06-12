@@ -8,10 +8,12 @@ function shortenAddress(address: string): string {
 /** Read-only sync with Manifold session — connect/collect UI lives in claim widgets. */
 export function useManifoldWallet() {
   const [address, setAddress] = useState<`0x${string}` | undefined>();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const sync = useCallback(() => {
     const session = readManifoldSession();
-    setAddress(session.isConnected && session.address ? session.address : undefined);
+    setIsAuthenticated(session.isAuthenticated);
+    setAddress(session.isAuthenticated && session.address ? session.address : undefined);
   }, []);
 
   useEffect(() => {
@@ -51,6 +53,7 @@ export function useManifoldWallet() {
 
   return {
     address,
+    isAuthenticated,
     isConnected: !!address,
     shortAddress: address ? shortenAddress(address) : undefined,
     sync,

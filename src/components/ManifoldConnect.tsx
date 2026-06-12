@@ -39,7 +39,6 @@ export function ManifoldConnect({ visible = false, sessionActive = false }: Prop
         data-client-id={MANIFOLD_CLIENT_ID}
         data-network="1"
         data-multi="true"
-        data-delay-auth="always"
         data-auto-reconnect="true"
         data-show-balance="false"
         data-show-chain="false"
