@@ -31,7 +31,7 @@ const CHECKS = [
   { id: 'frag-02-instance', label: 'Fragment 02 Manifold instance', pattern: /4058790128/ },
   { id: 'frag-02-share', label: 'Fragment 02 share asset', pattern: /Fragment-02-1080p\.mp4/ },
   { id: 'banner-evolved', label: 'Evolved banner assets (v2/v3)', pattern: /Banner-Main-Dark-2\.jpg[\s\S]{0,200}Banner-Main-Dark-3\.jpg/ },
-  { id: 'phase-evolution', label: 'Phase evolution helpers', pattern: /isPhaseOneEnded|getSiteBanner/ },
+  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260612/ },
   { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
 ];
 
