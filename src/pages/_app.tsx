@@ -8,6 +8,7 @@ import { useContractMintWatcher } from '../hooks/useContractMintWatcher';
 import { useManifoldMobileRecovery } from '../hooks/useManifoldMobileRecovery';
 import { useManifoldWallet } from '../hooks/useManifoldWallet';
 import { usePostMintRefresh } from '../hooks/usePostMintRefresh';
+import { ErrorBoundary } from '../components/ErrorBoundary';
 
 /** Connect 6.1.0 + Claims 1.16.1 buy-only; delay-auth defers sign-in until collect. */
 const CONNECT_VERSION = '6.1.0';
@@ -58,7 +59,9 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       />
 
       <ManifoldShell>
-        <Component {...pageProps} />
+        <ErrorBoundary>
+          <Component {...pageProps} />
+        </ErrorBoundary>
       </ManifoldShell>
     </>
   );

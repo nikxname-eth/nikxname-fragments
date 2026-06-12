@@ -37,12 +37,18 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;mix
 .ring{position:absolute;border-radius:50%;border:1px solid var(--cream);pointer-events:none;animation-timing-function:ease-in-out;animation-iteration-count:infinite}
 .ring-1{width:clamp(260px,40vw,440px);height:clamp(260px,40vw,440px);animation:pulse-ring 3.8s infinite}
 .ring-2{width:clamp(360px,56vw,600px);height:clamp(360px,56vw,600px);animation:pulse-ring-outer 3.8s 0.9s infinite}
-.pz-btn{position:relative;z-index:2;cursor:pointer;background:none;border:none;outline:none;display:flex;flex-direction:column;align-items:center;gap:0;padding:0;transition:transform 0.55s cubic-bezier(0.34,1.56,0.64,1)}
+.pz-btn{position:relative;z-index:2;cursor:pointer;background:none;border:none;outline:none;display:flex;flex-direction:column;align-items:center;gap:0;padding:18px;transition:transform 0.55s cubic-bezier(0.34,1.56,0.64,1);touch-action:manipulation;min-height:160px;min-width:160px;justify-content:center}
 .pz-btn:hover{transform:scale(1.07)}
-.pz-svg{width:clamp(88px,11vw,130px);display:flex;align-items:center;justify-content:center;position:relative}
-.pz-svg svg{width:100%;height:auto;overflow:visible}
+.pz-btn:active{transform:scale(0.96)}
+.pz-svg{width:clamp(96px,12vw,150px);display:flex;align-items:center;justify-content:center;position:relative}
+.pz-svg img, .pz-svg svg { width:100%; height:auto; overflow:visible; display:block; }
+.pz-svg img.enter-mark { transition: filter 0.3s ease; }
+.pz-btn:hover .pz-svg img.enter-mark { filter: brightness(1.08) drop-shadow(0 0 18px rgba(154,24,48,0.35)); }
 .pz-glow{opacity:0;transition:opacity 0.5s}
 .pz-btn:hover .pz-glow{opacity:1}
+/* Subtle always-visible hint under the mark so people know it is interactive (keeps the art pure) */
+.pz-btn::after{content:'tap to enter';position:absolute;bottom:-2px;left:50%;transform:translateX(-50%);font-family:var(--font);font-style:italic;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(240,232,220,0.35);white-space:nowrap;pointer-events:none}
+.pz-btn:hover::after{color:rgba(240,232,220,0.55)}
 
 /* SITE */
 .site{position:relative;z-index:1;min-height:100svh;background:var(--bg);transition:background 0.55s ease}
