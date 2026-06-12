@@ -8,6 +8,8 @@ import {
   formatDropArrivalNote,
   getCountdownTarget,
   getDropWindowNote,
+  getPrimaryLiveMintPiece,
+  getReleasedFragments,
   getSiteBanner,
   isDropWindowOpen,
   isPhaseOneEnded,
@@ -18,6 +20,7 @@ import {
 } from '../config/artist';
 import { ManifoldConnect } from '../components/ManifoldConnect';
 import { PieceMintSection } from '../components/PieceMintSection';
+import { ReleasedFragmentsGallery } from '../components/ReleasedFragmentsGallery';
 import { WalletButton } from '../components/WalletButton';
 import { useCountdown } from '../hooks/useCountdown';
 import { useSiteClock } from '../hooks/useSiteClock';
@@ -67,7 +70,8 @@ export default function Home() {
   const phaseOneEnded = isPhaseOneEnded(now);
   const f2MintLive = isDropWindowOpen(2, now);
   const f2Teaser = !!CLAIM_INSTANCES[2] && !f2MintLive && !phaseOneEnded;
-  const showF1Mint = dropsStarted && !!CLAIM_INSTANCES[1];
+  const primaryLivePiece = getPrimaryLiveMintPiece(now);
+  const releasedFragments = getReleasedFragments(now);
   const maxSharePiece = f2MintLive || phaseOneEnded ? 2 : livePieceNumber;
 
   const countdownPhase = getCountdownTarget(now);
@@ -642,9 +646,9 @@ export default function Home() {
               }}
             />
 
-            {showContent && showF1Mint && (
+            {showContent && primaryLivePiece && (
               <PieceMintSection
-                pieceNumber={1}
+                pieceNumber={primaryLivePiece}
                 mode="live"
                 sessionKey={address ?? 'anon'}
                 entered={entered}
@@ -663,15 +667,8 @@ export default function Home() {
               />
             )}
 
-            {showContent && f2MintLive && (
-              <PieceMintSection
-                pieceNumber={2}
-                mode="live"
-                sessionKey={address ?? 'anon'}
-                entered={entered}
-                motionDelay={1.7}
-                compact
-              />
+            {showContent && releasedFragments.length > 0 && (
+              <ReleasedFragmentsGallery pieceNumbers={releasedFragments} entered={entered} />
             )}
 
             <div style={{ padding: '0 clamp(16px,4vw,64px)' }}>

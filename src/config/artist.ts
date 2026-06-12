@@ -195,6 +195,34 @@ export function isDropWindowOpen(piece: number, now = Date.now()): boolean {
   return now >= start && now < end;
 }
 
+export function isDropWindowEnded(piece: number, now = Date.now()): boolean {
+  const entry = getDropEntry(piece);
+  if (!entry) return false;
+  return now >= Date.parse(getDropEndUTC(entry));
+}
+
+/** Fragments whose mint windows have closed — shown in the released gallery. */
+export function getReleasedFragments(now = Date.now()): number[] {
+  return DROP_SCHEDULE.filter(
+    (entry) => isDropWindowEnded(entry.piece, now) && FRAGMENT_SITE_MEDIA[entry.piece],
+  ).map((entry) => entry.piece);
+}
+
+/** The single active mint promoted to the primary slot (F2 replaces F1 when its window opens). */
+export function getPrimaryLiveMintPiece(now = Date.now()): number | null {
+  const active = DROP_SCHEDULE.find(
+    (entry) => CLAIM_INSTANCES[entry.piece] && isDropWindowOpen(entry.piece, now),
+  );
+  return active?.piece ?? null;
+}
+
+export function getFragmentThumbUrl(piece: number, width = 160): string | null {
+  const media = FRAGMENT_SITE_MEDIA[piece];
+  if (!media) return null;
+  const base = (media.posterUrl ?? media.displayUrl).split('?')[0];
+  return optimizeAssetImage(base, width);
+}
+
 /** Countdown targets the active phase window end (Frag 01 → Fri, then Frag 02 → Mon 15). */
 export function getCountdownTarget(now = Date.now()): {
   piece: number;

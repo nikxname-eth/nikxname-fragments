@@ -33,6 +33,7 @@ const CHECKS = [
   { id: 'banner-evolved', label: 'Evolved banner assets (v2/v3)', pattern: /Banner-Main-Dark-2\.jpg[\s\S]{0,200}Banner-Main-Dark-3\.jpg/ },
   { id: 'asset-version', label: 'Site asset cache version', pattern: /20260612/ },
   { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
+  { id: 'released-gallery', label: 'Released fragments gallery', pattern: /released-section|Released fragments/ },
 ];
 
 function walk(dir, acc = []) {
