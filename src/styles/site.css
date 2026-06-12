@@ -123,7 +123,9 @@ w3m-modal::part(overlay),wcm-modal::part(overlay){z-index:10049!important;positi
 /* BANNER */
 .banner-outer{padding:clamp(16px,2.5vw,36px) clamp(16px,4.5vw,64px);max-width:1528px;margin:0 auto}
 .banner-inner{position:relative;width:100%;aspect-ratio:2500/1266;border-radius:clamp(10px,1.4vw,18px);overflow:hidden;border:none;background:transparent}
-.banner-inner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity 0.8s ease}
+.banner-inner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity 1.1s ease}
+.banner-inner img[fetchpriority="high"]{animation:banner-evolve-in 1.2s ease}
+@keyframes banner-evolve-in{from{opacity:0.35;filter:blur(2px)}to{opacity:1;filter:blur(0)}}
 
 /* COUNTDOWN */
 .cd-wrap{text-align:center;padding:clamp(32px,5vw,60px) 24px clamp(24px,4vw,52px)}

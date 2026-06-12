@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
 import { useManifoldMobileRecovery } from '../hooks/useManifoldMobileRecovery';
+import { usePostMintRefresh } from '../hooks/usePostMintRefresh';
 
 /** Connect 6.1.0 + Claims 1.16.1 buy-only; delay-auth defers sign-in until collect. */
 const CONNECT_VERSION = '6.1.0';
@@ -12,6 +13,7 @@ const CLAIM_VERSION = '1.16.1';
 
 function ManifoldShell({ children }: { children: ReactNode }) {
   useManifoldMobileRecovery();
+  usePostMintRefresh();
   return <>{children}</>;
 }
 

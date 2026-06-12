@@ -119,7 +119,7 @@ export const FRAGMENT_SITE_MEDIA: Record<
  */
 export const FRAGMENT_CLAIM_URI_MARKERS: Record<number, string[]> = {
   1: ['y59jKPO1M12WQ81y-h4sRouWXegvhxYV_Wxg1ccjyQk'],
-  // Add Fragment 02 marker once first mint confirms on-chain metadata id.
+  2: ['tyMlGm_W8v-sIn8PyTWRKcGw3owGbfDGU-vOERVRksM'],
 };
 
 /** Manifold claim instance per fragment — add a row when each piece drops. */

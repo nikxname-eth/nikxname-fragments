@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { PIECE_NAMES } from '../config/artist';
 import { CONTRACT_ADDRESS, ERC721_ABI } from '../lib/contract';
 import { pieceFromClaimTokenUri } from '../lib/fragments';
+import { MINT_COMPLETE_EVENT } from '../lib/mintEvents';
 import { publicClient } from '../lib/publicClient';
 
 export type OwnedFragment = {
@@ -11,7 +12,8 @@ export type OwnedFragment = {
 };
 
 const SCAN_MISS_LIMIT = 24;
-const SCAN_MAX_ID = 500;
+const SCAN_MAX_ID = 1_000;
+const MINT_BURST_DELAYS_MS = [0, 1_000, 2_500, 5_000, 10_000, 20_000, 40_000, 60_000];
 
 async function scanOwnedTokenIds(wallet: `0x${string}`): Promise<number[]> {
   const owned: number[] = [];
@@ -76,6 +78,7 @@ export function useOwnedFragments(address: `0x${string}` | undefined) {
   const [owned, setOwned] = useState<OwnedFragment[]>([]);
   const [balance, setBalance] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const burstTimers = useRef<number[]>([]);
 
   const refresh = useCallback(async () => {
     if (!address) {
@@ -101,23 +104,36 @@ export function useOwnedFragments(address: `0x${string}` | undefined) {
     }
   }, [address]);
 
+  const burstRefresh = useCallback(() => {
+    for (const timer of burstTimers.current) window.clearTimeout(timer);
+    burstTimers.current = MINT_BURST_DELAYS_MS.map((delay) =>
+      window.setTimeout(() => {
+        void refresh();
+      }, delay),
+    );
+  }, [refresh]);
+
   useEffect(() => {
     refresh();
     const interval = window.setInterval(refresh, 8_000);
     const onWallet = () => refresh();
-    const onMint = () => refresh();
+    const onMint = () => burstRefresh();
+    const onMintComplete = () => burstRefresh();
 
     window.addEventListener('m-authenticated', onWallet);
     window.addEventListener('m-unauthenticated', onWallet);
     window.addEventListener('m-refresh-widgets', onMint);
+    window.addEventListener(MINT_COMPLETE_EVENT, onMintComplete);
 
     return () => {
       window.clearInterval(interval);
+      for (const timer of burstTimers.current) window.clearTimeout(timer);
       window.removeEventListener('m-authenticated', onWallet);
       window.removeEventListener('m-unauthenticated', onWallet);
       window.removeEventListener('m-refresh-widgets', onMint);
+      window.removeEventListener(MINT_COMPLETE_EVENT, onMintComplete);
     };
-  }, [refresh]);
+  }, [refresh, burstRefresh]);
 
   return { owned, balance, isLoading, refresh };
 }
