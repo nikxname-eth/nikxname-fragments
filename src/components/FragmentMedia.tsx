@@ -7,20 +7,30 @@ const PIECE_AUDIO_VOLUME = 0.38;
 type Props = {
   tokenId: number;
   fallbackTitle: string;
-  /** User has entered the site — safe to attempt unmuted playback after their click. */
-  preferAudio?: boolean;
+  /** Live mint slot — load and play immediately. */
+  eager?: boolean;
 };
 
-export function FragmentMedia({ tokenId, fallbackTitle, preferAudio }: Props) {
+export function FragmentMedia({ tokenId, fallbackTitle, eager = false }: Props) {
   const { metadata, isLoading, error } = useTokenMetadata(tokenId);
   const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(eager);
   const [muted, setMuted] = useState(true);
 
   useEffect(() => {
+    if (eager) {
+      setShouldLoadVideo(true);
+      return;
+    }
+
     const root = rootRef.current;
     if (!root || !metadata || metadata.mediaType !== 'video') return;
+
+    if (!metadata.posterUrl) {
+      setShouldLoadVideo(true);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -34,23 +44,21 @@ export function FragmentMedia({ tokenId, fallbackTitle, preferAudio }: Props) {
 
     observer.observe(root);
     return () => observer.disconnect();
-  }, [metadata]);
+  }, [metadata, eager]);
 
   useEffect(() => {
-    if (!preferAudio || !metadata?.hasAudio || !shouldLoadVideo) return;
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !shouldLoadVideo) return;
 
-    video.muted = false;
-    video.volume = PIECE_AUDIO_VOLUME;
-    video
-      .play()
-      .then(() => setMuted(false))
-      .catch(() => {
-        video.muted = true;
-        setMuted(true);
-      });
-  }, [preferAudio, metadata?.hasAudio, metadata?.mediaUrl, shouldLoadVideo]);
+    const play = () => {
+      video.play().catch(() => {});
+    };
+
+    if (video.readyState >= 2) play();
+    else video.addEventListener('loadeddata', play, { once: true });
+
+    return () => video.removeEventListener('loadeddata', play);
+  }, [shouldLoadVideo, metadata?.mediaUrl]);
 
   const toggleAudio = () => {
     const video = videoRef.current;
@@ -95,7 +103,7 @@ export function FragmentMedia({ tokenId, fallbackTitle, preferAudio }: Props) {
             loop
             muted={muted}
             playsInline
-            preload="metadata"
+            preload={eager ? 'auto' : 'metadata'}
             aria-label={alt}
           />
         ) : (

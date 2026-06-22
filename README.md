@@ -14,7 +14,7 @@ Primary marketplace: [Manifold @nikxnames-art](https://manifold.xyz/@nikxnames-a
 - TypeScript + Framer Motion
 - Manifold Claims (m-claim-buy-only widgets) with custom "delay auth" UX + post-mint optimistic updates
 - Custom on-chain metadata + multicall ownership scanning for evolving UI
-- Elegant dark / light theme, dramatic intro gate (remembered in session), countdowns, lightbox players
+- Elegant dark / light theme, countdowns, lightbox players
 
 Assets are versioned on https://assets.nikxart.xyz (Cloudflare) and referenced with cache-busting via `SITE_ASSET_VERSION`.
 
@@ -26,7 +26,7 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000. The intro "Enter" gate uses sessionStorage so refreshes stay inside after first pass.
+Open http://localhost:3000 — the site loads directly (no intro gate).
 
 **Required env (baked at build time for static export):**
 
@@ -58,7 +58,7 @@ The site is currently configured for the live schedule (F1 closed, F2 live as of
 - `src/config/artist.ts` — single source of truth for schedule, claims, media, banners, copy
 - `src/components/` — mint UI, media players, galleries, Manifold widgets
 - `src/hooks/` — wallet, owned fragments, countdown, mint watchers, etc.
-- `src/lib/` — manifold session/auth bridge, contract scanning, site enter persistence
+- `src/lib/` — manifold session/auth bridge, contract scanning
 
 ## Asset Pipeline (for artist / team)
 

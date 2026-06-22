@@ -4,18 +4,15 @@ import type { ReactNode } from 'react';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
+import { CLAIM_SDK_VERSION, CONNECT_SDK_VERSION } from '../lib/manifoldConnect';
 import { useContractMintWatcher } from '../hooks/useContractMintWatcher';
 import { useManifoldMobileRecovery } from '../hooks/useManifoldMobileRecovery';
-import { useManifoldWallet } from '../hooks/useManifoldWallet';
 import { usePostMintRefresh } from '../hooks/usePostMintRefresh';
 import { ErrorBoundary } from '../components/ErrorBoundary';
-
-/** Connect 6.1.0 + Claims 1.16.1 buy-only; delay-auth defers sign-in until collect. */
-const CONNECT_VERSION = '6.1.0';
-const CLAIM_VERSION = '1.16.1';
+import { WalletProvider, useWallet } from '../providers/WalletProvider';
 
 function ManifoldShell({ children }: { children: ReactNode }) {
-  const { address } = useManifoldWallet();
+  const { address } = useWallet();
   useManifoldMobileRecovery();
   useContractMintWatcher(address);
   usePostMintRefresh();
@@ -30,20 +27,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
         />
-        <meta name="theme-color" content="#06060a" />
-        <link
-          rel="stylesheet"
-          href={`https://connect.manifoldxyz.dev/${CONNECT_VERSION}/connect.css`}
-        />
-        <link
-          rel="stylesheet"
-          href={`https://claims.manifoldxyz.dev/${CLAIM_VERSION}/claimComplete.css`}
-        />
       </Head>
 
       <Script
         id="manifold-connect-js"
-        src={`https://connect.manifoldxyz.dev/${CONNECT_VERSION}/connect.umd.min.js`}
+        src={`https://connect.manifoldxyz.dev/${CONNECT_SDK_VERSION}/connect.umd.min.js`}
         strategy="afterInteractive"
         onLoad={() => {
           window.dispatchEvent(new Event('m-refresh-widgets'));
@@ -51,18 +39,20 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       />
       <Script
         id="manifold-claims-js"
-        src={`https://claims.manifoldxyz.dev/${CLAIM_VERSION}/claimComplete.umd.min.js`}
+        src={`https://claims.manifoldxyz.dev/${CLAIM_SDK_VERSION}/claimComplete.umd.min.js`}
         strategy="afterInteractive"
         onLoad={() => {
           window.dispatchEvent(new Event('m-refresh-widgets'));
         }}
       />
 
-      <ManifoldShell>
-        <ErrorBoundary>
-          <Component {...pageProps} />
-        </ErrorBoundary>
-      </ManifoldShell>
+      <WalletProvider>
+        <ManifoldShell>
+          <ErrorBoundary>
+            <Component {...pageProps} />
+          </ErrorBoundary>
+        </ManifoldShell>
+      </WalletProvider>
     </>
   );
 }

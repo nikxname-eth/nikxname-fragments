@@ -5,10 +5,9 @@ import { FragmentMedia } from './FragmentMedia';
 
 type Props = {
   pieceNumbers: number[];
-  entered: boolean;
 };
 
-export function ReleasedFragmentsGallery({ pieceNumbers, entered }: Props) {
+export function ReleasedFragmentsGallery({ pieceNumbers }: Props) {
   const [expanded, setExpanded] = useState<number | null>(null);
 
   useEffect(() => {
@@ -109,7 +108,7 @@ export function ReleasedFragmentsGallery({ pieceNumbers, entered }: Props) {
                 <FragmentMedia
                   tokenId={expanded}
                   fallbackTitle={expandedTitle}
-                  preferAudio={entered}
+
                 />
                 <div className="piece-video-overlay" />
                 <span className="piece-ghost">{String(expanded).padStart(2, '0')}</span>

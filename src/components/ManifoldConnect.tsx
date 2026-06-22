@@ -12,23 +12,33 @@ import {
 type Props = {
   /** Renders the real Manifold button in the nav (required for mobile deep links). */
   visible?: boolean;
+  /** Nav pill styling vs rose-gold mint CTA. */
+  variant?: 'nav' | 'mint';
 };
 
 /**
  * Manifold Connect — powers wallet auth and claim widgets.
  * Visible in the nav so users tap the real widget (proxy clicks fail on iOS).
  */
-export function ManifoldConnect({ visible = false }: Props) {
+export function ManifoldConnect({ visible = false, variant = 'mint' }: Props) {
   const ready = isManifoldConnectReady();
 
   useManifoldRefresh('connect', MANIFOLD_CLIENT_ID, WALLETCONNECT_PROJECT_ID, visible, ready);
 
   if (!ready) return null;
 
+  const hostClass = [
+    'manifold-connect-host',
+    visible ? 'manifold-connect-host--visible' : 'manifold-connect-host--hidden',
+    variant === 'nav' ? 'manifold-connect-host--nav' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
     <div
       id="manifold-connect"
-      className={`manifold-connect-host${visible ? ' manifold-connect-host--visible' : ' manifold-connect-host--hidden'}`}
+      className={hostClass}
       aria-hidden={visible ? undefined : true}
     >
       <div

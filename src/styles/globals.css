@@ -9,6 +9,12 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+button,
+a,
+[role='button'],
+label[for],
+input[type='button'],
+input[type='submit'],
+input[type='reset'] {
+  cursor: pointer;
 }

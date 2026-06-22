@@ -1,3 +1,7 @@
+/** Manifold SDK versions — keep in sync with _document.tsx stylesheets and _app.tsx scripts. */
+export const CONNECT_SDK_VERSION = '6.1.0';
+export const CLAIM_SDK_VERSION = '1.16.1';
+
 export const MANIFOLD_APP_NAME = process.env.NEXT_PUBLIC_MANIFOLD_APP_NAME ?? 'Nikxart';
 export const MANIFOLD_CLIENT_ID = process.env.NEXT_PUBLIC_MANIFOLD_CLIENT_ID ?? '';
 export const WALLETCONNECT_PROJECT_ID =

@@ -1,76 +1,35 @@
-export const BANNER_SIZES =
-  '(max-width:680px) calc(100vw - 32px),(max-width:1100px) calc(100vw - 64px),1400px';
-
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260612c';
+export const SITE_ASSET_VERSION = '20260622f06';
 
-const makeBanner = (base: string) => ({
-  src: `${base}?width=1400&quality=88&format=auto&v=${SITE_ASSET_VERSION}`,
-  srcSet: [
-    `${base}?width=640&quality=85&format=auto&v=${SITE_ASSET_VERSION} 640w`,
-    `${base}?width=960&quality=85&format=auto&v=${SITE_ASSET_VERSION} 960w`,
-    `${base}?width=1400&quality=88&format=auto&v=${SITE_ASSET_VERSION} 1400w`,
-  ].join(', '),
-});
+/** Ambient site audio — toggled from nav. */
+export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/siteaudio-055s-05.mp3';
+export const SITE_AUDIO_VOLUME = 0.42;
 
 const optimizeAssetImage = (url: string, width: number) =>
   `${url}?width=${width}&quality=82&format=auto&v=${SITE_ASSET_VERSION}`;
 
-export const BANNER_DARK = makeBanner('https://assets.nikxart.xyz/Banner-Medium.jpg');
-export const BANNER_LIGHT = makeBanner('https://assets.nikxart.xyz/main_grid_light_2500px.jpg');
+/** Stage II animated grid banners — single source per theme. */
+export const BANNER_GIF = {
+  dark: 'https://assets.nikxart.xyz/stageii/BannerGridDark-06-web.gif',
+  light: 'https://assets.nikxart.xyz/stageii/BannerGridLight-06-web.gif',
+} as const;
 
-/** Grid after Fragment 01 window closes — public reveal (Dark-2 / Light-2). */
-export const PHASE_ONE_REVEAL_BANNER = {
-  dark: 'https://assets.nikxart.xyz/Banner-Main-Dark-2.jpg',
-  light: 'https://assets.nikxart.xyz/Banner-Main-Light-2.jpg',
+const releasedCoverUrl = (piece: number) =>
+  `https://assets.nikxart.xyz/stageii/releasedfragment${String(piece).padStart(2, '0')}.jpg`;
+
+/** R2 naming: F01–02 use hyphen; F03+ use underscore. All lowercase 1080p. */
+const fragmentShareUrl = (piece: number) => {
+  const id = String(piece).padStart(2, '0');
+  if (piece <= 2) return `https://assets.nikxart.xyz/Fragment-${id}-1080p.mp4`;
+  return `https://assets.nikxart.xyz/Fragment-${id}_1080p.mp4`;
 };
 
-/** Evolved banner per highest fragment held — puzzle piece revealed in the grid. */
-export const EVOLVED_BANNERS: Record<number, { dark: string; light: string }> = {
-  1: {
-    dark: PHASE_ONE_REVEAL_BANNER.dark,
-    light: PHASE_ONE_REVEAL_BANNER.light,
-  },
-  2: {
-    dark: 'https://assets.nikxart.xyz/Banner-Main-Dark-3.jpg',
-    light: 'https://assets.nikxart.xyz/Banner-Main-Light-3.jpg',
-  },
-};
-
-export function getEvolvedBanner(pieceLevel: number, theme: 'dark' | 'light') {
-  const urls = EVOLVED_BANNERS[pieceLevel];
-  if (!urls) return null;
-  return makeBanner(theme === 'dark' ? urls.dark : urls.light);
-}
-
-export function getPhaseOneRevealBanner(theme: 'dark' | 'light') {
-  return makeBanner(theme === 'dark' ? PHASE_ONE_REVEAL_BANNER.dark : PHASE_ONE_REVEAL_BANNER.light);
-}
-
-export function isPhaseOneEnded(now = Date.now()): boolean {
-  const f1 = DROP_SCHEDULE.find((entry) => entry.piece === 1);
-  if (!f1) return false;
-  return now >= Date.parse(getDropEndUTC(f1));
-}
-
-/** Resolve hero banner: holder evolution → post–Frag-01 reveal → original grid. */
-export function getSiteBanner(options: {
-  theme: 'dark' | 'light';
-  highestOwnedPiece: number;
-  now?: number;
-}) {
-  const { theme, highestOwnedPiece, now = Date.now() } = options;
-
-  if (highestOwnedPiece > 0) {
-    const evolved = getEvolvedBanner(highestOwnedPiece, theme);
-    if (evolved) return evolved;
-  }
-
-  if (isPhaseOneEnded(now)) {
-    return getPhaseOneRevealBanner(theme);
-  }
-
-  return theme === 'dark' ? BANNER_DARK : BANNER_LIGHT;
+/** Hero banner — theme GIF only (no holder evolution variants). */
+export function getSiteBanner(options: { theme: 'dark' | 'light' }) {
+  const base = options.theme === 'dark' ? BANNER_GIF.dark : BANNER_GIF.light;
+  return {
+    src: `${base}?v=${SITE_ASSET_VERSION}`,
+  };
 }
 
 /**
@@ -83,8 +42,12 @@ export const ON_CHAIN_MEDIA: Record<number, string> = {
 
 /** Web-optimised share downloads (Cloudflare CDN) — one URL per released fragment. */
 export const FRAGMENT_SHARE_URLS: Record<number, string> = {
-  1: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
-  2: 'https://assets.nikxart.xyz/Fragment-02-1080p.mp4',
+  1: fragmentShareUrl(1),
+  2: fragmentShareUrl(2),
+  3: fragmentShareUrl(3),
+  4: fragmentShareUrl(4),
+  5: fragmentShareUrl(5),
+  6: fragmentShareUrl(6),
 };
 
 /**
@@ -102,13 +65,31 @@ export const FRAGMENT_SITE_MEDIA: Record<
 > = {
   1: {
     displayUrl: FRAGMENT_SHARE_URLS[1],
-    posterUrl: optimizeAssetImage('https://assets.nikxart.xyz/PuzzlePc-PH01.jpg', 900),
+    posterUrl: releasedCoverUrl(1),
     hasAudio: true,
   },
   2: {
     displayUrl: FRAGMENT_SHARE_URLS[2],
-    posterUrl: 'https://assets.nikxart.xyz/frag_02_web.gif',
-    teaserUrl: 'https://assets.nikxart.xyz/frag_02_web.gif',
+    posterUrl: releasedCoverUrl(2),
+    hasAudio: true,
+  },
+  3: {
+    displayUrl: FRAGMENT_SHARE_URLS[3],
+    posterUrl: releasedCoverUrl(3),
+    hasAudio: true,
+  },
+  4: {
+    displayUrl: FRAGMENT_SHARE_URLS[4],
+    posterUrl: releasedCoverUrl(4),
+    hasAudio: true,
+  },
+  5: {
+    displayUrl: FRAGMENT_SHARE_URLS[5],
+    posterUrl: releasedCoverUrl(5),
+    hasAudio: true,
+  },
+  6: {
+    displayUrl: FRAGMENT_SHARE_URLS[6],
     hasAudio: true,
   },
 };
@@ -135,6 +116,26 @@ export const CLAIM_INSTANCES: Record<
   2: {
     instanceId: '4058790128',
     manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4058790128',
+    mintPrice: '0.00044 ETH',
+  },
+  3: {
+    instanceId: '4027818224',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4027818224',
+    mintPrice: '0.00044 ETH',
+  },
+  4: {
+    instanceId: '4027390192',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4027390192',
+    mintPrice: '0.00044 ETH',
+  },
+  5: {
+    instanceId: '4026896624',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4026896624',
+    mintPrice: '0.00044 ETH',
+  },
+  6: {
+    instanceId: '4030679280',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4030679280',
     mintPrice: '0.00044 ETH',
   },
 };
@@ -232,34 +233,17 @@ export function getFragmentThumbUrl(piece: number, width = 160): string | null {
   return optimizeAssetImage(base, width);
 }
 
-/** Countdown targets the active phase window end (Frag 01 → Fri, then Frag 02 → Mon 15). */
+/** Countdown targets the active mint window close (11 am Eastern). */
 export function getCountdownTarget(now = Date.now()): {
   piece: number;
   endsUTC: string;
   activeDrop: DropScheduleEntry;
 } | null {
-  if (isPhaseOneEnded(now)) {
-    const f2 = getDropEntry(2);
-    if (f2 && isDropWindowOpen(2, now)) {
-      return { piece: 2, endsUTC: getDropEndUTC(f2), activeDrop: f2 };
-    }
-  }
-
-  const f1 = getDropEntry(1);
-  if (f1 && isDropWindowOpen(1, now)) {
-    return { piece: 1, endsUTC: getDropEndUTC(f1), activeDrop: f1 };
-  }
-
-  const liveIdx = DROP_SCHEDULE.reduce(
-    (acc, item, index) => (Date.parse(item.startsUTC) <= now ? index : acc),
-    -1,
+  const active = DROP_SCHEDULE.find(
+    (entry) => CLAIM_INSTANCES[entry.piece] && isDropWindowOpen(entry.piece, now),
   );
-  if (liveIdx >= 0) {
-    const active = DROP_SCHEDULE[liveIdx];
-    return { piece: active.piece, endsUTC: getDropEndUTC(active), activeDrop: active };
-  }
-
-  return null;
+  if (!active) return null;
+  return { piece: active.piece, endsUTC: getDropEndUTC(active), activeDrop: active };
 }
 
 function formatEastern(iso: string, options: Intl.DateTimeFormatOptions = {}): string {
@@ -278,11 +262,11 @@ export function getDropWindowNote(entry: DropScheduleEntry): string {
 
   switch (entry.windowType) {
     case 'launch':
-      return `four days · through ${endDay}, 10 am EST`;
+      return `four days · through ${endDay}, 11 am Eastern`;
     case 'weekend':
-      return `over the weekend · through ${endDay}, 10 am EST`;
+      return `over the weekend · through ${endDay}, 11 am Eastern`;
     case 'forty-eight':
-      return `48 hours · through ${endDay}, 10 am EST`;
+      return `48 hours · through ${endDay}, 11 am Eastern`;
   }
 }
 
@@ -295,22 +279,78 @@ export function formatDropArrivalNote(entry: DropScheduleEntry): string {
 
   switch (entry.windowType) {
     case 'launch':
-      return `${startDay} — 10 am EST · four days`;
+      return `${startDay} — 11 am Eastern · four days`;
     case 'weekend':
-      return `${startDay} — 10 am EST · over the weekend`;
+      return `${startDay} — 11 am Eastern · over the weekend`;
     case 'forty-eight':
-      return `${startDay} — 10 am EST · 48 hours`;
+      return `${startDay} — 11 am Eastern · 48 hours`;
   }
 }
 
-export function formatDropCloseNote(entry: DropScheduleEntry): string {
-  const endDay = formatEastern(getDropEndUTC(entry), {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric',
-  });
-  return `through ${endDay}, 10 am EST`;
+export function getLivePieceIndex(now = Date.now()): number {
+  return DROP_SCHEDULE.reduce(
+    (acc, item, index) => (Date.parse(item.startsUTC) <= now ? index : acc),
+    -1,
+  );
 }
+
+function getMaxSharePiece(now = Date.now()): number {
+  return Object.keys(FRAGMENT_SHARE_URLS).reduce((max, pieceKey) => {
+    const piece = Number(pieceKey);
+    if (isDropWindowEnded(piece, now) || isDropWindowOpen(piece, now)) {
+      return Math.max(max, piece);
+    }
+    return max;
+  }, 0);
+}
+
+/** Single schedule snapshot for the home page. */
+export function getDropState(now = Date.now()) {
+  const livePieceIdx = getLivePieceIndex(now);
+  const livePieceNumber = livePieceIdx >= 0 ? livePieceIdx + 1 : 1;
+  const dropsStarted = livePieceIdx >= 0;
+  const primaryLivePiece = getPrimaryLiveMintPiece(now);
+  const nextPiece = primaryLivePiece != null ? primaryLivePiece + 1 : null;
+  const teaserPiece =
+    primaryLivePiece != null &&
+    nextPiece != null &&
+    CLAIM_INSTANCES[nextPiece] &&
+    !isDropWindowOpen(nextPiece, now)
+      ? nextPiece
+      : null;
+  const countdownPhase = getCountdownTarget(now);
+
+  return {
+    livePieceNumber,
+    dropsStarted,
+    primaryLivePiece,
+    teaserPiece,
+    releasedFragments: getReleasedFragments(now),
+    maxSharePiece: getMaxSharePiece(now),
+    countdownPhase,
+    countdownTarget:
+      countdownPhase?.endsUTC ?? (dropsStarted ? null : DROP_SCHEDULE[0].startsUTC),
+  };
+}
+
+export const ABOUT_COLLECTIONS = [
+  { label: 'Together It Blooms', onSite: true as const },
+  {
+    label: 'The Void',
+    href: 'https://manifold.xyz/@nikxnames-art/p/thevoid',
+    external: true as const,
+  },
+  {
+    label: 'Life Impressions',
+    href: 'https://manifold.xyz/@nikxnames-art/p/1913617113',
+    external: true as const,
+  },
+  {
+    label: '1/1 Artworks',
+    href: 'https://manifold.xyz/@nikxnames-art/p/nikxname1of1s',
+    external: true as const,
+  },
+] as const;
 
 /** Pinned X post introducing Together It Blooms / Fragment 01. */
 export const PROJECT_X_ARTICLE = 'https://x.com/Nikxname/status/2064076924138172738';
@@ -364,7 +404,7 @@ export const SHARE_PIECES: {
         ? optimizeAssetImage(media.posterUrl.split('?')[0], 480)
         : downloadUrl,
       downloadUrl,
-      downloadName: `Fragment-${String(number).padStart(2, '0')}-1080p.mp4`,
+      downloadName: downloadUrl.split('/').pop() ?? `Fragment-${String(number).padStart(2, '0')}_1080p.mp4`,
     };
   })
   .sort((a, b) => a.number - b.number);

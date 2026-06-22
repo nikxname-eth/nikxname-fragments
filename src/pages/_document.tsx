@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document';
+import { CLAIM_SDK_VERSION, CONNECT_SDK_VERSION } from '../lib/manifoldConnect';
 
 const META = {
   title: 'Together It Blooms — Nikxname',
@@ -52,91 +53,18 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap"
           rel="stylesheet"
         />
-
+        <link
+          rel="stylesheet"
+          href={`https://connect.manifoldxyz.dev/${CONNECT_SDK_VERSION}/connect.css`}
+        />
+        <link
+          rel="stylesheet"
+          href={`https://claims.manifoldxyz.dev/${CLAIM_SDK_VERSION}/claimComplete.css`}
+        />
       </Head>
       <body>
         <Main />
         <NextScript />
-
-        {/* 
-          GATE SAFETY NET — vanilla JS so the "Enter" experience can NEVER be stuck.
-          This runs as soon as the HTML + this tiny script parses (long before React + framer-motion bundle).
-          It makes the artistic intro button instantly tappable/keyboard accessible.
-          React will detect the sessionStorage / body class / custom event and fast-forward gracefully.
-        */}
-        <script id="gate-safety" dangerouslySetInnerHTML={{
-          __html: `
-(function(){
-  var ENTER_KEY = 'nikxart-entered';
-  function markEntered() {
-    try { sessionStorage.setItem(ENTER_KEY, '1'); } catch(e){}
-    try { document.documentElement.setAttribute('data-entered','1'); } catch(e){}
-    document.body.classList.add('site-entered');
-  }
-  function removeIntro() {
-    var intro = document.querySelector('.intro');
-    if (!intro) return;
-    intro.style.transition = 'opacity 700ms cubic-bezier(0.76,0,0.24,1)';
-    intro.style.opacity = '0';
-    setTimeout(function(){
-      if (intro && intro.parentNode) intro.parentNode.removeChild(intro);
-    }, 720);
-  }
-  function doEnter(ev) {
-    if (ev) { ev.preventDefault(); ev.stopPropagation(); }
-    markEntered();
-    removeIntro();
-    // Notify React if it has already hydrated
-    try { window.dispatchEvent(new CustomEvent('nikxart:entered')); } catch(e){}
-    // Global escape hatch for console / future use
-    try { window.__NIKX_ENTERED = true; } catch(e){}
-  }
-  // Event delegation (works even on the initial static HTML snapshot)
-  document.addEventListener('click', function(e){
-    var btn = e.target && e.target.closest && e.target.closest('.pz-btn, [data-enter-gate]');
-    if (btn) doEnter(e);
-  }, true);
-  document.addEventListener('keydown', function(e){
-    if (e.key !== 'Enter' && e.key !== ' ') return;
-    var inIntro = !!document.querySelector('.intro');
-    if (!inIntro) return;
-    var btn = document.querySelector('.pz-btn');
-    if (btn || e.target.closest('.intro')) {
-      doEnter(e);
-    }
-  }, true);
-  // Tap anywhere on the intro background as last-resort (with very subtle hint)
-  document.addEventListener('click', function(e){
-    var intro = document.querySelector('.intro');
-    if (!intro) return;
-    // Only if they didn't click the button itself (button handler runs first via capture)
-    if (e.target.closest('.pz-btn')) return;
-    // If click is inside the intro rings area, treat as enter (generous target)
-    var rect = intro.getBoundingClientRect();
-    if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
-      doEnter(e);
-    }
-  }, true);
-  // URL bypass for testing, links, crawlers, or when JS partially fails: ?enter or #enter
-  try {
-    if (location.search.indexOf('enter') !== -1 || location.hash.indexOf('enter') !== -1) {
-      setTimeout(doEnter, 60);
-    }
-  } catch(e){}
-  // Expose for support / manual recovery
-  window.NIKX_FORCE_ENTER = doEnter;
-  // If the user already has the session flag from a previous visit in this tab/session, pre-remove the overlay fast
-  try {
-    if (sessionStorage.getItem(ENTER_KEY) === '1') {
-      // Hide immediately to avoid flash of dead gate
-      var intro = document.querySelector('.intro');
-      if (intro) { intro.style.opacity = '0'; intro.style.transition = 'none'; }
-      setTimeout(function(){ removeIntro(); markEntered(); }, 30);
-    }
-  } catch(e){}
-})();
-          `
-        }} />
       </body>
     </Html>
   );

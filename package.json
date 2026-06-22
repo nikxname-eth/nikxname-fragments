@@ -9,9 +9,11 @@
     "start": "next start",
     "diagnose": "node scripts/diagnose-site.mjs",
     "perf-budget": "node scripts/check-perf-budget.mjs",
-    "smoke": "npx playwright test tests/gate.spec.ts --project=chromium",
+    "smoke": "npx playwright test tests/site.spec.ts --project=chromium",
     "validate": "npm run build && node scripts/diagnose-site.mjs && node scripts/check-perf-budget.mjs",
-    "deploy": "npx wrangler pages deploy out --branch=main"
+    "deploy": "npm run build && npx wrangler pages deploy out --branch=nikxart-live-base --commit-dirty=true",
+    "deploy:prod": "npm run build && npx wrangler pages deploy out --branch=main",
+    "preview": "npm run build && npx wrangler pages dev ./out"
   },
   "dependencies": {
     "framer-motion": "^12.39.0",

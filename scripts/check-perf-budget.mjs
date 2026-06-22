@@ -4,7 +4,7 @@
  * Run as part of `npm run validate`.
  *
  * Goals:
- * - Keep the initial HTML (the gate experience) small now that we externalized the giant SVG.
+ * - Keep the initial HTML small for fast first paint.
  * - Watch main chunk growth.
  */
 
@@ -13,7 +13,7 @@ import { join } from 'node:path';
 
 const OUT = 'out';
 const BUDGETS = {
-  'index.html': 40 * 1024,            // Gate HTML must stay tiny (was bloated by giant inline SVG before)
+  'index.html': 40 * 1024,
   '_next/static/chunks': 1200 * 1024, // Realistic for framer-motion + manifold + web3 libs + nice animations
 };
 

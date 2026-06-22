@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import { zeroAddress } from 'viem';
 import { CONTRACT_ADDRESS, ERC721_ABI } from '../lib/contract';
 import { pieceFromClaimTokenUri } from '../lib/fragments';
-import { writeHolderPeak } from '../lib/holderState';
 import { dispatchMintComplete } from '../lib/mintEvents';
 import { publicClient } from '../lib/publicClient';
 
@@ -34,10 +33,6 @@ export function useContractMintWatcher(address: `0x${string}` | undefined) {
         pieceNumber = pieceFromClaimTokenUri(tokenUri) ?? 0;
       } catch {
         /* RPC lag — refresh will still pick up balance */
-      }
-
-      if (pieceNumber > 0) {
-        writeHolderPeak(wallet, pieceNumber);
       }
 
       dispatchMintComplete({

@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 /**
  * Full site diagnostic — local build vs production.
- * This now also asserts that the "Enter" gate can never be dead
- * (vanilla safety script + generous targets + bypasses).
+ * Asserts core site markers (Manifold, mint UI, banners, direct-load layout).
  *
  * Usage:
  *   node scripts/diagnose-site.mjs                 # checks local ./out against embedded prod URL
@@ -30,25 +29,23 @@ const CHECKS = [
   { id: 'mint-count', label: 'm-claim-mint-count widget', pattern: /m-claim-mint-count/ },
 
   { id: 'rose-connect', label: 'Rose-gold nav connect CSS', pattern: /manifold-connect-host--visible[\s\S]{0,400}var\(--cta-border\)/ },
-  { id: 'nav-chip', label: 'Connected wallet chip CSS', pattern: /nav-connect-chip/ },
+  { id: 'nav-chip', label: 'Connected wallet button CSS', pattern: /nav-connect-btn--linked/ },
   { id: 'collect-cta', label: 'Mint button CTA CSS', pattern: /\.mint-btn-wrap[\s\S]{0,400}var\(--cta-border\)/ },
   { id: 'wc-modal-z', label: 'WalletConnect modal z-index', pattern: /z-index:10050/ },
   { id: 'mobile-nav', label: 'Mobile connect button sizing (44px tap)', pattern: /min-height:44px!important/ },
   { id: 'mint-overflow', label: 'Mint card overflow visible', pattern: /\.mint-card[^}]*overflow:visible/ },
 
-  { id: 'frag-02-instance', label: 'Fragment 02 Manifold instance', pattern: /4058790128/ },
-  { id: 'frag-02-share', label: 'Fragment 02 share asset', pattern: /Fragment-02-1080p\.mp4/ },
-  { id: 'banner-evolved', label: 'Evolved banner assets (v2/v3)', pattern: /Banner-Main-Dark-2\.jpg[\s\S]{0,200}Banner-Main-Dark-3\.jpg/ },
-  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260612/ },
+  { id: 'frag-06-instance', label: 'Fragment 06 Manifold instance', pattern: /4030679280/ },
+  { id: 'frag-06-share', label: 'Fragment 06 share asset', pattern: /Fragment-06_1080p\.mp4/ },
+  { id: 'released-covers', label: 'Released fragment covers', pattern: /stageii\/releasedfragment0[1-5]\.jpg/ },
+  { id: 'banner-gif', label: 'Stage II banner GIFs', pattern: /BannerGridDark-06-web\.gif[\s\S]{0,200}BannerGridLight-06-web\.gif/ },
+  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260622f06/ },
   { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
   { id: 'released-gallery', label: 'Released fragments gallery', pattern: /released-section|Released fragments/ },
 
-  // Gate reliability (the #1 thing that must never break)
-  { id: 'gate-safety-script', label: 'Gate safety vanilla script (never-stuck enter)', pattern: /gate-safety|NIKX_FORCE_ENTER|nikxart:entered/ },
-  { id: 'gate-btn', label: 'Enter button present in initial HTML', pattern: /class="pz-btn|data-enter-gate/ },
-  { id: 'gate-tap-target', label: 'Generous tap target / data attr on gate button', pattern: /data-enter-gate|pz-btn/ },
-  { id: 'gate-css-target', label: 'CSS guarantees large hit area (min-height or padding)', pattern: /min-height:160px|\.pz-btn\{[^}]*padding|tap to enter/ },
-  { id: 'gate-url-bypass', label: 'URL bypass for gate (?enter)', pattern: /enter|NIKX_FORCE_ENTER/ },
+  { id: 'no-gate', label: 'No intro gate in build', pattern: /data-enter-gate|gate-safety/, negative: true },
+  { id: 'site-shell', label: 'Main site shell present', pattern: /class="site|Together It Blooms/ },
+  { id: 'hero-banner', label: 'Hero banner markup', pattern: /banner-inner/ },
 ];
 
 function walk(dir, acc = []) {
@@ -91,7 +88,10 @@ function collectFromOut() {
 
 function runChecks(label, corpus) {
   const rows = CHECKS.map(({ id, label: name, pattern, negative }) => {
-    const ok = pattern.test(corpus) && !(negative && negative.test(corpus));
+    const ok =
+      negative === true
+        ? !pattern.test(corpus)
+        : pattern.test(corpus) && !(negative && negative.test(corpus));
     return { id, name, ok };
   });
   const pass = rows.filter((r) => r.ok).length;

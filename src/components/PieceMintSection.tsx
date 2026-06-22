@@ -9,7 +9,6 @@ type Props = {
   pieceNumber: number;
   mode: 'live' | 'teaser';
   sessionKey: string;
-  entered: boolean;
   sectionRef?: RefObject<HTMLDivElement | null>;
   motionDelay?: number;
   compact?: boolean;
@@ -19,9 +18,8 @@ export function PieceMintSection({
   pieceNumber,
   mode,
   sessionKey,
-  entered,
   sectionRef,
-  motionDelay = 1.55,
+  motionDelay = 0.65,
   compact = false,
 }: Props) {
   const claim = CLAIM_INSTANCES[pieceNumber];
@@ -46,7 +44,7 @@ export function PieceMintSection({
 
       <div className="piece-video">
         {mode === 'live' ? (
-          <FragmentMedia tokenId={pieceNumber} fallbackTitle={title} preferAudio={entered} />
+          <FragmentMedia tokenId={pieceNumber} fallbackTitle={title} eager />
         ) : (
           <>
             <img

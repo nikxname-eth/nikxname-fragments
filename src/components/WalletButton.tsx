@@ -3,17 +3,23 @@ type Props = {
   shortAddress?: string;
 };
 
+import { clickManifoldConnectButton } from '../lib/openManifoldConnect';
+
 /** Shows authenticated wallet after Manifold claim flow completes. */
 export function WalletButton({ address, shortAddress }: Props) {
   if (!address || !shortAddress) return null;
 
   return (
-    <span
-      className="wallet-btn wallet-btn--connected nav-connect-chip"
+    <button
+      type="button"
+      className="wallet-btn wallet-btn--connected nav-connect-btn nav-connect-btn--linked"
       title={address}
       aria-label={`Connected wallet ${address}`}
+      onClick={() => {
+        void clickManifoldConnectButton();
+      }}
     >
       {shortAddress}
-    </span>
+    </button>
   );
 }

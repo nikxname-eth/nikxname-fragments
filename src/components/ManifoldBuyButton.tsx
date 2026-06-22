@@ -4,8 +4,6 @@ import {
   readManifoldSession,
   refreshManifoldWidgets,
 } from '../lib/manifoldConnect';
-import { getPieceNumberForInstanceId } from '../config/artist';
-import { dispatchMintComplete } from '../lib/mintEvents';
 import { useManifoldRefresh } from '../hooks/useManifoldRefresh';
 
 type Props = {
@@ -27,7 +25,6 @@ export function ManifoldBuyButton({
   sessionKey = 'anon',
 }: Props) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const resolvedPiece = pieceNumber || getPieceNumberForInstanceId(instanceId);
   useManifoldRefresh('buy', instanceId, active, sessionKey);
 
   useEffect(() => {
@@ -35,29 +32,6 @@ export function ManifoldBuyButton({
 
     const wrap = wrapRef.current;
     if (!wrap) return;
-
-    const onCheckoutSuccess = () => {
-      const success =
-        document.querySelector('.checkout-modal.success') ||
-        document.querySelector('.checkout-success-actions') ||
-        document.querySelector('.checkout-post-mint-message');
-      if (!success) return;
-
-      const session = readManifoldSession();
-      dispatchMintComplete({
-        pieceNumber: resolvedPiece,
-        address: session.address,
-      });
-    };
-
-    const checkoutObserver = new MutationObserver(onCheckoutSuccess);
-    checkoutObserver.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-    const checkoutPoll = window.setInterval(onCheckoutSuccess, 1_000);
 
     let authPending = false;
 
@@ -87,10 +61,8 @@ export function ManifoldBuyButton({
     wrap.addEventListener('pointerdown', onPointerDown, true);
     return () => {
       wrap.removeEventListener('pointerdown', onPointerDown, true);
-      checkoutObserver.disconnect();
-      window.clearInterval(checkoutPoll);
     };
-  }, [active, sessionKey, resolvedPiece]);
+  }, [active, sessionKey]);
 
   if (!active) return null;
 

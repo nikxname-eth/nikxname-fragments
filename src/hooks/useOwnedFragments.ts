@@ -96,5 +96,7 @@ export function useOwnedFragments(address: `0x${string}` | undefined) {
     };
   }, [refresh, burstRefresh]);
 
-  return { owned, balance, isLoading, refresh };
+  const walletOwnsAny = !!address && (balance > 0 || owned.length > 0);
+
+  return { owned, balance, isLoading, refresh, walletOwnsAny };
 }
