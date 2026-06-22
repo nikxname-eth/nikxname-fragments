@@ -26,7 +26,8 @@ import { WalletButton } from '../components/WalletButton';
 import { useCountdown } from '../hooks/useCountdown';
 import { useSiteClock } from '../hooks/useSiteClock';
 import { useManifoldWallet } from '../hooks/useManifoldWallet';
-import { useOwnedFragments } from '../hooks/useOwnedFragments';
+import { useEvolvingHolder } from '../hooks/useEvolvingHolder';
+import { readSiteEntered, writeSiteEntered } from '../lib/siteSession';
 const ABOUT_COLLECTIONS = [
   { label: 'Together It Blooms', onSite: true },
   {
@@ -51,6 +52,28 @@ export default function Home() {
 
   const [entered, setEntered] = useState(false);
   const [introGone, setIntroGone] = useState(false);
+
+  useEffect(() => {
+    const already = () =>
+      readSiteEntered() ||
+      document.documentElement.getAttribute('data-entered') === '1' ||
+      document.body.classList.contains('site-entered');
+
+    if (already()) {
+      setEntered(true);
+      setIntroGone(true);
+      return;
+    }
+
+    // Listen for the vanilla gate safety net (works even if React mounts after the click)
+    const onVanillaEnter = () => {
+      setEntered(true);
+      setTimeout(() => setIntroGone(true), 50);
+    };
+    window.addEventListener('nikxart:entered', onVanillaEnter);
+
+    return () => window.removeEventListener('nikxart:entered', onVanillaEnter);
+  }, []);
   const [dark, setDark] = useState(true);
   const [shareOpen, setShareOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -96,10 +119,14 @@ export default function Home() {
     { label: 'Seconds', val: countdown.s },
   ];
 
-  const { owned, balance, isLoading: collectionLoading, refresh: refreshOwned } =
-    useOwnedFragments(address);
-  const highestOwnedPiece = owned.reduce((max, fragment) => Math.max(max, fragment.pieceNumber), 0);
-  const walletOwnsAny = !!address && (balance > 0 || owned.length > 0);
+  const {
+    owned,
+    balance,
+    isLoading: collectionLoading,
+    highestOwnedPiece,
+    walletOwnsAny,
+    refresh: refreshOwned,
+  } = useEvolvingHolder(address);
   const siteBanner = getSiteBanner({
     theme: dark ? 'dark' : 'light',
     highestOwnedPiece: walletOwnsAny ? highestOwnedPiece : 0,
@@ -152,11 +179,19 @@ export default function Home() {
   }, [anyDrawerOpen]);
 
   const handleEnter = () => {
+    writeSiteEntered();
+    // Also set the flags the vanilla script uses, so everything stays in sync
+    try { document.documentElement.setAttribute('data-entered', '1'); } catch {}
+    document.body.classList.add('site-entered');
     setEntered(true);
-    setTimeout(() => setIntroGone(true), 2000);
+    // The vanilla script will have removed the DOM node; this timeout is only for the pure-React path
+    setTimeout(() => setIntroGone(true), 1600);
   };
 
+  // Gas price is only interesting once inside the experience (saves a pointless request for people who are still on the gate)
   useEffect(() => {
+    if (!entered) return;
+
     let intervalId: ReturnType<typeof setInterval> | undefined;
 
     const fetchGas = async () => {
@@ -178,12 +213,12 @@ export default function Home() {
       intervalId = setInterval(fetchGas, 30_000);
     };
 
-    const delayId = window.setTimeout(start, 5_000);
+    const delayId = window.setTimeout(start, 4_000);
     return () => {
       window.clearTimeout(delayId);
       if (intervalId) clearInterval(intervalId);
     };
-  }, []);
+  }, [entered]);
 
   const bannerPreload = entered ? siteBanner : null;
 
@@ -219,58 +254,26 @@ export default function Home() {
                 <motion.button
                   key="pz"
                   className="pz-btn"
+                  type="button"
+                  data-enter-gate
                   initial={{ opacity: 0, scale: 0.88 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, transition: { duration: 0.85, ease: 'easeInOut' } }}
                   transition={{ delay: 0.5, duration: 1.2, ease: 'easeOut' }}
                   onClick={handleEnter}
-                  aria-label="Enter the experience"
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleEnter(); } }}
+                  aria-label="Enter the experience — tap or press Enter"
+                  title="Enter"
                 >
                   <div className="pz-svg">
-                    <svg viewBox="2800 2150 2450 3750" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ overflow: 'visible' }}>
-                      <defs>
-                        <radialGradient id="pz-a" cx="50%" cy="50%" r="50%">
-                          <stop offset="0%" stopColor="#7a1424" stopOpacity="0.25" />
-                          <stop offset="100%" stopColor="#7a1424" stopOpacity="0" />
-                        </radialGradient>
-                        <radialGradient id="pz-b" cx="50%" cy="50%" r="50%">
-                          <stop offset="0%" stopColor="#9a1830" stopOpacity="0.65" />
-                          <stop offset="100%" stopColor="#7a1424" stopOpacity="0" />
-                        </radialGradient>
-                        <filter id="pz-f" x="-15%" y="-15%" width="130%" height="130%">
-                          <feGaussianBlur stdDeviation="60" result="b" />
-                          <feMerge>
-                            <feMergeNode in="b" />
-                            <feMergeNode in="SourceGraphic" />
-                          </feMerge>
-                        </filter>
-                      </defs>
-                      <ellipse cx="4008" cy="4000" rx="950" ry="1400" fill="url(#pz-a)" />
-                      <ellipse className="pz-glow" cx="4008" cy="4000" rx="1100" ry="1600" fill="url(#pz-b)" />
-                      <path
-                        filter="url(#pz-f)"
-                        fill="rgba(230,221,208,0.08)"
-                        stroke="rgba(230,221,208,0.26)"
-                        strokeWidth="28"
-                        strokeLinejoin="round"
-                        d="M5066,2799.68 C5093.33,2799.68 5116.66,2799.67 5140,2799.68 C5144,2799.69 5148,2799.56 5152,2799.75 C5169.6,2800.56 5178.7,2809.64 5179.38,2827.31 C5179.58,2832.62 5178.86,2837.96 5178.86,2843.28 C5178.88,2902.61 5179.17,2961.94 5178.93,3021.27 C5178.8,3055.23 5177.48,3089.19 5177.3,3123.16 C5177.05,3172.49 5177.49,3221.82 5177.38,3271.15 C5177.19,3353.8 5176.84,3436.45 5176.49,3519.1 C5176.25,3575.75 5175.92,3632.41 5175.62,3689.06 C5175.6,3693.06 5175.47,3697.06 5175.57,3701.06 C5176.2,3726.72 5148.12,3734.54 5132.63,3725.56 C5123.49,3720.25 5114.98,3713.83 5106.32,3707.72 C5100.36,3703.51 5094.97,3698.4 5088.74,3694.69 C5037.73,3664.38 4982.26,3648.39 4923.15,3648.67 C4842.35,3649.05 4769.94,3675.41 4707.79,3727.24 C4634.28,3788.54 4592.1,3867.72 4581.28,3962.53 C4566.81,4089.25 4621.96,4220.41 4737.8,4293.36 C4798.91,4331.85 4866.03,4349.03 4937.98,4343.12 C5006.08,4337.52 5067.33,4312.9 5121.15,4270.41 C5125.84,4266.71 5130.43,4262.71 5135.61,4259.81 C5151.63,4250.83 5172.7,4260.51 5173.14,4280.68 C5173.62,4302.64 5175.69,4324.58 5175.7,4346.53 C5175.89,4619.19 5175.82,4891.85 5175.81,5164.5 C5175.81,5171.83 5176.16,5179.21 5175.53,5186.49 C5173.84,5206.1 5161.25,5217.93 5141.72,5218.7 C5137.06,5218.89 5132.39,5218.76 5127.72,5218.76 C4870.4,5218.77 4613.08,5218.76 4355.75,5218.82 C4337.1,5218.82 4318.44,5219.44 4299.78,5219.63 C4266.18,5219.98 4236.63,5242.25 4227.13,5274.69 C4218.66,5303.6 4226.35,5329.1 4245.77,5350.74 C4270.21,5377.97 4288.36,5408.82 4300.68,5442.89 C4332.2,5530 4323.48,5613.57 4274,5691.77 C4232.9,5756.72 4173.03,5796.97 4099.05,5816.11 C4042.61,5830.72 3985.19,5831.72 3928.72,5818.54 C3831.11,5795.77 3758.86,5739.6 3720.15,5645.83 C3689.68,5572.02 3692.07,5497.47 3724.9,5424.42 C3737.24,5396.95 3753.63,5372.15 3773.45,5349.15 C3811.78,5304.69 3794.03,5247.56 3747.38,5225.14 C3740.08,5221.63 3732.51,5219.61 3724.29,5219.59 C3706.3,5219.53 3688.31,5218.82 3670.32,5218.81 C3410.99,5218.76 3151.67,5218.77 2892.35,5218.76 C2887.02,5218.76 2881.68,5218.88 2876.35,5218.71 C2857.42,5218.09 2845.23,5207.23 2843.07,5188.44 C2842.23,5181.19 2842.56,5173.8 2842.56,5166.47 C2842.54,4986.48 2842.54,4806.48 2842.54,4626.49 C2842.54,4539.16 2842.4,4451.83 2842.63,4364.5 C2842.69,4337.86 2843.86,4311.22 2844.33,4284.57 C2844.45,4277.71 2845.53,4271.31 2849.79,4265.77 C2857.03,4256.31 2870.72,4253.51 2882.33,4259.75 C2887.55,4262.55 2892.1,4266.63 2896.81,4270.33 C2957.01,4317.6 3025.5,4344.42 3101.86,4343.8 C3229.38,4342.77 3326.53,4285.37 3392.32,4176.18 C3424.01,4123.59 3439.15,4065.37 3439.11,4004.5 C3439.06,3917.69 3411.92,3839.43 3355.57,3772.33 C3312.01,3720.47 3258.11,3683.81 3193.29,3663.91 C3100.9,3635.56 3012.81,3646.59 2929.4,3694.8 C2916.28,3702.39 2904.66,3712.58 2892.39,3721.63 C2883.89,3727.9 2874.6,3730.28 2864.12,3728.18 C2852.08,3725.76 2844.21,3717.41 2843.12,3704.95 C2842.65,3699.65 2842.82,3694.29 2842.82,3688.96 C2842.8,3650.29 2843.62,3611.61 2842.65,3572.97 C2840.35,3481.68 2841.58,3390.38 2841.17,3299.09 C2840.86,3227.77 2840.65,3156.45 2840.33,3085.14 C2839.95,2999.82 2839.83,2914.5 2838.82,2829.2 C2838.61,2811.43 2850.36,2797.83 2868.13,2799.6 C2874.73,2800.26 2881.45,2799.68 2888.12,2799.68 C3142.78,2799.68 3397.43,2799.7 3652.09,2799.64 C3672.08,2799.63 3692.07,2799.18 3712.06,2798.77 C3745.23,2798.1 3776.38,2772.3 3783.91,2739.65 C3790.26,2712.07 3782.79,2687.87 3764.59,2667.33 C3724.95,2622.55 3700.78,2570.63 3693.48,2511.59 C3685.26,2445.11 3698.86,2382.68 3735.76,2326.4 C3780.95,2257.46 3844.71,2213.33 3924.49,2194.61 C4033.59,2169.02 4134.02,2190.91 4222.23,2259.94 C4283.9,2308.21 4318.06,2373.23 4324.99,2451.7 C4332.04,2531.53 4307.8,2601.42 4257.1,2662.79 C4251.19,2669.95 4245.27,2677.38 4240.97,2685.54 C4216.65,2731.65 4243.26,2783.26 4290.28,2797.03 C4294.67,2798.31 4299.46,2798.6 4304.09,2798.71 C4323.41,2799.16 4342.73,2799.63 4362.06,2799.64 C4596.7,2799.7 4831.35,2799.68 5066,2799.68 Z"
-                      />
-                      <rect x="3620" y="3880" width="780" height="340" rx="60" fill="rgba(6,6,10,0.35)" />
-                      <text
-                        x="4008"
-                        y="4060"
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                        fontFamily="Cormorant Garamond,Georgia,serif"
-                        fontStyle="italic"
-                        fontWeight="300"
-                        fontSize="300"
-                        letterSpacing="120"
-                        fill="rgba(240,232,220,0.75)"
-                      >
-                        Enter
-                      </text>
-                    </svg>
+                    {/* External SVG — dramatically smaller initial HTML snapshot and JS bundle.
+                        Full vector art is in public/enter-symbol.svg */}
+                    <img
+                      src="/enter-symbol.svg"
+                      alt=""
+                      className="enter-mark"
+                      style={{ width: '100%', height: 'auto', overflow: 'visible' }}
+                    />
                   </div>
                 </motion.button>
               )}

@@ -1,5 +1,25 @@
 import { useEffect } from 'react';
+import { getPieceNumberForInstanceId } from '../config/artist';
 import { dispatchMintComplete } from '../lib/mintEvents';
+import { readManifoldSession } from '../lib/manifoldConnect';
+
+function checkoutSucceeded(): boolean {
+  return Boolean(
+    document.querySelector('.checkout-modal.success') ||
+      document.querySelector('.checkout-success-actions') ||
+      document.querySelector('.checkout-post-mint-message') ||
+      document.querySelector('.checkout-post-mint-title'),
+  );
+}
+
+function resolveMintedPiece(): number {
+  const widgets = document.querySelectorAll('[data-widget="m-claim-buy-only"][data-id]');
+  for (const widget of widgets) {
+    const piece = getPieceNumberForInstanceId(widget.getAttribute('data-id'));
+    if (piece > 0) return piece;
+  }
+  return 0;
+}
 
 /**
  * Watch Manifold checkout for success and notify the site to refresh
@@ -10,26 +30,22 @@ export function usePostMintRefresh() {
     let cooldown = false;
 
     const onSuccess = () => {
-      if (cooldown) return;
+      if (cooldown || !checkoutSucceeded()) return;
       cooldown = true;
-      dispatchMintComplete();
+
+      const session = readManifoldSession();
+      dispatchMintComplete({
+        pieceNumber: resolveMintedPiece(),
+        address: session.address,
+      });
+
       window.setTimeout(() => {
         cooldown = false;
       }, 30_000);
     };
 
-    const observer = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        const target = mutation.target as Element;
-        if (
-          mutation.type === 'attributes' &&
-          mutation.attributeName === 'class' &&
-          target.classList?.contains('checkout-modal') &&
-          target.classList.contains('success')
-        ) {
-          onSuccess();
-        }
-      }
+    const observer = new MutationObserver(() => {
+      onSuccess();
     });
 
     observer.observe(document.body, {
@@ -39,6 +55,11 @@ export function usePostMintRefresh() {
       attributeFilter: ['class'],
     });
 
-    return () => observer.disconnect();
+    const poll = window.setInterval(onSuccess, 1_500);
+
+    return () => {
+      observer.disconnect();
+      window.clearInterval(poll);
+    };
   }, []);
 }

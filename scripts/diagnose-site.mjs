@@ -1,7 +1,14 @@
 #!/usr/bin/env node
 /**
  * Full site diagnostic — local build vs production.
- * Usage: node scripts/diagnose-site.mjs [url]
+ * This now also asserts that the "Enter" gate can never be dead
+ * (vanilla safety script + generous targets + bypasses).
+ *
+ * Usage:
+ *   node scripts/diagnose-site.mjs                 # checks local ./out against embedded prod URL
+ *   node scripts/diagnose-site.mjs https://nikxart.xyz/
+ *
+ * Recommended before every deploy:  npm run validate
  */
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -35,6 +42,13 @@ const CHECKS = [
   { id: 'asset-version', label: 'Site asset cache version', pattern: /20260612/ },
   { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
   { id: 'released-gallery', label: 'Released fragments gallery', pattern: /released-section|Released fragments/ },
+
+  // Gate reliability (the #1 thing that must never break)
+  { id: 'gate-safety-script', label: 'Gate safety vanilla script (never-stuck enter)', pattern: /gate-safety|NIKX_FORCE_ENTER|nikxart:entered/ },
+  { id: 'gate-btn', label: 'Enter button present in initial HTML', pattern: /class="pz-btn|data-enter-gate/ },
+  { id: 'gate-tap-target', label: 'Generous tap target / data attr on gate button', pattern: /data-enter-gate|pz-btn/ },
+  { id: 'gate-css-target', label: 'CSS guarantees large hit area (min-height or padding)', pattern: /min-height:160px|\.pz-btn\{[^}]*padding|tap to enter/ },
+  { id: 'gate-url-bypass', label: 'URL bypass for gate (?enter)', pattern: /enter|NIKX_FORCE_ENTER/ },
 ];
 
 function walk(dir, acc = []) {

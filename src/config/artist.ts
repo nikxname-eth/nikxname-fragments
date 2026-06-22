@@ -2,7 +2,7 @@ export const BANNER_SIZES =
   '(max-width:680px) calc(100vw - 32px),(max-width:1100px) calc(100vw - 64px),1400px';
 
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260612b';
+export const SITE_ASSET_VERSION = '20260612c';
 
 const makeBanner = (base: string) => ({
   src: `${base}?width=1400&quality=88&format=auto&v=${SITE_ASSET_VERSION}`,
@@ -138,6 +138,15 @@ export const CLAIM_INSTANCES: Record<
     mintPrice: '0.00044 ETH',
   },
 };
+
+/** Resolve fragment number from a Manifold claim instance id. */
+export function getPieceNumberForInstanceId(instanceId: string | null | undefined): number {
+  if (!instanceId) return 0;
+  for (const [piece, claim] of Object.entries(CLAIM_INSTANCES)) {
+    if (claim.instanceId === instanceId) return Number(piece);
+  }
+  return 0;
+}
 
 export type DropWindowType = 'launch' | 'weekend' | 'forty-eight';
 
