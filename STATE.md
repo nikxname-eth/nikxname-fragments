@@ -1,8 +1,11 @@
-# Site State — Development Baseline
+# Site State — Fragment VI Snapshot
+
+> **Snapshot note:** This commit is the saved production baseline for **Fragment VI (06)** — live mint, released F1–F5, native Manifold wallet, static Cloudflare deploy.
 
 **Date:** 2026-06-22  
-**Branch:** `nikxart-live-base`  
-**Commit:** `d0835e9` — backup current state before reviewing live code  
+**Branch:** `nikxart-live-base` → `main` (production)  
+**Tag:** `live-20260622-frag06`  
+**Fragment VI instance:** `4030679280` — https://manifold.xyz/@nikxnames-art/id/4030679280
 **Repo:** `/Users/nicholasvanniekerk/nikxart-puzzle`  
 **Remote:** `https://github.com/nikxname-eth/nikxname-fragments.git`
 
