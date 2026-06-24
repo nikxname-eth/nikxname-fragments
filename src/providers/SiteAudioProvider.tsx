@@ -1,4 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { SITE_AUDIO_URL, SITE_AUDIO_VOLUME } from '../config/artist';
 
 const STORAGE_KEY = 'nikxart-sound-on';
@@ -20,9 +28,18 @@ function writeSoundPref(on: boolean): void {
   }
 }
 
-export function useSiteAudio() {
+type SiteAudioContextValue = {
+  soundOn: boolean;
+  toggleSound: () => void;
+  setMasterSuppressed: (suppressed: boolean) => void;
+};
+
+const SiteAudioContext = createContext<SiteAudioContextValue | null>(null);
+
+export function SiteAudioProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [soundOn, setSoundOn] = useState(false);
+  const [masterSuppressed, setMasterSuppressedState] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -45,15 +62,15 @@ export function useSiteAudio() {
     const audio = audioRef.current;
     if (!audio || !ready) return;
 
-    if (soundOn) {
+    if (soundOn && !masterSuppressed) {
       audio.play().catch(() => {
         /* autoplay blocked until user toggles sound */
       });
     } else {
       audio.pause();
-      audio.currentTime = 0;
+      if (!soundOn) audio.currentTime = 0;
     }
-  }, [soundOn, ready]);
+  }, [soundOn, masterSuppressed, ready]);
 
   const toggleSound = useCallback(() => {
     setSoundOn((prev) => {
@@ -63,5 +80,21 @@ export function useSiteAudio() {
     });
   }, []);
 
-  return { soundOn, toggleSound };
+  const setMasterSuppressed = useCallback((suppressed: boolean) => {
+    setMasterSuppressedState(suppressed);
+  }, []);
+
+  return (
+    <SiteAudioContext.Provider value={{ soundOn, toggleSound, setMasterSuppressed }}>
+      {children}
+    </SiteAudioContext.Provider>
+  );
+}
+
+export function useSiteAudio(): SiteAudioContextValue {
+  const ctx = useContext(SiteAudioContext);
+  if (!ctx) {
+    throw new Error('useSiteAudio must be used within SiteAudioProvider');
+  }
+  return ctx;
 }

@@ -9,6 +9,14 @@ export function SiteFooter({ themeClass, gwei }: Props) {
       <span className="footer-copy">© 2026 Nikxname</span>
       <div className="footer-right">
         <a
+          href="https://www.raster.art/artwork/a-familiar-burn-by-nikxname"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-link"
+        >
+          Raster.art
+        </a>
+        <a
           href="https://manifold.xyz/@nikxnames-art"
           target="_blank"
           rel="noopener noreferrer"

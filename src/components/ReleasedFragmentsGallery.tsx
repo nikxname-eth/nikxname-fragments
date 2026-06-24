@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { getFragmentThumbUrl, PIECE_NAMES } from '../config/artist';
+import { useSiteAudio } from '../providers/SiteAudioProvider';
 import { FragmentMedia } from './FragmentMedia';
 
 type Props = {
@@ -9,6 +10,12 @@ type Props = {
 
 export function ReleasedFragmentsGallery({ pieceNumbers }: Props) {
   const [expanded, setExpanded] = useState<number | null>(null);
+  const { setMasterSuppressed } = useSiteAudio();
+
+  useEffect(() => {
+    setMasterSuppressed(expanded != null);
+    return () => setMasterSuppressed(false);
+  }, [expanded, setMasterSuppressed]);
 
   useEffect(() => {
     if (expanded == null) return;

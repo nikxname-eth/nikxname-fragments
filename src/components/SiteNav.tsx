@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { ManifoldConnect } from './ManifoldConnect';
 import { WalletButton } from './WalletButton';
-import { useSiteAudio } from '../hooks/useSiteAudio';
+import { useSiteAudio } from '../providers/SiteAudioProvider';
 import { useWallet } from '../providers/WalletProvider';
 
 type Props = {

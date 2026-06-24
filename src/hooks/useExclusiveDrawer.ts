@@ -19,6 +19,7 @@ export function useExclusiveDrawer() {
     if (!active) return;
 
     const onPointerDown = (event: PointerEvent) => {
+      if (active === 'share') return;
       const target = event.target as Element;
       if (target.closest(OUTSIDE_SELECTOR)) return;
       closeAll();

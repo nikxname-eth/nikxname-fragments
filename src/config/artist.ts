@@ -1,8 +1,8 @@
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260622f06';
+export const SITE_ASSET_VERSION = '20260624f07';
 
 /** Ambient site audio — toggled from nav. */
-export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/siteaudio-055s-05.mp3';
+export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/frag07-audio.mp3';
 export const SITE_AUDIO_VOLUME = 0.42;
 
 const optimizeAssetImage = (url: string, width: number) =>
@@ -10,8 +10,8 @@ const optimizeAssetImage = (url: string, width: number) =>
 
 /** Stage II animated grid banners — single source per theme. */
 export const BANNER_GIF = {
-  dark: 'https://assets.nikxart.xyz/stageii/BannerGridDark-06-web.gif',
-  light: 'https://assets.nikxart.xyz/stageii/BannerGridLight-06-web.gif',
+  dark: 'https://assets.nikxart.xyz/BannerGridDark-07-web.gif',
+  light: 'https://assets.nikxart.xyz/BannerGridLight-07-web.gif',
 } as const;
 
 const releasedCoverUrl = (piece: number) =>
@@ -48,6 +48,7 @@ export const FRAGMENT_SHARE_URLS: Record<number, string> = {
   4: fragmentShareUrl(4),
   5: fragmentShareUrl(5),
   6: fragmentShareUrl(6),
+  7: 'https://assets.nikxart.xyz/Fragment-07_1080P.mp4',
 };
 
 /**
@@ -89,7 +90,12 @@ export const FRAGMENT_SITE_MEDIA: Record<
     hasAudio: true,
   },
   6: {
-    displayUrl: FRAGMENT_SHARE_URLS[6],
+    displayUrl: 'https://assets.nikxart.xyz/Fragment-06_1080p.mp4',
+    posterUrl: 'https://assets.nikxart.xyz/releasedfragment06.jpg',
+    hasAudio: true,
+  },
+  7: {
+    displayUrl: FRAGMENT_SHARE_URLS[7],
     hasAudio: true,
   },
 };
@@ -136,6 +142,11 @@ export const CLAIM_INSTANCES: Record<
   6: {
     instanceId: '4030679280',
     manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4030679280',
+    mintPrice: '0.00044 ETH',
+  },
+  7: {
+    instanceId: '4030071024',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4030071024',
     mintPrice: '0.00044 ETH',
   },
 };
@@ -335,6 +346,11 @@ export function getDropState(now = Date.now()) {
 
 export const ABOUT_COLLECTIONS = [
   { label: 'Together It Blooms', onSite: true as const },
+  {
+    label: 'Raster.art',
+    href: 'https://www.raster.art/artwork/a-familiar-burn-by-nikxname',
+    external: true as const,
+  },
   {
     label: 'The Void',
     href: 'https://manifold.xyz/@nikxnames-art/p/thevoid',

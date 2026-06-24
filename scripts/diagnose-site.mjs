@@ -35,11 +35,14 @@ const CHECKS = [
   { id: 'mobile-nav', label: 'Mobile connect button sizing (44px tap)', pattern: /min-height:44px!important/ },
   { id: 'mint-overflow', label: 'Mint card overflow visible', pattern: /\.mint-card[^}]*overflow:visible/ },
 
-  { id: 'frag-06-instance', label: 'Fragment 06 Manifold instance', pattern: /4030679280/ },
+  { id: 'frag-07-instance', label: 'Fragment 07 Manifold instance', pattern: /4030071024/ },
+  { id: 'frag-07-share', label: 'Fragment 07 share asset', pattern: /Fragment-07_1080P\.mp4/ },
   { id: 'frag-06-share', label: 'Fragment 06 share asset', pattern: /Fragment-06_1080p\.mp4/ },
-  { id: 'released-covers', label: 'Released fragment covers', pattern: /stageii\/releasedfragment0[1-5]\.jpg/ },
-  { id: 'banner-gif', label: 'Stage II banner GIFs', pattern: /BannerGridDark-06-web\.gif[\s\S]{0,200}BannerGridLight-06-web\.gif/ },
-  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260622f06/ },
+  { id: 'released-covers', label: 'Released fragment covers (F1–5)', pattern: /stageii\/releasedfragment0[1-5]\.jpg/ },
+  { id: 'released-cover-06', label: 'Released fragment 06 cover', pattern: /releasedfragment06\.jpg/ },
+  { id: 'banner-gif', label: 'Stage II banner GIFs', pattern: /BannerGridDark-07-web\.gif[\s\S]{0,200}BannerGridLight-07-web\.gif/ },
+  { id: 'site-audio', label: 'Fragment 07 site audio', pattern: /frag07-audio\.mp3/ },
+  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260624f07/ },
   { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
   { id: 'released-gallery', label: 'Released fragments gallery', pattern: /released-section|Released fragments/ },
 

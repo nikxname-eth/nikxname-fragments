@@ -9,6 +9,7 @@ import { useContractMintWatcher } from '../hooks/useContractMintWatcher';
 import { useManifoldMobileRecovery } from '../hooks/useManifoldMobileRecovery';
 import { usePostMintRefresh } from '../hooks/usePostMintRefresh';
 import { ErrorBoundary } from '../components/ErrorBoundary';
+import { SiteAudioProvider } from '../providers/SiteAudioProvider';
 import { WalletProvider, useWallet } from '../providers/WalletProvider';
 
 function ManifoldShell({ children }: { children: ReactNode }) {
@@ -47,11 +48,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       />
 
       <WalletProvider>
-        <ManifoldShell>
-          <ErrorBoundary>
-            <Component {...pageProps} />
-          </ErrorBoundary>
-        </ManifoldShell>
+        <SiteAudioProvider>
+          <ManifoldShell>
+            <ErrorBoundary>
+              <Component {...pageProps} />
+            </ErrorBoundary>
+          </ManifoldShell>
+        </SiteAudioProvider>
       </WalletProvider>
     </>
   );
