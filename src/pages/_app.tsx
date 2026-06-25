@@ -7,6 +7,7 @@ import Script from 'next/script';
 import { CLAIM_SDK_VERSION, CONNECT_SDK_VERSION } from '../lib/manifoldConnect';
 import { useContractMintWatcher } from '../hooks/useContractMintWatcher';
 import { useManifoldMobileRecovery } from '../hooks/useManifoldMobileRecovery';
+import { useMintTweetOverride } from '../hooks/useMintTweetOverride';
 import { usePostMintRefresh } from '../hooks/usePostMintRefresh';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import { SiteAudioProvider } from '../providers/SiteAudioProvider';
@@ -17,6 +18,7 @@ function ManifoldShell({ children }: { children: ReactNode }) {
   useManifoldMobileRecovery();
   useContractMintWatcher(address);
   usePostMintRefresh();
+  useMintTweetOverride();
   return <>{children}</>;
 }
 

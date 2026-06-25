@@ -1,25 +1,7 @@
 import { useEffect } from 'react';
-import { getPieceNumberForInstanceId } from '../config/artist';
+import { checkoutSucceeded, resolveMintedPiece } from '../lib/manifoldCheckout';
 import { dispatchMintComplete } from '../lib/mintEvents';
 import { readManifoldSession } from '../lib/manifoldConnect';
-
-function checkoutSucceeded(): boolean {
-  return Boolean(
-    document.querySelector('.checkout-modal.success') ||
-      document.querySelector('.checkout-success-actions') ||
-      document.querySelector('.checkout-post-mint-message') ||
-      document.querySelector('.checkout-post-mint-title'),
-  );
-}
-
-function resolveMintedPiece(): number {
-  const widgets = document.querySelectorAll('[data-widget="m-claim-buy-only"][data-id]');
-  for (const widget of widgets) {
-    const piece = getPieceNumberForInstanceId(widget.getAttribute('data-id'));
-    if (piece > 0) return piece;
-  }
-  return 0;
-}
 
 /**
  * Watch Manifold checkout for success and notify the site to refresh
