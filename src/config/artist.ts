@@ -1,5 +1,5 @@
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260624f07';
+export const SITE_ASSET_VERSION = '20260626f08';
 
 /** Ambient site audio — toggled from nav. */
 export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/frag07-audio.mp3';
@@ -10,8 +10,8 @@ const optimizeAssetImage = (url: string, width: number) =>
 
 /** Stage II animated grid banners — single source per theme. */
 export const BANNER_GIF = {
-  dark: 'https://assets.nikxart.xyz/BannerGridDark-07-web.gif',
-  light: 'https://assets.nikxart.xyz/BannerGridLight-07-web.gif',
+  dark: 'https://assets.nikxart.xyz/BannerGridDark-08-web.gif',
+  light: 'https://assets.nikxart.xyz/BannerGridLight-08-web.gif',
 } as const;
 
 const releasedCoverUrl = (piece: number) =>
@@ -49,6 +49,7 @@ export const FRAGMENT_SHARE_URLS: Record<number, string> = {
   5: fragmentShareUrl(5),
   6: fragmentShareUrl(6),
   7: 'https://assets.nikxart.xyz/Fragment-07_1080P.mp4',
+  8: 'https://assets.nikxart.xyz/Fragment-08_1080P.mp4',
 };
 
 /**
@@ -95,7 +96,12 @@ export const FRAGMENT_SITE_MEDIA: Record<
     hasAudio: true,
   },
   7: {
-    displayUrl: FRAGMENT_SHARE_URLS[7],
+    displayUrl: 'https://assets.nikxart.xyz/Fragment-07_1080P.mp4',
+    posterUrl: 'https://assets.nikxart.xyz/releasedfragment07.jpg',
+    hasAudio: true,
+  },
+  8: {
+    displayUrl: FRAGMENT_SHARE_URLS[8],
     hasAudio: true,
   },
 };
@@ -147,6 +153,11 @@ export const CLAIM_INSTANCES: Record<
   7: {
     instanceId: '4030071024',
     manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4030071024',
+    mintPrice: '0.00044 ETH',
+  },
+  8: {
+    instanceId: '4029524208',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4029524208',
     mintPrice: '0.00044 ETH',
   },
 };
@@ -347,7 +358,7 @@ export function getDropState(now = Date.now()) {
 export const ABOUT_COLLECTIONS = [
   { label: 'Together It Blooms', onSite: true as const },
   {
-    label: 'Raster.art',
+    label: 'Raster',
     href: 'https://www.raster.art/artwork/a-familiar-burn-by-nikxname',
     external: true as const,
   },

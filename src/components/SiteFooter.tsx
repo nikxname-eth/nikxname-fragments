@@ -14,7 +14,7 @@ export function SiteFooter({ themeClass, gwei }: Props) {
           rel="noopener noreferrer"
           className="footer-link"
         >
-          Raster.art
+          Raster
         </a>
         <a
           href="https://manifold.xyz/@nikxnames-art"
