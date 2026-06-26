@@ -13,8 +13,8 @@ export function ReleasedFragmentsGallery({ pieceNumbers }: Props) {
   const { setMasterSuppressed } = useSiteAudio();
 
   useEffect(() => {
-    setMasterSuppressed(expanded != null);
-    return () => setMasterSuppressed(false);
+    setMasterSuppressed('released-gallery', expanded != null);
+    return () => setMasterSuppressed('released-gallery', false);
   }, [expanded, setMasterSuppressed]);
 
   useEffect(() => {

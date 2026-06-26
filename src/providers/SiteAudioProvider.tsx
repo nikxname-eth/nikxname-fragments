@@ -31,13 +31,15 @@ function writeSoundPref(on: boolean): void {
 type SiteAudioContextValue = {
   soundOn: boolean;
   toggleSound: () => void;
-  setMasterSuppressed: (suppressed: boolean) => void;
+  /** Mute master audio while a fragment is being viewed (gallery or share preview). */
+  setMasterSuppressed: (source: string, suppressed: boolean) => void;
 };
 
 const SiteAudioContext = createContext<SiteAudioContextValue | null>(null);
 
 export function SiteAudioProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const suppressSources = useRef(new Set<string>());
   const [soundOn, setSoundOn] = useState(false);
   const [masterSuppressed, setMasterSuppressedState] = useState(false);
   const [ready, setReady] = useState(false);
@@ -80,8 +82,10 @@ export function SiteAudioProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-  const setMasterSuppressed = useCallback((suppressed: boolean) => {
-    setMasterSuppressedState(suppressed);
+  const setMasterSuppressed = useCallback((source: string, suppressed: boolean) => {
+    if (suppressed) suppressSources.current.add(source);
+    else suppressSources.current.delete(source);
+    setMasterSuppressedState(suppressSources.current.size > 0);
   }, []);
 
   return (

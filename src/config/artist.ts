@@ -3,7 +3,7 @@ export const SITE_ASSET_VERSION = '20260626f08a';
 
 /** Ambient site audio — toggled from nav. */
 export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/siteaudio-08.mp3';
-export const SITE_AUDIO_VOLUME = 0.42;
+export const SITE_AUDIO_VOLUME = 0.3;
 
 const optimizeAssetImage = (url: string, width: number) =>
   `${url}?width=${width}&quality=82&format=auto&v=${SITE_ASSET_VERSION}`;

@@ -238,7 +238,20 @@ w3m-modal::part(overlay),wcm-modal::part(overlay){z-index:10049!important;positi
 .share-drawer-inner{overflow:hidden;padding:clamp(20px,3vw,36px) 0 clamp(36px,5vw,64px)}
 .share-intro{text-align:center;margin-bottom:clamp(16px,2.5vw,24px);font-family:var(--font);font-style:italic;font-size:clamp(11px,1.4vw,13px);color:var(--silver);opacity:0.45;letter-spacing:0.08em}
 .share-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
-.share-tag{display:inline-flex;align-items:center;gap:10px;font-family:var(--font);font-style:italic;font-size:clamp(11px,1.2vw,13px);letter-spacing:0.16em;text-transform:uppercase;color:var(--cream-dim);padding:9px 18px 9px 20px;border:1px solid rgba(200,188,170,0.28);border-radius:20px;background:rgba(200,188,170,0.08);text-decoration:none;transition:border-color 0.3s,background 0.3s,transform 0.25s,color 0.3s;white-space:nowrap;box-shadow:0 0 0 0 rgba(200,188,170,0)}
+.share-tag{display:inline-flex;align-items:center;gap:10px;font-family:var(--font);font-style:italic;font-size:clamp(11px,1.2vw,13px);letter-spacing:0.16em;text-transform:uppercase;color:var(--cream-dim);padding:9px 18px 9px 20px;border:1px solid rgba(200,188,170,0.28);border-radius:20px;background:rgba(200,188,170,0.08);text-decoration:none;transition:border-color 0.3s,background 0.3s,transform 0.25s,color 0.3s;white-space:nowrap;box-shadow:0 0 0 0 rgba(200,188,170,0);cursor:pointer}
+.share-modal{position:fixed;inset:0;z-index:92;display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,40px);background:rgba(6,6,10,0.84);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.theme-light .share-modal{background:rgba(244,236,224,0.88)}
+.share-modal-panel{position:relative;width:min(100%,480px);padding:clamp(20px,3vw,28px);border:1px solid var(--border);border-radius:clamp(10px,1.4vw,16px);background:var(--surface)}
+.share-modal-close{position:absolute;top:clamp(10px,1.6vw,14px);right:clamp(10px,1.6vw,14px);z-index:2;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:1px solid var(--border);border-radius:50%;background:rgba(6,6,10,0.55);color:var(--cream-dim);cursor:pointer;opacity:0.72;transition:opacity 0.3s,border-color 0.3s,background 0.3s}
+.share-modal-close:hover,.share-modal-close:focus-visible{opacity:1;border-color:rgba(196,164,132,0.45);background:rgba(6,6,10,0.72)}
+.theme-light .share-modal-close{background:rgba(244,236,224,0.75);color:rgba(40,28,20,0.7)}
+.share-modal-title{text-align:center;margin:0 0 14px;font-family:var(--font);font-style:italic;font-size:clamp(11px,1.3vw,13px);letter-spacing:0.22em;text-transform:uppercase;color:var(--silver);opacity:0.58}
+.share-modal-media{position:relative;width:100%;aspect-ratio:1/1;border-radius:clamp(8px,1.2vw,12px);overflow:hidden;border:1px solid var(--border);background:rgba(0,0,0,0.2);margin-bottom:clamp(16px,2.5vw,22px)}
+.share-modal-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.share-modal-download{width:100%;padding:14px 20px;border-radius:10px;border:1px solid var(--cta-border);background:var(--cta-bg);font-family:var(--font);font-style:italic;font-size:clamp(11px,1.3vw,13px);letter-spacing:0.24em;text-transform:uppercase;color:var(--cta-text);cursor:pointer;transition:border-color 0.45s,background 0.45s,transform 0.3s,box-shadow 0.45s,color 0.45s;box-shadow:var(--cta-shadow)}
+.share-modal-download:hover:not(:disabled){border-color:var(--cta-border-hover);background:var(--cta-bg-hover);color:var(--cta-text-hover);transform:translateY(-1px);box-shadow:var(--cta-shadow-hover)}
+.share-modal-download:disabled{opacity:0.55;cursor:wait}
+.share-modal-error{margin:10px 0 0;text-align:center;font-family:var(--font);font-style:italic;font-size:clamp(10px,1.2vw,12px);letter-spacing:0.08em;color:var(--silver);opacity:0.55}
 .share-tag-hint{font-size:clamp(10px,1.1vw,12px);letter-spacing:0.12em;text-transform:lowercase;color:var(--silver);opacity:0.72}
 .share-tag-icon{flex-shrink:0;color:var(--cream-dim);opacity:0.88}
 .share-tag:hover{border-color:rgba(220,210,198,0.55);background:rgba(200,188,170,0.16);color:var(--cream);transform:translateY(-1px)}

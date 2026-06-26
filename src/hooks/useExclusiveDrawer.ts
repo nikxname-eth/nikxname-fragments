@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 export type DrawerId = 'about' | 'collection' | 'projectAbout' | 'share';
 
 const OUTSIDE_SELECTOR =
-  '.nav-about,.about-drawer,.nav-collection,.collection-drawer,.project-about-trigger,.project-about-drawer,.share-trigger,.share-drawer';
+  '.nav-about,.about-drawer,.nav-collection,.collection-drawer,.project-about-trigger,.project-about-drawer,.share-trigger,.share-drawer,.share-modal,.share-modal-panel';
 
 export function useExclusiveDrawer() {
   const [active, setActive] = useState<DrawerId | null>(null);
