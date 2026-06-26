@@ -43,8 +43,8 @@ const CHECKS = [
   { id: 'released-cover-06', label: 'Released fragment 06 cover', pattern: /releasedfragment06\.jpg/ },
   { id: 'released-cover-07', label: 'Released fragment 07 cover', pattern: /releasedfragment07\.jpg/ },
   { id: 'banner-gif', label: 'Stage II banner GIFs', pattern: /BannerGridDark-08-web\.gif[\s\S]{0,200}BannerGridLight-08-web\.gif/ },
-  { id: 'site-audio', label: 'Fragment 07 site audio', pattern: /frag07-audio\.mp3/ },
-  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260626f08/ },
+  { id: 'site-audio', label: 'Fragment 08 site audio', pattern: /siteaudio-08\.mp3/ },
+  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260626f08a/ },
   { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
   { id: 'released-gallery', label: 'Released fragments gallery', pattern: /released-section|Released fragments/ },
 

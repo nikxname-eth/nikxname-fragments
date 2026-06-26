@@ -1,8 +1,8 @@
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260626f08';
+export const SITE_ASSET_VERSION = '20260626f08a';
 
 /** Ambient site audio — toggled from nav. */
-export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/frag07-audio.mp3';
+export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/siteaudio-08.mp3';
 export const SITE_AUDIO_VOLUME = 0.42;
 
 const optimizeAssetImage = (url: string, width: number) =>
