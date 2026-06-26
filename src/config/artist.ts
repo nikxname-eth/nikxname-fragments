@@ -17,11 +17,16 @@ export const BANNER_GIF = {
 const releasedCoverUrl = (piece: number) =>
   `https://assets.nikxart.xyz/stageii/releasedfragment${String(piece).padStart(2, '0')}.jpg`;
 
-/** R2 naming: F01–02 use hyphen; F03+ use underscore. All lowercase 1080p. */
-const fragmentShareUrl = (piece: number) => {
-  const id = String(piece).padStart(2, '0');
-  if (piece <= 2) return `https://assets.nikxart.xyz/Fragment-${id}-1080p.mp4`;
-  return `https://assets.nikxart.xyz/Fragment-${id}_1080p.mp4`;
+/** CDN share filenames — exact casing per asset (F01–02 hyphen; F03–06 lowercase p; F07–08 uppercase P). */
+const FRAGMENT_SHARE_URL_BY_PIECE: Record<number, string> = {
+  1: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
+  2: 'https://assets.nikxart.xyz/Fragment-02-1080p.mp4',
+  3: 'https://assets.nikxart.xyz/Fragment-03_1080p.mp4',
+  4: 'https://assets.nikxart.xyz/Fragment-04_1080p.mp4',
+  5: 'https://assets.nikxart.xyz/Fragment-05_1080p.mp4',
+  6: 'https://assets.nikxart.xyz/Fragment-06_1080p.mp4',
+  7: 'https://assets.nikxart.xyz/Fragment-07_1080P.mp4',
+  8: 'https://assets.nikxart.xyz/Fragment-08_1080P.mp4',
 };
 
 /** Hero banner — theme GIF only (no holder evolution variants). */
@@ -41,16 +46,7 @@ export const ON_CHAIN_MEDIA: Record<number, string> = {
 };
 
 /** Web-optimised share downloads (Cloudflare CDN) — one URL per released fragment. */
-export const FRAGMENT_SHARE_URLS: Record<number, string> = {
-  1: fragmentShareUrl(1),
-  2: fragmentShareUrl(2),
-  3: fragmentShareUrl(3),
-  4: fragmentShareUrl(4),
-  5: fragmentShareUrl(5),
-  6: fragmentShareUrl(6),
-  7: 'https://assets.nikxart.xyz/Fragment-07_1080P.mp4',
-  8: 'https://assets.nikxart.xyz/Fragment-08_1080P.mp4',
-};
+export const FRAGMENT_SHARE_URLS: Record<number, string> = { ...FRAGMENT_SHARE_URL_BY_PIECE };
 
 /**
  * Web-optimised playback assets (Cloudflare CDN).
@@ -91,12 +87,12 @@ export const FRAGMENT_SITE_MEDIA: Record<
     hasAudio: true,
   },
   6: {
-    displayUrl: 'https://assets.nikxart.xyz/Fragment-06_1080p.mp4',
+    displayUrl: FRAGMENT_SHARE_URLS[6],
     posterUrl: 'https://assets.nikxart.xyz/releasedfragment06.jpg',
     hasAudio: true,
   },
   7: {
-    displayUrl: 'https://assets.nikxart.xyz/Fragment-07_1080P.mp4',
+    displayUrl: FRAGMENT_SHARE_URLS[7],
     posterUrl: 'https://assets.nikxart.xyz/releasedfragment07.jpg',
     hasAudio: true,
   },

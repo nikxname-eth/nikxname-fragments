@@ -246,8 +246,8 @@ w3m-modal::part(overlay),wcm-modal::part(overlay){z-index:10049!important;positi
 .share-modal-close:hover,.share-modal-close:focus-visible{opacity:1;border-color:rgba(196,164,132,0.45);background:rgba(6,6,10,0.72)}
 .theme-light .share-modal-close{background:rgba(244,236,224,0.75);color:rgba(40,28,20,0.7)}
 .share-modal-title{text-align:center;margin:0 0 14px;font-family:var(--font);font-style:italic;font-size:clamp(11px,1.3vw,13px);letter-spacing:0.22em;text-transform:uppercase;color:var(--silver);opacity:0.58}
-.share-modal-media{position:relative;width:100%;aspect-ratio:1/1;border-radius:clamp(8px,1.2vw,12px);overflow:hidden;border:1px solid var(--border);background:rgba(0,0,0,0.2);margin-bottom:clamp(16px,2.5vw,22px)}
-.share-modal-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.share-modal-media{position:relative;width:100%;aspect-ratio:16/9;border-radius:clamp(8px,1.2vw,12px);overflow:hidden;border:1px solid var(--border);background:rgba(0,0,0,0.2);margin-bottom:clamp(16px,2.5vw,22px)}
+.share-modal-media video{display:block;width:100%;height:100%;object-fit:contain;background:#000}
 .share-modal-download{width:100%;padding:14px 20px;border-radius:10px;border:1px solid var(--cta-border);background:var(--cta-bg);font-family:var(--font);font-style:italic;font-size:clamp(11px,1.3vw,13px);letter-spacing:0.24em;text-transform:uppercase;color:var(--cta-text);cursor:pointer;transition:border-color 0.45s,background 0.45s,transform 0.3s,box-shadow 0.45s,color 0.45s;box-shadow:var(--cta-shadow)}
 .share-modal-download:hover:not(:disabled){border-color:var(--cta-border-hover);background:var(--cta-bg-hover);color:var(--cta-text-hover);transform:translateY(-1px);box-shadow:var(--cta-shadow-hover)}
 .share-modal-download:disabled{opacity:0.55;cursor:wait}

@@ -1,11 +1,6 @@
-/** Fetch CDN asset and save locally without leaving the site. */
-export async function downloadAsset(url: string, filename: string): Promise<void> {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Download failed (${response.status})`);
-  }
+const DOWNLOAD_PROXY = '/api/download';
 
-  const blob = await response.blob();
+function saveBlob(blob: Blob, filename: string): void {
   const objectUrl = URL.createObjectURL(blob);
 
   try {
@@ -19,4 +14,17 @@ export async function downloadAsset(url: string, filename: string): Promise<void
   } finally {
     URL.revokeObjectURL(objectUrl);
   }
+}
+
+/** Same-origin proxy avoids CDN CORS limits on programmatic downloads. */
+export async function downloadAsset(url: string, filename: string): Promise<void> {
+  const proxyUrl = `${DOWNLOAD_PROXY}?url=${encodeURIComponent(url)}&name=${encodeURIComponent(filename)}`;
+
+  const response = await fetch(proxyUrl);
+  if (!response.ok) {
+    throw new Error(`Download failed (${response.status})`);
+  }
+
+  const blob = await response.blob();
+  saveBlob(blob, filename);
 }
