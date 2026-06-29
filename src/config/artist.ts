@@ -1,5 +1,5 @@
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260626f09a';
+export const SITE_ASSET_VERSION = '20260629f09b';
 
 /** Ambient site audio — toggled from nav. */
 export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/siteaudio-09.mp3';
@@ -211,29 +211,7 @@ function buildDropSchedule(): DropScheduleEntry[] {
     t += meta.windowHours * HOUR_MS;
   }
 
-  return applyDropScheduleOverrides(schedule);
-}
-
-/** Manual window patches when a drop period differs from the generated cadence. */
-function applyDropScheduleOverrides(schedule: DropScheduleEntry[]): DropScheduleEntry[] {
-  const patched = schedule.map((entry) => ({ ...entry }));
-
-  // Fragment 09: Fri Jun 26 11 am Eastern → Wed Jul 1 11 am Eastern.
-  const f09StartMs = Date.parse('2026-06-26T15:00:00Z');
-  const f09EndMs = Date.parse('2026-07-01T15:00:00Z');
-  const f09Hours = (f09EndMs - f09StartMs) / HOUR_MS;
-
-  const f08 = patched.find((entry) => entry.piece === 8);
-  const f09 = patched.find((entry) => entry.piece === 9);
-  if (f08 && f09) {
-    const f08StartMs = Date.parse(f08.startsUTC);
-    f08.windowHours = Math.max(0, (f09StartMs - f08StartMs) / HOUR_MS);
-    f09.startsUTC = toDropISO(f09StartMs);
-    f09.windowHours = f09Hours;
-    f09.windowType = 'launch';
-  }
-
-  return patched;
+  return schedule;
 }
 
 export const DROP_SCHEDULE = buildDropSchedule();
@@ -264,9 +242,13 @@ export function isDropWindowEnded(piece: number, now = Date.now()): boolean {
 
 /** Fragments whose mint windows have closed — shown in the released gallery. */
 export function getReleasedFragments(now = Date.now()): number[] {
-  return DROP_SCHEDULE.filter(
-    (entry) => isDropWindowEnded(entry.piece, now) && FRAGMENT_SITE_MEDIA[entry.piece],
-  ).map((entry) => entry.piece);
+  const primary = getPrimaryLiveMintPiece(now);
+
+  return DROP_SCHEDULE.filter((entry) => {
+    if (!FRAGMENT_SITE_MEDIA[entry.piece]) return false;
+    if (primary != null && entry.piece < primary) return true;
+    return isDropWindowEnded(entry.piece, now);
+  }).map((entry) => entry.piece);
 }
 
 /** The single active mint promoted to the primary slot (F2 replaces F1 when its window opens). */
