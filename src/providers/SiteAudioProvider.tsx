@@ -12,11 +12,13 @@ import { SITE_AUDIO_URL, SITE_AUDIO_VOLUME } from '../config/artist';
 const STORAGE_KEY = 'nikxart-sound-on';
 
 function readSoundPref(): boolean {
-  if (typeof window === 'undefined') return false;
+  if (typeof window === 'undefined') return true;
   try {
-    return sessionStorage.getItem(STORAGE_KEY) === '1';
+    const stored = sessionStorage.getItem(STORAGE_KEY);
+    if (stored === null) return true;
+    return stored === '1';
   } catch {
-    return false;
+    return true;
   }
 }
 
@@ -31,6 +33,8 @@ function writeSoundPref(on: boolean): void {
 type SiteAudioContextValue = {
   soundOn: boolean;
   toggleSound: () => void;
+  /** Begin ambient audio after banner load (respects an explicit mute this session). */
+  startSoundOnLanding: () => void;
   /** Mute master audio while a fragment is being viewed (gallery or share preview). */
   setMasterSuppressed: (source: string, suppressed: boolean) => void;
 };
@@ -40,7 +44,7 @@ const SiteAudioContext = createContext<SiteAudioContextValue | null>(null);
 export function SiteAudioProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const suppressSources = useRef(new Set<string>());
-  const [soundOn, setSoundOn] = useState(false);
+  const [soundOn, setSoundOn] = useState(true);
   const [masterSuppressed, setMasterSuppressedState] = useState(false);
   const [ready, setReady] = useState(false);
 
@@ -82,6 +86,16 @@ export function SiteAudioProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const startSoundOnLanding = useCallback(() => {
+    if (!readSoundPref()) return;
+
+    setSoundOn(true);
+    writeSoundPref(true);
+    audioRef.current?.play().catch(() => {
+      /* autoplay blocked until the visitor interacts */
+    });
+  }, []);
+
   const setMasterSuppressed = useCallback((source: string, suppressed: boolean) => {
     if (suppressed) suppressSources.current.add(source);
     else suppressSources.current.delete(source);
@@ -89,7 +103,9 @@ export function SiteAudioProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <SiteAudioContext.Provider value={{ soundOn, toggleSound, setMasterSuppressed }}>
+    <SiteAudioContext.Provider
+      value={{ soundOn, toggleSound, startSoundOnLanding, setMasterSuppressed }}
+    >
       {children}
     </SiteAudioContext.Provider>
   );

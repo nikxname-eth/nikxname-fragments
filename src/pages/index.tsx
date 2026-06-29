@@ -20,10 +20,12 @@ import { useDropSchedule } from '../hooks/useDropSchedule';
 import { useExclusiveDrawer } from '../hooks/useExclusiveDrawer';
 import { useGasPrice } from '../hooks/useGasPrice';
 import { useOwnedFragments } from '../hooks/useOwnedFragments';
+import { useSiteAudio } from '../providers/SiteAudioProvider';
 import { useWallet } from '../providers/WalletProvider';
 
 export default function Home() {
   const { address } = useWallet();
+  const { startSoundOnLanding } = useSiteAudio();
   const [dark, setDark] = useState(true);
   const pieceSectionRef = useRef<HTMLDivElement>(null);
   const gwei = useGasPrice();
@@ -132,6 +134,7 @@ export default function Home() {
               loading="eager"
               decoding="async"
               fetchPriority="high"
+              onLoad={startSoundOnLanding}
             />
           </div>
         </motion.div>

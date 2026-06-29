@@ -1,8 +1,8 @@
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260626f08a';
+export const SITE_ASSET_VERSION = '20260626f09a';
 
 /** Ambient site audio — toggled from nav. */
-export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/siteaudio-08.mp3';
+export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/siteaudio-09.mp3';
 export const SITE_AUDIO_VOLUME = 0.3;
 
 const optimizeAssetImage = (url: string, width: number) =>
@@ -10,14 +10,14 @@ const optimizeAssetImage = (url: string, width: number) =>
 
 /** Stage II animated grid banners — single source per theme. */
 export const BANNER_GIF = {
-  dark: 'https://assets.nikxart.xyz/BannerGridDark-08-web.gif',
-  light: 'https://assets.nikxart.xyz/BannerGridLight-08-web.gif',
+  dark: 'https://assets.nikxart.xyz/BannerGridDark-09-web.gif',
+  light: 'https://assets.nikxart.xyz/BannerGridLight-09-web.gif',
 } as const;
 
 const releasedCoverUrl = (piece: number) =>
   `https://assets.nikxart.xyz/stageii/releasedfragment${String(piece).padStart(2, '0')}.jpg`;
 
-/** CDN share filenames — exact casing per asset (F01–02 hyphen; F03–06 lowercase p; F07–08 uppercase P). */
+/** CDN share filenames — exact casing per asset (F01–02 hyphen; F03–06 lowercase p; F07–09 uppercase P). */
 const FRAGMENT_SHARE_URL_BY_PIECE: Record<number, string> = {
   1: 'https://assets.nikxart.xyz/Fragment-01-1080p.mp4',
   2: 'https://assets.nikxart.xyz/Fragment-02-1080p.mp4',
@@ -27,6 +27,7 @@ const FRAGMENT_SHARE_URL_BY_PIECE: Record<number, string> = {
   6: 'https://assets.nikxart.xyz/Fragment-06_1080p.mp4',
   7: 'https://assets.nikxart.xyz/Fragment-07_1080P.mp4',
   8: 'https://assets.nikxart.xyz/Fragment-08_1080P.mp4',
+  9: 'https://assets.nikxart.xyz/Fragment-09_1080P.mp4',
 };
 
 /** Hero banner — theme GIF only (no holder evolution variants). */
@@ -98,6 +99,11 @@ export const FRAGMENT_SITE_MEDIA: Record<
   },
   8: {
     displayUrl: FRAGMENT_SHARE_URLS[8],
+    posterUrl: 'https://assets.nikxart.xyz/releasedfragment08.jpg',
+    hasAudio: true,
+  },
+  9: {
+    displayUrl: FRAGMENT_SHARE_URLS[9],
     hasAudio: true,
   },
 };
@@ -156,6 +162,11 @@ export const CLAIM_INSTANCES: Record<
     manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4029524208',
     mintPrice: '0.00044 ETH',
   },
+  9: {
+    instanceId: '4029038832',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4029038832',
+    mintPrice: '0.00044 ETH',
+  },
 };
 
 /** Resolve fragment number from a Manifold claim instance id. */
@@ -200,7 +211,29 @@ function buildDropSchedule(): DropScheduleEntry[] {
     t += meta.windowHours * HOUR_MS;
   }
 
-  return schedule;
+  return applyDropScheduleOverrides(schedule);
+}
+
+/** Manual window patches when a drop period differs from the generated cadence. */
+function applyDropScheduleOverrides(schedule: DropScheduleEntry[]): DropScheduleEntry[] {
+  const patched = schedule.map((entry) => ({ ...entry }));
+
+  // Fragment 09: Fri Jun 26 11 am Eastern → Wed Jul 1 11 am Eastern.
+  const f09StartMs = Date.parse('2026-06-26T15:00:00Z');
+  const f09EndMs = Date.parse('2026-07-01T15:00:00Z');
+  const f09Hours = (f09EndMs - f09StartMs) / HOUR_MS;
+
+  const f08 = patched.find((entry) => entry.piece === 8);
+  const f09 = patched.find((entry) => entry.piece === 9);
+  if (f08 && f09) {
+    const f08StartMs = Date.parse(f08.startsUTC);
+    f08.windowHours = Math.max(0, (f09StartMs - f08StartMs) / HOUR_MS);
+    f09.startsUTC = toDropISO(f09StartMs);
+    f09.windowHours = f09Hours;
+    f09.windowType = 'launch';
+  }
+
+  return patched;
 }
 
 export const DROP_SCHEDULE = buildDropSchedule();
@@ -279,8 +312,10 @@ export function getDropWindowNote(entry: DropScheduleEntry): string {
   });
 
   switch (entry.windowType) {
-    case 'launch':
-      return `four days · through ${endDay}, 11 am Eastern`;
+    case 'launch': {
+      const days = Math.round(entry.windowHours / 24);
+      return `${days} days · through ${endDay}, 11 am Eastern`;
+    }
     case 'weekend':
       return `over the weekend · through ${endDay}, 11 am Eastern`;
     case 'forty-eight':
@@ -296,8 +331,10 @@ export function formatDropArrivalNote(entry: DropScheduleEntry): string {
   });
 
   switch (entry.windowType) {
-    case 'launch':
-      return `${startDay} — 11 am Eastern · four days`;
+    case 'launch': {
+      const days = Math.round(entry.windowHours / 24);
+      return `${startDay} — 11 am Eastern · ${days} days`;
+    }
     case 'weekend':
       return `${startDay} — 11 am Eastern · over the weekend`;
     case 'forty-eight':
