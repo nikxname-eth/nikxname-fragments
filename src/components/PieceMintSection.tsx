@@ -1,6 +1,11 @@
 import { motion } from 'framer-motion';
 import type { RefObject } from 'react';
-import { CLAIM_INSTANCES, FRAGMENT_SITE_MEDIA, PIECE_NAMES } from '../config/artist';
+import {
+  CLAIM_INSTANCES,
+  FRAGMENT_SITE_MEDIA,
+  PIECE_NAMES,
+  TEASER_PREVIEW_URL,
+} from '../config/artist';
 import { FragmentMedia } from './FragmentMedia';
 import { ManifoldBuyButton } from './ManifoldBuyButton';
 import { ManifoldMintCount } from './ManifoldMintCount';
@@ -48,7 +53,7 @@ export function PieceMintSection({
         ) : (
           <>
             <img
-              src={media?.teaserUrl ?? media?.posterUrl ?? media?.displayUrl}
+              src={media?.teaserUrl ?? media?.posterUrl ?? TEASER_PREVIEW_URL}
               alt={`${title} preview`}
               className="piece-tease-img"
               loading="lazy"

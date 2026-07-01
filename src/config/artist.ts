@@ -8,6 +8,9 @@ export const SITE_AUDIO_VOLUME = 0.3;
 const optimizeAssetImage = (url: string, width: number) =>
   `${url}?width=${width}&quality=82&format=auto&v=${SITE_ASSET_VERSION}`;
 
+/** Generic dimmed preview for the next-window teaser (before a fragment cover exists). */
+export const TEASER_PREVIEW_URL = `https://assets.nikxart.xyz/previewtmp.jpg?v=${SITE_ASSET_VERSION}`;
+
 /** Stage II animated grid banners — single source per theme. */
 export const BANNER_GIF = {
   dark: 'https://assets.nikxart.xyz/BannerGridDark-10-web.gif',
