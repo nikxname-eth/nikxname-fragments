@@ -35,7 +35,8 @@ const CHECKS = [
   { id: 'mobile-nav', label: 'Mobile connect button sizing (44px tap)', pattern: /min-height:44px!important/ },
   { id: 'mint-overflow', label: 'Mint card overflow visible', pattern: /\.mint-card[^}]*overflow:visible/ },
 
-  { id: 'frag-09-instance', label: 'Fragment 09 Manifold instance', pattern: /4029038832/ },
+  { id: 'frag-10-instance', label: 'Fragment 10 Manifold instance', pattern: /4032751856/ },
+  { id: 'frag-10-share', label: 'Fragment 10 share asset', pattern: /Fragment-10_1080P\.mp4/ },
   { id: 'frag-09-share', label: 'Fragment 09 share asset', pattern: /Fragment-09_1080P\.mp4/ },
   { id: 'frag-08-share', label: 'Fragment 08 share asset', pattern: /Fragment-08_1080P\.mp4/ },
   { id: 'frag-07-share', label: 'Fragment 07 share asset', pattern: /Fragment-07_1080P\.mp4/ },
@@ -44,9 +45,10 @@ const CHECKS = [
   { id: 'released-cover-06', label: 'Released fragment 06 cover', pattern: /releasedfragment06\.jpg/ },
   { id: 'released-cover-07', label: 'Released fragment 07 cover', pattern: /releasedfragment07\.jpg/ },
   { id: 'released-cover-08', label: 'Released fragment 08 cover', pattern: /releasedfragment08\.jpg/ },
-  { id: 'banner-gif', label: 'Stage II banner GIFs', pattern: /BannerGridDark-09-web\.gif[\s\S]{0,200}BannerGridLight-09-web\.gif/ },
-  { id: 'site-audio', label: 'Fragment 09 site audio', pattern: /siteaudio-09\.mp3/ },
-  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260629f09b/ },
+  { id: 'released-cover-09', label: 'Released fragment 09 cover', pattern: /releasedfragment09\.jpg/ },
+  { id: 'banner-gif', label: 'Stage II banner GIFs', pattern: /BannerGridDark-10-web\.gif[\s\S]{0,200}BannerGridLight-10-web\.gif/ },
+  { id: 'site-audio', label: 'Fragment 10 site audio', pattern: /siteaudio-10\.mp3/ },
+  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260701f10a/ },
   { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
   { id: 'released-gallery', label: 'Released fragments gallery', pattern: /released-section|Released fragments/ },
 

@@ -2,6 +2,7 @@ import { DROP_SCHEDULE, getDropState } from '../config/artist';
 import { useSiteClock } from './useSiteClock';
 
 /** Stable anchor for SSR + first paint — tracks the active drop era, not launch. */
+/** Anchor to the outgoing live piece so F10 does not appear before its window opens. */
 const HYDRATION_NOW = Date.parse(
   DROP_SCHEDULE.find((entry) => entry.piece === 9)?.startsUTC ??
     DROP_SCHEDULE[DROP_SCHEDULE.length - 1]?.startsUTC ??
