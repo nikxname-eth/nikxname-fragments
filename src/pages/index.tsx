@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 import { motion } from 'framer-motion';
 import {
@@ -26,6 +26,7 @@ import { useWallet } from '../providers/WalletProvider';
 export default function Home() {
   const { address } = useWallet();
   const { startSoundOnLanding } = useSiteAudio();
+  const soundUnlockAttempted = useRef(false);
   const [dark, setDark] = useState(true);
   const pieceSectionRef = useRef<HTMLDivElement>(null);
   const gwei = useGasPrice();
@@ -46,6 +47,18 @@ export default function Home() {
     document.body.classList.toggle('wallet-authed', !!address);
     return () => document.body.classList.remove('wallet-authed');
   }, [address]);
+
+  const unlockAmbientSound = useCallback(() => {
+    if (soundUnlockAttempted.current) return;
+    soundUnlockAttempted.current = true;
+    startSoundOnLanding();
+  }, [startSoundOnLanding]);
+
+  useEffect(() => {
+    const onScroll = () => unlockAmbientSound();
+    window.addEventListener('scroll', onScroll, { once: true, passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [unlockAmbientSound]);
 
   const scrollToLivePiece = () => {
     drawer.closeAll();
@@ -134,7 +147,7 @@ export default function Home() {
               loading="eager"
               decoding="async"
               fetchPriority="high"
-              onLoad={startSoundOnLanding}
+              onLoad={unlockAmbientSound}
             />
           </div>
         </motion.div>

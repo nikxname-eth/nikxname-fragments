@@ -1,8 +1,8 @@
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260701f10a';
+export const SITE_ASSET_VERSION = '20260703f11a';
 
 /** Ambient site audio — toggled from nav. */
-export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/siteaudio-10.mp3';
+export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/siteaudio-11.mp3';
 export const SITE_AUDIO_VOLUME = 0.3;
 
 const optimizeAssetImage = (url: string, width: number) =>
@@ -13,8 +13,8 @@ export const TEASER_PREVIEW_URL = `https://assets.nikxart.xyz/previewtmp.jpg?v=$
 
 /** Stage II animated grid banners — single source per theme. */
 export const BANNER_GIF = {
-  dark: 'https://assets.nikxart.xyz/BannerGridDark-10-web.gif',
-  light: 'https://assets.nikxart.xyz/BannerGridLight-10-web.gif',
+  dark: 'https://assets.nikxart.xyz/BannerGridDark-11-web.gif',
+  light: 'https://assets.nikxart.xyz/BannerGridLight-11-web.gif',
 } as const;
 
 const releasedCoverUrl = (piece: number) =>
@@ -32,6 +32,7 @@ const FRAGMENT_SHARE_URL_BY_PIECE: Record<number, string> = {
   8: 'https://assets.nikxart.xyz/Fragment-08_1080P.mp4',
   9: 'https://assets.nikxart.xyz/Fragment-09_1080P.mp4',
   10: 'https://assets.nikxart.xyz/Fragment-10_1080P.mp4',
+  11: 'https://assets.nikxart.xyz/Fragment-11_1080P.mp4',
 };
 
 /** Hero banner — theme GIF only (no holder evolution variants). */
@@ -113,6 +114,11 @@ export const FRAGMENT_SITE_MEDIA: Record<
   },
   10: {
     displayUrl: FRAGMENT_SHARE_URLS[10],
+    posterUrl: 'https://assets.nikxart.xyz/releasedfragment10.jpg',
+    hasAudio: true,
+  },
+  11: {
+    displayUrl: FRAGMENT_SHARE_URLS[11],
     hasAudio: true,
   },
 };
@@ -179,6 +185,11 @@ export const CLAIM_INSTANCES: Record<
   10: {
     instanceId: '4032751856',
     manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4032751856',
+    mintPrice: '0.00044 ETH',
+  },
+  11: {
+    instanceId: '4032102640',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4032102640',
     mintPrice: '0.00044 ETH',
   },
 };
