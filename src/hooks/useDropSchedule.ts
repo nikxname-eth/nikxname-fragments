@@ -3,7 +3,7 @@ import { useSiteClock } from './useSiteClock';
 
 /** Anchor to the outgoing live piece so the next fragment does not appear before its window opens. */
 const HYDRATION_NOW = Date.parse(
-  DROP_SCHEDULE.find((entry) => entry.piece === 10)?.startsUTC ??
+  DROP_SCHEDULE.find((entry) => entry.piece === 11)?.startsUTC ??
     DROP_SCHEDULE[DROP_SCHEDULE.length - 1]?.startsUTC ??
     DROP_SCHEDULE[0].startsUTC,
 );
