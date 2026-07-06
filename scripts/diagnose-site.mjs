@@ -52,7 +52,7 @@ const CHECKS = [
   { id: 'released-cover-11', label: 'Released fragment 11 cover', pattern: /releasedfragment11\.jpg/ },
   { id: 'banner-gif', label: 'Stage II banner GIFs', pattern: /BannerGridDark-12-web\.gif[\s\S]{0,200}BannerGridLight-12-web\.gif/ },
   { id: 'site-audio', label: 'Fragments site audio loop', pattern: /SiteAudio-Fragments\.mp3/ },
-  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260706f12a/ },
+  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260706f12b/ },
   { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
   { id: 'released-gallery', label: 'Released fragments gallery', pattern: /released-section|Released fragments/ },
 
