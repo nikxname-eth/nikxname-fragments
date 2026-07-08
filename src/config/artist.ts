@@ -209,11 +209,10 @@ export const CLAIM_INSTANCES: Record<
     manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4031764720',
     mintPrice: '0.00044 ETH',
   },
-  /** Placeholder — swap instanceId + manifoldUrl when Arweave / Manifold claim is live. */
   13: {
-    instanceId: 'XXXXXXXXX',
-    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/XXXXXXXXX',
-    mintPrice: '0 ETH',
+    instanceId: '4031072496',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4031072496',
+    mintPrice: '0.00044 ETH',
   },
 };
 

@@ -35,7 +35,7 @@ const CHECKS = [
   { id: 'mobile-nav', label: 'Mobile connect button sizing (44px tap)', pattern: /min-height:44px!important/ },
   { id: 'mint-overflow', label: 'Mint card overflow visible', pattern: /\.mint-card[^}]*overflow:visible/ },
 
-  { id: 'frag-13-instance', label: 'Fragment 13 Manifold placeholder', pattern: /XXXXXXXXX/ },
+  { id: 'frag-13-instance', label: 'Fragment 13 Manifold instance', pattern: /4031072496/ },
   { id: 'frag-13-share', label: 'Fragment 13 share asset', pattern: /Fragment-13_1080P\.mp4/ },
   { id: 'frag-12-share', label: 'Fragment 12 share asset', pattern: /Fragment-12_1080P\.mp4/ },
   { id: 'frag-11-share', label: 'Fragment 11 share asset', pattern: /Fragment-11_1080P\.mp4/ },
