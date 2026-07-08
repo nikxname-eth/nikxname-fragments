@@ -35,7 +35,8 @@ const CHECKS = [
   { id: 'mobile-nav', label: 'Mobile connect button sizing (44px tap)', pattern: /min-height:44px!important/ },
   { id: 'mint-overflow', label: 'Mint card overflow visible', pattern: /\.mint-card[^}]*overflow:visible/ },
 
-  { id: 'frag-12-instance', label: 'Fragment 12 Manifold instance', pattern: /4031764720/ },
+  { id: 'frag-13-instance', label: 'Fragment 13 Manifold placeholder', pattern: /XXXXXXXXX/ },
+  { id: 'frag-13-share', label: 'Fragment 13 share asset', pattern: /Fragment-13_1080P\.mp4/ },
   { id: 'frag-12-share', label: 'Fragment 12 share asset', pattern: /Fragment-12_1080P\.mp4/ },
   { id: 'frag-11-share', label: 'Fragment 11 share asset', pattern: /Fragment-11_1080P\.mp4/ },
   { id: 'frag-10-share', label: 'Fragment 10 share asset', pattern: /Fragment-10_1080P\.mp4/ },
@@ -50,9 +51,10 @@ const CHECKS = [
   { id: 'released-cover-09', label: 'Released fragment 09 cover', pattern: /releasedfragment09\.jpg/ },
   { id: 'released-cover-10', label: 'Released fragment 10 cover', pattern: /releasedfragment10\.jpg/ },
   { id: 'released-cover-11', label: 'Released fragment 11 cover', pattern: /releasedfragment11\.jpg/ },
-  { id: 'banner-gif', label: 'Stage II banner GIFs', pattern: /BannerGridDark-12-web\.gif[\s\S]{0,200}BannerGridLight-12-web\.gif/ },
+  { id: 'released-cover-12', label: 'Released fragment 12 cover', pattern: /releasedfragment12\.jpg/ },
+  { id: 'banner-gif', label: 'Stage II banner GIFs', pattern: /BannerGridDark-13-web\.gif[\s\S]{0,200}BannerGridLight-13-web\.gif/ },
   { id: 'site-audio', label: 'Fragments site audio loop', pattern: /SiteAudio-Fragments\.mp3/ },
-  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260706f12b/ },
+  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260708f13a/ },
   { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
   { id: 'released-gallery', label: 'Released fragments gallery', pattern: /released-section|Released fragments/ },
 
