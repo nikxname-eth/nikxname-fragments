@@ -1,5 +1,5 @@
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260710f14b';
+export const SITE_ASSET_VERSION = '20260713f15a';
 
 /** Ambient site audio — toggled from nav (loops). */
 export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/TogetherItBloomsAudio.mp3';
@@ -13,8 +13,8 @@ export const TEASER_PREVIEW_URL = `https://assets.nikxart.xyz/previewtmp.jpg?v=$
 
 /** Stage II animated grid banners — single source per theme. */
 export const BANNER_GIF = {
-  dark: 'https://assets.nikxart.xyz/BannerGridDark-14-web.gif',
-  light: 'https://assets.nikxart.xyz/BannerGridLight-14-web.gif',
+  dark: 'https://assets.nikxart.xyz/BannerGridDark-15-web.gif',
+  light: 'https://assets.nikxart.xyz/BannerGridLight-15-web.gif',
 } as const;
 
 const releasedCoverUrl = (piece: number) =>
@@ -36,6 +36,7 @@ const FRAGMENT_SHARE_URL_BY_PIECE: Record<number, string> = {
   12: 'https://assets.nikxart.xyz/Fragment-12_1080P.mp4',
   13: 'https://assets.nikxart.xyz/Fragment-13_1080P.mp4',
   14: 'https://assets.nikxart.xyz/Fragment-14_1080P.mp4',
+  15: 'https://assets.nikxart.xyz/Fragment-15_1080P.mp4',
 };
 
 /** Hero banner — theme GIF only (no holder evolution variants). */
@@ -137,6 +138,11 @@ export const FRAGMENT_SITE_MEDIA: Record<
   },
   14: {
     displayUrl: FRAGMENT_SHARE_URLS[14],
+    posterUrl: 'https://assets.nikxart.xyz/releasedfragment14.jpg',
+    hasAudio: true,
+  },
+  15: {
+    displayUrl: FRAGMENT_SHARE_URLS[15],
     hasAudio: true,
   },
 };
@@ -224,6 +230,11 @@ export const CLAIM_INSTANCES: Record<
     instanceId: '4034797808',
     manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4034797808',
     mintPrice: '0 ETH',
+  },
+  15: {
+    instanceId: '4033667312',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4033667312',
+    mintPrice: '0.00044 ETH',
   },
 };
 
