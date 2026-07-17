@@ -61,13 +61,6 @@ export default function Home() {
     return () => window.removeEventListener('scroll', onScroll);
   }, [unlockAmbientSound]);
 
-  const scrollToLivePiece = () => {
-    drawer.closeAll();
-    window.requestAnimationFrame(() => {
-      pieceSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  };
-
   return (
     <>
       <Head>
@@ -97,7 +90,6 @@ export default function Home() {
           open={drawer.aboutOpen}
           bioExpanded={drawer.bioExpanded}
           onToggleBio={() => drawer.setBioExpanded((value) => !value)}
-          onScrollToLivePiece={scrollToLivePiece}
         />
 
         <TheatreDrawer

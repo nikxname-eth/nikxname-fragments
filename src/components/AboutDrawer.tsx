@@ -4,10 +4,25 @@ type Props = {
   open: boolean;
   bioExpanded: boolean;
   onToggleBio: () => void;
-  onScrollToLivePiece: () => void;
 };
 
-export function AboutDrawer({ open, bioExpanded, onToggleBio, onScrollToLivePiece }: Props) {
+/** Official X (Twitter) mark — currentColor so it matches the tag. */
+function XLogoIcon() {
+  return (
+    <svg
+      className="about-collection-icon"
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+export function AboutDrawer({ open, bioExpanded, onToggleBio }: Props) {
   return (
     <div className={`about-drawer${open ? ' open' : ''}`} aria-hidden={!open}>
       <div className="about-drawer-inner">
@@ -41,28 +56,29 @@ export function AboutDrawer({ open, bioExpanded, onToggleBio, onScrollToLivePiec
             {bioExpanded ? 'Read less' : 'Read more'}
           </button>
           <div className="about-collections">
-            {ABOUT_COLLECTIONS.map((collection) =>
-              'onSite' in collection ? (
-                <button
-                  key={collection.label}
-                  type="button"
-                  className="about-collection-tag"
-                  onClick={onScrollToLivePiece}
-                >
-                  {collection.label}
-                </button>
-              ) : (
-                <a
-                  key={collection.label}
-                  href={collection.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="about-collection-tag about-collection-tag--external"
-                >
-                  {collection.label}
-                </a>
-              ),
-            )}
+            {ABOUT_COLLECTIONS.map((collection) => (
+              <a
+                key={collection.label}
+                href={collection.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="about-collection-tag about-collection-tag--external"
+                aria-label={
+                  'icon' in collection && collection.icon === 'x'
+                    ? 'Social on X, @nikxname'
+                    : undefined
+                }
+              >
+                {'icon' in collection && collection.icon === 'x' ? (
+                  <>
+                    <span>Social |</span>
+                    <XLogoIcon />
+                  </>
+                ) : (
+                  collection.label
+                )}
+              </a>
+            ))}
           </div>
         </div>
       </div>

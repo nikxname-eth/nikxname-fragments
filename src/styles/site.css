@@ -83,11 +83,15 @@ w3m-modal::part(overlay),wcm-modal::part(overlay){z-index:10049!important;positi
 
 /* DRAWERS — about, theatre, collection from nav */
 .about-drawer,.theatre-drawer,.collection-drawer{position:fixed;top:var(--nav-h,52px);left:0;right:0;z-index:49;overflow:hidden;max-height:0;opacity:0;pointer-events:none;transition:max-height 0.72s cubic-bezier(0.16,1,0.3,1),opacity 0.5s ease,box-shadow 0.5s ease}
-.about-drawer.open,.collection-drawer.open{max-height:600px;opacity:1;pointer-events:all;box-shadow:0 32px 64px rgba(0,0,0,0.45)}
-/* Theatre: edge-to-edge responsive panel, 60% opacity so page shows through */
+/* About: edge-to-edge solid panel (content stays max-width centered) */
+.about-drawer.open{max-height:600px;opacity:1;pointer-events:all;background:rgba(12,12,19,1);border-bottom:1px solid rgba(230,221,208,0.1);box-shadow:0 20px 48px rgba(0,0,0,0.28)}
+.theme-light .about-drawer.open{background:rgba(197,186,176,1);border-bottom-color:rgba(40,28,20,0.12)}
+.collection-drawer.open{max-height:600px;opacity:1;pointer-events:all;box-shadow:0 32px 64px rgba(0,0,0,0.45)}
+/* Theatre: edge-to-edge solid panel */
 .theatre-drawer.open{max-height:min(72vh,720px);opacity:1;pointer-events:all;background:rgba(12,12,19,1);border-bottom:1px solid rgba(230,221,208,0.1);box-shadow:0 20px 48px rgba(0,0,0,0.28)}
 .theme-light .theatre-drawer.open{background:rgba(197,186,176,1);border-bottom-color:rgba(40,28,20,0.12)}
-.about-drawer-inner,.collection-drawer-inner{background:var(--surface);border-bottom:1px solid var(--border);padding:clamp(28px,4.5vw,52px) clamp(20px,5vw,64px);max-width:1100px;margin:0 auto;transition:background 0.55s ease}
+.about-drawer-inner{background:transparent;border-bottom:none;padding:clamp(28px,4.5vw,52px) clamp(20px,5vw,64px);max-width:min(1100px,100%);width:100%;margin:0 auto;box-sizing:border-box;transition:background 0.55s ease}
+.collection-drawer-inner{background:var(--surface);border-bottom:1px solid var(--border);padding:clamp(28px,4.5vw,52px) clamp(20px,5vw,64px);max-width:1100px;margin:0 auto;transition:background 0.55s ease}
 .theatre-drawer-inner{display:flex;flex-direction:column;gap:clamp(16px,2.5vw,24px);max-height:min(72vh,720px);overflow-y:auto;width:100%;max-width:min(1100px,100%);margin:0 auto;padding:clamp(28px,4.5vw,52px) clamp(20px,5vw,64px);background:transparent;border-bottom:none;box-sizing:border-box}
 .theatre-header{display:flex;flex-direction:column;gap:6px}
 .theatre-title{font-family:var(--font);font-style:italic;font-weight:300;font-size:clamp(20px,3vw,28px);color:var(--cream);letter-spacing:0.02em}
@@ -155,9 +159,10 @@ w3m-modal::part(overlay),wcm-modal::part(overlay){z-index:10049!important;positi
 .about-read-more{font-family:var(--font);font-style:italic;font-size:clamp(11px,1.3vw,13px);letter-spacing:0.2em;text-transform:uppercase;color:var(--silver);opacity:0.6;background:none;border:none;cursor:pointer;padding:0;text-align:left;transition:opacity 0.3s;margin-top:2px}
 .about-read-more:hover{opacity:0.9}
 .about-collections{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-.about-collection-tag{font-family:var(--font);font-style:italic;font-size:clamp(11px,1.2vw,13px);letter-spacing:0.14em;text-transform:uppercase;color:var(--silver);opacity:0.68;padding:6px 15px;border:1px solid var(--border);border-radius:20px;text-decoration:none;transition:opacity 0.3s,border-color 0.3s;background:transparent;cursor:pointer;white-space:nowrap}
+.about-collection-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--font);font-style:italic;font-size:clamp(11px,1.2vw,13px);letter-spacing:0.14em;text-transform:uppercase;color:var(--silver);opacity:0.68;padding:6px 15px;border:1px solid var(--border);border-radius:20px;text-decoration:none;transition:opacity 0.3s,border-color 0.3s;background:transparent;cursor:pointer;white-space:nowrap}
 .about-collection-tag:hover{opacity:0.92;border-color:rgba(200,188,170,0.35)}
 .about-collection-tag--external::after{content:' ↗';font-size:0.78em;opacity:0.45}
+.about-collection-icon{flex-shrink:0;width:11px;height:11px;opacity:0.92;display:block}
 
 .collection-header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:24px}
 .collection-title{font-family:var(--font);font-style:italic;font-weight:300;font-size:clamp(20px,3vw,28px);color:var(--cream);letter-spacing:0.02em}

@@ -480,27 +480,18 @@ export function getDropState(now = Date.now()) {
   };
 }
 
+/** About drawer footer tags — add one at a time. */
 export const ABOUT_COLLECTIONS = [
-  { label: 'Together It Blooms', onSite: true as const },
   {
-    label: 'Raster',
-    href: 'https://www.raster.art/artwork/a-familiar-burn-by-nikxname',
+    label: 'Portfolio & Secondary',
+    href: 'https://www.raster.art/artist/nikxname',
     external: true as const,
   },
   {
-    label: 'The Void',
-    href: 'https://manifold.xyz/@nikxnames-art/p/thevoid',
+    label: 'Social | X',
+    href: 'https://x.com/nikxname',
     external: true as const,
-  },
-  {
-    label: 'Life Impressions',
-    href: 'https://manifold.xyz/@nikxnames-art/p/1913617113',
-    external: true as const,
-  },
-  {
-    label: '1/1 Artworks',
-    href: 'https://manifold.xyz/@nikxnames-art/p/nikxname1of1s',
-    external: true as const,
+    icon: 'x' as const,
   },
 ] as const;
 
