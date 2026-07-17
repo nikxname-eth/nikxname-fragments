@@ -45,6 +45,7 @@ export function ManifoldConnect({ visible = false, variant = 'mint' }: Props) {
         data-widget="m-connect"
         data-app-name={MANIFOLD_APP_NAME}
         data-client-id={MANIFOLD_CLIENT_ID}
+        data-override-connect-text="Connect"
         data-delay-auth="true"
         data-network="1"
         data-multi="true"

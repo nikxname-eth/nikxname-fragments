@@ -17,6 +17,15 @@ export const BANNER_GIF = {
   light: 'https://assets.nikxart.xyz/BannerGridLight-17-web.gif',
 } as const;
 
+/** Still canvas state (current revealed grid) — Theatre preview, theme-matched. */
+export const CANVAS_STATE_STILL = {
+  dark: 'https://assets.nikxart.xyz/canvasstatedark-17.jpg',
+  light: 'https://assets.nikxart.xyz/canvasstatelight-17.jpg',
+} as const;
+
+/** Piece number reflected in the current canvas still (update with each evolution). */
+export const CANVAS_STATE_PIECE = 17;
+
 const releasedCoverUrl = (piece: number) =>
   `https://assets.nikxart.xyz/stageii/releasedfragment${String(piece).padStart(2, '0')}.jpg`;
 
@@ -46,6 +55,16 @@ export function getSiteBanner(options: { theme: 'dark' | 'light' }) {
   const base = options.theme === 'dark' ? BANNER_GIF.dark : BANNER_GIF.light;
   return {
     src: `${base}?v=${SITE_ASSET_VERSION}`,
+  };
+}
+
+/** Still canvas state for Theatre — matches current banner reveal, theme-aware. */
+export function getCanvasStateStill(options: { theme: 'dark' | 'light'; width?: number }) {
+  const base = options.theme === 'dark' ? CANVAS_STATE_STILL.dark : CANVAS_STATE_STILL.light;
+  const width = options.width ?? 1600;
+  return {
+    src: optimizeAssetImage(base, width),
+    fullSrc: `${base}?v=${SITE_ASSET_VERSION}`,
   };
 }
 

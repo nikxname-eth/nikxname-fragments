@@ -36,7 +36,8 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;mix
 
 .nav{--nav-h:56px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 clamp(20px,3vw,40px);min-height:var(--nav-h);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;background:rgba(6,6,10,0.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transition:background 0.55s ease,border-color 0.55s ease}
 .nav-left,.nav-right{display:flex;align-items:center;min-width:0}
-.nav-left{gap:clamp(16px,2.5vw,36px);flex:1 1 auto}
+.nav-left{gap:clamp(14px,2vw,28px);flex:1 1 auto}
+.nav-links{display:flex;align-items:center;gap:clamp(6px,1vw,12px);min-width:0}
 .nav-right{gap:clamp(14px,2vw,24px);flex:0 0 auto;justify-content:flex-end;position:relative;z-index:2}
 .nav-mark{font-family:var(--font);font-style:italic;font-weight:300;font-size:clamp(14px,1.8vw,17px);letter-spacing:0.28em;text-transform:uppercase;color:var(--cream);opacity:0.72;transition:color 0.5s,opacity 0.5s;white-space:nowrap;flex-shrink:0}
 .nav-about,.nav-theatre,.nav-collection{font-family:var(--font);font-style:italic;font-weight:300;font-size:clamp(12px,1.4vw,14px);letter-spacing:0.26em;text-transform:uppercase;color:var(--cream);opacity:0.62;background:none;border:none;cursor:pointer;padding:0;transition:opacity 0.3s;display:flex;align-items:center;gap:6px;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
@@ -84,15 +85,26 @@ w3m-modal::part(overlay),wcm-modal::part(overlay){z-index:10049!important;positi
 .about-drawer,.theatre-drawer,.collection-drawer{position:fixed;top:var(--nav-h,52px);left:0;right:0;z-index:49;overflow:hidden;max-height:0;opacity:0;pointer-events:none;transition:max-height 0.72s cubic-bezier(0.16,1,0.3,1),opacity 0.5s ease,box-shadow 0.5s ease}
 .about-drawer.open,.collection-drawer.open{max-height:600px;opacity:1;pointer-events:all;box-shadow:0 32px 64px rgba(0,0,0,0.45)}
 /* Theatre: edge-to-edge responsive panel, 60% opacity so page shows through */
-.theatre-drawer.open{max-height:min(72vh,720px);opacity:1;pointer-events:all;background:rgba(12,12,19,0.6);border-bottom:1px solid rgba(230,221,208,0.1);box-shadow:0 20px 48px rgba(0,0,0,0.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.theme-light .theatre-drawer.open{background:rgba(197,186,176,0.6);border-bottom-color:rgba(40,28,20,0.12)}
+.theatre-drawer.open{max-height:min(72vh,720px);opacity:1;pointer-events:all;background:rgba(12,12,19,1);border-bottom:1px solid rgba(230,221,208,0.1);box-shadow:0 20px 48px rgba(0,0,0,0.28)}
+.theme-light .theatre-drawer.open{background:rgba(197,186,176,1);border-bottom-color:rgba(40,28,20,0.12)}
 .about-drawer-inner,.collection-drawer-inner{background:var(--surface);border-bottom:1px solid var(--border);padding:clamp(28px,4.5vw,52px) clamp(20px,5vw,64px);max-width:1100px;margin:0 auto;transition:background 0.55s ease}
 .theatre-drawer-inner{display:flex;flex-direction:column;gap:clamp(16px,2.5vw,24px);max-height:min(72vh,720px);overflow-y:auto;width:100%;max-width:min(1100px,100%);margin:0 auto;padding:clamp(28px,4.5vw,52px) clamp(20px,5vw,64px);background:transparent;border-bottom:none;box-sizing:border-box}
 .theatre-header{display:flex;flex-direction:column;gap:6px}
 .theatre-title{font-family:var(--font);font-style:italic;font-weight:300;font-size:clamp(20px,3vw,28px);color:var(--cream);letter-spacing:0.02em}
 .theatre-tagline{font-family:var(--font);font-style:italic;font-size:clamp(11px,1.3vw,13px);letter-spacing:0.22em;text-transform:uppercase;color:var(--silver);opacity:0.65}
+/* Compact card: centered, tight to media, label under still */
+.theatre-canvas-option{display:flex;flex-direction:column;align-items:stretch;align-self:center;width:min(100%,286px);margin:0 auto;padding:0;border:1px solid var(--border);border-radius:clamp(8px,1.2vw,12px);background:rgba(255,255,255,0.02);cursor:pointer;text-align:center;overflow:hidden;box-sizing:border-box;transition:border-color 0.35s,background 0.35s,transform 0.3s,box-shadow 0.35s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.theatre-canvas-option:hover,.theatre-canvas-option:focus-visible{border-color:rgba(196,164,132,0.42);background:rgba(255,255,255,0.035);transform:translateY(-1px);box-shadow:0 10px 28px rgba(0,0,0,0.22);outline:none}
+.theme-light .theatre-canvas-option{background:rgba(40,28,20,0.03)}
+.theme-light .theatre-canvas-option:hover,.theme-light .theatre-canvas-option:focus-visible{background:rgba(40,28,20,0.06)}
+.theatre-canvas-option-media{display:block;width:100%;line-height:0;overflow:hidden;background:rgba(6,6,10,0.45)}
+.theatre-canvas-option-media img{display:block;width:100%;height:auto;object-fit:contain;vertical-align:top}
+.theatre-canvas-option-label{display:block;width:100%;box-sizing:border-box;font-family:var(--font);font-style:italic;font-weight:300;font-size:clamp(11px,1.25vw,13px);letter-spacing:0.1em;color:var(--cream);padding:clamp(8px,1.2vw,12px) 10px clamp(10px,1.3vw,14px);opacity:0.88;text-align:center}
+.theatre-grid-lbl{margin:clamp(4px,0.8vw,8px) 0 0;font-family:var(--font);font-style:italic;font-size:clamp(10px,1.15vw,12px);letter-spacing:0.22em;text-transform:uppercase;color:var(--silver);opacity:0.52}
 .theatre-empty{font-family:var(--font);font-style:italic;font-size:clamp(13px,1.5vw,15px);letter-spacing:0.1em;color:var(--silver);opacity:0.55;padding:16px 0;text-align:center}
 .theatre-grid{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:clamp(10px,1.6vw,14px)}
+.theatre-canvas-media{aspect-ratio:16/9!important;background:#000;border-color:rgba(230,221,208,0.08)}
+.theatre-canvas-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
 .theatre-thumb{position:relative;flex-shrink:0;width:clamp(64px,9vw,84px);height:clamp(64px,9vw,84px);padding:0;border:1px solid var(--border);border-radius:clamp(6px,1vw,10px);overflow:hidden;background:var(--surface);cursor:pointer;transition:border-color 0.35s,transform 0.3s,box-shadow 0.35s}
 .theatre-thumb:hover,.theatre-thumb:focus-visible{border-color:rgba(196,164,132,0.42);transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,0.22)}
 .theatre-thumb:focus-visible{outline:1px solid rgba(200,188,170,0.28);outline-offset:2px}
@@ -325,7 +337,8 @@ w3m-modal::part(overlay),wcm-modal::part(overlay){z-index:10049!important;positi
 
 @media(max-width:600px){
   .nav{--nav-h:56px;padding:10px 16px;gap:10px}
-  .nav-left{gap:14px}
+  .nav-left{gap:10px}
+  .nav-links{gap:5px}
   .nav-right{gap:10px}
   .nav-mark{font-size:11px;letter-spacing:0.14em}
   .nav-about,.nav-theatre,.nav-collection{font-size:10px;letter-spacing:0.12em;gap:4px}
@@ -333,12 +346,16 @@ w3m-modal::part(overlay),wcm-modal::part(overlay){z-index:10049!important;positi
   .theatre-stage.is-immersive{padding:12px}
   .theatre-stage.is-immersive .theatre-stage-panel{width:100%;max-width:100%}
   .theatre-stage.is-immersive .theatre-stage-media{max-height:min(calc(100vh - 72px),56.25vw)}
+  .theatre-canvas-option{width:min(100%,247px)}
   .theatre-stage-close{top:12px;right:12px;width:36px;height:36px}
   .nav-utility-label{display:none}
   .wallet-btn{font-size:10px;letter-spacing:0.12em}
   .wallet-btn--connected{font-size:9px;letter-spacing:0.04em}
-  .nav-connect-btn{padding:8px 12px;font-size:9px}
-  .manifold-connect-host--visible [data-widget="m-connect"] button,.manifold-connect-host--visible [data-widget="m-connect"] a{padding:10px 14px!important;font-size:10px!important;letter-spacing:0.16em!important;min-height:44px!important}
+  /* Slightly smaller Connect so header doesn’t crowd once Manifold mounts */
+  .nav-connect-btn{padding:6px 10px;font-size:8px;letter-spacing:0.12em;min-height:32px}
+  .nav-connect .manifold-connect-host--nav.manifold-connect-host--visible [data-widget="m-connect"] button,
+  .nav-connect .manifold-connect-host--nav.manifold-connect-host--visible [data-widget="m-connect"] a{padding:6px 10px!important;font-size:8px!important;letter-spacing:0.12em!important;min-height:32px!important}
+  .manifold-connect-host--visible [data-widget="m-connect"] button,.manifold-connect-host--visible [data-widget="m-connect"] a{padding:8px 12px!important;font-size:9px!important;letter-spacing:0.14em!important;min-height:36px!important}
   .about-drawer-inner{grid-template-columns:1fr}
 
   .footer{height:auto;min-height:48px;padding:14px clamp(16px,4vw,24px);flex-wrap:wrap;gap:12px 16px}

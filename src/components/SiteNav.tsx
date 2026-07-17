@@ -106,83 +106,85 @@ export function SiteNav({
           >
             Nikxname
           </motion.span>
-          <motion.button
-            type="button"
-            className="nav-about"
-            onClick={onToggleAbout}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            aria-expanded={aboutOpen}
-          >
-            About
-            <svg
-              className={`nav-about-chevron${aboutOpen ? ' open' : ''}`}
-              width="10"
-              height="10"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+          <div className="nav-links">
+            <motion.button
+              type="button"
+              className="nav-about"
+              onClick={onToggleAbout}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+              aria-expanded={aboutOpen}
             >
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </motion.button>
-          <motion.button
-            type="button"
-            className="nav-theatre"
-            onClick={onToggleTheatre}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.22, duration: 0.8 }}
-            aria-expanded={theatreOpen}
-          >
-            Theatre
-            <svg
-              className={`nav-theatre-chevron${theatreOpen ? ' open' : ''}`}
-              width="10"
-              height="10"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </motion.button>
-          <AnimatePresence>
-            {address && (
-              <motion.button
-                type="button"
-                className="nav-collection"
-                onClick={onToggleCollection}
-                initial={{ opacity: 0, x: 8 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 8 }}
-                transition={{ duration: 0.7 }}
-                aria-expanded={collectionOpen}
+              About
+              <svg
+                className={`nav-about-chevron${aboutOpen ? ' open' : ''}`}
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                Collection
-                <svg
-                  className={`nav-collection-chevron${collectionOpen ? ' open' : ''}`}
-                  width="10"
-                  height="10"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </motion.button>
+            <motion.button
+              type="button"
+              className="nav-theatre"
+              onClick={onToggleTheatre}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.22, duration: 0.8 }}
+              aria-expanded={theatreOpen}
+            >
+              Theatre
+              <svg
+                className={`nav-theatre-chevron${theatreOpen ? ' open' : ''}`}
+                width="10"
+                height="10"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </motion.button>
+            <AnimatePresence>
+              {address && (
+                <motion.button
+                  type="button"
+                  className="nav-collection"
+                  onClick={onToggleCollection}
+                  initial={{ opacity: 0, x: 8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 8 }}
+                  transition={{ duration: 0.7 }}
+                  aria-expanded={collectionOpen}
                 >
-                  <polyline points="6 9 12 15 18 9" />
-                </svg>
-              </motion.button>
-            )}
-          </AnimatePresence>
+                  Collection
+                  <svg
+                    className={`nav-collection-chevron${collectionOpen ? ' open' : ''}`}
+                    width="10"
+                    height="10"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </motion.button>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
 
         <div className="nav-right">

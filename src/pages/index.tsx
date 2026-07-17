@@ -103,6 +103,7 @@ export default function Home() {
         <TheatreDrawer
           open={drawer.theatreOpen}
           pieceNumbers={schedule.releasedFragments}
+          theme={dark ? 'dark' : 'light'}
         />
 
         <CollectionDrawer

@@ -1,18 +1,28 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { getFragmentThumbUrl, PIECE_NAMES } from '../config/artist';
+import {
+  CANVAS_STATE_PIECE,
+  getCanvasStateStill,
+  getFragmentThumbUrl,
+  PIECE_NAMES,
+} from '../config/artist';
 import { useSiteAudio } from '../providers/SiteAudioProvider';
 import { FragmentMedia } from './FragmentMedia';
 
 type Props = {
   open: boolean;
   pieceNumbers: number[];
+  theme: 'dark' | 'light';
 };
 
-export function TheatreDrawer({ open, pieceNumbers }: Props) {
+export function TheatreDrawer({ open, pieceNumbers, theme }: Props) {
   const [expanded, setExpanded] = useState<number | null>(null);
+  const [canvasOpen, setCanvasOpen] = useState(false);
   const [immersive, setImmersive] = useState(false);
   const { setMasterSuppressed } = useSiteAudio();
+
+  const canvasState = getCanvasStateStill({ theme, width: 720 });
+  const canvasStateFull = getCanvasStateStill({ theme, width: 1920 });
 
   const pieceIndex = expanded != null ? pieceNumbers.indexOf(expanded) : -1;
   const canNavigate = pieceNumbers.length > 1 && pieceIndex >= 0;
@@ -26,9 +36,27 @@ export function TheatreDrawer({ open, pieceNumbers }: Props) {
     [pieceIndex, pieceNumbers],
   );
 
+  const openCanvas = useCallback(() => {
+    setExpanded(null);
+    setImmersive(false);
+    setCanvasOpen(true);
+  }, []);
+
+  const openFragment = useCallback((piece: number) => {
+    setCanvasOpen(false);
+    setExpanded(piece);
+  }, []);
+
+  const closeStage = useCallback(() => {
+    setExpanded(null);
+    setCanvasOpen(false);
+    setImmersive(false);
+  }, []);
+
   useEffect(() => {
     if (!open) {
       setExpanded(null);
+      setCanvasOpen(false);
       setImmersive(false);
     }
   }, [open]);
@@ -37,15 +65,21 @@ export function TheatreDrawer({ open, pieceNumbers }: Props) {
     if (expanded == null) setImmersive(false);
   }, [expanded]);
 
+  // Suppress ambient audio only while a fragment plays — canvas keeps site audio.
   useEffect(() => {
     setMasterSuppressed('theatre', expanded != null);
     return () => setMasterSuppressed('theatre', false);
   }, [expanded, setMasterSuppressed]);
 
   useEffect(() => {
-    if (expanded == null) return;
+    if (expanded == null && !canvasOpen) return;
 
     const onKey = (event: KeyboardEvent) => {
+      if (canvasOpen) {
+        if (event.key === 'Escape') setCanvasOpen(false);
+        return;
+      }
+
       if (event.key === 'ArrowLeft') {
         event.preventDefault();
         goToRelative(-1);
@@ -72,7 +106,7 @@ export function TheatreDrawer({ open, pieceNumbers }: Props) {
       document.body.style.overflow = prevOverflow;
       document.removeEventListener('keydown', onKey);
     };
-  }, [expanded, immersive, goToRelative]);
+  }, [expanded, immersive, canvasOpen, goToRelative]);
 
   const expandedLabel =
     expanded != null ? `Fragment ${String(expanded).padStart(2, '0')}` : '';
@@ -85,35 +119,111 @@ export function TheatreDrawer({ open, pieceNumbers }: Props) {
         <div className="theatre-drawer-inner">
           <div className="theatre-header">
             <p className="theatre-title">Theatre</p>
-            <p className="theatre-tagline">Experience the fragments in full view</p>
+            <p className="theatre-tagline">Experience the Art in Full view</p>
           </div>
+
+          <button
+            type="button"
+            className="theatre-canvas-option"
+            onClick={openCanvas}
+            aria-label={`View canvas state No.${CANVAS_STATE_PIECE}`}
+          >
+            <div className="theatre-canvas-option-media">
+              <img
+                key={canvasState.src}
+                src={canvasState.src}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                draggable={false}
+              />
+            </div>
+            <div className="theatre-canvas-option-label">
+              Canvas state No.{CANVAS_STATE_PIECE}
+            </div>
+          </button>
 
           {pieceNumbers.length === 0 ? (
             <p className="theatre-empty">Fragments appear here as they are released.</p>
           ) : (
-            <div className="theatre-grid">
-              {pieceNumbers.map((piece) => {
-                const title = PIECE_NAMES[piece] ?? `Fragment ${piece}`;
-                const thumb = getFragmentThumbUrl(piece, 240);
+            <>
+              <p className="theatre-grid-lbl">Released fragments</p>
+              <div className="theatre-grid">
+                {pieceNumbers.map((piece) => {
+                  const title = PIECE_NAMES[piece] ?? `Fragment ${piece}`;
+                  const thumb = getFragmentThumbUrl(piece, 240);
 
-                return (
-                  <button
-                    key={piece}
-                    type="button"
-                    className="theatre-thumb"
-                    onClick={() => setExpanded(piece)}
-                    aria-label={`View ${title} in theatre`}
-                  >
-                    {thumb && (
-                      <img src={thumb} alt="" loading="lazy" decoding="async" />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+                  return (
+                    <button
+                      key={piece}
+                      type="button"
+                      className="theatre-thumb"
+                      onClick={() => openFragment(piece)}
+                      aria-label={`View ${title} in theatre`}
+                    >
+                      {thumb && (
+                        <img src={thumb} alt="" loading="lazy" decoding="async" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </>
           )}
         </div>
       </div>
+
+      <AnimatePresence>
+        {canvasOpen && (
+          <motion.div
+            className="theatre-stage theatre-stage--canvas is-immersive"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.36 }}
+            onClick={() => setCanvasOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Canvas state — current revealed grid"
+          >
+            <button
+              type="button"
+              className="theatre-stage-close"
+              onClick={() => setCanvasOpen(false)}
+              aria-label="Close canvas state"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M6 6l12 12M18 6L6 18"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
+
+            <motion.div
+              className="theatre-stage-panel"
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <p className="theatre-stage-title">Canvas state No.{CANVAS_STATE_PIECE}</p>
+              <div className="theatre-stage-media theatre-canvas-media">
+                <img
+                  key={canvasStateFull.fullSrc}
+                  src={canvasStateFull.fullSrc}
+                  alt="Current canvas — revealed grid still"
+                  decoding="async"
+                />
+              </div>
+              <p className="theatre-stage-hint">Click outside or press Esc to close</p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {expanded != null && (
@@ -125,7 +235,7 @@ export function TheatreDrawer({ open, pieceNumbers }: Props) {
             transition={{ duration: 0.36 }}
             onClick={() => {
               if (immersive) setImmersive(false);
-              else setExpanded(null);
+              else closeStage();
             }}
             role="dialog"
             aria-modal="true"
@@ -136,7 +246,7 @@ export function TheatreDrawer({ open, pieceNumbers }: Props) {
               className="theatre-stage-close"
               onClick={() => {
                 if (immersive) setImmersive(false);
-                else setExpanded(null);
+                else closeStage();
               }}
               aria-label={immersive ? 'Exit full' : 'Close theatre view'}
             >
