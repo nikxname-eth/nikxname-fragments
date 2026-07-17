@@ -1,5 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "nikxart-puzzle",
-  "compatibility_date": "2026-06-24"
+  "compatibility_date": "2024-11-12",
+  "compatibility_flags": ["nodejs_compat"],
+  "pages_build_output_dir": "out"
 }
