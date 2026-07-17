@@ -15,6 +15,7 @@ import { ReleasedFragmentsGallery } from '../components/ReleasedFragmentsGallery
 import { ShareSection } from '../components/ShareSection';
 import { SiteFooter } from '../components/SiteFooter';
 import { SiteNav } from '../components/SiteNav';
+import { TheatreDrawer } from '../components/TheatreDrawer';
 import { useCountdown } from '../hooks/useCountdown';
 import { useDropSchedule } from '../hooks/useDropSchedule';
 import { useExclusiveDrawer } from '../hooks/useExclusiveDrawer';
@@ -85,8 +86,10 @@ export default function Home() {
           dark={dark}
           onToggleTheme={() => setDark((value) => !value)}
           aboutOpen={drawer.aboutOpen}
+          theatreOpen={drawer.theatreOpen}
           collectionOpen={drawer.collectionOpen}
           onToggleAbout={drawer.toggleAbout}
+          onToggleTheatre={drawer.toggleTheatre}
           onToggleCollection={drawer.toggleCollection}
         />
 
@@ -95,6 +98,11 @@ export default function Home() {
           bioExpanded={drawer.bioExpanded}
           onToggleBio={() => drawer.setBioExpanded((value) => !value)}
           onScrollToLivePiece={scrollToLivePiece}
+        />
+
+        <TheatreDrawer
+          open={drawer.theatreOpen}
+          pieceNumbers={schedule.releasedFragments}
         />
 
         <CollectionDrawer

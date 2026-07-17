@@ -8,8 +8,10 @@ type Props = {
   dark: boolean;
   onToggleTheme: () => void;
   aboutOpen: boolean;
+  theatreOpen: boolean;
   collectionOpen: boolean;
   onToggleAbout: () => void;
+  onToggleTheatre: () => void;
   onToggleCollection: () => void;
 };
 
@@ -82,8 +84,10 @@ export function SiteNav({
   dark,
   onToggleTheme,
   aboutOpen,
+  theatreOpen,
   collectionOpen,
   onToggleAbout,
+  onToggleTheatre,
   onToggleCollection,
 }: Props) {
   const { address, shortAddress } = useWallet();
@@ -114,6 +118,30 @@ export function SiteNav({
             About
             <svg
               className={`nav-about-chevron${aboutOpen ? ' open' : ''}`}
+              width="10"
+              height="10"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </motion.button>
+          <motion.button
+            type="button"
+            className="nav-theatre"
+            onClick={onToggleTheatre}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.22, duration: 0.8 }}
+            aria-expanded={theatreOpen}
+          >
+            Theatre
+            <svg
+              className={`nav-theatre-chevron${theatreOpen ? ' open' : ''}`}
               width="10"
               height="10"
               viewBox="0 0 24 24"

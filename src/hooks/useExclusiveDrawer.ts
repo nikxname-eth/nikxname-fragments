@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export type DrawerId = 'about' | 'collection' | 'projectAbout' | 'share';
+export type DrawerId = 'about' | 'theatre' | 'collection' | 'projectAbout' | 'share';
 
 const OUTSIDE_SELECTOR =
-  '.nav-about,.about-drawer,.nav-collection,.collection-drawer,.project-about-trigger,.project-about-drawer,.share-trigger,.share-drawer,.share-modal,.share-modal-panel';
+  '.nav-about,.about-drawer,.nav-theatre,.theatre-drawer,.theatre-stage,.nav-collection,.collection-drawer,.project-about-trigger,.project-about-drawer,.share-trigger,.share-drawer,.share-modal,.share-modal-panel';
 
 export function useExclusiveDrawer() {
   const [active, setActive] = useState<DrawerId | null>(null);
@@ -31,10 +31,12 @@ export function useExclusiveDrawer() {
 
   return {
     aboutOpen: active === 'about',
+    theatreOpen: active === 'theatre',
     collectionOpen: active === 'collection',
     projectAboutOpen: active === 'projectAbout',
     shareOpen: active === 'share',
     toggleAbout: () => toggle('about'),
+    toggleTheatre: () => toggle('theatre'),
     toggleCollection: () => toggle('collection'),
     toggleProjectAbout: () => toggle('projectAbout'),
     toggleShare: () => toggle('share'),
