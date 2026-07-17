@@ -35,7 +35,8 @@ const CHECKS = [
   { id: 'mobile-nav', label: 'Mobile connect button sizing (44px tap)', pattern: /min-height:44px!important/ },
   { id: 'mint-overflow', label: 'Mint card overflow visible', pattern: /\.mint-card[^}]*overflow:visible/ },
 
-  { id: 'frag-16-instance', label: 'Fragment 16 Manifold instance', pattern: /4033071344/ },
+  { id: 'frag-17-instance', label: 'Fragment 17 Manifold instance', pattern: /4036684016/ },
+  { id: 'frag-17-share', label: 'Fragment 17 share asset', pattern: /Fragment-17_1080P\.mp4/ },
   { id: 'frag-16-share', label: 'Fragment 16 share asset', pattern: /Fragment-16_1080P\.mp4/ },
   { id: 'frag-15-share', label: 'Fragment 15 share asset', pattern: /Fragment-15_1080P\.mp4/ },
   { id: 'frag-14-share', label: 'Fragment 14 share asset', pattern: /Fragment-14_1080P\.mp4/ },
@@ -58,9 +59,10 @@ const CHECKS = [
   { id: 'released-cover-13', label: 'Released fragment 13 cover', pattern: /releasedfragment13\.jpg/ },
   { id: 'released-cover-14', label: 'Released fragment 14 cover', pattern: /releasedfragment14\.jpg/ },
   { id: 'released-cover-15', label: 'Released fragment 15 cover', pattern: /releasedfragment15\.jpg/ },
-  { id: 'banner-gif', label: 'Stage II banner GIFs', pattern: /BannerGridDark-16-web\.gif[\s\S]{0,200}BannerGridLight-16-web\.gif/ },
+  { id: 'released-cover-16', label: 'Released fragment 16 cover', pattern: /releasedfragment16\.jpg/ },
+  { id: 'banner-gif', label: 'Stage II banner GIFs', pattern: /BannerGridDark-17-web\.gif[\s\S]{0,200}BannerGridLight-17-web\.gif/ },
   { id: 'site-audio', label: 'Site audio loop', pattern: /TogetherItBloomsAudio\.mp3/ },
-  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260715f16a/ },
+  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260717f17a/ },
   { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
   { id: 'released-gallery', label: 'Released fragments gallery', pattern: /released-section|Released fragments/ },
 

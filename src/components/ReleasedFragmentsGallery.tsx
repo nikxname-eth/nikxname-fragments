@@ -65,7 +65,6 @@ export function ReleasedFragmentsGallery({ pieceNumbers }: Props) {
                 {thumb && (
                   <img src={thumb} alt="" loading="lazy" decoding="async" />
                 )}
-                <span className="released-thumb-num">{String(piece).padStart(2, '0')}</span>
               </button>
             );
           })}

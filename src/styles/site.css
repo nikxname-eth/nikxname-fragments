@@ -178,7 +178,6 @@ w3m-modal::part(overlay),wcm-modal::part(overlay){z-index:10049!important;positi
 .released-thumb:hover,.released-thumb:focus-visible{border-color:rgba(196,164,132,0.42);transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,0.22)}
 .released-thumb:focus-visible{outline:1px solid rgba(200,188,170,0.28);outline-offset:2px}
 .released-thumb img{width:100%;height:100%;object-fit:cover;display:block}
-.released-thumb-num{position:absolute;bottom:4px;right:6px;font-family:var(--font);font-style:italic;font-size:9px;letter-spacing:0.12em;color:var(--cream-dim);opacity:0.7;text-shadow:0 1px 8px rgba(0,0,0,0.65);pointer-events:none}
 .released-lightbox{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,48px);background:rgba(6,6,10,0.84);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 .theme-light .released-lightbox{background:rgba(244,236,224,0.88)}
 .released-lightbox-panel{position:relative;width:min(100%,560px);max-height:calc(100vh - 40px)}
