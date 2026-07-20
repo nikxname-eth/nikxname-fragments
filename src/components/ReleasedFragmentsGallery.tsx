@@ -114,10 +114,9 @@ export function ReleasedFragmentsGallery({ pieceNumbers }: Props) {
                 <FragmentMedia
                   tokenId={expanded}
                   fallbackTitle={expandedTitle}
-
                 />
                 <div className="piece-video-overlay" />
-                <span className="piece-ghost">{String(expanded).padStart(2, '0')}</span>
+                {/* Cover art already includes the fragment number — no redundant ghost */}
                 <span className="piece-frag">{expandedTitle}</span>
               </div>
             </motion.div>
