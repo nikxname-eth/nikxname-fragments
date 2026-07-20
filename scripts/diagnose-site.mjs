@@ -64,7 +64,8 @@ const CHECKS = [
   { id: 'released-cover-17', label: 'Released fragment 17 cover', pattern: /releasedfragment17\.jpg/ },
   { id: 'banner-gif', label: 'Stage II banner GIFs', pattern: /BannerGridDark-18-web\.gif[\s\S]{0,200}BannerGridLight-18-web\.gif/ },
   { id: 'site-audio', label: 'Site audio loop', pattern: /TogetherItBloomsAudio\.mp3/ },
-  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260720f18a/ },
+  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260720f18b/ },
+  { id: 'canvas-state-18', label: 'Theatre canvas state stills (F18)', pattern: /canvasstatedark-18\.jpg[\s\S]{0,200}canvasstatelight-18\.jpg|canvasstatelight-18\.jpg[\s\S]{0,200}canvasstatedark-18\.jpg/ },
   { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
   { id: 'released-gallery', label: 'Released fragments gallery', pattern: /released-section|Released fragments/ },
 

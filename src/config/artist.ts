@@ -1,5 +1,5 @@
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260720f18a';
+export const SITE_ASSET_VERSION = '20260720f18b';
 
 /** Ambient site audio — toggled from nav (loops). */
 export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/TogetherItBloomsAudio.mp3';
@@ -19,12 +19,12 @@ export const BANNER_GIF = {
 
 /** Still canvas state (current revealed grid) — Theatre preview, theme-matched. */
 export const CANVAS_STATE_STILL = {
-  dark: 'https://assets.nikxart.xyz/canvasstatedark-17.jpg',
-  light: 'https://assets.nikxart.xyz/canvasstatelight-17.jpg',
+  dark: 'https://assets.nikxart.xyz/canvasstatedark-18.jpg',
+  light: 'https://assets.nikxart.xyz/canvasstatelight-18.jpg',
 } as const;
 
 /** Piece number reflected in the current canvas still (update with each evolution). */
-export const CANVAS_STATE_PIECE = 17;
+export const CANVAS_STATE_PIECE = 18;
 
 const releasedCoverUrl = (piece: number) =>
   `https://assets.nikxart.xyz/stageii/releasedfragment${String(piece).padStart(2, '0')}.jpg`;
