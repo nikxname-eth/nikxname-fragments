@@ -5,7 +5,7 @@ const META = {
   title: 'Together It Blooms — Nikxname',
   description: 'An on-chain art discovery experience. 27 fragments revealed over time. Collection I — A Familiar Burn.',
   url: 'https://nikxart.xyz',
-  ogImage: 'https://assets.nikxart.xyz/Banner-Medium.jpg?width=1200&quality=88&format=auto',
+  ogImage: 'https://assets.nikxart.xyz/sharepreview.jpg',
   twitterHandle: '@nikxname',
 };
 
@@ -24,17 +24,20 @@ export default function Document() {
         <meta property="og:title" content={META.title} />
         <meta property="og:description" content={META.description} />
         <meta property="og:image" content={META.ogImage} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="607" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1920" />
+        <meta property="og:image:height" content="972" />
+        <meta property="og:image:alt" content="Together It Blooms — Nikxname" />
         <meta property="og:site_name" content="Nikxname" />
 
-        {/* Twitter */}
+        {/* Twitter / X */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content={META.twitterHandle} />
         <meta name="twitter:creator" content={META.twitterHandle} />
         <meta name="twitter:title" content={META.title} />
         <meta name="twitter:description" content={META.description} />
         <meta name="twitter:image" content={META.ogImage} />
+        <meta name="twitter:image:alt" content="Together It Blooms — Nikxname" />
 
         {/* Favicon — served statically from the export (public/favicon.svg) */}
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
