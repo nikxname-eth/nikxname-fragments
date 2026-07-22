@@ -1,5 +1,5 @@
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260720f18b';
+export const SITE_ASSET_VERSION = '20260722f19a';
 
 /** Ambient site audio — toggled from nav (loops). */
 export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/TogetherItBloomsAudio.mp3';
@@ -13,18 +13,18 @@ export const TEASER_PREVIEW_URL = `https://assets.nikxart.xyz/previewtmp.jpg?v=$
 
 /** Stage II animated grid banners — single source per theme. */
 export const BANNER_GIF = {
-  dark: 'https://assets.nikxart.xyz/BannerGridDark-18-web.gif',
-  light: 'https://assets.nikxart.xyz/BannerGridLight-18-web.gif',
+  dark: 'https://assets.nikxart.xyz/BannerGridDark-19-web.gif',
+  light: 'https://assets.nikxart.xyz/BannerGridLight-19-web.gif',
 } as const;
 
 /** Still canvas state (current revealed grid) — Theatre preview, theme-matched. */
 export const CANVAS_STATE_STILL = {
-  dark: 'https://assets.nikxart.xyz/canvasstatedark-18.jpg',
-  light: 'https://assets.nikxart.xyz/canvasstatelight-18.jpg',
+  dark: 'https://assets.nikxart.xyz/canvasstatedark-19.jpg',
+  light: 'https://assets.nikxart.xyz/canvasstatelight-19.jpg',
 } as const;
 
 /** Piece number reflected in the current canvas still (update with each evolution). */
-export const CANVAS_STATE_PIECE = 18;
+export const CANVAS_STATE_PIECE = 19;
 
 const releasedCoverUrl = (piece: number) =>
   `https://assets.nikxart.xyz/stageii/releasedfragment${String(piece).padStart(2, '0')}.jpg`;
@@ -49,6 +49,7 @@ const FRAGMENT_SHARE_URL_BY_PIECE: Record<number, string> = {
   16: 'https://assets.nikxart.xyz/Fragment-16_1080P.mp4',
   17: 'https://assets.nikxart.xyz/Fragment-17_1080P.mp4',
   18: 'https://assets.nikxart.xyz/Fragment-18_1080P.mp4',
+  19: 'https://assets.nikxart.xyz/Fragment-19_1080P.mp4',
 };
 
 /** Hero banner — theme GIF only (no holder evolution variants). */
@@ -180,6 +181,11 @@ export const FRAGMENT_SITE_MEDIA: Record<
   },
   18: {
     displayUrl: FRAGMENT_SHARE_URLS[18],
+    posterUrl: 'https://assets.nikxart.xyz/releasedfragment18.jpg',
+    hasAudio: true,
+  },
+  19: {
+    displayUrl: FRAGMENT_SHARE_URLS[19],
     hasAudio: true,
   },
 };
@@ -286,6 +292,11 @@ export const CLAIM_INSTANCES: Record<
   18: {
     instanceId: '4036370672',
     manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4036370672',
+    mintPrice: '0.00044 ETH',
+  },
+  19: {
+    instanceId: '4035944688',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4035944688',
     mintPrice: '0.00044 ETH',
   },
 };
