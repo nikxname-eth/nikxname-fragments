@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
-  CANVAS_STATE_PIECE,
+  getCanvasStatePiece,
   getCanvasStateStill,
   getFragmentThumbUrl,
   PIECE_NAMES,
 } from '../config/artist';
+import { useDropSchedule } from '../hooks/useDropSchedule';
 import { useSiteAudio } from '../providers/SiteAudioProvider';
 import { FragmentMedia } from './FragmentMedia';
 
@@ -20,9 +21,11 @@ export function TheatreDrawer({ open, pieceNumbers, theme }: Props) {
   const [canvasOpen, setCanvasOpen] = useState(false);
   const [immersive, setImmersive] = useState(false);
   const { setMasterSuppressed } = useSiteAudio();
-
-  const canvasState = getCanvasStateStill({ theme, width: 720 });
-  const canvasStateFull = getCanvasStateStill({ theme, width: 1920 });
+  /** Same clock as mint — canvas does not advance until the live window flips. */
+  const { now } = useDropSchedule();
+  const canvasPiece = getCanvasStatePiece(now);
+  const canvasState = getCanvasStateStill({ theme, width: 720, piece: canvasPiece, now });
+  const canvasStateFull = getCanvasStateStill({ theme, width: 1920, piece: canvasPiece, now });
 
   const pieceIndex = expanded != null ? pieceNumbers.indexOf(expanded) : -1;
   const canNavigate = pieceNumbers.length > 1 && pieceIndex >= 0;
@@ -126,7 +129,7 @@ export function TheatreDrawer({ open, pieceNumbers, theme }: Props) {
             type="button"
             className="theatre-canvas-option"
             onClick={openCanvas}
-            aria-label={`View canvas state No.${CANVAS_STATE_PIECE}`}
+            aria-label={`View canvas state No.${canvasPiece}`}
           >
             <div className="theatre-canvas-option-media">
               <img
@@ -139,7 +142,7 @@ export function TheatreDrawer({ open, pieceNumbers, theme }: Props) {
               />
             </div>
             <div className="theatre-canvas-option-label">
-              Canvas state No.{CANVAS_STATE_PIECE}
+              Canvas state No.{canvasPiece}
             </div>
           </button>
 
@@ -210,7 +213,7 @@ export function TheatreDrawer({ open, pieceNumbers, theme }: Props) {
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               onClick={(event) => event.stopPropagation()}
             >
-              <p className="theatre-stage-title">Canvas state No.{CANVAS_STATE_PIECE}</p>
+              <p className="theatre-stage-title">Canvas state No.{canvasPiece}</p>
               <div className="theatre-stage-media theatre-canvas-media">
                 <img
                   key={canvasStateFull.fullSrc}

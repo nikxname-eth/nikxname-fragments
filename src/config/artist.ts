@@ -17,14 +17,25 @@ export const BANNER_GIF = {
   light: 'https://assets.nikxart.xyz/BannerGridLight-19-web.gif',
 } as const;
 
-/** Still canvas state (current revealed grid) — Theatre preview, theme-matched. */
-export const CANVAS_STATE_STILL = {
-  dark: 'https://assets.nikxart.xyz/canvasstatedark-19.jpg',
-  light: 'https://assets.nikxart.xyz/canvasstatelight-19.jpg',
-} as const;
+/**
+ * Highest piece with Theatre canvas stills on the CDN (update each evolution).
+ *
+ * IMPORTANT: This is not “what Theatre shows right now.” Canvas stills follow the
+ * live mint window via getCanvasStatePiece() — same rule as the mint block.
+ * Deploying the next fragment’s assets early must NOT advance Theatre canvas
+ * until the current window closes and the new one opens.
+ */
+export const CANVAS_STATE_LATEST_PIECE = 19;
 
-/** Piece number reflected in the current canvas still (update with each evolution). */
-export const CANVAS_STATE_PIECE = 19;
+/** @deprecated Prefer getCanvasStatePiece() — alias of latest CDN upload piece. */
+export const CANVAS_STATE_PIECE = CANVAS_STATE_LATEST_PIECE;
+
+export function getCanvasStateUrls(piece: number) {
+  return {
+    dark: `https://assets.nikxart.xyz/canvasstatedark-${piece}.jpg`,
+    light: `https://assets.nikxart.xyz/canvasstatelight-${piece}.jpg`,
+  } as const;
+}
 
 const releasedCoverUrl = (piece: number) =>
   `https://assets.nikxart.xyz/stageii/releasedfragment${String(piece).padStart(2, '0')}.jpg`;
@@ -60,11 +71,22 @@ export function getSiteBanner(options: { theme: 'dark' | 'light' }) {
   };
 }
 
-/** Still canvas state for Theatre — matches current banner reveal, theme-aware. */
-export function getCanvasStateStill(options: { theme: 'dark' | 'light'; width?: number }) {
-  const base = options.theme === 'dark' ? CANVAS_STATE_STILL.dark : CANVAS_STATE_STILL.light;
+/**
+ * Still canvas for Theatre — theme-matched, piece from live schedule (not deploy-time latest).
+ * Pass `piece` to pin; otherwise uses getCanvasStatePiece(now).
+ */
+export function getCanvasStateStill(options: {
+  theme: 'dark' | 'light';
+  width?: number;
+  piece?: number;
+  now?: number;
+}) {
+  const piece = options.piece ?? getCanvasStatePiece(options.now);
+  const urls = getCanvasStateUrls(piece);
+  const base = options.theme === 'dark' ? urls.dark : urls.light;
   const width = options.width ?? 1600;
   return {
+    piece,
     src: optimizeAssetImage(base, width),
     fullSrc: `${base}?v=${SITE_ASSET_VERSION}`,
   };
@@ -389,6 +411,26 @@ export function getPrimaryLiveMintPiece(now = Date.now()): number | null {
     (entry) => CLAIM_INSTANCES[entry.piece] && isDropWindowOpen(entry.piece, now),
   );
   return active?.piece ?? null;
+}
+
+/**
+ * Canvas state for Theatre = the fragment currently in its mint window.
+ * Falls back to the latest opened piece (never the next unopened evolution).
+ * Matches mint timing so early deploys do not advance Theatre canvas early.
+ */
+export function getCanvasStatePiece(now = Date.now()): number {
+  const live = getPrimaryLiveMintPiece(now);
+  if (live != null) {
+    return Math.min(live, CANVAS_STATE_LATEST_PIECE);
+  }
+
+  for (let piece = CANVAS_STATE_LATEST_PIECE; piece >= 1; piece--) {
+    if (isDropWindowOpen(piece, now) || isDropWindowEnded(piece, now)) {
+      return piece;
+    }
+  }
+
+  return 1;
 }
 
 export function getFragmentThumbUrl(piece: number, width = 160): string | null {
