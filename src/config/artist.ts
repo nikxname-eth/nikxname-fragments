@@ -1,5 +1,5 @@
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260722f19a';
+export const SITE_ASSET_VERSION = '20260724f20a';
 
 /** Ambient site audio — toggled from nav (loops). */
 export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/TogetherItBloomsAudio.mp3';
@@ -13,8 +13,8 @@ export const TEASER_PREVIEW_URL = `https://assets.nikxart.xyz/previewtmp.jpg?v=$
 
 /** Stage II animated grid banners — single source per theme. */
 export const BANNER_GIF = {
-  dark: 'https://assets.nikxart.xyz/BannerGridDark-19-web.gif',
-  light: 'https://assets.nikxart.xyz/BannerGridLight-19-web.gif',
+  dark: 'https://assets.nikxart.xyz/BannerGridDark-20-web.gif',
+  light: 'https://assets.nikxart.xyz/BannerGridLight-20-web.gif',
 } as const;
 
 /**
@@ -25,7 +25,7 @@ export const BANNER_GIF = {
  * Deploying the next fragment’s assets early must NOT advance Theatre canvas
  * until the current window closes and the new one opens.
  */
-export const CANVAS_STATE_LATEST_PIECE = 19;
+export const CANVAS_STATE_LATEST_PIECE = 20;
 
 /** @deprecated Prefer getCanvasStatePiece() — alias of latest CDN upload piece. */
 export const CANVAS_STATE_PIECE = CANVAS_STATE_LATEST_PIECE;
@@ -61,6 +61,7 @@ const FRAGMENT_SHARE_URL_BY_PIECE: Record<number, string> = {
   17: 'https://assets.nikxart.xyz/Fragment-17_1080P.mp4',
   18: 'https://assets.nikxart.xyz/Fragment-18_1080P.mp4',
   19: 'https://assets.nikxart.xyz/Fragment-19_1080P.mp4',
+  20: 'https://assets.nikxart.xyz/Fragment-20_1080P.mp4',
 };
 
 /** Hero banner — theme GIF only (no holder evolution variants). */
@@ -208,6 +209,11 @@ export const FRAGMENT_SITE_MEDIA: Record<
   },
   19: {
     displayUrl: FRAGMENT_SHARE_URLS[19],
+    posterUrl: 'https://assets.nikxart.xyz/releasedfragment19.jpg',
+    hasAudio: true,
+  },
+  20: {
+    displayUrl: FRAGMENT_SHARE_URLS[20],
     hasAudio: true,
   },
 };
@@ -320,6 +326,11 @@ export const CLAIM_INSTANCES: Record<
     instanceId: '4035944688',
     manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4035944688',
     mintPrice: '0.00044 ETH',
+  },
+  20: {
+    instanceId: '4035268848',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4035268848',
+    mintPrice: '0 ETH',
   },
 };
 

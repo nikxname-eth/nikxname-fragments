@@ -7,7 +7,7 @@ import { useSiteClock } from './useSiteClock';
  * when evolving for the next drop — not the incoming piece.
  */
 const HYDRATION_NOW = Date.parse(
-  DROP_SCHEDULE.find((entry) => entry.piece === 18)?.startsUTC ??
+  DROP_SCHEDULE.find((entry) => entry.piece === 19)?.startsUTC ??
     DROP_SCHEDULE[DROP_SCHEDULE.length - 1]?.startsUTC ??
     DROP_SCHEDULE[0].startsUTC,
 );
