@@ -11,21 +11,29 @@ const optimizeAssetImage = (url: string, width: number) =>
 /** Generic dimmed preview for the next-window teaser (before a fragment cover exists). */
 export const TEASER_PREVIEW_URL = `https://assets.nikxart.xyz/previewtmp.jpg?v=${SITE_ASSET_VERSION}`;
 
-/** Stage II animated grid banners — single source per theme. */
-export const BANNER_GIF = {
-  dark: 'https://assets.nikxart.xyz/BannerGridDark-24-web.gif',
-  light: 'https://assets.nikxart.xyz/BannerGridLight-24-web.gif',
-} as const;
-
 /**
- * Highest piece with Theatre canvas stills on the CDN (update each evolution).
+ * Highest piece with hero banners + Theatre canvas stills on the CDN
+ * (bump both together each evolution).
  *
- * IMPORTANT: This is not “what Theatre shows right now.” Canvas stills follow the
- * live mint window via getCanvasStatePiece() — same rule as the mint block.
- * Deploying the next fragment’s assets early must NOT advance Theatre canvas
- * until the current window closes and the new one opens.
+ * IMPORTANT: This is not “what the site shows right now.” Hero banners and
+ * Theatre canvas follow getCanvasStatePiece() / the live mint window — same
+ * rule as the mint block. Deploying the next fragment’s assets early must NOT
+ * advance banner or canvas until the current window closes and the new one opens.
  */
 export const CANVAS_STATE_LATEST_PIECE = 24;
+
+/** Latest banner piece on CDN — same number as canvas (always bump together). */
+export const BANNER_LATEST_PIECE = CANVAS_STATE_LATEST_PIECE;
+
+export function getBannerUrls(piece: number) {
+  return {
+    dark: `https://assets.nikxart.xyz/BannerGridDark-${piece}-web.gif`,
+    light: `https://assets.nikxart.xyz/BannerGridLight-${piece}-web.gif`,
+  } as const;
+}
+
+/** @deprecated Prefer getSiteBanner({ now }) — latest CDN pair only, not live display. */
+export const BANNER_GIF = getBannerUrls(BANNER_LATEST_PIECE);
 
 /** @deprecated Prefer getCanvasStatePiece() — alias of latest CDN upload piece. */
 export const CANVAS_STATE_PIECE = CANVAS_STATE_LATEST_PIECE;
@@ -68,10 +76,20 @@ const FRAGMENT_SHARE_URL_BY_PIECE: Record<number, string> = {
   24: 'https://assets.nikxart.xyz/Fragment-24_1080P.mp4',
 };
 
-/** Hero banner — theme GIF only (no holder evolution variants). */
-export function getSiteBanner(options: { theme: 'dark' | 'light' }) {
-  const base = options.theme === 'dark' ? BANNER_GIF.dark : BANNER_GIF.light;
+/**
+ * Hero banner — theme GIF for the live mint window piece (not deploy-time latest).
+ * Matches mint + Theatre canvas timing so early evolutions do not flash the next grid.
+ */
+export function getSiteBanner(options: {
+  theme: 'dark' | 'light';
+  piece?: number;
+  now?: number;
+}) {
+  const piece = options.piece ?? getCanvasStatePiece(options.now);
+  const urls = getBannerUrls(piece);
+  const base = options.theme === 'dark' ? urls.dark : urls.light;
   return {
+    piece,
     src: `${base}?v=${SITE_ASSET_VERSION}`,
   };
 }

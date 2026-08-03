@@ -37,7 +37,7 @@ export default function Home() {
   const countdown = useCountdown(schedule.countdownTarget, schedule.now);
   const collection = useOwnedFragments(address);
 
-  const siteBanner = getSiteBanner({ theme: dark ? 'dark' : 'light' });
+  const siteBanner = getSiteBanner({ theme: dark ? 'dark' : 'light', now: schedule.now });
   const themeClass = dark ? '' : ' theme-light';
   const showContent = schedule.dropsStarted || PREVIEW_MODE;
   const releasedSharePieces = SHARE_PIECES.filter(

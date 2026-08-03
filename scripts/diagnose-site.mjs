@@ -74,7 +74,7 @@ const CHECKS = [
   { id: 'released-cover-21', label: 'Released fragment 21 cover', pattern: /releasedfragment21\.jpg/ },
   { id: 'released-cover-22', label: 'Released fragment 22 cover', pattern: /releasedfragment22\.jpg/ },
   { id: 'released-cover-23', label: 'Released fragment 23 cover', pattern: /releasedfragment23\.jpg/ },
-  { id: 'banner-gif', label: 'Stage II banner GIFs', pattern: /BannerGridDark-24-web\.gif[\s\S]{0,200}BannerGridLight-24-web\.gif/ },
+  { id: 'banner-gif', label: 'Stage II banner GIFs (live-window piece)', pattern: /BannerGridDark-\d+-web\.gif/ },
   { id: 'site-audio', label: 'Site audio loop', pattern: /TogetherItBloomsAudio\.mp3/ },
   { id: 'asset-version', label: 'Site asset cache version', pattern: /20260803f24a/ },
   { id: 'canvas-state-latest', label: 'Theatre canvas state stills (latest CDN)', pattern: /canvasstatedark-24\.jpg|canvasstatelight-24\.jpg/ },
