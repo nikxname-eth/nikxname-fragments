@@ -1,5 +1,5 @@
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260803f24a';
+export const SITE_ASSET_VERSION = '20260805f25a';
 
 /** Ambient site audio — toggled from nav (loops). */
 export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/TogetherItBloomsAudio.mp3';
@@ -20,7 +20,7 @@ export const TEASER_PREVIEW_URL = `https://assets.nikxart.xyz/previewtmp.jpg?v=$
  * rule as the mint block. Deploying the next fragment’s assets early must NOT
  * advance banner or canvas until the current window closes and the new one opens.
  */
-export const CANVAS_STATE_LATEST_PIECE = 24;
+export const CANVAS_STATE_LATEST_PIECE = 25;
 
 /** Latest banner piece on CDN — same number as canvas (always bump together). */
 export const BANNER_LATEST_PIECE = CANVAS_STATE_LATEST_PIECE;
@@ -74,6 +74,7 @@ const FRAGMENT_SHARE_URL_BY_PIECE: Record<number, string> = {
   22: 'https://assets.nikxart.xyz/Fragment-22_1080P.mp4',
   23: 'https://assets.nikxart.xyz/Fragment-23_1080P.mp4',
   24: 'https://assets.nikxart.xyz/Fragment-24_1080P.mp4',
+  25: 'https://assets.nikxart.xyz/Fragment-25_1080P.mp4',
 };
 
 /**
@@ -256,6 +257,11 @@ export const FRAGMENT_SITE_MEDIA: Record<
   },
   24: {
     displayUrl: FRAGMENT_SHARE_URLS[24],
+    posterUrl: 'https://assets.nikxart.xyz/releasedfragment24.jpg',
+    hasAudio: true,
+  },
+  25: {
+    displayUrl: FRAGMENT_SHARE_URLS[25],
     hasAudio: true,
   },
 };
@@ -392,6 +398,11 @@ export const CLAIM_INSTANCES: Record<
   24: {
     instanceId: '4037478640',
     manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4037478640',
+    mintPrice: '0.00044 ETH',
+  },
+  25: {
+    instanceId: '4040900848',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4040900848',
     mintPrice: '0.00044 ETH',
   },
 };

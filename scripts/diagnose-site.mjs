@@ -35,7 +35,8 @@ const CHECKS = [
   { id: 'mobile-nav', label: 'Mobile connect button sizing (44px tap)', pattern: /min-height:44px!important/ },
   { id: 'mint-overflow', label: 'Mint card overflow visible', pattern: /\.mint-card[^}]*overflow:visible/ },
 
-  { id: 'frag-24-instance', label: 'Fragment 24 Manifold instance', pattern: /4037478640/ },
+  { id: 'frag-25-instance', label: 'Fragment 25 Manifold instance', pattern: /4040900848/ },
+  { id: 'frag-25-share', label: 'Fragment 25 share asset', pattern: /Fragment-25_1080P\.mp4/ },
   { id: 'frag-24-share', label: 'Fragment 24 share asset', pattern: /Fragment-24_1080P\.mp4/ },
   { id: 'frag-23-share', label: 'Fragment 23 share asset', pattern: /Fragment-23_1080P\.mp4/ },
   { id: 'frag-22-share', label: 'Fragment 22 share asset', pattern: /Fragment-22_1080P\.mp4/ },
@@ -74,10 +75,11 @@ const CHECKS = [
   { id: 'released-cover-21', label: 'Released fragment 21 cover', pattern: /releasedfragment21\.jpg/ },
   { id: 'released-cover-22', label: 'Released fragment 22 cover', pattern: /releasedfragment22\.jpg/ },
   { id: 'released-cover-23', label: 'Released fragment 23 cover', pattern: /releasedfragment23\.jpg/ },
+  { id: 'released-cover-24', label: 'Released fragment 24 cover', pattern: /releasedfragment24\.jpg/ },
   { id: 'banner-gif', label: 'Stage II banner GIFs (live-window piece)', pattern: /BannerGridDark-\d+-web\.gif/ },
   { id: 'site-audio', label: 'Site audio loop', pattern: /TogetherItBloomsAudio\.mp3/ },
-  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260803f24a/ },
-  { id: 'canvas-state-latest', label: 'Theatre canvas state stills (latest CDN)', pattern: /canvasstatedark-24\.jpg|canvasstatelight-24\.jpg/ },
+  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260805f25a/ },
+  { id: 'canvas-state-latest', label: 'Theatre canvas state stills (latest CDN)', pattern: /canvasstatedark-25\.jpg|canvasstatelight-25\.jpg/ },
   { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
   { id: 'released-gallery', label: 'Released fragments gallery', pattern: /released-section|Released fragments/ },
 
