@@ -62,4 +62,14 @@ Fragment works update automatically when you evolve the main site config.
 
 ## Design
 
-Matches nikxart visual language: Cormorant Garamond, cream/dark, Theatre-style stage, light/dark toggle.
+Matches nikxart visual language: Cormorant Garamond, cream/dark, light/dark toggle.
+
+### Collection Theatre
+
+Opening a work enters an art-first viewer:
+
+- **Catalogue grid** only holds light covers / thumbs
+- **Full media** is requested from origin (Arweave / IPFS / CDN) when Theatre opens
+- Optional **Info** panel (metadata, contract, storage) — press `I`
+- **Prev / Next**, zoom (+ / − / scroll), pan when zoomed, **Catalogue** to exit
+- Shortcuts: `←` `→` navigate · `I` info · `Esc` close

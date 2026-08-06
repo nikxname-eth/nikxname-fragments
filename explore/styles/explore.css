@@ -88,24 +88,58 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;mix
 .ex-card-title{font-style:italic;font-weight:300;font-size:clamp(13px,1.4vw,15px);letter-spacing:0.04em;color:var(--cream);margin-bottom:3px}
 .ex-card-sub{font-style:italic;font-size:clamp(10px,1.1vw,12px);letter-spacing:0.12em;text-transform:uppercase;color:var(--silver);opacity:0.55}
 
-/* Stage */
-.ex-stage{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;padding:clamp(12px,3vw,40px);background:rgba(4,4,8,0.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-.theme-light .ex-stage{background:rgba(236,228,216,0.94)}
-.ex-stage-panel{position:relative;width:min(100%,920px);max-height:min(92vh,900px);display:flex;flex-direction:column;gap:clamp(12px,2vw,18px)}
-.ex-stage-close{position:absolute;top:0;right:0;z-index:5;display:flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:1px solid var(--border);border-radius:50%;background:rgba(6,6,10,0.55);color:var(--cream-dim);cursor:pointer;opacity:0.8}
-.ex-stage-close:hover{opacity:1;border-color:rgba(196,164,132,0.45)}
-.ex-stage-media{position:relative;width:100%;aspect-ratio:16/10;max-height:min(58vh,560px);background:#000;border:1px solid rgba(230,221,208,0.1);border-radius:clamp(8px,1.2vw,12px);overflow:hidden}
-.ex-stage-media img,.ex-stage-media video{width:100%;height:100%;object-fit:contain;display:block;background:#000}
-.ex-stage-body{padding:0 4px 8px}
-.ex-stage-kicker{font-style:italic;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--silver);opacity:0.55;margin-bottom:6px}
-.ex-stage-title{font-style:italic;font-weight:300;font-size:clamp(22px,3.5vw,34px);color:var(--cream);margin-bottom:6px}
-.ex-stage-sub{font-style:italic;font-size:clamp(12px,1.35vw,14px);letter-spacing:0.12em;color:var(--silver);opacity:0.7;margin-bottom:12px}
-.ex-stage-blurb{font-style:italic;font-size:clamp(13px,1.45vw,15px);line-height:1.65;color:var(--cream-read);max-width:52ch;margin-bottom:16px}
-.ex-stage-actions{display:flex;flex-wrap:wrap;gap:10px}
-.ex-stage-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:4px}
-.ex-stage-arrow{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid rgba(230,221,208,0.14);border-radius:50%;background:transparent;color:var(--silver);opacity:0.55;cursor:pointer;transition:opacity 0.3s,border-color 0.3s}
-.ex-stage-arrow:hover:not(:disabled){opacity:0.95;border-color:rgba(196,164,132,0.4);color:var(--cream)}
-.ex-stage-arrow:disabled{opacity:0.2;cursor:default}
+/* ── Collection Theatre (art-first immersive viewer) ── */
+.ex-theatre{position:fixed;inset:0;z-index:95;display:flex;flex-direction:column;background:rgba(3,3,6,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.theme-light .ex-theatre{background:rgba(228,220,210,0.97)}
+.ex-theatre-canvas{position:relative;flex:1 1 auto;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#050508;user-select:none;touch-action:none}
+.theme-light .ex-theatre-canvas{background:#e8e0d6}
+.ex-theatre-media{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;opacity:0;transition:opacity 0.45s ease;will-change:transform;pointer-events:auto}
+.ex-theatre-media.is-ready{opacity:1}
+.ex-theatre-media video{width:min(100%,1200px);max-height:calc(100vh - 88px)}
+.ex-theatre-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-style:italic;font-size:13px;letter-spacing:0.16em;color:var(--silver);opacity:0.7;pointer-events:none}
+.ex-theatre-loading-dot{width:8px;height:8px;border-radius:50%;background:var(--rose-gold);animation:ex-pulse 1.1s ease-in-out infinite}
+@keyframes ex-pulse{0%,100%{opacity:0.35;transform:scale(0.85)}50%{opacity:1;transform:scale(1)}}
+.ex-theatre-link{pointer-events:auto;color:var(--rose-gold);text-decoration:none;letter-spacing:0.12em;font-size:12px;margin-top:8px}
+.ex-theatre-titlebar{position:absolute;left:0;right:0;bottom:0;padding:clamp(16px,3vw,28px) clamp(16px,3vw,32px);display:flex;align-items:baseline;justify-content:center;gap:12px;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%);pointer-events:none}
+.theme-light .ex-theatre-titlebar{background:linear-gradient(to top,rgba(236,228,216,0.75) 0%,transparent 100%)}
+.ex-theatre-title{font-style:italic;font-weight:300;font-size:clamp(16px,2.2vw,22px);letter-spacing:0.06em;color:rgba(240,232,220,0.92);text-align:center}
+.theme-light .ex-theatre-title{color:rgba(22,17,13,0.88)}
+.ex-theatre-edition{font-style:italic;font-size:12px;letter-spacing:0.14em;color:var(--rose-gold);opacity:0.9}
+
+.ex-theatre-bar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px clamp(12px,2.5vw,28px);min-height:56px;border-top:1px solid var(--border);background:rgba(6,6,10,0.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.theme-light .ex-theatre-bar{background:rgba(200,193,184,0.94)}
+.ex-theatre-bar-left,.ex-theatre-bar-right,.ex-theatre-bar-center{display:flex;align-items:center;gap:8px;min-width:0}
+.ex-theatre-bar-center{flex:1 1 auto;justify-content:center}
+.ex-theatre-bar-right{justify-content:flex-end;flex-wrap:wrap}
+.ex-theatre-btn{font-family:var(--font);font-style:italic;font-weight:300;font-size:clamp(11px,1.2vw,13px);letter-spacing:0.14em;text-transform:uppercase;color:var(--cream);opacity:0.72;background:transparent;border:1px solid transparent;border-radius:999px;padding:8px 14px;cursor:pointer;transition:opacity 0.25s,border-color 0.25s,background 0.25s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.ex-theatre-btn:hover:not(:disabled){opacity:1;border-color:rgba(196,164,132,0.35);background:rgba(196,164,132,0.06)}
+.ex-theatre-btn:disabled{opacity:0.22;cursor:default}
+.ex-theatre-btn.is-active{opacity:1;border-color:rgba(196,164,132,0.45);color:var(--rose-gold)}
+.ex-theatre-btn.icon{width:36px;height:36px;padding:0;display:inline-flex;align-items:center;justify-content:center;font-size:16px;letter-spacing:0}
+.ex-theatre-count{font-style:italic;font-size:12px;letter-spacing:0.12em;color:var(--silver);opacity:0.55;min-width:5.5ch;text-align:center}
+
+.ex-theatre-info{position:fixed;top:0;right:0;bottom:56px;z-index:96;width:min(100%,380px);overflow-y:auto;padding:clamp(20px,3vw,32px);border-left:1px solid var(--border);background:rgba(8,8,12,0.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:-24px 0 48px rgba(0,0,0,0.35)}
+.theme-light .ex-theatre-info{background:rgba(210,202,192,0.97)}
+.ex-theatre-info-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.ex-theatre-info-kicker{font-style:italic;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--silver);opacity:0.55}
+.ex-theatre-info-title{font-style:italic;font-weight:300;font-size:clamp(24px,3vw,32px);line-height:1.15;color:var(--cream);margin-bottom:6px}
+.ex-theatre-info-sub{font-style:italic;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--silver);opacity:0.6;margin-bottom:14px}
+.ex-theatre-info-blurb{font-style:italic;font-size:14px;line-height:1.65;color:var(--cream-read);margin-bottom:20px;opacity:0.9}
+.ex-theatre-meta{display:flex;flex-direction:column;gap:0;margin:0 0 22px;border-top:1px solid var(--border)}
+.ex-theatre-meta-row{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
+.ex-theatre-meta-row dt{font-style:italic;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--silver);opacity:0.5;padding-top:2px}
+.ex-theatre-meta-row dd{font-style:italic;font-size:13px;letter-spacing:0.04em;color:var(--cream-dim);word-break:break-word}
+.ex-theatre-meta-row a{color:var(--rose-gold);text-decoration:none}
+.ex-theatre-meta-row a:hover{opacity:0.85}
+.ex-theatre-info-actions{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.ex-theatre-hint{font-style:italic;font-size:10px;letter-spacing:0.12em;color:var(--silver);opacity:0.4;line-height:1.5}
+
+@media(max-width:700px){
+  .ex-theatre-bar{flex-wrap:wrap;justify-content:center;padding:10px 12px 12px}
+  .ex-theatre-bar-left,.ex-theatre-bar-right,.ex-theatre-bar-center{width:100%;justify-content:center}
+  .ex-theatre-info{bottom:0;width:100%;max-height:55vh;border-left:none;border-top:1px solid var(--border);border-radius:16px 16px 0 0}
+  .ex-theatre-btn{padding:8px 12px;font-size:11px}
+}
 
 /* Footer */
 .ex-footer{border-top:1px solid var(--border);padding:clamp(20px,3vw,32px) clamp(16px,4vw,48px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;max-width:1200px;margin:0 auto}
