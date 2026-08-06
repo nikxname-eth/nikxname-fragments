@@ -3,10 +3,13 @@
  * Fetch ERC-721 / ERC-1155 catalogs for Explore on-chain collections.
  * Writes explore/data/collections/<seriesId>.json
  *
- * Usage: npm run sync:explore
+ * Usage:
+ *   npm run sync:explore
+ *   node scripts/sync-explore-collections.mjs for-her
+ *   node scripts/sync-explore-collections.mjs the-void life-impressions
  */
 import { createPublicClient, http, parseAbi } from 'viem';
-import { mainnet } from 'viem/chains';
+import { mainnet, base } from 'viem/chains';
 import { mkdirSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
@@ -22,6 +25,7 @@ const ON_CHAIN_COLLECTIONS = [
     label: 'The Void',
     address: '0xa4f73c689f977a27f7f99cd1cdc9054793554730',
     standard: 'erc721',
+    chain: 'ethereum',
     scanMaxId: 200,
   },
   {
@@ -29,6 +33,7 @@ const ON_CHAIN_COLLECTIONS = [
     label: 'Life Impressions',
     address: '0xb00b42b5baa62f6ce800fb919b3d090b51c4463c',
     standard: 'erc721',
+    chain: 'ethereum',
     scanMaxId: 200,
   },
   {
@@ -36,6 +41,7 @@ const ON_CHAIN_COLLECTIONS = [
     label: 'For You..',
     address: '0x5174ed5f363ef4df2823f42be54de5fd61294e49',
     standard: 'erc1155',
+    chain: 'ethereum',
     scanMaxId: 100,
   },
   {
@@ -43,6 +49,7 @@ const ON_CHAIN_COLLECTIONS = [
     label: 'For Her..',
     address: '0x9813ff20c99525922b3538fce8c2c9e5db93866c',
     standard: 'erc1155',
+    chain: 'base',
     scanMaxId: 100,
   },
   {
@@ -50,17 +57,39 @@ const ON_CHAIN_COLLECTIONS = [
     label: 'A Familiar Burn',
     address: '0x1641b09e11d19e6f6b9f80273158f9da28555593',
     standard: 'erc721',
+    chain: 'ethereum',
     scanMaxId: 1500,
   },
 ];
 
-const RPC = process.env.ETH_RPC_URL || 'https://ethereum-rpc.publicnode.com';
+const CHAINS = {
+  ethereum: {
+    chainId: 1,
+    chain: mainnet,
+    rpc: process.env.ETH_RPC_URL || 'https://ethereum-rpc.publicnode.com',
+    openSea: 'ethereum',
+  },
+  base: {
+    chainId: 8453,
+    chain: base,
+    rpc: process.env.BASE_RPC_URL || 'https://mainnet.base.org',
+    openSea: 'base',
+  },
+};
 
-const client = createPublicClient({
-  chain: mainnet,
-  transport: http(RPC),
-  batch: { multicall: true },
-});
+const clients = {};
+function getClient(chainKey) {
+  if (!clients[chainKey]) {
+    const cfg = CHAINS[chainKey];
+    if (!cfg) throw new Error(`Unknown chain: ${chainKey}`);
+    clients[chainKey] = createPublicClient({
+      chain: cfg.chain,
+      transport: http(cfg.rpc),
+      batch: { multicall: true },
+    });
+  }
+  return clients[chainKey];
+}
 
 const abi721 = parseAbi([
   'function name() view returns (string)',
@@ -79,7 +108,6 @@ function resolveTokenUri(uri) {
   if (!uri) return uri;
   if (uri.startsWith('ipfs://')) return `https://ipfs.io/ipfs/${uri.slice(7)}`;
   if (uri.startsWith('ar://')) return `https://arweave.net/${uri.slice(5)}`;
-  // ERC-1155 sometimes returns templates with {id}
   return uri;
 }
 
@@ -98,7 +126,7 @@ function inferMediaType(url) {
   return 'image';
 }
 
-async function findExisting721Ids(address, scanMax) {
+async function findExisting721Ids(client, address, scanMax) {
   const existing = [];
   const BATCH = 50;
   let emptyStreak = 0;
@@ -128,7 +156,7 @@ async function findExisting721Ids(address, scanMax) {
   return existing;
 }
 
-async function findExisting1155Ids(address, scanMax) {
+async function findExisting1155Ids(client, address, scanMax) {
   const existing = [];
   const BATCH = 40;
   let emptyStreak = 0;
@@ -158,7 +186,7 @@ async function findExisting1155Ids(address, scanMax) {
   return existing;
 }
 
-async function fetch721Uris(address, ids) {
+async function fetch721Uris(client, address, ids) {
   const results = [];
   const BATCH = 40;
   for (let i = 0; i < ids.length; i += BATCH) {
@@ -202,11 +230,15 @@ async function mapPool(items, concurrency, fn) {
 
 async function syncCollection(entry) {
   const address = entry.address;
-  console.log(`\n→ ${entry.label} (${address}) [${entry.standard}]`);
+  const chainKey = entry.chain || 'ethereum';
+  const chainCfg = CHAINS[chainKey];
+  const client = getClient(chainKey);
+
+  console.log(`\n→ ${entry.label} (${address}) [${entry.standard}] @ ${chainKey}`);
 
   const code = await client.getBytecode({ address });
   if (!code || code === '0x') {
-    console.warn('  ! no contract bytecode on mainnet — skipping');
+    console.warn(`  ! no contract bytecode on ${chainKey} — skipping`);
     return null;
   }
 
@@ -226,12 +258,12 @@ async function syncCollection(entry) {
 
   let uris = [];
   if (entry.standard === 'erc1155') {
-    uris = await findExisting1155Ids(address, entry.scanMaxId ?? 100);
+    uris = await findExisting1155Ids(client, address, entry.scanMaxId ?? 100);
     console.log(`  1155 uris: ${uris.length}`);
   } else {
-    const ids = await findExisting721Ids(address, entry.scanMaxId ?? 500);
+    const ids = await findExisting721Ids(client, address, entry.scanMaxId ?? 500);
     console.log(`  721 existing: ${ids.length}${ids.length ? ` (max ${ids[ids.length - 1]})` : ''}`);
-    uris = await fetch721Uris(address, ids);
+    uris = await fetch721Uris(client, address, ids);
     console.log(`  tokenURI ok: ${uris.length}`);
   }
 
@@ -262,7 +294,6 @@ async function syncCollection(entry) {
 
   const works = tokens.filter(Boolean).sort((a, b) => a.tokenId - b.tokenId);
 
-  // Edition counts by normalized title
   const byName = new Map();
   for (const t of works) {
     const key = t.name.trim().toLowerCase();
@@ -277,9 +308,11 @@ async function syncCollection(entry) {
     label: entry.label,
     contract: address,
     standard: entry.standard,
+    chain: chainKey,
     name,
     symbol,
-    chainId: 1,
+    chainId: chainCfg.chainId,
+    openSeaSlug: chainCfg.openSea,
     fetchedAt: new Date().toISOString(),
     count: works.length,
     tokens: works,
@@ -293,9 +326,18 @@ async function syncCollection(entry) {
 }
 
 async function main() {
+  const only = process.argv.slice(2).filter((a) => !a.startsWith('-'));
+  const list = only.length
+    ? ON_CHAIN_COLLECTIONS.filter((c) => only.includes(c.seriesId))
+    : ON_CHAIN_COLLECTIONS;
+
+  if (!list.length) {
+    console.error('No matching collections. Known:', ON_CHAIN_COLLECTIONS.map((c) => c.seriesId).join(', '));
+    process.exit(1);
+  }
+
   console.log('Syncing Explore on-chain collections…');
-  console.log('RPC', RPC);
-  for (const entry of ON_CHAIN_COLLECTIONS) {
+  for (const entry of list) {
     await syncCollection(entry);
   }
   console.log('\nDone.');

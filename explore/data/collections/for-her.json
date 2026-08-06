@@ -3,11 +3,73 @@
   "label": "For Her..",
   "contract": "0x9813ff20c99525922b3538fce8c2c9e5db93866c",
   "standard": "erc1155",
-  "name": "For Her..",
-  "symbol": "",
-  "chainId": 1,
-  "fetchedAt": "2026-08-06T21:04:00.000Z",
-  "count": 0,
-  "tokens": [],
-  "note": "No contract bytecode found on Ethereum mainnet for this address. Verify network/address."
+  "chain": "base",
+  "name": "For Her.. by Nikxname",
+  "symbol": "HER",
+  "chainId": 8453,
+  "openSeaSlug": "base",
+  "fetchedAt": "2026-08-06T21:10:45.176Z",
+  "count": 6,
+  "tokens": [
+    {
+      "tokenId": 1,
+      "name": "EtherRose - Stiletto",
+      "description": "For her..",
+      "image": "https://arweave.net/RlS3YVGiJnTrJZ58HXEJok8COGnGLprMlLIBtTqfpHM",
+      "mediaUrl": "https://arweave.net/RlS3YVGiJnTrJZ58HXEJok8COGnGLprMlLIBtTqfpHM",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/LBDajCuDjSZ5kuznrkX0Gdxy8XwT3-iDczXPOKIp9fI",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 2,
+      "name": "EtherRose - Crimson",
+      "description": "For her..",
+      "image": "https://arweave.net/HbgHRuzy-ZemOaMa8tWGeTE1xBSVsyRDHT32gcmreZ8",
+      "mediaUrl": "https://arweave.net/HbgHRuzy-ZemOaMa8tWGeTE1xBSVsyRDHT32gcmreZ8",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/nXNPWZ49bhLjHR6OfqCIsqPEAO6S3JmeCisR4ucNzEw",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 3,
+      "name": "EtherRose - Blanc",
+      "description": "For her..",
+      "image": "https://arweave.net/2obPjIZu67fIamWweW4u97Aphv8NwzBuBaqv0JtCtSs",
+      "mediaUrl": "https://arweave.net/2obPjIZu67fIamWweW4u97Aphv8NwzBuBaqv0JtCtSs",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/MXaj0kZo55GdrS98jk6aJbxiY8BXkA0ZNyspec4395Q",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 4,
+      "name": "EtherRose - Noir",
+      "description": "For her..",
+      "image": "https://arweave.net/UThcU50npxJjdin30ptHpwsR4fn4gCO9XYe-IC_Bz2w",
+      "mediaUrl": "https://arweave.net/UThcU50npxJjdin30ptHpwsR4fn4gCO9XYe-IC_Bz2w",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/q2h5PyvtMBZR6y_JcrD37Bo8noPMV87MZr6WYKrceJE",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 5,
+      "name": "PEPEtherRose -  Sapphire",
+      "description": "Based for her..",
+      "image": "https://arweave.net/Q7DqiaX8xaSi14vEhe4UoYAoZq0rwJfW56DitkLz8-g",
+      "mediaUrl": "https://arweave.net/Q7DqiaX8xaSi14vEhe4UoYAoZq0rwJfW56DitkLz8-g",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/7r8sg__G-eGnJ2u4JTupSqQE1TdNB4RNHQPwbaI4ITo",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 6,
+      "name": "PearlsNRoses",
+      "description": "She loves roses..  \nShe loves her pearls too.. ",
+      "image": "https://arweave.net/6KN4lQuiHgjafLbzr4hDOV1ItglG25WWQWKIq0pwYrA",
+      "mediaUrl": "https://arweave.net/6KN4lQuiHgjafLbzr4hDOV1ItglG25WWQWKIq0pwYrA",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/F7OqUyuAtpvxF8Hz5zGGo46bRYptQeI4SVTSCJI6eWw",
+      "editionCount": 1
+    }
+  ]
 }

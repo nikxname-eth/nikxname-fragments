@@ -17,9 +17,11 @@ export type ChainCollectionJson = {
   label: string;
   contract: string;
   standard?: string;
+  chain?: string;
   name: string;
   symbol?: string;
   chainId: number;
+  openSeaSlug?: string;
   fetchedAt: string;
   count: number;
   tokens: ChainToken[];
@@ -99,7 +101,8 @@ export function chainTokensToWorks(
   options?: { collapseEditions?: boolean },
 ): ExploreWork[] {
   const seriesId = collection.seriesId as SeriesId;
-  const openSeaBase = `https://opensea.io/assets/ethereum/${collection.contract}`;
+  const openSeaNetwork = collection.openSeaSlug || (collection.chainId === 8453 ? 'base' : 'ethereum');
+  const openSeaBase = `https://opensea.io/assets/${openSeaNetwork}/${collection.contract}`;
   const manifoldCreator = 'https://manifold.xyz/@nikxnames-art';
 
   const tokens =

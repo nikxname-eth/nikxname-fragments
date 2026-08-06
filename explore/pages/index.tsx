@@ -160,10 +160,7 @@ export default function ExploreHome() {
 
         <div className="ex-grid-wrap">
           {works.length === 0 ? (
-            <p className="ex-empty">
-              Works for this series will appear once the contract is synced
-              {filter === 'for-her' ? ' (For Her address may need verification on mainnet)' : ''}.
-            </p>
+            <p className="ex-empty">Works for this series will appear once the contract is synced.</p>
           ) : filter === 'the-void' ? (
             (['artwork', 'flutter-editions', 'guardians'] as VoidSubgroup[]).map((group) => {
               const sectionWorks = works.filter((w) => (w.voidSubgroup ?? 'artwork') === group);
