@@ -13,6 +13,7 @@ import {
   type ExploreWork,
   type SeriesId,
 } from '../config/catalog';
+import { getVoidSectionLabel, type VoidSubgroup } from '../lib/chainWorks';
 import { WorkStage } from '../components/WorkStage';
 
 type FilterId = 'all' | SeriesId;
@@ -159,31 +160,32 @@ export default function ExploreHome() {
 
         <div className="ex-grid-wrap">
           {works.length === 0 ? (
-            <p className="ex-empty">Works for this series will appear as they are catalogued.</p>
+            <p className="ex-empty">
+              Works for this series will appear once the contract is synced
+              {filter === 'for-her' ? ' (For Her address may need verification on mainnet)' : ''}.
+            </p>
+          ) : filter === 'the-void' ? (
+            (['artwork', 'flutter-editions', 'guardians'] as VoidSubgroup[]).map((group) => {
+              const sectionWorks = works.filter((w) => (w.voidSubgroup ?? 'artwork') === group);
+              if (!sectionWorks.length) return null;
+              return (
+                <section key={group} className="ex-section" aria-label={getVoidSectionLabel(group)}>
+                  <div className="ex-section-head">
+                    <h3 className="ex-section-title">{getVoidSectionLabel(group)}</h3>
+                    <span className="ex-section-count">{sectionWorks.length}</span>
+                  </div>
+                  <div className="ex-grid">
+                    {sectionWorks.map((work, i) => (
+                      <WorkCard key={work.id} work={work} index={i} onOpen={setSelected} />
+                    ))}
+                  </div>
+                </section>
+              );
+            })
           ) : (
             <div className="ex-grid">
               {works.map((work, i) => (
-                <motion.button
-                  key={work.id}
-                  type="button"
-                  className="ex-card"
-                  onClick={() => setSelected(work)}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: Math.min(i * 0.03, 0.45), duration: 0.45 }}
-                  aria-label={`Open ${work.title}`}
-                >
-                  <div className="ex-card-media">
-                    <img src={work.coverUrl} alt="" loading="lazy" decoding="async" />
-                    {work.tags?.includes('live') && <span className="ex-card-badge live">Live</span>}
-                    {work.kind === 'series' && <span className="ex-card-badge">Series</span>}
-                    {work.kind === 'market' && <span className="ex-card-badge">Market</span>}
-                  </div>
-                  <div className="ex-card-meta">
-                    <p className="ex-card-title">{work.title}</p>
-                    <p className="ex-card-sub">{work.subtitle ?? SERIES.find((s) => s.id === work.seriesId)?.label}</p>
-                  </div>
-                </motion.button>
+                <WorkCard key={work.id} work={work} index={i} onOpen={setSelected} />
               ))}
             </div>
           )}
@@ -215,5 +217,42 @@ export default function ExploreHome() {
         onNavigate={setSelected}
       />
     </>
+  );
+}
+
+function WorkCard({
+  work,
+  index,
+  onOpen,
+}: {
+  work: ExploreWork;
+  index: number;
+  onOpen: (w: ExploreWork) => void;
+}) {
+  const editions = work.editionCount && work.editionCount > 1 ? work.editionCount : null;
+  return (
+    <motion.button
+      type="button"
+      className="ex-card"
+      onClick={() => onOpen(work)}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: Math.min(index * 0.025, 0.4), duration: 0.45 }}
+      aria-label={`Open ${work.title}${editions ? `, ${editions} editions` : ''}`}
+    >
+      <div className="ex-card-media">
+        <img src={work.coverUrl} alt="" loading="lazy" decoding="async" />
+        {work.tags?.includes('live') && <span className="ex-card-badge live">Live</span>}
+        {work.kind === 'series' && <span className="ex-card-badge">Series</span>}
+        {work.kind === 'market' && <span className="ex-card-badge">Market</span>}
+        {editions != null && <span className="ex-card-badge editions">x{editions}</span>}
+      </div>
+      <div className="ex-card-meta">
+        <p className="ex-card-title">{work.title}</p>
+        <p className="ex-card-sub">
+          {work.subtitle ?? SERIES.find((s) => s.id === work.seriesId)?.label}
+        </p>
+      </div>
+    </motion.button>
   );
 }

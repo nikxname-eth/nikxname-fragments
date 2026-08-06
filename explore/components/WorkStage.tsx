@@ -93,6 +93,11 @@ export function WorkStage({ work, works, onClose, onNavigate }: Props) {
                   {work.tags?.includes('open edition') ? ' · Open edition' : ''}
                 </p>
               )}
+              {work.editionCount != null && work.editionCount > 1 && (
+                <p className="ex-stage-sub" style={{ marginBottom: 14 }}>
+                  Editions · x{work.editionCount}
+                </p>
+              )}
 
               <div className="ex-stage-actions">
                 {work.contractAddress && work.tokenId != null && (

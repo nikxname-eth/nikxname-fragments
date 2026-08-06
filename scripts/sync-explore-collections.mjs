@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 /**
- * Fetch ERC-721 catalogs for Explore on-chain collections.
+ * Fetch ERC-721 / ERC-1155 catalogs for Explore on-chain collections.
  * Writes explore/data/collections/<seriesId>.json
  *
- * Usage: node scripts/sync-explore-collections.mjs
- *        npm run sync:explore
+ * Usage: npm run sync:explore
  */
 import { createPublicClient, http, parseAbi } from 'viem';
 import { mainnet } from 'viem/chains';
-import { mkdirSync, writeFileSync, readFileSync, existsSync } from 'fs';
+import { mkdirSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -16,13 +15,42 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const OUT_DIR = join(ROOT, 'explore/data/collections');
 
-/** Mirrors explore/config/collections.ts — keep in sync when adding contracts. */
+/** Keep in sync with explore/config/collections.ts */
 const ON_CHAIN_COLLECTIONS = [
   {
     seriesId: 'the-void',
     label: 'The Void',
     address: '0xa4f73c689f977a27f7f99cd1cdc9054793554730',
-    scanMaxId: 500,
+    standard: 'erc721',
+    scanMaxId: 200,
+  },
+  {
+    seriesId: 'life-impressions',
+    label: 'Life Impressions',
+    address: '0xb00b42b5baa62f6ce800fb919b3d090b51c4463c',
+    standard: 'erc721',
+    scanMaxId: 200,
+  },
+  {
+    seriesId: 'for-you',
+    label: 'For You..',
+    address: '0x5174ed5f363ef4df2823f42be54de5fd61294e49',
+    standard: 'erc1155',
+    scanMaxId: 100,
+  },
+  {
+    seriesId: 'for-her',
+    label: 'For Her..',
+    address: '0x9813ff20c99525922b3538fce8c2c9e5db93866c',
+    standard: 'erc1155',
+    scanMaxId: 100,
+  },
+  {
+    seriesId: 'a-familiar-burn',
+    label: 'A Familiar Burn',
+    address: '0x1641b09e11d19e6f6b9f80273158f9da28555593',
+    standard: 'erc721',
+    scanMaxId: 1500,
   },
 ];
 
@@ -34,18 +62,33 @@ const client = createPublicClient({
   batch: { multicall: true },
 });
 
-const abi = parseAbi([
+const abi721 = parseAbi([
   'function name() view returns (string)',
   'function symbol() view returns (string)',
-  'function totalSupply() view returns (uint256)',
   'function tokenURI(uint256 tokenId) view returns (string)',
   'function ownerOf(uint256 tokenId) view returns (address)',
+]);
+
+const abi1155 = parseAbi([
+  'function name() view returns (string)',
+  'function symbol() view returns (string)',
+  'function uri(uint256 id) view returns (string)',
 ]);
 
 function resolveTokenUri(uri) {
   if (!uri) return uri;
   if (uri.startsWith('ipfs://')) return `https://ipfs.io/ipfs/${uri.slice(7)}`;
   if (uri.startsWith('ar://')) return `https://arweave.net/${uri.slice(5)}`;
+  // ERC-1155 sometimes returns templates with {id}
+  return uri;
+}
+
+function expand1155Uri(uri, id) {
+  if (!uri) return uri;
+  if (uri.includes('{id}')) {
+    const hex = BigInt(id).toString(16).padStart(64, '0');
+    return uri.replace(/\{id\}/gi, hex);
+  }
   return uri;
 }
 
@@ -55,58 +98,67 @@ function inferMediaType(url) {
   return 'image';
 }
 
-async function ownerExists(address, id) {
-  try {
-    await client.readContract({
-      address,
-      abi,
-      functionName: 'ownerOf',
-      args: [BigInt(id)],
-    });
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-async function tryTotalSupply(address) {
-  try {
-    const n = await client.readContract({ address, abi, functionName: 'totalSupply' });
-    return Number(n);
-  } catch {
-    return null;
-  }
-}
-
-/** Scan a range of token ids via multicall (handles sparse / non-enumerable collections). */
-async function findExistingTokenIds(address, scanMax) {
+async function findExisting721Ids(address, scanMax) {
   const existing = [];
   const BATCH = 50;
+  let emptyStreak = 0;
   for (let start = 1; start <= scanMax; start += BATCH) {
     const chunk = [];
     for (let id = start; id < start + BATCH && id <= scanMax; id++) chunk.push(id);
     const batch = await client.multicall({
       contracts: chunk.map((id) => ({
         address,
-        abi,
+        abi: abi721,
         functionName: 'ownerOf',
         args: [BigInt(id)],
       })),
       allowFailure: true,
     });
+    let foundInBatch = 0;
     batch.forEach((row, j) => {
-      if (row.status === 'success') existing.push(chunk[j]);
+      if (row.status === 'success') {
+        existing.push(chunk[j]);
+        foundInBatch++;
+      }
     });
-    // Early stop after a long empty tail (saves RPC for huge scanMax)
-    if (chunk[chunk.length - 1] > 20 && existing.length > 0) {
-      const lastExisting = existing[existing.length - 1];
-      if (chunk[0] > lastExisting + 80) break;
-    }
+    if (foundInBatch === 0) emptyStreak += chunk.length;
+    else emptyStreak = 0;
+    if (existing.length > 0 && emptyStreak >= 100) break;
   }
   return existing;
 }
 
-async function fetchTokenUris(address, ids) {
+async function findExisting1155Ids(address, scanMax) {
+  const existing = [];
+  const BATCH = 40;
+  let emptyStreak = 0;
+  for (let start = 1; start <= scanMax; start += BATCH) {
+    const chunk = [];
+    for (let id = start; id < start + BATCH && id <= scanMax; id++) chunk.push(id);
+    const batch = await client.multicall({
+      contracts: chunk.map((id) => ({
+        address,
+        abi: abi1155,
+        functionName: 'uri',
+        args: [BigInt(id)],
+      })),
+      allowFailure: true,
+    });
+    let foundInBatch = 0;
+    batch.forEach((row, j) => {
+      if (row.status === 'success' && typeof row.result === 'string' && row.result.length > 0) {
+        existing.push({ tokenId: chunk[j], tokenUri: expand1155Uri(row.result, chunk[j]) });
+        foundInBatch++;
+      }
+    });
+    if (foundInBatch === 0) emptyStreak += chunk.length;
+    else emptyStreak = 0;
+    if (existing.length > 0 && emptyStreak >= 40) break;
+  }
+  return existing;
+}
+
+async function fetch721Uris(address, ids) {
   const results = [];
   const BATCH = 40;
   for (let i = 0; i < ids.length; i += BATCH) {
@@ -114,7 +166,7 @@ async function fetchTokenUris(address, ids) {
     const batch = await client.multicall({
       contracts: chunk.map((id) => ({
         address,
-        abi,
+        abi: abi721,
         functionName: 'tokenURI',
         args: [BigInt(id)],
       })),
@@ -136,7 +188,7 @@ async function fetchJson(url) {
 }
 
 async function mapPool(items, concurrency, fn) {
-  const out = [];
+  const out = new Array(items.length);
   let i = 0;
   async function worker() {
     while (i < items.length) {
@@ -144,43 +196,46 @@ async function mapPool(items, concurrency, fn) {
       out[idx] = await fn(items[idx], idx);
     }
   }
-  await Promise.all(Array.from({ length: Math.min(concurrency, items.length) }, () => worker()));
+  await Promise.all(Array.from({ length: Math.min(concurrency, items.length || 1) }, () => worker()));
   return out;
 }
 
 async function syncCollection(entry) {
   const address = entry.address;
-  console.log(`\n→ ${entry.label} (${address})`);
+  console.log(`\n→ ${entry.label} (${address}) [${entry.standard}]`);
+
+  const code = await client.getBytecode({ address });
+  if (!code || code === '0x') {
+    console.warn('  ! no contract bytecode on mainnet — skipping');
+    return null;
+  }
 
   let name = entry.label;
   let symbol = '';
+  const nameAbi = entry.standard === 'erc1155' ? abi1155 : abi721;
   try {
-    name = await client.readContract({ address, abi, functionName: 'name' });
+    name = await client.readContract({ address, abi: nameAbi, functionName: 'name' });
   } catch {
     /* keep label */
   }
   try {
-    symbol = await client.readContract({ address, abi, functionName: 'symbol' });
+    symbol = await client.readContract({ address, abi: nameAbi, functionName: 'symbol' });
   } catch {
     /* optional */
   }
 
-  const supply = await tryTotalSupply(address);
-  const scanMax = Math.max(entry.scanMaxId ?? 500, supply ? supply + 50 : 0);
-  // Always scan by ownerOf — collections may be sparse (gaps in token ids)
-  let ids = await findExistingTokenIds(address, scanMax);
-  if (ids.length === 0 && supply && supply > 0) {
-    ids = Array.from({ length: supply }, (_, i) => i + 1);
+  let uris = [];
+  if (entry.standard === 'erc1155') {
+    uris = await findExisting1155Ids(address, entry.scanMaxId ?? 100);
+    console.log(`  1155 uris: ${uris.length}`);
+  } else {
+    const ids = await findExisting721Ids(address, entry.scanMaxId ?? 500);
+    console.log(`  721 existing: ${ids.length}${ids.length ? ` (max ${ids[ids.length - 1]})` : ''}`);
+    uris = await fetch721Uris(address, ids);
+    console.log(`  tokenURI ok: ${uris.length}`);
   }
-  console.log(
-    `  totalSupply=${supply ?? 'n/a'}, scanned 1–${scanMax}, existing=${ids.length}` +
-      (ids.length ? ` (max id ${ids[ids.length - 1]})` : ''),
-  );
 
-  const uris = await fetchTokenUris(address, ids);
-  console.log(`  tokenURI ok: ${uris.length}`);
-
-  const tokens = await mapPool(uris, 8, async ({ tokenId, tokenUri }) => {
+  const tokens = await mapPool(uris, 10, async ({ tokenId, tokenUri }) => {
     const resolved = resolveTokenUri(tokenUri);
     try {
       const json = await fetchJson(resolved);
@@ -191,7 +246,7 @@ async function syncCollection(entry) {
       const mediaUrl = animationUrl || image;
       return {
         tokenId,
-        name: json.name || `Token #${tokenId}`,
+        name: (json.name || `Token #${tokenId}`).trim(),
         description: typeof json.description === 'string' ? json.description : undefined,
         image,
         animationUrl,
@@ -207,10 +262,21 @@ async function syncCollection(entry) {
 
   const works = tokens.filter(Boolean).sort((a, b) => a.tokenId - b.tokenId);
 
+  // Edition counts by normalized title
+  const byName = new Map();
+  for (const t of works) {
+    const key = t.name.trim().toLowerCase();
+    byName.set(key, (byName.get(key) || 0) + 1);
+  }
+  for (const t of works) {
+    t.editionCount = byName.get(t.name.trim().toLowerCase()) || 1;
+  }
+
   const payload = {
     seriesId: entry.seriesId,
     label: entry.label,
     contract: address,
+    standard: entry.standard,
     name,
     symbol,
     chainId: 1,

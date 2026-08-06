@@ -1,0 +1,131 @@
+{
+  "seriesId": "for-you",
+  "label": "For You..",
+  "contract": "0x5174ed5f363ef4df2823f42be54de5fd61294e49",
+  "standard": "erc1155",
+  "name": "For You..",
+  "symbol": "ForYu",
+  "chainId": 1,
+  "fetchedAt": "2026-08-06T21:02:04.669Z",
+  "count": 13,
+  "tokens": [
+    {
+      "tokenId": 1,
+      "name": "The Letter",
+      "image": "https://arweave.net/_l7Oi52boE5np78qfdukoX1EhomUNUbhz2PkyTcK4Zw",
+      "mediaUrl": "https://arweave.net/_l7Oi52boE5np78qfdukoX1EhomUNUbhz2PkyTcK4Zw",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/gzb6T7KJzbwSh66kzYsQoKdKrugbXArH4sFYCDAr2G0",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 2,
+      "name": "Echo From Within",
+      "image": "https://arweave.net/9ueIZ8zBA0dhDs9p7JHsiuBkZhh3XAHdesRHoMjtZ3Q",
+      "mediaUrl": "https://arweave.net/9ueIZ8zBA0dhDs9p7JHsiuBkZhh3XAHdesRHoMjtZ3Q",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/GtbRdCds7195ApXy4a3-sA_03l7cdeAvbU5YWVBfpfo",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 3,
+      "name": "You Are The Muse",
+      "image": "https://arweave.net/Fix1CD3Gk0ftD1GwHAT9CdcrZc7n6lqAOrtk82oJstY",
+      "mediaUrl": "https://arweave.net/Fix1CD3Gk0ftD1GwHAT9CdcrZc7n6lqAOrtk82oJstY",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/Rlf3wDGH76MEW_viY1WrjIWf6DP0Ofb55mlvFFr9bY0",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 4,
+      "name": "Secret Garden",
+      "image": "https://arweave.net/YvDKgOVs8oHpzuFmh9F_9705JvI-U7iaF-iVPs06M8o",
+      "mediaUrl": "https://arweave.net/YvDKgOVs8oHpzuFmh9F_9705JvI-U7iaF-iVPs06M8o",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/9SmeNe2g6_K6Ho7x0Sr8n5vfr3R-JBntXjz60f0dE04",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 5,
+      "name": "Thorn & Silk",
+      "image": "https://arweave.net/kYit_aUOx57nXTF29-BFzLiH7DUh-CoN8vrA_aMbTS0",
+      "mediaUrl": "https://arweave.net/kYit_aUOx57nXTF29-BFzLiH7DUh-CoN8vrA_aMbTS0",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/0zsJp0R1zmvOHsuDihJ40ncZfwlyFavRvcOTgzfVBnE",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 6,
+      "name": "World To My Heart",
+      "image": "https://arweave.net/906Ki-rp0YVmCUF050Tr8usEJIYjYmMY7Db68KfuSTI",
+      "mediaUrl": "https://arweave.net/906Ki-rp0YVmCUF050Tr8usEJIYjYmMY7Db68KfuSTI",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/C043TZwXgPmLGTJX7k7gXAY6MI_xJtBEAAItGTh2ns0",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 7,
+      "name": "A World Beyond The Veil",
+      "image": "https://arweave.net/w73i13PExqdYu-XlZW6ScJWeM7q28x8SwL58KbepKiU",
+      "mediaUrl": "https://arweave.net/w73i13PExqdYu-XlZW6ScJWeM7q28x8SwL58KbepKiU",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/pknOr4HO5xOfo__4hT1e1_fhwhblR1gedCaVkmwNRFc",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 8,
+      "name": "Eternal Bloom",
+      "image": "https://arweave.net/xtH2jjDaaaucJBrXUt3AvfFPfOJUBjWch4PsBd9UfC4",
+      "mediaUrl": "https://arweave.net/xtH2jjDaaaucJBrXUt3AvfFPfOJUBjWch4PsBd9UfC4",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/tm1uHK3QFl17JcylYXN2c2GmhMq8oVUdRhiRtUOtLks",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 9,
+      "name": "Blaze Of Desire",
+      "image": "https://arweave.net/-SAqvC9u9VWCM48Eaft4kKdw3Keb4jP8dhjzlPEbqvI",
+      "mediaUrl": "https://arweave.net/-SAqvC9u9VWCM48Eaft4kKdw3Keb4jP8dhjzlPEbqvI",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/KLTuzo2Q0TgZtjIpObIBU7EbMAdJXIXzaLVCUoNwrl4",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 10,
+      "name": "Petals Whisper",
+      "image": "https://arweave.net/WUM2K-YBTF1gBgp8iFKJzJt9Qon5e9x8usMrbPULXVc",
+      "mediaUrl": "https://arweave.net/WUM2K-YBTF1gBgp8iFKJzJt9Qon5e9x8usMrbPULXVc",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/qVtCDDK44ddl7IuOorUfocqQpRjOoN2_HgcEPJsA5W0",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 11,
+      "name": "Midnight Dancer",
+      "image": "https://arweave.net/mxrb1h2OFReKoLRJcNOcT8C1Y4d7laPHPTMVwoe5se8",
+      "mediaUrl": "https://arweave.net/mxrb1h2OFReKoLRJcNOcT8C1Y4d7laPHPTMVwoe5se8",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/TPbMHaPab2F3ve2HLmxP0HEOUw5V4jI49F0_VmQOCxc",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 12,
+      "name": "A Message For You..",
+      "description": "My Love,\n\nFor you, I'd give it all - from barren soil, I've bloomed anew, a rose from the ashes of its own thorns, through every shade of darkness.\n\nWith you, always reaching for the light.. Love is our dance, petals twirling in the spotlight.\n\nOur energies entangled, melting through winter's frost like a fiery heart.\n\nEndless embers of passion, vivid as the deepest rose...\n\nA touch as delicate as silk, every petal kissed, singing the song of life through every bloom.\n\nIn you, I see not just any garden, but one eternal and boundless world. For you, for me, everything is one.\n\nYours in bloom,",
+      "image": "https://arweave.net/va9JqOWo0c1MsJKac_bqzUO_zciqOO4_0KnsCY0Xi64",
+      "mediaUrl": "https://arweave.net/va9JqOWo0c1MsJKac_bqzUO_zciqOO4_0KnsCY0Xi64",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/bv-KfZTCWclKhJ6D7nvLFNo9_5cEiqB1tJfGd93w-4U",
+      "editionCount": 1
+    },
+    {
+      "tokenId": 13,
+      "name": "Full Bouquet",
+      "image": "https://arweave.net/elHkYW7MAHXqyhVgGLNMJqrN8TrYvuh4N9xa2oEgzho",
+      "mediaUrl": "https://arweave.net/elHkYW7MAHXqyhVgGLNMJqrN8TrYvuh4N9xa2oEgzho",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/NRnJjUX1c8wbpcROmdzAD-2gXHd418UMWV3l15SuqCU",
+      "editionCount": 1
+    }
+  ]
+}

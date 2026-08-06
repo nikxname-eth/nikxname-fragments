@@ -2,10 +2,11 @@
   "seriesId": "the-void",
   "label": "The Void",
   "contract": "0xa4f73c689f977a27f7f99cd1cdc9054793554730",
+  "standard": "erc721",
   "name": "The Void",
   "symbol": "VVOID",
   "chainId": 1,
-  "fetchedAt": "2026-08-06T20:46:41.378Z",
+  "fetchedAt": "2026-08-06T21:01:22.924Z",
   "count": 67,
   "tokens": [
     {
@@ -15,16 +16,18 @@
       "image": "https://arweave.net/4gekBa-ZFFTmJlZNEOgXPcy9pp_cnslV3DAetkexYbc",
       "mediaUrl": "https://arweave.net/4gekBa-ZFFTmJlZNEOgXPcy9pp_cnslV3DAetkexYbc",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/1"
+      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/1",
+      "editionCount": 1
     },
     {
       "tokenId": 2,
-      "name": "Infinite Veil ",
+      "name": "Infinite Veil",
       "description": "",
       "image": "https://arweave.net/2Tf_-N5hJx50Qm5vQYnvCrYL5C6TadoxCi0xX9PynIg",
       "mediaUrl": "https://arweave.net/2Tf_-N5hJx50Qm5vQYnvCrYL5C6TadoxCi0xX9PynIg",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/2"
+      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/2",
+      "editionCount": 1
     },
     {
       "tokenId": 3,
@@ -33,7 +36,8 @@
       "image": "https://arweave.net/hQIL7hmJELaHfOmWL5sh8Zj287dripN1wApALNAgW5I",
       "mediaUrl": "https://arweave.net/hQIL7hmJELaHfOmWL5sh8Zj287dripN1wApALNAgW5I",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/3"
+      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/3",
+      "editionCount": 1
     },
     {
       "tokenId": 4,
@@ -42,7 +46,8 @@
       "image": "https://arweave.net/Jfb630mzetxOCAnyZxbeLaT4NLBJcKyqMh_xijB-6Hk",
       "mediaUrl": "https://arweave.net/Jfb630mzetxOCAnyZxbeLaT4NLBJcKyqMh_xijB-6Hk",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/4"
+      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/4",
+      "editionCount": 1
     },
     {
       "tokenId": 5,
@@ -51,7 +56,8 @@
       "image": "https://arweave.net/3bON3tbrLfX1JJ_EKny97a6lAKss3h4dmDLepsBY8Uo",
       "mediaUrl": "https://arweave.net/3bON3tbrLfX1JJ_EKny97a6lAKss3h4dmDLepsBY8Uo",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/5"
+      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/5",
+      "editionCount": 1
     },
     {
       "tokenId": 6,
@@ -60,7 +66,8 @@
       "image": "https://arweave.net/BYhuU8BpaTvzU1-Q82nqCYTi7iItrByfqgxaJqlSfOA",
       "mediaUrl": "https://arweave.net/BYhuU8BpaTvzU1-Q82nqCYTi7iItrByfqgxaJqlSfOA",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/6"
+      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/6",
+      "editionCount": 1
     },
     {
       "tokenId": 7,
@@ -69,7 +76,8 @@
       "image": "https://arweave.net/OjbqsPxJX__FdF-tvRLpaxG3bKh8Hr7UDplS9fwYxL4",
       "mediaUrl": "https://arweave.net/OjbqsPxJX__FdF-tvRLpaxG3bKh8Hr7UDplS9fwYxL4",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/7"
+      "tokenUri": "https://arweave.net/0GyUPlO9ujvgJBn67xB9P8fWc2ZckjJLeAb1ge02g8w/7",
+      "editionCount": 1
     },
     {
       "tokenId": 8,
@@ -78,7 +86,8 @@
       "image": "https://arweave.net/1l4I6_q3xdToN0uK7c1wV43zGYTHLv8Ggy585yb3xog",
       "mediaUrl": "https://arweave.net/1l4I6_q3xdToN0uK7c1wV43zGYTHLv8Ggy585yb3xog",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/99nphU36tHCzVqjTt6tLceDsZacS5YYw5xJ4XRlpZXo/1"
+      "tokenUri": "https://arweave.net/99nphU36tHCzVqjTt6tLceDsZacS5YYw5xJ4XRlpZXo/1",
+      "editionCount": 1
     },
     {
       "tokenId": 9,
@@ -87,7 +96,8 @@
       "image": "https://arweave.net/R8ZAw6Ixacx_tMzq5nMbL2fIWyCYu96qCCC-czisPP8",
       "mediaUrl": "https://arweave.net/R8ZAw6Ixacx_tMzq5nMbL2fIWyCYu96qCCC-czisPP8",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/99nphU36tHCzVqjTt6tLceDsZacS5YYw5xJ4XRlpZXo/2"
+      "tokenUri": "https://arweave.net/99nphU36tHCzVqjTt6tLceDsZacS5YYw5xJ4XRlpZXo/2",
+      "editionCount": 1
     },
     {
       "tokenId": 10,
@@ -96,7 +106,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 11,
@@ -105,7 +116,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 12,
@@ -114,7 +126,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 13,
@@ -123,7 +136,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 14,
@@ -132,7 +146,8 @@
       "image": "https://arweave.net/1PucNA1ajJKHrSG2swSzh4lCz_TnEeLukXMbASThmDA",
       "mediaUrl": "https://arweave.net/1PucNA1ajJKHrSG2swSzh4lCz_TnEeLukXMbASThmDA",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/1"
+      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/1",
+      "editionCount": 1
     },
     {
       "tokenId": 15,
@@ -141,7 +156,8 @@
       "image": "https://arweave.net/acWVpbQanbxWkFm24C8FAozVvhh6zAVTH_Ff2PQPTpg",
       "mediaUrl": "https://arweave.net/acWVpbQanbxWkFm24C8FAozVvhh6zAVTH_Ff2PQPTpg",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/2"
+      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/2",
+      "editionCount": 1
     },
     {
       "tokenId": 16,
@@ -150,7 +166,8 @@
       "image": "https://arweave.net/Hi484PFSWFsaS-smqf7gbC0AjC3SLz66gi13WZX6-sY",
       "mediaUrl": "https://arweave.net/Hi484PFSWFsaS-smqf7gbC0AjC3SLz66gi13WZX6-sY",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/3"
+      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/3",
+      "editionCount": 1
     },
     {
       "tokenId": 17,
@@ -159,16 +176,18 @@
       "image": "https://arweave.net/_TRlIeoZdfqCiRNRLb_cSiNkEFprlLcWPmw5vmXMP5o",
       "mediaUrl": "https://arweave.net/_TRlIeoZdfqCiRNRLb_cSiNkEFprlLcWPmw5vmXMP5o",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/4"
+      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/4",
+      "editionCount": 1
     },
     {
       "tokenId": 18,
-      "name": "Whispers Unseen ",
+      "name": "Whispers Unseen",
       "description": "",
       "image": "https://arweave.net/z5cr06fi_k3prK1YQ_OfSC8YSDndESiKnzXaFlJlx0o",
       "mediaUrl": "https://arweave.net/z5cr06fi_k3prK1YQ_OfSC8YSDndESiKnzXaFlJlx0o",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/5"
+      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/5",
+      "editionCount": 1
     },
     {
       "tokenId": 19,
@@ -177,7 +196,8 @@
       "image": "https://arweave.net/wUMo88TK_P4FarssZbSLbXo4_rlDhxxVpBj21CVnyYA",
       "mediaUrl": "https://arweave.net/wUMo88TK_P4FarssZbSLbXo4_rlDhxxVpBj21CVnyYA",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/6"
+      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/6",
+      "editionCount": 1
     },
     {
       "tokenId": 20,
@@ -186,7 +206,8 @@
       "image": "https://arweave.net/hBB_rQUN-jgqofuPtAb2pHq5ngCY_2smL4xmW673rDM",
       "mediaUrl": "https://arweave.net/hBB_rQUN-jgqofuPtAb2pHq5ngCY_2smL4xmW673rDM",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/7"
+      "tokenUri": "https://arweave.net/voDIoPTmfdB3_6kOwTG-PHZU5LBSvdv6vYClh35wV78/7",
+      "editionCount": 1
     },
     {
       "tokenId": 21,
@@ -195,7 +216,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 22,
@@ -204,7 +226,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 23,
@@ -213,7 +236,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 24,
@@ -222,7 +246,8 @@
       "image": "https://arweave.net/3sys1grWvUMBFqeXCut1QQOvHkETHlQ9Hlxb4T_KgNw",
       "mediaUrl": "https://arweave.net/3sys1grWvUMBFqeXCut1QQOvHkETHlQ9Hlxb4T_KgNw",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/1"
+      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/1",
+      "editionCount": 1
     },
     {
       "tokenId": 25,
@@ -231,7 +256,8 @@
       "image": "https://arweave.net/-Jr4fW3DDlAcYmysEeWag1Ve-_V6KF5Jl6Gco0LPIEQ",
       "mediaUrl": "https://arweave.net/-Jr4fW3DDlAcYmysEeWag1Ve-_V6KF5Jl6Gco0LPIEQ",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/2"
+      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/2",
+      "editionCount": 1
     },
     {
       "tokenId": 26,
@@ -240,7 +266,8 @@
       "image": "https://arweave.net/4S1A5ItOP36docIcmZ7c9gam42XdkLQhDn6VVauslBM",
       "mediaUrl": "https://arweave.net/4S1A5ItOP36docIcmZ7c9gam42XdkLQhDn6VVauslBM",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/3"
+      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/3",
+      "editionCount": 1
     },
     {
       "tokenId": 27,
@@ -249,7 +276,8 @@
       "image": "https://arweave.net/Dy_6Lp2mfNTNfA9QSEga-UyGkNybesIRv6NBTTTKXI0",
       "mediaUrl": "https://arweave.net/Dy_6Lp2mfNTNfA9QSEga-UyGkNybesIRv6NBTTTKXI0",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/4"
+      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/4",
+      "editionCount": 1
     },
     {
       "tokenId": 28,
@@ -258,7 +286,8 @@
       "image": "https://arweave.net/_sJ8XblBC-ypAPz0nYzVkb67RLck94nsXwyFJ3SccKc",
       "mediaUrl": "https://arweave.net/_sJ8XblBC-ypAPz0nYzVkb67RLck94nsXwyFJ3SccKc",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/5"
+      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/5",
+      "editionCount": 1
     },
     {
       "tokenId": 29,
@@ -267,7 +296,8 @@
       "image": "https://arweave.net/3Gp2DiMEAMmntRKCcL9CVwBn4CZRwIHoS1eKPBemsRU",
       "mediaUrl": "https://arweave.net/3Gp2DiMEAMmntRKCcL9CVwBn4CZRwIHoS1eKPBemsRU",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/6"
+      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/6",
+      "editionCount": 1
     },
     {
       "tokenId": 30,
@@ -276,7 +306,8 @@
       "image": "https://arweave.net/lVc_r1FXG0WR4iEYJOVmAo1m_t_Lc5adNP2XSJxMyRw",
       "mediaUrl": "https://arweave.net/lVc_r1FXG0WR4iEYJOVmAo1m_t_Lc5adNP2XSJxMyRw",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/7"
+      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/7",
+      "editionCount": 1
     },
     {
       "tokenId": 31,
@@ -285,7 +316,8 @@
       "image": "https://arweave.net/qVFAUxUIrFSVT_Y9LE6KoII4LnpFL7-V84LbDKCbpNw",
       "mediaUrl": "https://arweave.net/qVFAUxUIrFSVT_Y9LE6KoII4LnpFL7-V84LbDKCbpNw",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/8"
+      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/8",
+      "editionCount": 1
     },
     {
       "tokenId": 32,
@@ -294,7 +326,8 @@
       "image": "https://arweave.net/HkjylLY7YU0EToXAgUZkTL-IycmGEKZrcHgBpDZmW04",
       "mediaUrl": "https://arweave.net/HkjylLY7YU0EToXAgUZkTL-IycmGEKZrcHgBpDZmW04",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/9"
+      "tokenUri": "https://arweave.net/jJkvwk2E67U19ak7jCEJQ7NZJIx8cB7utykv61_37bw/9",
+      "editionCount": 1
     },
     {
       "tokenId": 33,
@@ -303,7 +336,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 34,
@@ -312,7 +346,8 @@
       "image": "https://arweave.net/McDCLkBZ5VDrK70QivQJexF2dZIblTK4q_n3hXoF7GQ",
       "mediaUrl": "https://arweave.net/McDCLkBZ5VDrK70QivQJexF2dZIblTK4q_n3hXoF7GQ",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/1"
+      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/1",
+      "editionCount": 1
     },
     {
       "tokenId": 35,
@@ -321,7 +356,8 @@
       "image": "https://arweave.net/KWHdGM5P_ekhkz_Xbe9nikxx_ODZWtEJ33rDXKRXhlE",
       "mediaUrl": "https://arweave.net/KWHdGM5P_ekhkz_Xbe9nikxx_ODZWtEJ33rDXKRXhlE",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/2"
+      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/2",
+      "editionCount": 1
     },
     {
       "tokenId": 36,
@@ -330,7 +366,8 @@
       "image": "https://arweave.net/uiU5LD91_7JmzBcHKFVIV9BOVcKDc-pqwqvsfe_xCpM",
       "mediaUrl": "https://arweave.net/uiU5LD91_7JmzBcHKFVIV9BOVcKDc-pqwqvsfe_xCpM",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/3"
+      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/3",
+      "editionCount": 1
     },
     {
       "tokenId": 37,
@@ -339,7 +376,8 @@
       "image": "https://arweave.net/ksyfRMqmaBnWKjrRWdFRTUzEjZVKKhBSxAlVemZNvmw",
       "mediaUrl": "https://arweave.net/ksyfRMqmaBnWKjrRWdFRTUzEjZVKKhBSxAlVemZNvmw",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/4"
+      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/4",
+      "editionCount": 1
     },
     {
       "tokenId": 38,
@@ -348,7 +386,8 @@
       "image": "https://arweave.net/E1w3EzzjFy4Ii4rauUqSqXA-MvpvzTdU966yp_8VQr0",
       "mediaUrl": "https://arweave.net/E1w3EzzjFy4Ii4rauUqSqXA-MvpvzTdU966yp_8VQr0",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/5"
+      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/5",
+      "editionCount": 1
     },
     {
       "tokenId": 39,
@@ -357,7 +396,8 @@
       "image": "https://arweave.net/6YrqkkAPYhoD5fhdp0dDLUdj_EogxZw7q88Lb6eiEoA",
       "mediaUrl": "https://arweave.net/6YrqkkAPYhoD5fhdp0dDLUdj_EogxZw7q88Lb6eiEoA",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/6"
+      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/6",
+      "editionCount": 1
     },
     {
       "tokenId": 40,
@@ -366,7 +406,8 @@
       "image": "https://arweave.net/ZmmkoBL5lDIIVyzxANS3gfKTYdoxhttQFOM3SJV_ig4",
       "mediaUrl": "https://arweave.net/ZmmkoBL5lDIIVyzxANS3gfKTYdoxhttQFOM3SJV_ig4",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/7"
+      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/7",
+      "editionCount": 1
     },
     {
       "tokenId": 41,
@@ -375,7 +416,8 @@
       "image": "https://arweave.net/1Zx0PWXiXWyz2uhXQmOCvNox0WOQdDCK9ir3PHXniOI",
       "mediaUrl": "https://arweave.net/1Zx0PWXiXWyz2uhXQmOCvNox0WOQdDCK9ir3PHXniOI",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/8"
+      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/8",
+      "editionCount": 1
     },
     {
       "tokenId": 42,
@@ -384,7 +426,8 @@
       "image": "https://arweave.net/Q0yLfyEV8_iO70qytP-sgJc_sVUaQiYuJOD7mpoXGes",
       "mediaUrl": "https://arweave.net/Q0yLfyEV8_iO70qytP-sgJc_sVUaQiYuJOD7mpoXGes",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/9"
+      "tokenUri": "https://arweave.net/GOwgezXhvG71OT40_M_-e0349u6mvof2DtZhreQAJO8/9",
+      "editionCount": 1
     },
     {
       "tokenId": 43,
@@ -393,7 +436,8 @@
       "image": "https://arweave.net/0lwt-pVGDmEj-HKiVi1zESJnc3KJ7aLPOg5LeYjxTiY",
       "mediaUrl": "https://arweave.net/0lwt-pVGDmEj-HKiVi1zESJnc3KJ7aLPOg5LeYjxTiY",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/1"
+      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/1",
+      "editionCount": 1
     },
     {
       "tokenId": 44,
@@ -402,7 +446,8 @@
       "image": "https://arweave.net/Xh343LPeUXaOky911daWn1L4UYqFyRAdC87KI3NeXHc",
       "mediaUrl": "https://arweave.net/Xh343LPeUXaOky911daWn1L4UYqFyRAdC87KI3NeXHc",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/2"
+      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/2",
+      "editionCount": 1
     },
     {
       "tokenId": 45,
@@ -411,7 +456,8 @@
       "image": "https://arweave.net/B93Q28RzcB4DLprgUcDZkRvOi4V7w9JWPMcavQHkDqw",
       "mediaUrl": "https://arweave.net/B93Q28RzcB4DLprgUcDZkRvOi4V7w9JWPMcavQHkDqw",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/3"
+      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/3",
+      "editionCount": 1
     },
     {
       "tokenId": 46,
@@ -420,7 +466,8 @@
       "image": "https://arweave.net/QBywUD11NixNyCSX0dn7SctF8xvKPqhkDQzF1MXUO58",
       "mediaUrl": "https://arweave.net/QBywUD11NixNyCSX0dn7SctF8xvKPqhkDQzF1MXUO58",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/4"
+      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/4",
+      "editionCount": 1
     },
     {
       "tokenId": 47,
@@ -429,7 +476,8 @@
       "image": "https://arweave.net/rPgSn2rCqqhkWe0HzGzqqFmmEGMNReHgNxmwQ3cO1cE",
       "mediaUrl": "https://arweave.net/rPgSn2rCqqhkWe0HzGzqqFmmEGMNReHgNxmwQ3cO1cE",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/5"
+      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/5",
+      "editionCount": 1
     },
     {
       "tokenId": 48,
@@ -438,7 +486,8 @@
       "image": "https://arweave.net/VSvS1G0f-LzqvsbitYhLqriaMETkz_QBHTrhcaXPigk",
       "mediaUrl": "https://arweave.net/VSvS1G0f-LzqvsbitYhLqriaMETkz_QBHTrhcaXPigk",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/6"
+      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/6",
+      "editionCount": 1
     },
     {
       "tokenId": 49,
@@ -447,7 +496,8 @@
       "image": "https://arweave.net/_w1AOC4E9g0uokpQ4KQnMY1jPkkNTsTbEmWpsRXY4iE",
       "mediaUrl": "https://arweave.net/_w1AOC4E9g0uokpQ4KQnMY1jPkkNTsTbEmWpsRXY4iE",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/7"
+      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/7",
+      "editionCount": 1
     },
     {
       "tokenId": 50,
@@ -456,7 +506,8 @@
       "image": "https://arweave.net/xvXO8q9JoxhuunEu0Hty-PPwtLINi5bIF_6LZ_B9dZ0",
       "mediaUrl": "https://arweave.net/xvXO8q9JoxhuunEu0Hty-PPwtLINi5bIF_6LZ_B9dZ0",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/8"
+      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/8",
+      "editionCount": 1
     },
     {
       "tokenId": 51,
@@ -465,7 +516,8 @@
       "image": "https://arweave.net/OoVoNez0eL3ImLjDVNGokQnmXcM8ROSHUx6Y8qQoWqI",
       "mediaUrl": "https://arweave.net/OoVoNez0eL3ImLjDVNGokQnmXcM8ROSHUx6Y8qQoWqI",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/9"
+      "tokenUri": "https://arweave.net/P1rhAasBai58r9loaubqBe0mQ_BGiyJyyB3qsNNn70A/9",
+      "editionCount": 1
     },
     {
       "tokenId": 52,
@@ -474,7 +526,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 53,
@@ -483,7 +536,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 54,
@@ -492,7 +546,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 55,
@@ -501,7 +556,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 56,
@@ -509,7 +565,8 @@
       "image": "https://arweave.net/NqSff2H6mm2l-CXYXHuu4zG3gSlwlVVp3qEqW1tzI1M",
       "mediaUrl": "https://arweave.net/NqSff2H6mm2l-CXYXHuu4zG3gSlwlVVp3qEqW1tzI1M",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/h2FQRGM6iac8BXLVvV6BRwjm55lUzjePA7SAii7FvUU"
+      "tokenUri": "https://arweave.net/h2FQRGM6iac8BXLVvV6BRwjm55lUzjePA7SAii7FvUU",
+      "editionCount": 1
     },
     {
       "tokenId": 57,
@@ -518,7 +575,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 58,
@@ -527,7 +585,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 59,
@@ -536,7 +595,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 60,
@@ -545,7 +605,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 61,
@@ -554,7 +615,8 @@
       "animationUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaUrl": "https://arweave.net/P4pCs9-Ab0-3-UZeJpz9kCpwfjJ_KpAQYqdiys4ebjE",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w"
+      "tokenUri": "https://arweave.net/lz18PxwJC9PVyB43CyCJV4C6M3wF-IHAB0fwZ8xnE_w",
+      "editionCount": 17
     },
     {
       "tokenId": 68,
@@ -564,7 +626,8 @@
       "animationUrl": "https://arweave.net/Hd5kND0JYauWZxwvA6ZcHoAC_k7ZVNoQ1e94bJgg1rI",
       "mediaUrl": "https://arweave.net/Hd5kND0JYauWZxwvA6ZcHoAC_k7ZVNoQ1e94bJgg1rI",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/cgUekmzQA0VC1hejZFFhumQ4ZOkDtJbNMMGt6C5tKGo"
+      "tokenUri": "https://arweave.net/cgUekmzQA0VC1hejZFFhumQ4ZOkDtJbNMMGt6C5tKGo",
+      "editionCount": 1
     },
     {
       "tokenId": 69,
@@ -574,7 +637,8 @@
       "animationUrl": "https://arweave.net/-VvCVEMoRscb1GUD5zd0IWrGRuGXMIWJzfUH8ZdUeco",
       "mediaUrl": "https://arweave.net/-VvCVEMoRscb1GUD5zd0IWrGRuGXMIWJzfUH8ZdUeco",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/EkuoeJYO40U_zlJ-Bo8UZVIbFhL4l784utihBP9K04w"
+      "tokenUri": "https://arweave.net/EkuoeJYO40U_zlJ-Bo8UZVIbFhL4l784utihBP9K04w",
+      "editionCount": 1
     },
     {
       "tokenId": 70,
@@ -584,7 +648,8 @@
       "animationUrl": "https://arweave.net/DO-a4CnJqkNxr1rhXgii15bj2LbcusbFls0AzQ2MafY",
       "mediaUrl": "https://arweave.net/DO-a4CnJqkNxr1rhXgii15bj2LbcusbFls0AzQ2MafY",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/RQNpnqSnVRBIeVWjx4X_99u-O0OiLxDsea4bXtAWv8k"
+      "tokenUri": "https://arweave.net/RQNpnqSnVRBIeVWjx4X_99u-O0OiLxDsea4bXtAWv8k",
+      "editionCount": 1
     },
     {
       "tokenId": 71,
@@ -594,7 +659,8 @@
       "animationUrl": "https://arweave.net/XxmWWDWmn0_F7p-oaiPkEwqlnhcY1i73n6hfQsb9ViY",
       "mediaUrl": "https://arweave.net/XxmWWDWmn0_F7p-oaiPkEwqlnhcY1i73n6hfQsb9ViY",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/cITUYPh_ZzsbO3GHh3ST7CRw96UncvJG4cCwfVYDy-g"
+      "tokenUri": "https://arweave.net/cITUYPh_ZzsbO3GHh3ST7CRw96UncvJG4cCwfVYDy-g",
+      "editionCount": 1
     },
     {
       "tokenId": 72,
@@ -604,7 +670,8 @@
       "animationUrl": "https://arweave.net/eT-AQp1QIsgfN5NNyZyc_byPIPf3yEdCoVsgl98gD9Q",
       "mediaUrl": "https://arweave.net/eT-AQp1QIsgfN5NNyZyc_byPIPf3yEdCoVsgl98gD9Q",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/XhkJcHEL4GQKGPe1PBra8wlqk6h9kiOi_-b8Vi1y3EI"
+      "tokenUri": "https://arweave.net/XhkJcHEL4GQKGPe1PBra8wlqk6h9kiOi_-b8Vi1y3EI",
+      "editionCount": 1
     },
     {
       "tokenId": 73,
@@ -614,7 +681,8 @@
       "animationUrl": "https://arweave.net/XLddtrwAwyz8bDujjnLEW3uD0Pz-Yj2YX_zmErXzzcY",
       "mediaUrl": "https://arweave.net/XLddtrwAwyz8bDujjnLEW3uD0Pz-Yj2YX_zmErXzzcY",
       "mediaType": "video",
-      "tokenUri": "https://arweave.net/sbYLlY7y2pN9w8Kx49tjvKJCSQZdhQoQcSVEaiAHUBo"
+      "tokenUri": "https://arweave.net/sbYLlY7y2pN9w8Kx49tjvKJCSQZdhQoQcSVEaiAHUBo",
+      "editionCount": 1
     }
   ]
 }

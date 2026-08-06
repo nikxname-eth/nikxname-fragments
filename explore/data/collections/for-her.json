@@ -1,0 +1,13 @@
+{
+  "seriesId": "for-her",
+  "label": "For Her..",
+  "contract": "0x9813ff20c99525922b3538fce8c2c9e5db93866c",
+  "standard": "erc1155",
+  "name": "For Her..",
+  "symbol": "",
+  "chainId": 1,
+  "fetchedAt": "2026-08-06T21:04:00.000Z",
+  "count": 0,
+  "tokens": [],
+  "note": "No contract bytecode found on Ethereum mainnet for this address. Verify network/address."
+}
