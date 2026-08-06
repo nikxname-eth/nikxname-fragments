@@ -14,7 +14,11 @@
     "pages:build": "npm run build",
     "deploy": "npm run build && npx wrangler pages deploy out --branch=nikxart-live-base --commit-dirty=true",
     "deploy:prod": "npm run build && npx wrangler pages deploy out --branch=main",
-    "preview": "npm run build && npx wrangler pages dev ./out"
+    "preview": "npm run build && npx wrangler pages dev ./out",
+    "dev:explore": "cd explore && npx next dev -p 3001",
+    "build:explore": "cd explore && npx next build --webpack",
+    "deploy:explore": "npm run build:explore && cd explore && npx wrangler pages deploy out --project-name=nikxart-explore --branch=main --commit-dirty=true",
+    "preview:explore": "npm run build:explore && cd explore && npx wrangler pages dev out"
   },
   "dependencies": {
     "framer-motion": "^12.39.0",
