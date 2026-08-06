@@ -17,6 +17,7 @@
     "preview": "npm run build && npx wrangler pages dev ./out",
     "dev:explore": "cd explore && npx next dev -p 3001",
     "build:explore": "cd explore && npx next build --webpack",
+    "sync:explore": "node scripts/sync-explore-collections.mjs",
     "deploy:explore": "npm run build:explore && cd explore && npx wrangler pages deploy out --project-name=nikxart-explore --branch=main --commit-dirty=true",
     "preview:explore": "npm run build:explore && cd explore && npx wrangler pages dev out"
   },

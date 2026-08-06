@@ -9,6 +9,14 @@ const nextConfig = {
   },
   // Silence Next 16 turbopack + empty custom config warning
   turbopack: {},
+  // Allow importing synced collection JSON dumps
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.json$/,
+      type: 'json',
+    });
+    return config;
+  },
 };
 
 module.exports = nextConfig;

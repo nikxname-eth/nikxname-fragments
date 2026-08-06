@@ -44,12 +44,21 @@ Production drop site (`nikxart-puzzle` → `nikxart.xyz`) is unchanged.
 ## Catalog sources
 
 - **Together It Blooms** — generated from live site `artist.ts` (claims + CDN media)
-- **Life Impressions / The Void / 1/1s** — Manifold creator series portals  
+- **The Void** — on-chain ERC-721 `0xa4f73c…4730` (synced to `data/collections/the-void.json`)
+- **Life Impressions / 1/1s / etc.** — Manifold series portals until their contracts are registered  
   https://manifold.xyz/@nikxnames-art
 - **Portfolio & Secondary** — Raster  
   https://www.raster.art/artist/nikxname
 
-Edit series portals in `explore/config/catalog.ts`. Fragment works update automatically when you evolve the main site config.
+### Add another on-chain collection
+
+1. Add a row in `explore/config/collections.ts` **and** `scripts/sync-explore-collections.mjs`
+2. Run `npm run sync:explore`
+3. Import the new JSON in `explore/lib/chainWorks.ts`
+4. Add the seriesId to `CHAIN_BACKED_SERIES` in `catalog.ts` (removes the placeholder portal)
+5. Rebuild / redeploy explore
+
+Fragment works update automatically when you evolve the main site config.
 
 ## Design
 

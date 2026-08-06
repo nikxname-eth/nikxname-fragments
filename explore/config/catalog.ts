@@ -15,6 +15,7 @@ import {
   getPrimaryLiveMintPiece,
   isDropWindowOpen,
 } from '../../src/config/artist';
+import { getAllChainWorks } from '../lib/chainWorks';
 
 export type SeriesId =
   | 'together-it-blooms'
@@ -37,6 +38,9 @@ export type ExploreWork = {
   mediaType?: 'image' | 'video';
   manifoldUrl?: string;
   rasterUrl?: string;
+  openSeaUrl?: string;
+  contractAddress?: string;
+  tokenId?: number;
   pieceNumber?: number;
   mintPrice?: string;
   tags?: string[];
@@ -161,7 +165,7 @@ export function getFragmentWorks(now = Date.now()): ExploreWork[] {
     });
 }
 
-/** Curated series portals — deep links into Manifold / Raster catalogs. */
+/** Curated series portals — used when a series has no on-chain token dump yet. */
 export const SERIES_PORTALS: ExploreWork[] = [
   {
     id: 'portal-life-impressions',
@@ -175,18 +179,6 @@ export const SERIES_PORTALS: ExploreWork[] = [
     blurb:
       'Blockchain-preserved snapshots of transient beauty — ethereal landscapes and portraits that invite stillness.',
     sort: 1000,
-  },
-  {
-    id: 'portal-void',
-    seriesId: 'the-void',
-    title: 'The Void',
-    subtitle: 'Series on Manifold',
-    kind: 'series',
-    coverUrl: ARTIST.portrait,
-    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/p/thevoid',
-    tags: ['series'],
-    blurb: 'Quiet depth and the edges of perception — a collection of stillness amid turmoil.',
-    sort: 1001,
   },
   {
     id: 'portal-1of1',
@@ -228,8 +220,19 @@ export const SERIES_PORTALS: ExploreWork[] = [
   },
 ];
 
+/** Series populated fully from on-chain dumps (see explore/data/collections). */
+const CHAIN_BACKED_SERIES = new Set<SeriesId>(['the-void']);
+
 export function getAllWorks(now = Date.now()): ExploreWork[] {
-  return [...getFragmentWorks(now), ...SERIES_PORTALS].sort((a, b) => a.sort - b.sort);
+  const chain = getAllChainWorks();
+  const portals = SERIES_PORTALS.filter((p) => !CHAIN_BACKED_SERIES.has(p.seriesId));
+  return [...getFragmentWorks(now), ...chain, ...portals].sort((a, b) => {
+    if (a.seriesId !== b.seriesId) {
+      const order = SERIES.map((s) => s.id);
+      return order.indexOf(a.seriesId) - order.indexOf(b.seriesId);
+    }
+    return a.sort - b.sort;
+  });
 }
 
 export function getWorksBySeries(seriesId: SeriesId | 'all', now = Date.now()): ExploreWork[] {

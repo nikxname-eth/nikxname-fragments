@@ -95,6 +95,21 @@ export function WorkStage({ work, works, onClose, onNavigate }: Props) {
               )}
 
               <div className="ex-stage-actions">
+                {work.contractAddress && work.tokenId != null && (
+                  <span className="ex-pill" style={{ cursor: 'default', opacity: 0.55 }}>
+                    {work.contractAddress.slice(0, 6)}…{work.contractAddress.slice(-4)} · #{work.tokenId}
+                  </span>
+                )}
+                {work.openSeaUrl && (
+                  <a
+                    className="ex-pill ex-pill--accent"
+                    href={work.openSeaUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View token ↗
+                  </a>
+                )}
                 {work.manifoldUrl && (
                   <a
                     className="ex-pill ex-pill--accent"
@@ -102,7 +117,7 @@ export function WorkStage({ work, works, onClose, onNavigate }: Props) {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    View on Manifold ↗
+                    Manifold catalog ↗
                   </a>
                 )}
                 {work.rasterUrl && (
