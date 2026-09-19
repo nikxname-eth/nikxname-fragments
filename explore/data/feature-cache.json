@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "longEdge": 1600,
+  "fetchedAt": "2026-08-08T17:20:42.509Z",
+  "prefix": "explore/feature",
+  "publicBase": "https://assets.nikxart.xyz/explore/feature/",
+  "items": [
+    {
+      "seriesId": "a-familiar-burn",
+      "workId": "fragment-2",
+      "title": "Fragment 2",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/a-familiar-burn/fragment-2.jpg"
+    },
+    {
+      "seriesId": "a-familiar-burn",
+      "workId": "fragment-8",
+      "title": "Fragment 8",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/a-familiar-burn/fragment-8.jpg"
+    },
+    {
+      "seriesId": "a-familiar-burn",
+      "workId": "fragment-14",
+      "title": "Fragment 14",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/a-familiar-burn/fragment-14.jpg"
+    },
+    {
+      "seriesId": "a-familiar-burn",
+      "workId": "fragment-20",
+      "title": "Fragment 20",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/a-familiar-burn/fragment-20.jpg"
+    },
+    {
+      "seriesId": "a-familiar-burn",
+      "workId": "fragment-26",
+      "title": "Fragment 26",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/a-familiar-burn/fragment-26.jpg"
+    },
+    {
+      "seriesId": "the-void",
+      "workId": "the-void-1",
+      "title": "Into The Void",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/the-void/the-void-1.jpg"
+    },
+    {
+      "seriesId": "the-void",
+      "workId": "the-void-24",
+      "title": "Drifting Dreams",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/the-void/the-void-24.jpg"
+    },
+    {
+      "seriesId": "the-void",
+      "workId": "the-void-41",
+      "title": "Fractured",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/the-void/the-void-41.jpg"
+    },
+    {
+      "seriesId": "the-void",
+      "workId": "the-void-73",
+      "title": "GUARDIAN | Sapphire Remnant",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/the-void/the-void-73.jpg"
+    },
+    {
+      "seriesId": "life-impressions",
+      "workId": "life-impressions-1",
+      "title": "Life Impression 01",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/life-impressions/life-impressions-1.jpg"
+    },
+    {
+      "seriesId": "life-impressions",
+      "workId": "life-impressions-19",
+      "title": "Life Impression 19",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/life-impressions/life-impressions-19.jpg"
+    },
+    {
+      "seriesId": "life-impressions",
+      "workId": "life-impressions-37",
+      "title": "Life Impression 37",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/life-impressions/life-impressions-37.jpg"
+    },
+    {
+      "seriesId": "life-impressions",
+      "workId": "life-impressions-55",
+      "title": "Life Impression 55",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/life-impressions/life-impressions-55.jpg"
+    },
+    {
+      "seriesId": "for-you",
+      "workId": "for-you-1",
+      "title": "The Letter",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/for-you/for-you-1.jpg"
+    },
+    {
+      "seriesId": "for-you",
+      "workId": "for-you-5",
+      "title": "Thorn & Silk",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/for-you/for-you-5.jpg"
+    },
+    {
+      "seriesId": "for-you",
+      "workId": "for-you-9",
+      "title": "Blaze Of Desire",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/for-you/for-you-9.jpg"
+    },
+    {
+      "seriesId": "for-you",
+      "workId": "for-you-13",
+      "title": "Full Bouquet",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/for-you/for-you-13.jpg"
+    },
+    {
+      "seriesId": "for-her",
+      "workId": "for-her-1",
+      "title": "EtherRose - Stiletto",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/for-her/for-her-1.jpg"
+    },
+    {
+      "seriesId": "for-her",
+      "workId": "for-her-3",
+      "title": "EtherRose - Blanc",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/for-her/for-her-3.jpg"
+    },
+    {
+      "seriesId": "for-her",
+      "workId": "for-her-4",
+      "title": "EtherRose - Noir",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/for-her/for-her-4.jpg"
+    },
+    {
+      "seriesId": "for-her",
+      "workId": "for-her-6",
+      "title": "PearlsNRoses",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/for-her/for-her-6.jpg"
+    },
+    {
+      "seriesId": "one-of-ones",
+      "workId": "one-of-ones-1",
+      "title": "Reflection Of Self",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/one-of-ones/one-of-ones-1.jpg"
+    },
+    {
+      "seriesId": "one-of-ones",
+      "workId": "one-of-ones-2",
+      "title": "The Last Dance",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/one-of-ones/one-of-ones-2.jpg"
+    },
+    {
+      "seriesId": "one-of-ones",
+      "workId": "one-of-ones-3",
+      "title": "Burn The Roses",
+      "featureUrl": "https://assets.nikxart.xyz/burntheroses/BurnTheRoses_CoverSml.gif"
+    },
+    {
+      "seriesId": "one-of-ones",
+      "workId": "one-of-ones-4",
+      "title": "Crimson Falls",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/one-of-ones/one-of-ones-4.jpg"
+    },
+    {
+      "seriesId": "for-you",
+      "workId": "for-you-2",
+      "title": "Echo From Within",
+      "featureUrl": "https://assets.nikxart.xyz/explore/feature/for-you/for-you-2.jpg"
+    }
+  ]
+}

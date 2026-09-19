@@ -60,6 +60,15 @@ const ON_CHAIN_COLLECTIONS = [
     chain: 'ethereum',
     scanMaxId: 1500,
   },
+  {
+    // https://manifold.xyz/@nikxnames-art/p/nikxname1of1s
+    seriesId: 'one-of-ones',
+    label: "Nikxname 1/1's",
+    address: '0x07f3bfe5ca8d84108df5c020f885d1d6bf40585e',
+    standard: 'erc721',
+    chain: 'ethereum',
+    scanMaxId: 50,
+  },
 ];
 
 const CHAINS = {
@@ -102,6 +111,7 @@ const abi1155 = parseAbi([
   'function name() view returns (string)',
   'function symbol() view returns (string)',
   'function uri(uint256 id) view returns (string)',
+  'function totalSupply(uint256 id) view returns (uint256)',
 ]);
 
 function resolveTokenUri(uri) {
@@ -294,13 +304,35 @@ async function syncCollection(entry) {
 
   const works = tokens.filter(Boolean).sort((a, b) => a.tokenId - b.tokenId);
 
-  const byName = new Map();
-  for (const t of works) {
-    const key = t.name.trim().toLowerCase();
-    byName.set(key, (byName.get(key) || 0) + 1);
-  }
-  for (const t of works) {
-    t.editionCount = byName.get(t.name.trim().toLowerCase()) || 1;
+  if (entry.standard === 'erc1155') {
+    const supplies = await client.multicall({
+      contracts: works.map((t) => ({
+        address,
+        abi: abi1155,
+        functionName: 'totalSupply',
+        args: [BigInt(t.tokenId)],
+      })),
+      allowFailure: true,
+    });
+    works.forEach((t, i) => {
+      const row = supplies[i];
+      if (row?.status === 'success' && row.result != null) {
+        const n = Number(row.result);
+        t.editionCount = Number.isFinite(n) && n > 0 ? n : 1;
+      } else {
+        t.editionCount = 1;
+      }
+    });
+  } else {
+    // ERC-721: minted copies sharing a title (Manifold edition sets)
+    const byName = new Map();
+    for (const t of works) {
+      const key = t.name.trim().toLowerCase();
+      byName.set(key, (byName.get(key) || 0) + 1);
+    }
+    for (const t of works) {
+      t.editionCount = byName.get(t.name.trim().toLowerCase()) || 1;
+    }
   }
 
   const payload = {

@@ -1,0 +1,101 @@
+{
+  "fetchedAt": "2026-08-07T02:58:24.472Z",
+  "note": "Collection market gateways. Live floor/asks require OPENSEA_API_KEY via npm run sync:explore:market.",
+  "hubs": [
+    {
+      "id": "hub-opensea",
+      "title": "OpenSea",
+      "subtitle": "Creator · Ethereum",
+      "blurb": "All Nikxname listings and secondary inventory on OpenSea.",
+      "url": "https://opensea.io/nikxname",
+      "kind": "opensea",
+      "coverKey": "market-opensea"
+    },
+    {
+      "id": "hub-raster",
+      "title": "Raster",
+      "subtitle": "Portfolio · market",
+      "blurb": "Portfolio and secondary market references on Raster.",
+      "url": "https://www.raster.art/artist/nikxname",
+      "kind": "raster",
+      "coverKey": "market-raster"
+    },
+    {
+      "id": "hub-manifold",
+      "title": "Manifold",
+      "subtitle": "Primary catalog",
+      "blurb": "Creator profile and primary claim catalog.",
+      "url": "https://manifold.xyz/@nikxnames-art",
+      "kind": "manifold",
+      "coverKey": "market-manifold"
+    }
+  ],
+  "collections": [
+    {
+      "id": "mkt-a-familiar-burn",
+      "seriesId": "a-familiar-burn",
+      "title": "A Familiar Burn",
+      "subtitle": "OpenSea · Ethereum",
+      "contract": "0x1641b09e11d19e6f6b9f80273158f9da28555593",
+      "chain": "ethereum",
+      "openSeaCollection": "https://opensea.io/collection/a-familiar-burn",
+      "openSeaContract": "https://opensea.io/assets/ethereum/0x1641b09e11d19e6f6b9f80273158f9da28555593",
+      "rasterUrl": "https://www.raster.art/artwork/a-familiar-burn-by-nikxname?sort=listing",
+      "coverFromSeries": "a-familiar-burn",
+      "coverWorkId": "fragment-1"
+    },
+    {
+      "id": "mkt-the-void",
+      "seriesId": "the-void",
+      "title": "The Void",
+      "subtitle": "OpenSea · Ethereum",
+      "contract": "0xa4f73c689f977a27f7f99cd1cdc9054793554730",
+      "chain": "ethereum",
+      "openSeaCollection": "https://opensea.io/collection/the-void",
+      "openSeaContract": "https://opensea.io/assets/ethereum/0xa4f73c689f977a27f7f99cd1cdc9054793554730",
+      "rasterUrl": "https://www.raster.art/artwork/the-void-by-nikxname?sort=listing",
+      "coverFromSeries": "the-void",
+      "coverWorkId": "the-void-1"
+    },
+    {
+      "id": "mkt-life-impressions",
+      "seriesId": "life-impressions",
+      "title": "Life Impressions",
+      "subtitle": "OpenSea · Ethereum",
+      "contract": "0xb00b42b5baa62f6ce800fb919b3d090b51c4463c",
+      "chain": "ethereum",
+      "openSeaCollection": "https://opensea.io/collection/life-impressions-by-nikxname",
+      "openSeaContract": "https://opensea.io/assets/ethereum/0xb00b42b5baa62f6ce800fb919b3d090b51c4463c",
+      "rasterUrl": "https://www.raster.art/artwork/life-impressions-by-nikxname?sort=listing",
+      "coverFromSeries": "life-impressions",
+      "coverWorkId": "life-impressions-1"
+    },
+    {
+      "id": "mkt-for-you",
+      "seriesId": "for-you",
+      "title": "For You..",
+      "subtitle": "OpenSea · Ethereum",
+      "contract": "0x5174ed5f363ef4df2823f42be54de5fd61294e49",
+      "chain": "ethereum",
+      "openSeaCollection": "https://opensea.io/collection/for-you",
+      "openSeaContract": "https://opensea.io/assets/ethereum/0x5174ed5f363ef4df2823f42be54de5fd61294e49",
+      "rasterUrl": "https://www.raster.art/artwork/for-you-by-nikxname?sort=listing",
+      "coverFromSeries": "for-you",
+      "coverWorkId": "for-you-1"
+    },
+    {
+      "id": "mkt-for-her",
+      "seriesId": "for-her",
+      "title": "For Her..",
+      "subtitle": "OpenSea · Base",
+      "contract": "0x9813ff20c99525922b3538fce8c2c9e5db93866c",
+      "chain": "base",
+      "openSeaCollection": "https://opensea.io/collection/for-her-by-nikxname",
+      "openSeaContract": "https://opensea.io/assets/base/0x9813ff20c99525922b3538fce8c2c9e5db93866c",
+      "rasterUrl": "https://www.raster.art/artwork/for-her-by-nikxname?sort=listing",
+      "coverFromSeries": "for-her",
+      "coverWorkId": "for-her-1"
+    }
+  ],
+  "listings": []
+}

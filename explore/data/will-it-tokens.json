@@ -1,0 +1,25 @@
+{
+  "seriesId": "a-familiar-burn",
+  "contract": "0x1641b09e11d19e6f6b9f80273158f9da28555593",
+  "fetchedAt": "2026-09-09T20:40:00.000Z",
+  "panel01": "https://arweave.net/nJSF_C69QK2V6Ev-U5sxNQN15UaSKtUWHjiDr6vwpRk",
+  "panel02": "/would-it/canvas-b-full.jpg",
+  "panelUnrevealed": "https://arweave.net/RMsVuxnFJ1CxuW04bd1XLk5MpTfy_R_C4ExNDChQ29E",
+  "tokens": [
+    {"tokenId": 806, "letter": "A", "panel": 1, "name": "Will It.. | Panel 01 - A", "previewHash": "5622bf6d153c72a670ac4d1712292e9f5a7e7c930b8fa2778680cedeefdbfa78"},
+    {"tokenId": 807, "letter": "A", "panel": 2, "name": "Will It.. | Panel 02 - A", "previewHash": "2c55c22cba2f8b0934c7c2b709358e299c13bb0d058380c7f1fb12fa07113e08"},
+    {"tokenId": 808, "letter": "A", "panel": 3, "name": "Will It.. | Panel 03 - A", "previewHash": "2c55c22cba2f8b0934c7c2b709358e299c13bb0d058380c7f1fb12fa07113e08"},
+    {"tokenId": 809, "letter": "B", "panel": 1, "name": "Will It.. | Panel 01 - B", "previewHash": "5622bf6d153c72a670ac4d1712292e9f5a7e7c930b8fa2778680cedeefdbfa78"},
+    {"tokenId": 810, "letter": "B", "panel": 2, "name": "Will It.. | Panel 02 - B", "previewHash": "2c55c22cba2f8b0934c7c2b709358e299c13bb0d058380c7f1fb12fa07113e08"},
+    {"tokenId": 811, "letter": "B", "panel": 3, "name": "Will It.. | Panel 03 - B", "previewHash": "2c55c22cba2f8b0934c7c2b709358e299c13bb0d058380c7f1fb12fa07113e08"},
+    {"tokenId": 812, "letter": "C", "panel": 1, "name": "Will It.. | Panel 01 - C", "previewHash": "5622bf6d153c72a670ac4d1712292e9f5a7e7c930b8fa2778680cedeefdbfa78"},
+    {"tokenId": 813, "letter": "C", "panel": 2, "name": "Will It.. | Panel 02 - C", "previewHash": "2c55c22cba2f8b0934c7c2b709358e299c13bb0d058380c7f1fb12fa07113e08"},
+    {"tokenId": 814, "letter": "C", "panel": 3, "name": "Will It.. | Panel 03 - C", "previewHash": "2c55c22cba2f8b0934c7c2b709358e299c13bb0d058380c7f1fb12fa07113e08"},
+    {"tokenId": 815, "letter": "D", "panel": 1, "name": "Will It.. | Panel 01 - D", "previewHash": "5622bf6d153c72a670ac4d1712292e9f5a7e7c930b8fa2778680cedeefdbfa78"},
+    {"tokenId": 816, "letter": "D", "panel": 2, "name": "Will It.. | Panel 02 - D", "previewHash": "2c55c22cba2f8b0934c7c2b709358e299c13bb0d058380c7f1fb12fa07113e08"},
+    {"tokenId": 817, "letter": "D", "panel": 3, "name": "Will It.. | Panel 03 - D", "previewHash": "2c55c22cba2f8b0934c7c2b709358e299c13bb0d058380c7f1fb12fa07113e08"},
+    {"tokenId": 818, "letter": "E", "panel": 1, "name": "Will It.. | Panel 01 - E", "previewHash": "5622bf6d153c72a670ac4d1712292e9f5a7e7c930b8fa2778680cedeefdbfa78"},
+    {"tokenId": 819, "letter": "E", "panel": 2, "name": "Will It.. | Panel 02 - E", "previewHash": "2c55c22cba2f8b0934c7c2b709358e299c13bb0d058380c7f1fb12fa07113e08"},
+    {"tokenId": 820, "letter": "E", "panel": 3, "name": "Will It.. | Panel 03 - E", "previewHash": "2c55c22cba2f8b0934c7c2b709358e299c13bb0d058380c7f1fb12fa07113e08"}
+  ]
+}

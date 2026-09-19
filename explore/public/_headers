@@ -1,8 +1,16 @@
 /*
   Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
 
 /index.html
   Cache-Control: public, max-age=60, must-revalidate
+  # Warm CDN for catalogue + feature media
+  Link: <https://assets.nikxart.xyz>; rel=preconnect; crossorigin
 
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
+
+/favicon.svg
+  Cache-Control: public, max-age=86400

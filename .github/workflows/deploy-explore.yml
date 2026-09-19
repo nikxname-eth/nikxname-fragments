@@ -1,0 +1,59 @@
+# Production deploy for Cloudflare Pages project: nikxart-explore
+# Live URLs:
+#   https://nikxart-explore.pages.dev
+#   https://explore.nikxart.xyz  (after CNAME is set — see explore/README.md)
+#
+# Required GitHub secrets (repo Settings → Secrets → Actions):
+#   CLOUDFLARE_API_TOKEN  — Account · Cloudflare Pages · Edit
+#   CLOUDFLARE_ACCOUNT_ID — 808a563ceb13fcffd322db706da169e1
+#
+# Note: nikxart-explore is a Direct Upload project (same monorepo as the
+# drop site). Git-connected Pages cannot attach a second `source` to this
+# project, so Actions + wrangler is the production path.
+
+name: Deploy Explore
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'explore/**'
+      - 'scripts/sync-explore*.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/deploy-explore.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-explore-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build & deploy production
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build explore
+        run: npm run build:explore
+
+      - name: Deploy to Cloudflare Pages (production)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy explore/out --project-name=nikxart-explore --branch=main --commit-dirty=true

@@ -54,4 +54,13 @@ export const ON_CHAIN_COLLECTIONS: CollectionRegistryEntry[] = [
     chain: 'ethereum',
     scanMaxId: 1500,
   },
+  {
+    /** Manifold product: https://manifold.xyz/@nikxnames-art/p/nikxname1of1s */
+    seriesId: 'one-of-ones',
+    label: "Nikxname 1/1's",
+    address: '0x07f3bfe5ca8d84108df5c020f885d1d6bf40585e',
+    standard: 'erc721',
+    chain: 'ethereum',
+    scanMaxId: 50,
+  },
 ];

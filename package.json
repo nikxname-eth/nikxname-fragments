@@ -18,11 +18,22 @@
     "dev:explore": "cd explore && npx next dev -p 3001",
     "build:explore": "cd explore && npx next build --webpack",
     "sync:explore": "node scripts/sync-explore-collections.mjs",
+    "sync:explore:previews": "node scripts/sync-explore-previews.mjs",
+    "sync:explore:feature": "node scripts/sync-explore-feature-cache.mjs",
+    "sync:explore:media": "node scripts/sync-explore-media.mjs",
+    "sync:explore:embers": "node scripts/prep-embers-media.mjs",
+    "sync:explore:market": "node scripts/sync-explore-market.mjs",
+    "test:seaport": "npx tsx --test explore/lib/seaport/hash.test.ts",
     "deploy:explore": "npm run build:explore && cd explore && npx wrangler pages deploy out --project-name=nikxart-explore --branch=main --commit-dirty=true",
-    "preview:explore": "npm run build:explore && cd explore && npx wrangler pages dev out"
+    "preview:explore": "npm run build:explore && cd explore && npx wrangler pages dev out",
+    "dev:blossoms": "cd blossoms && npx next dev -p 3002",
+    "build:blossoms": "cd blossoms && if [ -d pages/api ]; then mv pages/api .api-dev; fi && npx next build --webpack; status=$?; if [ -d .api-dev ]; then mv .api-dev pages/api; fi; exit $status",
+    "deploy:blossoms": "npm run build:blossoms && cd blossoms && npx wrangler pages deploy out --project-name=nikxart-blossoms --branch=main --commit-dirty=true",
+    "preview:blossoms": "npm run build:blossoms && cd blossoms && npx wrangler pages dev out"
   },
   "dependencies": {
     "framer-motion": "^12.39.0",
+    "mediabunny": "^1.55.4",
     "next": "^16.2.4",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
@@ -34,6 +45,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint-config-next": "^16.2.4",
+    "sharp": "^0.35.3",
     "typescript": "5.9.3",
     "wrangler": "^4.112.0"
   }

@@ -2,5 +2,12 @@
   "$schema": "../node_modules/wrangler/config-schema.json",
   "name": "nikxart-explore",
   "compatibility_date": "2024-11-12",
-  "pages_build_output_dir": "out"
+  "pages_build_output_dir": "out",
+  "kv_namespaces": [
+    {
+      "binding": "GARDEN_EGG",
+      "id": "339942aa425847049a90781088548e4e",
+      "preview_id": "08d358d1237741378ff382489a58fe5f"
+    }
+  ]
 }

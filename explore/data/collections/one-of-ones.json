@@ -1,0 +1,62 @@
+{
+  "seriesId": "one-of-ones",
+  "label": "Nikxname 1/1's",
+  "contract": "0x07f3bfe5ca8d84108df5c020f885d1d6bf40585e",
+  "standard": "erc721",
+  "chain": "ethereum",
+  "name": "Nikxname 1/1's",
+  "symbol": "NKX1",
+  "chainId": 1,
+  "openSeaSlug": "ethereum",
+  "fetchedAt": "2026-08-08T17:04:37.026Z",
+  "count": 4,
+  "tokens": [
+    {
+      "tokenId": 1,
+      "name": "Reflection Of Self",
+      "description": "Peel back the layers  \nGive the masks a break\n\nLook inward through to bare  \nWho else is in there\n\nIs this everything?  \nThe essence, the unseen\n\nBeneath the surface  \nA world of dreams unfold\n\nIn the mirror\u2019s embrace  \nA scene untold\n\n*Digital painting created and executed by hand of the artist*",
+      "image": "https://arweave.net/W4Cy8VDGYhqOjolZXNP5eQ49Wa3v83v2ROc0funCWek",
+      "mediaUrl": "https://arweave.net/W4Cy8VDGYhqOjolZXNP5eQ49Wa3v83v2ROc0funCWek",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/1Aopq85VdmqGWU9ZJxnU8c8-FmnfnSo30L1y1dhAuBA",
+      "editionCount": 1,
+      "manifoldUrl": "https://manifold.xyz/@nikxnames-art/id/3868715248"
+    },
+    {
+      "tokenId": 2,
+      "name": "The Last Dance",
+      "description": "In a graceful choreography, every movement becomes a silent conversation between the past and the present, dancing within the tapestry of existence.\n\n\n*Digital painting created and executed by hand of the artist*",
+      "image": "https://arweave.net/1rb8_v63MKkJhSpDIcSuCYl3lcEeIste4WkFmuDUas4",
+      "mediaUrl": "https://arweave.net/1rb8_v63MKkJhSpDIcSuCYl3lcEeIste4WkFmuDUas4",
+      "mediaType": "image",
+      "tokenUri": "https://arweave.net/a3kLaaUlls5BM-EGU5RXh-jQNpgp61GSkKm-CTpO_II",
+      "editionCount": 1,
+      "manifoldUrl": "https://manifold.xyz/@nikxnames-art/id/3869008112"
+    },
+    {
+      "tokenId": 3,
+      "name": "Burn The Roses",
+      "description": "Whispers once vibrant now still,  \nCrimson dreams in dark decay,  \nRipples dance, embers rise,  \nLeaving marks along their way.\n\nIn twilight's shadow he ponders,  \nFire's dance reflects his plight,  \nAn envelope of silent words,  \nLost in the quiet of the night.\n\nRed petals turn to black,  \nMemories dissolve, disappear,  \nSilent storms with no return,  \nMysteries we can't clear.\n\n&\n\nIn shadows, hope ignites,  \nThough roses burn, hearts find light,  \nFrom ashes, rise unseen,  \nBegin again, amidst the night.  \n",
+      "image": "https://assets.nikxart.xyz/burntheroses/BurnTheRoses_CoverSml.gif",
+      "animationUrl": "https://assets.nikxart.xyz/burntheroses/BurnTheRoses-4k.mp4",
+      "mediaUrl": "https://assets.nikxart.xyz/burntheroses/BurnTheRoses-4k.mp4",
+      "mediaType": "video",
+      "tokenUri": "https://arweave.net/7ljCHKMfleBMVhLtHB2zoJWxErOG6TXzk2-_SFw5juc",
+      "editionCount": 1,
+      "manifoldUrl": "https://manifold.xyz/@nikxnames-art/contract/826945776/3"
+    },
+    {
+      "tokenId": 4,
+      "name": "Crimson Falls",
+      "description": "As all teeters..  \nOn life's edge.\n\nSafety calls softly..  \nThe deep void tempts.\n\nThe leap is ours alone..  \nWe fall or forge ahead.",
+      "image": "https://arweave.net/c8UyKd99EXj3sseEzmEl2tTRnmiBrpZsnNqdElMjsgM",
+      "animationUrl": "https://arweave.net/s4EcwQbcBKCg1OR3DZhJaHQ_WH5h8GHNIxUfydAYIfM",
+      "mediaUrl": "https://arweave.net/s4EcwQbcBKCg1OR3DZhJaHQ_WH5h8GHNIxUfydAYIfM",
+      "mediaType": "video",
+      "tokenUri": "https://arweave.net/I4iJnPv3m_ykxvCXEQxzePNDyVnWTjgh748pwiZIp_M",
+      "editionCount": 1,
+      "manifoldUrl": "https://manifold.xyz/@nikxnames-art/id/4174186736"
+    }
+  ],
+  "manifoldProductUrl": "https://manifold.xyz/@nikxnames-art/p/nikxname1of1s"
+}

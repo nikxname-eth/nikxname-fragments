@@ -4,6 +4,7 @@ const nextConfig = {
   distDir: '.next',
   images: { unoptimized: true },
   // Import shared artist config from parent package
+  transpilePackages: ['mediabunny'],
   experimental: {
     externalDir: true,
   },

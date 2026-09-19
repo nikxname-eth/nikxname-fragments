@@ -3,10 +3,12 @@
   "label": "For You..",
   "contract": "0x5174ed5f363ef4df2823f42be54de5fd61294e49",
   "standard": "erc1155",
+  "chain": "ethereum",
   "name": "For You..",
   "symbol": "ForYu",
   "chainId": 1,
-  "fetchedAt": "2026-08-06T21:02:04.669Z",
+  "openSeaSlug": "ethereum",
+  "fetchedAt": "2026-08-08T17:53:57.818Z",
   "count": 13,
   "tokens": [
     {
@@ -21,11 +23,35 @@
     {
       "tokenId": 2,
       "name": "Echo From Within",
-      "image": "https://arweave.net/9ueIZ8zBA0dhDs9p7JHsiuBkZhh3XAHdesRHoMjtZ3Q",
-      "mediaUrl": "https://arweave.net/9ueIZ8zBA0dhDs9p7JHsiuBkZhh3XAHdesRHoMjtZ3Q",
+      "image": "https://arweave.net/QAYAusvODnVIotWQZBNxx1XjYltDvhQsiVZzNSaPrk8",
+      "mediaUrl": "https://arweave.net/QAYAusvODnVIotWQZBNxx1XjYltDvhQsiVZzNSaPrk8",
       "mediaType": "image",
-      "tokenUri": "https://arweave.net/GtbRdCds7195ApXy4a3-sA_03l7cdeAvbU5YWVBfpfo",
-      "editionCount": 1
+      "tokenUri": "https://arweave.net/I35E8100O_kDEIahJObT_sUva2Ik1CJEHhRJdxkVumA",
+      "editionCount": 7,
+      "description": "Part 2 of 12\n\nEcho From Within\nHand Painted on Digital Canvas",
+      "manifoldUrl": "https://manifold.xyz/@nikxnames-art/id/4280498416",
+      "attributes": [
+        {
+          "trait_type": "Artist",
+          "value": "Nikxname"
+        },
+        {
+          "trait_type": "Medium",
+          "value": "Hand Painted on Digital Canvas"
+        },
+        {
+          "trait_type": "Artwork Dimensions",
+          "value": "5,250px X 7,000px"
+        },
+        {
+          "trait_type": "Year",
+          "value": "2025"
+        },
+        {
+          "trait_type": "Series",
+          "value": "For You.. \u00b7 Part 2 of 12"
+        }
+      ]
     },
     {
       "tokenId": 3,
@@ -127,5 +153,6 @@
       "tokenUri": "https://arweave.net/NRnJjUX1c8wbpcROmdzAD-2gXHd418UMWV3l15SuqCU",
       "editionCount": 1
     }
-  ]
+  ],
+  "manifoldProductNote": "Echo From Within is For You.. token #2 (edition), not the 1/1 contract."
 }
