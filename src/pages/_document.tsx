@@ -2,10 +2,11 @@ import { Html, Head, Main, NextScript } from 'next/document';
 import { CLAIM_SDK_VERSION, CONNECT_SDK_VERSION } from '../lib/manifoldConnect';
 
 const META = {
-  title: 'Together It Blooms — Nikxname',
-  description: 'An on-chain art discovery experience. 27 fragments revealed over time. Collection I — A Familiar Burn.',
+  title: 'La Maison — Nikxname',
+  description: 'La Maison — a living house of digital paintings. Walk the rooms. Collectors enter the Garden.',
   url: 'https://nikxart.xyz',
-  ogImage: 'https://assets.nikxart.xyz/sharepreview.jpg',
+  ogImage:
+    'https://assets.nikxart.xyz/cdn-cgi/image/width=1920,height=1008,fit=cover,quality=82,format=jpeg/BlossomFragments-Still.jpg',
   twitterHandle: '@nikxname',
 };
 
@@ -26,8 +27,8 @@ export default function Document() {
         <meta property="og:image" content={META.ogImage} />
         <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:image:width" content="1920" />
-        <meta property="og:image:height" content="972" />
-        <meta property="og:image:alt" content="Together It Blooms — Nikxname" />
+        <meta property="og:image:height" content="1008" />
+        <meta property="og:image:alt" content="Blossom Fragments · Still — Nikxname" />
         <meta property="og:site_name" content="Nikxname" />
 
         {/* Twitter / X */}
@@ -37,11 +38,11 @@ export default function Document() {
         <meta name="twitter:title" content={META.title} />
         <meta name="twitter:description" content={META.description} />
         <meta name="twitter:image" content={META.ogImage} />
-        <meta name="twitter:image:alt" content="Together It Blooms — Nikxname" />
+        <meta name="twitter:image:alt" content="Blossom Fragments · Still — Nikxname" />
 
-        {/* Favicon — served statically from the export (public/favicon.svg) */}
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        {/* PNG fallbacks (apple-touch-icon.png etc.) can be added to public/ later if desired */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
         {/* CDN + fonts */}
         <link rel="preconnect" href="https://assets.nikxart.xyz" crossOrigin="anonymous" />

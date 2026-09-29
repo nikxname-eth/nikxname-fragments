@@ -6,6 +6,9 @@ import {
   WOULD_IT_PANEL_B,
   WOULD_IT_PANEL_B_FULL,
   WOULD_IT_PANEL_B_THUMB,
+  WOULD_IT_PANEL_C,
+  WOULD_IT_PANEL_C_FULL,
+  WOULD_IT_PANEL_C_THUMB,
   WOULD_UNREVEALED,
   WOULD_UNREVEALED_THUMB,
   wouldItOpenSeaItem,
@@ -18,6 +21,7 @@ type WillItFile = {
   contract: string;
   panel01: string;
   panel02?: string;
+  panel03?: string;
   panelUnrevealed: string;
   tokens: {
     tokenId: number;
@@ -33,12 +37,14 @@ const FILE = willItJson as WillItFile;
 export function willItContentUrl(panel: number): string {
   if (panel === 1) return FILE.panel01;
   if (panel === 2) return FILE.panel02 || WOULD_IT_PANEL_B_FULL;
+  if (panel === 3) return FILE.panel03 || WOULD_IT_PANEL_C_FULL;
   return FILE.panelUnrevealed;
 }
 
 export function willItLocalImage(panel: number): string {
   if (panel === 1 && wouldPanelRevealed(1)) return WOULD_IT_PANEL_A;
   if (panel === 2 && wouldPanelRevealed(2)) return WOULD_IT_PANEL_B;
+  if (panel === 3 && wouldPanelRevealed(3)) return WOULD_IT_PANEL_C;
   return WOULD_UNREVEALED;
 }
 
@@ -51,6 +57,7 @@ export function willItPreviewSrc(panel: number): string {
 export function willItLookSrc(panel: number): string {
   if (panel === 1 && wouldPanelRevealed(1)) return WOULD_IT_PANEL_A_FULL;
   if (panel === 2 && wouldPanelRevealed(2)) return WOULD_IT_PANEL_B_FULL;
+  if (panel === 3 && wouldPanelRevealed(3)) return WOULD_IT_PANEL_C_FULL;
   return willItContentUrl(panel);
 }
 
@@ -60,11 +67,19 @@ export function getWillItWorks(): ExploreWork[] {
     const arweave = willItContentUrl(t.panel);
     const preview = rasterPreviewUrl(t.previewHash, 'image/2', 700) || willItLocalImage(t.panel);
     const hi =
-      t.panel === 1 ? WOULD_IT_PANEL_A_FULL : t.panel === 2 ? WOULD_IT_PANEL_B_FULL : arweave;
+      t.panel === 1
+        ? WOULD_IT_PANEL_A_FULL
+        : t.panel === 2
+          ? WOULD_IT_PANEL_B_FULL
+          : t.panel === 3
+            ? WOULD_IT_PANEL_C_FULL
+            : arweave;
     const cover = open
-      ? t.panel === 2
-        ? WOULD_IT_PANEL_B_THUMB
-        : WOULD_IT_PANEL_A
+      ? t.panel === 3
+        ? WOULD_IT_PANEL_C_THUMB
+        : t.panel === 2
+          ? WOULD_IT_PANEL_B_THUMB
+          : WOULD_IT_PANEL_A
       : WOULD_UNREVEALED_THUMB;
     const media = open ? willItLocalImage(t.panel) : preview;
     return {

@@ -43,20 +43,23 @@ export function emberGivenName(name: string): string {
 export function getEmbersWorks(): ExploreWork[] {
   return FILE.tokens.map((t, i) => {
     const local = emberById(t.emberId) || EMBERS[i];
-    const cover = t.localCover || `/embers/covers/${t.emberId}.gif`;
+    const still = t.localPoster || `/embers/thumbs/${t.emberId}.webp` || t.image;
+    const coverGif = t.localCover || `/embers/covers/${t.emberId}.gif`;
     const video1080 = t.media1080 && /\.mp4(\?|$)/i.test(t.media1080) ? t.media1080 : undefined;
     const video = video1080 || t.animationUrl || undefined;
+    const isVideo = Boolean(video);
     return {
       id: `a-familiar-burn-${t.tokenId}`,
       seriesId: 'a-familiar-burn' as const,
       title: emberGivenName(t.name),
       subtitle: t.palette || local?.name,
       kind: 'edition' as const,
-      coverUrl: cover,
-      originCoverUrl: t.coverGif || t.image,
-      mediaUrl: video || t.media1080 || t.image,
-      mediaUrlHi: video1080 || video || t.image,
-      mediaType: video ? 'video' : 'image',
+      coverUrl: still,
+      originCoverUrl: isVideo ? t.image : t.posterUrl || still,
+      motionUrl: isVideo ? coverGif : undefined,
+      mediaUrl: video || t.media1080 || still,
+      mediaUrlHi: video1080 || video || t.media1080 || still,
+      mediaType: isVideo ? 'video' : 'image',
       nativeFps: 24,
       contractAddress: CONTRACT,
       tokenId: t.tokenId,
@@ -65,9 +68,13 @@ export function getEmbersWorks(): ExploreWork[] {
       sort: t.tokenId,
       editionCount: 1,
       tags: ['embers'],
-      blurb: t.palette
-        ? `Flutter Into The Embers · ${t.palette}. Hand painted, animated frame by frame at 24fps.`
-        : 'Flutter Into The Embers. Hand painted, animated frame by frame at 24fps.',
+      blurb: isVideo
+        ? t.palette
+          ? `Flutter Into The Embers · ${t.palette}. Hand painted, animated frame by frame at 24fps.`
+          : 'Flutter Into The Embers. Hand painted, animated frame by frame at 24fps.'
+        : t.palette
+          ? `Flutter Into The Embers · ${t.palette}. Hand painted still.`
+          : 'Flutter Into The Embers. Hand painted still.',
     };
   });
 }

@@ -24,7 +24,7 @@ export const EMBERS: EmberButterfly[] = [
   { id: 'peach-ember', name: 'Peach Ember' },
   { id: 'rosedust', name: 'Rosedust' },
   { id: 'coral-veil', name: 'Coral Veil' },
-  { id: 'watermelon', name: 'Watermelon' },
+  { id: 'watermelon', name: 'TORCHED' },
   { id: 'dusted-pink', name: 'Dusted Pink' },
   { id: 'shell', name: 'Shell' },
   { id: 'x-ray', name: 'X-ray' },

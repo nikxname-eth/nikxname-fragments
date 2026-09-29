@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import type { RefObject } from 'react';
 import {
   CLAIM_INSTANCES,
+  FINAL_FRAGMENT_PIECE,
+  FRAGMENT_27_REVEAL,
   FRAGMENT_SITE_MEDIA,
   PIECE_NAMES,
   TEASER_PREVIEW_URL,
@@ -72,30 +74,37 @@ export function PieceMintSection({
       </div>
 
       {mode === 'live' && (
-        <div className="mint-card">
-          <div className="mint-card-row">
-            <div className="mint-card-meta">
-              <span className="mint-card-label">Mint price</span>
-              <span className="mint-card-value">{claim.mintPrice}</span>
+        <>
+          <div className="mint-card">
+            <div className="mint-card-row">
+              <div className="mint-card-meta">
+                <span className="mint-card-label">Mint price</span>
+                <span className="mint-card-value">{claim.mintPrice}</span>
+              </div>
+              <div className="mint-card-meta">
+                <span className="mint-card-label">Collected</span>
+                <span className="mint-card-value">
+                  <ManifoldMintCount instanceId={claim.instanceId} active />
+                </span>
+              </div>
+              <div className="mint-card-meta">
+                <span className="mint-card-label">Edition</span>
+                <span className="mint-card-value">Open</span>
+              </div>
             </div>
-            <div className="mint-card-meta">
-              <span className="mint-card-label">Collected</span>
-              <span className="mint-card-value">
-                <ManifoldMintCount instanceId={claim.instanceId} active />
-              </span>
-            </div>
-            <div className="mint-card-meta">
-              <span className="mint-card-label">Edition</span>
-              <span className="mint-card-value">Open</span>
-            </div>
+            <ManifoldBuyButton
+              instanceId={claim.instanceId}
+              pieceNumber={pieceNumber}
+              active
+              sessionKey={sessionKey}
+            />
           </div>
-          <ManifoldBuyButton
-            instanceId={claim.instanceId}
-            pieceNumber={pieceNumber}
-            active
-            sessionKey={sessionKey}
-          />
-        </div>
+          {pieceNumber === FINAL_FRAGMENT_PIECE && (
+            <p className="piece-metadata-note">
+              *{FRAGMENT_27_REVEAL.metadataNote}
+            </p>
+          )}
+        </>
       )}
 
       {mode === 'teaser' && (

@@ -207,6 +207,7 @@ type Props = {
   seed?: ExploreWork | null;
   onClose: () => void;
   onObserve?: (work: ExploreWork) => void;
+  closeLabel?: string;
 };
 
 const EMPTY_AR = 4 / 5;
@@ -214,7 +215,10 @@ const EMPTY_AR = 4 / 5;
 function stillCoverSrc(work: ExploreWork): string {
   const list = [work.coverUrl, work.originCoverUrl];
   for (const u of list) {
-    if (u && !/\.(mp4|webm|mov)(\?|$)/i.test(u)) return u;
+    if (!u) continue;
+    if (/\.(mp4|webm|mov)(\?|$)/i.test(u)) continue;
+    if (u.startsWith('blob:') && isVideoWork(work) && u === work.mediaUrl) continue;
+    return u;
   }
   return '';
 }
@@ -267,7 +271,7 @@ function HangGlyph({ n }: { n: 1 | 2 | 3 }) {
  * any Nikxname work without owning it. Red/green availability dots from a
  * Raster + ownership layer — browse-to-hang, then live sold/available.
  */
-export function ArrangeWall({ works, catalogue, seed, onClose, onObserve }: Props) {
+export function ArrangeWall({ works, catalogue, seed, onClose, onObserve, closeLabel = 'Close' }: Props) {
   const [frames, setFrames] = useState<1 | 2 | 3>(1);
   const [wallColor, setWallColor] = useState<string>('#4a4e54');
   const [wallPaperId, setWallPaperId] = useState<string | null>('slate');
@@ -328,6 +332,23 @@ export function ArrangeWall({ works, catalogue, seed, onClose, onObserve }: Prop
       ),
     [slots],
   );
+  const hangEncodeNote = useMemo(() => {
+    const hung = slots.filter((w): w is ExploreWork => Boolean(w));
+    const motion = hung.filter((w) => isVideoWork(w) || (w.nativeFps != null && w.nativeFps > 0));
+    if (!motion.length) return null;
+    const rates = motion.map((w) => w.nativeFps || 0).filter((n) => n > 0);
+    const unique = [...new Set(rates)];
+    if (unique.length === 1 && unique[0] === 24) {
+      return 'Encodes at 24fps. Flutter Into The Embers is 24fps — matching works hang together.';
+    }
+    if (unique.length === 1) {
+      return `Encodes at ${unique[0]}fps. Works at this rate hang together.`;
+    }
+    if (unique.length > 1) {
+      return `Mixed frame rates (${unique.join(' / ')} fps). Only matching rates stay in motion.`;
+    }
+    return 'Video hangs encode at 24fps when the master is known (Embers, Fragments).';
+  }, [slots]);
 
   const flashQuality = useCallback((id: string) => {
     setQShow((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
@@ -575,6 +596,7 @@ export function ArrangeWall({ works, catalogue, seed, onClose, onObserve }: Prop
         step,
         deepMat,
         wallPaper: paperEl,
+        wallEl: hangRef.current?.closest('.ex-arrange-wall') as HTMLElement | null,
         pieces: slots.flatMap((work, i) => {
           if (!work) return [];
           const media = slotNodes[i]?.querySelector('img, video') as
@@ -804,6 +826,8 @@ export function ArrangeWall({ works, catalogue, seed, onClose, onObserve }: Prop
             <span className="ex-arrange-save-err" role="status">
               {saveErr}
             </span>
+          ) : hangEncodeNote ? (
+            <span className="ex-arrange-save-note">{hangEncodeNote}</span>
           ) : null}
         </div>
         <button
@@ -826,8 +850,14 @@ export function ArrangeWall({ works, catalogue, seed, onClose, onObserve }: Prop
         >
           {immersive ? '✕' : '▣'}
         </button>
-        <button type="button" className="ex-arrange-close" onClick={onClose} aria-label="Close">
-          ✕
+        <button
+          type="button"
+          className="ex-arrange-return"
+          onClick={onClose}
+          aria-label={closeLabel}
+          title={closeLabel}
+        >
+          {closeLabel === 'Close' ? '✕' : closeLabel}
         </button>
       </header>
 
@@ -1024,10 +1054,14 @@ export function ArrangeWall({ works, catalogue, seed, onClose, onObserve }: Prop
                             loop
                             autoPlay
                             playsInline
-                            preload="metadata"
+                            preload={activeTier.url.startsWith('blob:') ? 'auto' : 'metadata'}
                             onLoadedMetadata={(e) => {
                               const v = e.currentTarget;
                               noteRatio(v.videoWidth, v.videoHeight);
+                              void v.play().catch(() => {});
+                            }}
+                            onCanPlay={(e) => {
+                              void e.currentTarget.play().catch(() => {});
                             }}
                             onError={() => {
                               const lower = lowerTierId(tiers, tierId);
@@ -1139,6 +1173,11 @@ export function ArrangeWall({ works, catalogue, seed, onClose, onObserve }: Prop
               ? 'Drag a work onto a frame, or drag a hung work onto another frame to swap.'
               : `Placing in frame ${active + 1} of ${frames} — drag hung works to rearrange.`}
           </p>
+          {closeLabel !== 'Close' ? (
+            <button type="button" className="ex-arrange-return-foot" onClick={onClose}>
+              {closeLabel}
+            </button>
+          ) : null}
           <div className="ex-arrange-strip" role="list">
             {uniqueWorks.map((work) => {
               const used = slots.some((s) => s?.id === work.id);

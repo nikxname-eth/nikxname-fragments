@@ -18,7 +18,7 @@ import willItJson from '../data/will-it-tokens.json';
 import embersJson from '../data/embers-tokens.json';
 import { rasterPreviewUrl } from './contracts';
 
-export type AssetStore = 'Arweave' | 'IPFS' | 'CDN';
+export type AssetStore = 'Arweave' | 'IPFS' | 'R2' | 'CDN';
 
 export type AssetRecord = {
   name: string;
@@ -54,6 +54,7 @@ function kindFromUrl(url: string, mediaType?: string): string {
 function storeFromUrl(url: string): AssetStore {
   if (/arweave\.net|ar:\/\//i.test(url)) return 'Arweave';
   if (/ipfs|nftstorage|web3storage/i.test(url)) return 'IPFS';
+  if (/assets\.nikxart\.xyz/i.test(url)) return 'R2';
   return 'CDN';
 }
 
@@ -136,6 +137,8 @@ export function listKnownAssets(): AssetRecord[] {
   });
   const will = willItJson as {
     panel01: string;
+    panel02?: string;
+    panel03?: string;
     panelUnrevealed: string;
     tokens: { name: string; panel: number; previewHash: string }[];
   };
@@ -164,6 +167,41 @@ export function listKnownAssets(): AssetRecord[] {
     name: 'Will It.. · Panel 02 · 5000px',
     collection: 'A Familiar Burn',
     url: '/would-it/canvas-b-full.jpg',
+    indexed: today,
+    kind: 'image',
+  });
+  push(rows, seen, {
+    name: 'Will It.. · Panel 03 · site',
+    collection: 'A Familiar Burn',
+    url: '/would-it/canvas-c.webp',
+    indexed: today,
+    kind: 'image',
+  });
+  push(rows, seen, {
+    name: 'Will It.. · Panel 03 · master',
+    collection: 'A Familiar Burn',
+    url: will.panel03 || '/would-it/canvas-c-full.jpg',
+    indexed: today,
+    kind: 'image',
+  });
+  push(rows, seen, {
+    name: 'Will It.. · Panel 03 · R2',
+    collection: 'A Familiar Burn',
+    url: 'https://assets.nikxart.xyz/would-it/canvas-c-full.jpg',
+    indexed: today,
+    kind: 'image',
+  });
+  push(rows, seen, {
+    name: 'Life Impression 56 · Arweave',
+    collection: 'Life Impressions',
+    url: 'https://3hrhxzqo3kafkdnfdo4ebfm7a4qhif3c6knm4t4ogk7ycvu5e2va.arweave.net/2eJ75g7agFUNpRu4QJWfByB0F2Lyms5PjjK_gVadJqo',
+    indexed: today,
+    kind: 'image',
+  });
+  push(rows, seen, {
+    name: 'Life Impression 56 · R2',
+    collection: 'Life Impressions',
+    url: 'https://assets.nikxart.xyz/explore/media/life-impressions/56.jpg',
     indexed: today,
     kind: 'image',
   });
@@ -276,8 +314,41 @@ export function listKnownAssets(): AssetRecord[] {
     }
   }
   return rows.sort((a, b) => {
+    const store = a.store === b.store ? 0 : a.store === 'Arweave' ? -1 : b.store === 'Arweave' ? 1 : a.store.localeCompare(b.store);
+    if (store) return store;
     const c = a.collection.localeCompare(b.collection);
     if (c) return c;
     return a.name.localeCompare(b.name, undefined, { numeric: true });
+  });
+}
+
+export type CatalogueCensus = {
+  label: string;
+  minted: number;
+  files: number;
+  arweave: number;
+  r2: number;
+};
+
+/** Minted tokens in the catalogue dumps vs files The Archivery knows. */
+export function catalogueCensus(): CatalogueCensus[] {
+  const files = listKnownAssets();
+  const minted: { label: string; minted: number }[] = [
+    { label: 'The Void', minted: (voidJson as Dump).tokens?.length ?? 0 },
+    { label: 'Life Impressions', minted: (lifeJson as Dump).tokens?.length ?? 0 },
+    { label: 'For You..', minted: (forYouJson as Dump).tokens?.length ?? 0 },
+    { label: 'For Her..', minted: (forHerJson as Dump).tokens?.length ?? 0 },
+    { label: '1/1s', minted: (oneOfOnesJson as Dump).tokens?.length ?? 0 },
+    { label: 'A Familiar Burn', minted: (afbJson as Dump).tokens?.length ?? 0 },
+  ];
+  return minted.map((m) => {
+    const rows = files.filter((f) => f.collection === m.label);
+    return {
+      label: m.label,
+      minted: m.minted,
+      files: rows.length,
+      arweave: rows.filter((r) => r.store === 'Arweave').length,
+      r2: rows.filter((r) => r.store === 'R2').length,
+    };
   });
 }

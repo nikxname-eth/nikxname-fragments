@@ -21,7 +21,6 @@ import { WorkCard } from './WorkCard';
 import { AfbCanvas } from './AfbCanvas';
 import { AfbPuzzlingEye, AfbWillIt } from './AfbPrelude';
 import { ShareDownloads } from './ShareDownloads';
-import { LivePill } from './LivePill';
 import { SeriesCopy } from './SeriesCopy';
 
 type Props = {
@@ -127,13 +126,15 @@ export function CollectionSite({ seriesId, itemSlug }: Props) {
               <a className="ex-nav-link" href="https://explore.nikxart.xyz">
                 Explore
               </a>
-              <a className="ex-nav-link" href="https://explore.nikxart.xyz/who">
+              <a className="ex-nav-link ex-nav-who" href="https://explore.nikxart.xyz/who">
                 Who?
+              </a>
+              <a className="ex-nav-link" href="https://explore.nikxart.xyz/marche">
+                Marché
               </a>
             </nav>
           </div>
           <div className="ex-nav-right">
-            <LivePill />
             <button
               type="button"
               className="ex-theme-btn"
@@ -226,7 +227,9 @@ export function CollectionSite({ seriesId, itemSlug }: Props) {
         <footer className="ex-footer">
           <span className="ex-footer-copy">© {new Date().getFullYear()} Nikxname · {series?.label}</span>
           <div className="ex-footer-links">
-            <LivePill />
+            <a className="ex-footer-who" href="https://explore.nikxart.xyz/who">
+              Who?
+            </a>
             <a href={rasterMarketUrl(seriesId)} target="_blank" rel="noopener noreferrer">
               Secondary Market
             </a>

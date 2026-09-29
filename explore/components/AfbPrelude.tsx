@@ -1,5 +1,5 @@
 import type { ExploreWork } from '../config/catalog';
-import { WOULD_IT_PANEL_A, WOULD_IT_PANEL_B, WOULD_UNREVEALED } from '../config/would-it';
+import { WOULD_IT_PANEL_A, WOULD_IT_PANEL_B, WOULD_IT_PANEL_C } from '../config/would-it';
 
 const PUZZLING_EYE_GIF =
   'https://assets.nikxart.xyz/explore/media/a-familiar-burn/puzzling-eye.gif';
@@ -54,14 +54,13 @@ export function AfbWillIt() {
           <em>02</em>
         </span>
         <span className="ex-afb-will-cell">
-          <img src={WOULD_UNREVEALED} alt="" loading="lazy" decoding="async" />
+          <img src={`${WOULD_IT_PANEL_C}?v=open`} alt="" loading="lazy" decoding="async" />
           <em>03</em>
         </span>
       </div>
       <hr className="ex-afb-rule" />
-      <a className="ex-read-more ex-afb-live" href="https://explore.nikxart.xyz/will-it">
-        <span className="ex-nav-live-dot" aria-hidden="true" />
-        View Live
+      <a className="ex-read-more" href="https://explore.nikxart.xyz/will-it">
+        Look Closer
       </a>
     </section>
   );

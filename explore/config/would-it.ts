@@ -7,20 +7,32 @@ export const WOULD_IT_COLLECTION = 'https://explore.nikxart.xyz/a-familiar-burn'
 export const WOULD_IT_RASTER =
   'https://www.raster.art/artwork/a-familiar-burn-by-nikxname?sort=listing';
 export const WOULD_IT_LIST_ETH = '0.008';
-/** Panel 2 listings open 10:00 AM Eastern, 14 Sep 2026. */
+/** Panel 2 listed 14 Sep; Panel 3 (last remaining) lists 8:00 PM Eastern, 21 Sep 2026. */
 export const WOULD_IT_PANEL_LIST_AT: Partial<Record<number, string>> = {
   2: '2026-09-14T10:00:00-04:00',
+  3: '2026-09-21T20:00:00-04:00',
+};
+/** On-chain metadata / reveal for panel 3 around 7:50 PM Eastern. */
+export const WOULD_IT_PANEL_REVEAL_AT: Partial<Record<number, string>> = {
+  3: '2026-09-21T19:50:00-04:00',
 };
 export const WOULD_IT_CONTRACT = '0x1641b09e11d19e6f6b9f80273158f9da28555593';
 /** Wallets that still hold unsold studio inventory. */
 export const WOULD_IT_TREASURY = ['0x81c306bcdc036f334ef4fb8f85a8e6be730a0763']; // ARTIST_MINT_WALLET
-export const WOULD_IT_BANNER = '/would-it/banner.webp';
+export const WOULD_IT_BANNER = '/would-it/banner.webp?v=triptych-c';
+/** R2 backup until the live Arweave banner URI is set after tonight's metadata update. */
+export const WOULD_IT_BANNER_R2 = 'https://assets.nikxart.xyz/would-it/banner-triptych.jpg';
+export const WOULD_IT_BANNER_ARWEAVE = '';
 export const WOULD_IT_SHARE = 'https://explore.nikxart.xyz/would-it/share.jpg?v=banner-03';
 export const WOULD_IT_PANEL_A = '/would-it/canvas-a.webp';
 export const WOULD_IT_PANEL_A_FULL = '/would-it/canvas-a-full.jpg';
 export const WOULD_IT_PANEL_B = '/would-it/canvas-b.webp';
 export const WOULD_IT_PANEL_B_THUMB = '/would-it/canvas-b-thumb.webp';
 export const WOULD_IT_PANEL_B_FULL = '/would-it/canvas-b-full.jpg';
+export const WOULD_IT_PANEL_C = '/would-it/canvas-c.webp';
+export const WOULD_IT_PANEL_C_THUMB = '/would-it/canvas-c-thumb.webp';
+export const WOULD_IT_PANEL_C_FULL = '/would-it/canvas-c-full.jpg';
+export const WOULD_IT_PANEL_C_R2 = 'https://assets.nikxart.xyz/would-it/canvas-c-full.jpg';
 
 export type WouldCanvasId = 'A' | 'B' | 'C';
 
@@ -54,8 +66,10 @@ export const WOULD_CANVASES: WouldCanvas[] = [
   {
     id: 'C',
     label: 'Canvas C',
-    revealed: false,
+    revealed: true,
     manifold: `${WOULD_IT_MANIFOLD}/808`,
+    image: '/would-it/canvas-c.webp',
+    thumb: '/would-it/canvas-c-thumb.webp',
   },
 ];
 
@@ -90,8 +104,10 @@ export function wouldItOpenSeaItem(tokenId: number): string {
   return `https://opensea.io/item/ethereum/${WOULD_IT_CONTRACT}/${tokenId}`;
 }
 
-export function wouldPanelRevealed(panel: number): boolean {
-  return WOULD_CANVASES[panel - 1]?.revealed === true;
+export function wouldPanelRevealed(panel: number, now = Date.now()): boolean {
+  if (WOULD_CANVASES[panel - 1]?.revealed === true) return true;
+  const at = WOULD_IT_PANEL_REVEAL_AT[panel];
+  return Boolean(at && now >= Date.parse(at));
 }
 
 export function wouldPanelListed(panel: number, now = Date.now()): boolean {
@@ -103,11 +119,13 @@ export function wouldPanelListed(panel: number, now = Date.now()): boolean {
 
 export function wouldPanelSoonLabel(panel: number): string {
   if (panel === 2) return 'Available 10AM EST · 14 Sep';
+  if (panel === 3) return 'Available 8PM EST · 21 Sep';
   return 'Coming soon';
 }
 
 export function wouldPanelThumb(panel: number): string {
   if (panel === 1 && wouldPanelRevealed(1)) return '/would-it/canvas-a-thumb.webp';
   if (panel === 2 && wouldPanelRevealed(2)) return WOULD_IT_PANEL_B_THUMB;
+  if (panel === 3 && wouldPanelRevealed(3)) return WOULD_IT_PANEL_C_THUMB;
   return WOULD_UNREVEALED_THUMB;
 }

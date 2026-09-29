@@ -3,5 +3,12 @@
   "name": "nikxart-puzzle",
   "compatibility_date": "2024-11-12",
   "compatibility_flags": ["nodejs_compat"],
-  "pages_build_output_dir": "out"
+  "pages_build_output_dir": "out",
+  "kv_namespaces": [
+    {
+      "binding": "FINALE_CLAIMS",
+      "id": "d8c826df8539420f95aadfd050becc7f",
+      "preview_id": "086387d28f4a45828f637a234dc45919"
+    }
+  ]
 }

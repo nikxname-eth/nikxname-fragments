@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
 import {
   ATELIER_MESSAGE,
@@ -7,9 +7,9 @@ import {
   seedAtelierRows,
   type AtelierRow,
 } from '../lib/collectors';
-import { listKnownAssets } from '../lib/assetDirectory';
-import { LivePill } from '../components/LivePill';
 import { AtelierDesk } from '../components/AtelierDesk';
+import { Archivery } from '../components/Archivery';
+import { ReviewHang } from '../components/ReviewHang';
 
 type Eth = {
   request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
@@ -51,9 +51,8 @@ export default function AtelierPage() {
   const [status, setStatus] = useState<'locked' | 'loading' | 'ready' | 'saving' | 'error'>('locked');
   const [note, setNote] = useState('');
   const [updatedAt, setUpdatedAt] = useState('');
-  const [panel, setPanel] = useState<'book' | 'desk' | 'assets'>('desk');
+  const [panel, setPanel] = useState<'book' | 'desk' | 'assets' | 'review'>('desk');
   const [pulling, setPulling] = useState(false);
-  const assets = useMemo(() => listKnownAssets(), []);
 
   const admin = isAtelierAdmin(wallet);
 
@@ -171,9 +170,9 @@ export default function AtelierPage() {
             <a className="ex-nav-link" href="/garden">
               Garden
             </a>
+
           </div>
           <div className="ex-nav-right">
-            <LivePill />
             <button
               type="button"
               className="ex-theme-btn"
@@ -229,11 +228,24 @@ export default function AtelierPage() {
                 className={`ex-atelier-tab${panel === 'assets' ? ' is-on' : ''}`}
                 onClick={() => setPanel('assets')}
               >
-                Assets
+                The Archivery
               </button>
+              {isArtistWallet(wallet) ? (
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={panel === 'review'}
+                  className={`ex-atelier-tab${panel === 'review' ? ' is-on' : ''}`}
+                  onClick={() => setPanel('review')}
+                >
+                  Review
+                </button>
+              ) : null}
             </div>
             {panel === 'desk' && wallet && signature ? (
               <AtelierDesk wallet={wallet} signature={signature} readOnly={!isArtistWallet(wallet)} />
+            ) : panel === 'review' && isArtistWallet(wallet) ? (
+              <ReviewHang />
             ) : panel === 'book' ? (
             <>
             <div className="ex-atelier-toolbar">
@@ -355,48 +367,14 @@ export default function AtelierPage() {
             </div>
             </>
             ) : (
-            <div className="ex-atelier-assets">
-              <p className="ex-atelier-meta">
-                {assets.length} known masters · Arweave / IPFS / CDN. Pinning and backup come next.
-              </p>
-              <div className="ex-atelier-table-wrap">
-                <table className="ex-atelier-table ex-atelier-table--assets">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Collection</th>
-                      <th>Type</th>
-                      <th>Store</th>
-                      <th>Indexed</th>
-                      <th>Location</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {assets.map((a) => (
-                      <tr key={a.url}>
-                        <td>{a.name}</td>
-                        <td>{a.collection}</td>
-                        <td>{a.kind}</td>
-                        <td>{a.store}</td>
-                        <td>{a.indexed || '—'}</td>
-                        <td>
-                          <a href={a.url} target="_blank" rel="noopener noreferrer">
-                            {a.url.replace(/^https:\/\//, '').slice(0, 56)}
-                            {a.url.replace(/^https:\/\//, '').length > 56 ? '…' : ''}
-                          </a>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            wallet && signature ? (
+              <Archivery wallet={wallet} signature={signature} />
+            ) : (
+              <p className="ex-atelier-meta">Sign in to open The Archivery.</p>
+            )
             )}
           </div>
         )}
-        <footer className="ex-footer">
-          <LivePill />
-        </footer>
       </div>
     </>
   );

@@ -104,6 +104,7 @@ type HangLayout = {
   canvasH: number;
   s: number;
   frames: FrameRect[];
+  fromDom?: boolean;
 };
 
 function stillUrlFor(work: ExploreWork): string {
@@ -321,6 +322,56 @@ function saveBlob(blob: Blob, filename: string) {
   }, 10_000);
 }
 
+function measureFromWall(wall: HTMLElement, maxW: number, maxH: number): HangLayout | null {
+  const wr = wall.getBoundingClientRect();
+  if (wr.width < 48 || wr.height < 48) return null;
+  const slots = [...wall.querySelectorAll('[data-slot]')];
+  if (!slots.length) return null;
+  const scale = Math.min(maxW / wr.width, maxH / wr.height);
+  const canvasW = even(wr.width * scale);
+  const canvasH = even(wr.height * scale);
+  const s = canvasW / wr.width;
+  const frames: FrameRect[] = slots.map((slot) => {
+    const frame = slot.querySelector('.ex-arrange-frame') as HTMLElement | null;
+    const media = slot.querySelector('.ex-arrange-mat img, .ex-arrange-mat video, img, video') as
+      | HTMLElement
+      | null;
+    const fr = (frame || slot).getBoundingClientRect();
+    const mr = (media || frame || slot).getBoundingClientRect();
+    return {
+      x: (fr.left - wr.left) * s,
+      y: (fr.top - wr.top) * s,
+      fw: fr.width * s,
+      fh: fr.height * s,
+      ix: (mr.left - wr.left) * s,
+      iy: (mr.top - wr.top) * s,
+      iw: mr.width * s,
+      ih: mr.height * s,
+    };
+  });
+  return { canvasW, canvasH, s, frames, fromDom: true };
+}
+
+function scaleLayout(layout: HangLayout, k: number): HangLayout {
+  if (Math.abs(k - 1) < 0.001) return layout;
+  return {
+    canvasW: even(layout.canvasW * k),
+    canvasH: even(layout.canvasH * k),
+    s: layout.s * k,
+    fromDom: layout.fromDom,
+    frames: layout.frames.map((f) => ({
+      x: f.x * k,
+      y: f.y * k,
+      fw: f.fw * k,
+      fh: f.fh * k,
+      ix: f.ix * k,
+      iy: f.iy * k,
+      iw: f.iw * k,
+      ih: f.ih * k,
+    })),
+  };
+}
+
 function computeLayout(
   pieces: HangCapturePiece[],
   hang: number,
@@ -419,56 +470,56 @@ function paintHang(
   const { s, frames } = layout;
   for (let i = 0; i < pieces.length; i++) {
     const f = frames[i];
-    const rad = Math.max(1.5, 2 * s);
+    const rad = Math.max(1, 1.2 * s);
 
     ctx.save();
-    ctx.fillStyle = finish.shadow;
-    roundRect(ctx, f.x + 1.6 * s, f.y + 2.8 * s, f.fw, f.fh, rad);
+    ctx.fillStyle = 'rgba(0,0,0,0.32)';
+    roundRect(ctx, f.x + 2 * s, f.y + 8 * s, f.fw, f.fh, rad);
     ctx.fill();
     ctx.restore();
 
-    const metal = ctx.createLinearGradient(f.x, f.y, f.x + f.fw * 0.2, f.y + f.fh);
+    const metal = ctx.createLinearGradient(f.x, f.y, f.x + f.fw * 0.45, f.y + f.fh);
     for (const [stop, color] of finish.metal) metal.addColorStop(stop, color);
     roundRect(ctx, f.x, f.y, f.fw, f.fh, rad);
     ctx.fillStyle = metal;
     ctx.fill();
     ctx.strokeStyle = finish.edge;
-    ctx.lineWidth = Math.max(1, 0.9 * s);
+    ctx.lineWidth = Math.max(1, s);
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.moveTo(f.x + 1.4 * s, f.y + f.fh - 2.2 * s);
-    ctx.lineTo(f.x + 1.4 * s, f.y + 1.4 * s);
-    ctx.lineTo(f.x + f.fw - 2.2 * s, f.y + 1.4 * s);
+    ctx.moveTo(f.x + s, f.y + f.fh - 3 * s);
+    ctx.lineTo(f.x + s, f.y + s);
+    ctx.lineTo(f.x + f.fw - 3 * s, f.y + s);
     ctx.strokeStyle = finish.highlight;
-    ctx.lineWidth = Math.max(1.2, 1.5 * s);
+    ctx.lineWidth = Math.max(1, s);
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.moveTo(f.x + 2.2 * s, f.y + f.fh - 1.4 * s);
-    ctx.lineTo(f.x + f.fw - 1.4 * s, f.y + f.fh - 1.4 * s);
-    ctx.lineTo(f.x + f.fw - 1.4 * s, f.y + 2.2 * s);
+    ctx.moveTo(f.x + 3 * s, f.y + f.fh - s);
+    ctx.lineTo(f.x + f.fw - s, f.y + f.fh - s);
+    ctx.lineTo(f.x + f.fw - s, f.y + 3 * s);
     ctx.strokeStyle = finish.shade;
-    ctx.lineWidth = Math.max(1.2, 1.7 * s);
+    ctx.lineWidth = Math.max(1, 1.4 * s);
     ctx.stroke();
 
-    const moulding = f.ix - f.x;
-    const innerMat = moulding * 0.55;
-    ctx.fillStyle = finish.mat;
-    ctx.fillRect(
-      f.x + innerMat,
-      f.y + innerMat,
-      f.fw - innerMat * 2,
-      f.fh - innerMat * 2,
-    );
-    ctx.fillStyle = finish.well;
-    ctx.fillRect(f.ix, f.iy, f.iw, f.ih);
+    const insetX = Math.max(s, f.ix - f.x);
+    const insetY = Math.max(s, f.iy - f.y);
+    ctx.fillStyle = '#121214';
+    ctx.fillRect(f.x + insetX * 0.35, f.y + insetY * 0.35, f.fw - insetX * 0.7, f.fh - insetY * 0.7);
 
     const live = pieces[i].media;
     const src =
       sources[i] ??
       (live instanceof HTMLVideoElement && live.readyState >= 2 ? live : null);
-    if (src) drawContain(ctx, src, f.ix, f.iy, f.iw, f.ih);
+    if (src) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(f.ix, f.iy, f.iw, f.ih);
+      ctx.clip();
+      drawContain(ctx, src, f.ix, f.iy, f.iw, f.ih);
+      ctx.restore();
+    }
   }
 }
 
@@ -501,6 +552,12 @@ function loadVideo(url: string, cors: boolean): Promise<HTMLVideoElement> {
     const timer = window.setTimeout(() => reject(new Error('Video load timeout')), 20_000);
     v.onloadeddata = () => {
       window.clearTimeout(timer);
+      v.pause();
+      try {
+        v.currentTime = 0;
+      } catch {
+        /* */
+      }
       resolve(v);
     };
     v.onerror = () => {
@@ -660,27 +717,56 @@ async function detectVideoFps(v: HTMLVideoElement): Promise<number> {
   return snapFps(1 / dts[Math.floor(dts.length / 2)]);
 }
 
-function seekVideo(v: HTMLVideoElement, time: number, waitMs = 80): Promise<void> {
+function frameTime(time: number, fps: number, duration: number): number {
+  const frame = 1 / fps;
+  const looped = ((time % duration) + duration) % duration;
+  const snapped = Math.round(looped / frame) * frame;
+  return Math.min(Math.max(0, snapped), Math.max(0, duration - frame * 0.25));
+}
+
+function waitPresented(v: HTMLVideoElement): Promise<void> {
+  const rvfc = (
+    v as HTMLVideoElement & {
+      requestVideoFrameCallback?: (cb: () => void) => number;
+    }
+  ).requestVideoFrameCallback;
+  if (typeof rvfc !== 'function') return Promise.resolve();
+  return new Promise((resolve) => {
+    const stop = window.setTimeout(resolve, 90);
+    rvfc.call(v, () => {
+      window.clearTimeout(stop);
+      resolve();
+    });
+  });
+}
+
+function seekVideo(v: HTMLVideoElement, time: number, fps: number): Promise<void> {
   const duration = v.duration;
   if (!Number.isFinite(duration) || duration <= 0) return Promise.resolve();
-  const target = ((time % duration) + duration) % duration;
-  if (Math.abs(v.currentTime - target) < 0.012) return Promise.resolve();
+  const target = frameTime(time, fps, duration);
+  const slop = 1 / fps / 4;
+  if (Math.abs(v.currentTime - target) < slop && v.readyState >= 2) {
+    return waitPresented(v);
+  }
   return new Promise((resolve) => {
     let settled = false;
     const done = () => {
       if (settled) return;
       settled = true;
       v.removeEventListener('seeked', done);
-      resolve();
+      v.removeEventListener('error', done);
+      void waitPresented(v).then(resolve);
     };
     v.addEventListener('seeked', done);
+    v.addEventListener('error', done);
     try {
+      v.pause();
       v.currentTime = target;
     } catch {
       done();
       return;
     }
-    window.setTimeout(done, waitMs);
+    window.setTimeout(done, 480);
   });
 }
 
@@ -795,20 +881,23 @@ async function captureHangVideo(opts: {
   filename: string;
   wallPaper?: CanvasImageSource | null;
   deepMat?: boolean;
+  wallEl?: HTMLElement | null;
 }): Promise<void> {
-  const { wallColor, hang, step, pieces, wallPaper, deepMat } = opts;
+  const { wallColor, hang, step, pieces, wallPaper, deepMat, wallEl } = opts;
   const frameTone = resolveFrameTone(opts.frameTone, opts.pale);
   const audioQ = new Quality({ bitrate: 192_000, bitrateMode: 'constant' });
   if (!(await canEncodeAudio('aac', { numberOfChannels: 2, sampleRate: 44100, quality: audioQ }))) {
     throw new Error('This browser cannot encode AAC audio required by X.');
   }
 
-  const draft = computeLayout(pieces, hang, step, MAX_VIDEO_EDGE, MAX_VIDEO_EDGE, deepMat);
+  const draft =
+    (wallEl && measureFromWall(wallEl, MAX_VIDEO_EDGE, MAX_VIDEO_EDGE)) ||
+    computeLayout(pieces, hang, step, MAX_VIDEO_EDGE, MAX_VIDEO_EDGE, deepMat);
   const size = await ensureEncodeSize(draft.canvasW, draft.canvasH);
   const layout =
     size.w === draft.canvasW && size.h === draft.canvasH
       ? draft
-      : computeLayout(pieces, hang, step, size.w, size.h, deepMat);
+      : scaleLayout(draft, size.w / draft.canvasW);
   const canvas = document.createElement('canvas');
   canvas.width = layout.canvasW;
   canvas.height = layout.canvasH;
@@ -829,28 +918,26 @@ async function captureHangVideo(opts: {
     ...videos.map((v) => videoDuration(v)),
     ...feeds.map((f) => f.gif?.duration ?? 0),
   ]);
-  const fpsList = await Promise.all([
-    ...videos.map((v) => detectVideoFps(v)),
-    ...feeds.map((f) => Promise.resolve(f.gif?.fps ?? 0)),
-  ]);
-  const declared = pieces
-    .filter((p) => workHasMotion(p.work, p.media))
-    .map((p) => p.work.nativeFps || 0)
-    .filter((n) => n > 0);
-  const native = fpsList.filter((n) => n > 0);
-  const embersHang = pieces.some(
-    (p) => p.work.tags?.includes('embers') || p.work.nativeFps === 24,
-  );
-  const fps = embersHang
-    ? 24
-    : snapFps(declared.length ? Math.max(...declared) : native.length ? Math.max(...native) : 24);
+  const declared = pieces.map((p, i) => {
+    if (!feeds[i].video && !feeds[i].gif) return 0;
+    return snapFps(p.work.nativeFps || feeds[i].gif?.fps || 0);
+  });
+  const movingRates = declared.filter((n) => n > 0);
+  const uniqueRates = [...new Set(movingRates)];
+  const fps = uniqueRates.length === 1 ? uniqueRates[0] : uniqueRates[0] || 24;
+  const freezeVideo = feeds.map((f, i) => {
+    if (!f.video) return false;
+    const rate = declared[i] || fps;
+    if (uniqueRates.length <= 1) return false;
+    const first = feeds.findIndex((x) => x.video);
+    return i !== first && rate !== fps;
+  });
   const seconds = hangSeconds(durs);
   const frameCount = Math.max(1, Math.round(seconds * fps));
   const duration = frameCount / fps;
   const bitrate =
     seconds > 24 ? Math.min(4_000_000, size.bitrate) : seconds > 10 ? 5_000_000 : size.bitrate;
   const keyEvery = seconds > 10 ? 2 : 1;
-  const seekWait = Math.max(16, Math.round(1000 / fps / 2));
 
   const target = new BufferTarget();
   const output = new Output({
@@ -881,12 +968,25 @@ async function captureHangVideo(opts: {
     await output.start();
     await audioSource.add(silentStereo(duration));
 
+    videos.forEach((v) => {
+      v.pause();
+      v.muted = true;
+    });
+
     for (let i = 0; i < frameCount; i++) {
       const t = i / fps;
-      await Promise.all(videos.map((v) => seekVideo(v, t, seekWait)));
-      const sources = feeds.map((f) => feedAt(f, t) ?? f.still);
+      await Promise.all(
+        feeds.map((f, idx) => {
+          if (!f.video || freezeVideo[idx]) return Promise.resolve();
+          return seekVideo(f.video, t, fps);
+        }),
+      );
+      const sources = feeds.map((f, idx) => {
+        if (freezeVideo[idx]) return f.still ?? f.video;
+        return feedAt(f, t) ?? f.still;
+      });
       paintHang(ctx, layout, pieces, sources, wallColor, frameTone, wallPaper);
-      const key = i === 0 || i % (fps * keyEvery) === 0;
+      const key = i === 0 || i % Math.max(1, fps * keyEvery) === 0;
       await videoSource.add(t, 1 / fps, key ? { keyFrame: true } : undefined);
     }
 
@@ -918,8 +1018,9 @@ export async function captureHang(opts: {
   filename: string;
   wallPaper?: CanvasImageSource | null;
   deepMat?: boolean;
+  wallEl?: HTMLElement | null;
 }): Promise<void> {
-  const { wallColor, hang, step, pieces, filename, wallPaper, deepMat } = opts;
+  const { wallColor, hang, step, pieces, filename, wallPaper, deepMat, wallEl } = opts;
   const frameTone = resolveFrameTone(opts.frameTone, opts.pale);
   if (!pieces.length) throw new Error('Nothing hung');
 
@@ -928,7 +1029,9 @@ export async function captureHang(opts: {
     return;
   }
 
-  const layout = computeLayout(pieces, hang, step, MAX_STILL_EDGE, MAX_STILL_EDGE, deepMat);
+  const layout =
+    (wallEl && measureFromWall(wallEl, MAX_STILL_EDGE, MAX_STILL_EDGE)) ||
+    computeLayout(pieces, hang, step, MAX_STILL_EDGE, MAX_STILL_EDGE, deepMat);
   const canvas = document.createElement('canvas');
   canvas.width = layout.canvasW;
   canvas.height = layout.canvasH;

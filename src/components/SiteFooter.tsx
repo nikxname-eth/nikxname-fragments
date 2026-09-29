@@ -1,3 +1,5 @@
+import { SECONDARY_MARKET_URL, WILL_IT_URL } from '../config/house';
+
 type Props = {
   themeClass: string;
   gwei: number | null;
@@ -8,13 +10,17 @@ export function SiteFooter({ themeClass, gwei }: Props) {
     <footer className={`footer${themeClass}`}>
       <span className="footer-copy">© 2026 Nikxname</span>
       <div className="footer-right">
+        <a className="nav-live is-live" href={WILL_IT_URL} aria-label="Live · Will It..">
+          <span className="nav-live-dot" aria-hidden="true" />
+          Live
+        </a>
         <a
-          href="https://www.raster.art/artwork/a-familiar-burn-by-nikxname"
+          href={SECONDARY_MARKET_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="footer-link"
         >
-          Raster
+          Secondary Market
         </a>
         <a
           href="https://manifold.xyz/@nikxnames-art"

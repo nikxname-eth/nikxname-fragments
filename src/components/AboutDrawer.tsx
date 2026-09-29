@@ -1,4 +1,4 @@
-import { ABOUT_COLLECTIONS } from '../config/artist';
+import { ABOUT_COLLECTIONS, ABOUT_X_URL } from '../config/artist';
 
 type Props = {
   open: boolean;
@@ -6,13 +6,13 @@ type Props = {
   onToggleBio: () => void;
 };
 
-/** Official X (Twitter) mark — currentColor so it matches the tag. */
-function XLogoIcon() {
+/** Official X (Twitter) mark — currentColor so it matches the name line. */
+function XLogoIcon({ className = 'about-x-icon' }: { className?: string }) {
   return (
     <svg
-      className="about-collection-icon"
-      width="12"
-      height="12"
+      className={className}
+      width="14"
+      height="14"
       viewBox="0 0 24 24"
       fill="currentColor"
       aria-hidden="true"
@@ -36,7 +36,21 @@ export function AboutDrawer({ open, bioExpanded, onToggleBio }: Props) {
         </div>
         <div className="about-text">
           <div className="about-heading">
-            <p className="about-name">Nikxname</p>
+            <p className="about-name">
+              <span>Nikxname</span>
+              <span className="about-name-sep" aria-hidden="true">
+                |
+              </span>
+              <a
+                href={ABOUT_X_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="about-x-link"
+                aria-label="Nikxname on X"
+              >
+                <XLogoIcon />
+              </a>
+            </p>
             <p className="about-tagline">Telling Human Stories</p>
           </div>
           <p className={`about-bio${bioExpanded ? ' expanded' : ''}`}>
@@ -63,20 +77,8 @@ export function AboutDrawer({ open, bioExpanded, onToggleBio }: Props) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="about-collection-tag about-collection-tag--external"
-                aria-label={
-                  'icon' in collection && collection.icon === 'x'
-                    ? 'Social on X, @nikxname'
-                    : undefined
-                }
               >
-                {'icon' in collection && collection.icon === 'x' ? (
-                  <>
-                    <span>Social |</span>
-                    <XLogoIcon />
-                  </>
-                ) : (
-                  collection.label
-                )}
+                {collection.label}
               </a>
             ))}
           </div>

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import { formatEther, parseEther } from 'viem';
-import { LivePill } from '../components/LivePill';
 import { NIKX_CONTRACTS } from '../lib/contracts';
 import { editionIdentity } from '../lib/editionIdentity';
 import { buildOffer, nowStart } from '../lib/seaport/build';
@@ -319,7 +318,6 @@ export default function MarketPage() {
             </a>
           </div>
           <div className="ex-nav-right">
-            <LivePill />
             <button
               type="button"
               className="ex-theme-btn"
@@ -465,9 +463,7 @@ export default function MarketPage() {
             <p className="ex-atelier-note">Public Buy is off. Listings can still be posted in Atelier.</p>
           ) : null}
         </div>
-        <footer className="ex-footer">
-          <LivePill />
-        </footer>
+        <footer className="ex-footer" />
       </div>
     </>
   );

@@ -65,7 +65,7 @@ function worksForShare(seriesId: SeriesId): ExploreWork[] {
   return getWorksBySeries(seriesId);
 }
 
-function toAsset(work: ExploreWork): ShareAsset | null {
+export function shareAssetForWork(work: ExploreWork): ShareAsset | null {
   const picked = pickShareFile(work);
   if (!picked) return null;
   const pad = work.pieceNumber != null ? String(work.pieceNumber).padStart(2, '0') : undefined;
@@ -91,7 +91,7 @@ function toAsset(work: ExploreWork): ShareAsset | null {
 
 export function shareAssetsForSeries(seriesId: SeriesId): ShareAsset[] {
   return worksForShare(seriesId)
-    .map(toAsset)
+    .map(shareAssetForWork)
     .filter((x): x is ShareAsset => Boolean(x));
 }
 

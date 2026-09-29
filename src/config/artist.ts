@@ -1,5 +1,5 @@
 /** Bump when banner / fragment assets change — busts CDN & browser caches. */
-export const SITE_ASSET_VERSION = '20260805f25a';
+export const SITE_ASSET_VERSION = '20260813bannerlast';
 
 /** Ambient site audio — toggled from nav (loops). */
 export const SITE_AUDIO_URL = 'https://assets.nikxart.xyz/TogetherItBloomsAudio.mp3';
@@ -20,15 +20,89 @@ export const TEASER_PREVIEW_URL = `https://assets.nikxart.xyz/previewtmp.jpg?v=$
  * rule as the mint block. Deploying the next fragment’s assets early must NOT
  * advance banner or canvas until the current window closes and the new one opens.
  */
-export const CANVAS_STATE_LATEST_PIECE = 25;
+export const CANVAS_STATE_LATEST_PIECE = 27;
 
 /** Latest banner piece on CDN — same number as canvas (always bump together). */
 export const BANNER_LATEST_PIECE = CANVAS_STATE_LATEST_PIECE;
 
+/** Final fragment — free mint + personal still→motion reveal after claim. */
+export const FINAL_FRAGMENT_PIECE = 27;
+
+/**
+ * Final master banner grid (replaces any BannerGrid-*-26-web / *-27-web refs).
+ * https://assets.nikxart.xyz/BannerGridDark-last.gif
+ * https://assets.nikxart.xyz/BannerGridLight-last.gif
+ */
+export const BANNER_LAST = {
+  dark: 'https://assets.nikxart.xyz/BannerGridDark-last.gif',
+  light: 'https://assets.nikxart.xyz/BannerGridLight-last.gif',
+} as const;
+
+/**
+ * Fragment 27 special experience:
+ * - Hero holds canvas state No.26 still (dark/light) until claim
+ * - After claim, BannerGrid-*-last.gif animates
+ * - Theatre canvas holds No.26 still, then reveals 27-web.gif after claim
+ */
+export const FRAGMENT_27_REVEAL = {
+  piece: FINAL_FRAGMENT_PIECE,
+  /** Free claim open through Thursday 11 am Eastern */
+  claimNote:
+    'For those who have successfully claimed all 27 Fragments. Final artwork reveal experience to start Thursday 11 EST',
+  reminderLines: [
+    'A reminder to slow down.',
+    'Arrive on your own time..',
+    'No rush needed.',
+    '',
+    'Together all will bloom..',
+    'As it was always meant to.',
+  ] as const,
+  /** Pre-claim canvas holds the prior evolution still */
+  canvasStillPiece: 26,
+  canvasRevealGif: `https://assets.nikxart.xyz/27-web.gif?v=${SITE_ASSET_VERSION}`,
+  /** Pre-claim hero: canvas state No.26 stills */
+  bannerStill: {
+    dark: `https://assets.nikxart.xyz/canvasstatedark-26.jpg`,
+    light: `https://assets.nikxart.xyz/canvasstatelight-26.jpg`,
+  },
+  /** Full animated banner GIFs (post-claim) — final master pair */
+  bannerGif: {
+    dark: BANNER_LAST.dark,
+    light: BANNER_LAST.light,
+  },
+  storageKey: 'nikxart:f27-reveal',
+  claimCta: 'Claim Fragment XXVII - Your Golden Ticket to claim the Final Masterpiece',
+  metadataNote:
+    'Fragment 27 Metadata to be updated upon final reveal with original Artwork',
+} as const;
+
 export function getBannerUrls(piece: number) {
+  // Never serve -26-web / -27-web — final masters live on *-last.gif
+  if (piece >= 26) {
+    return {
+      dark: BANNER_LAST.dark,
+      light: BANNER_LAST.light,
+    } as const;
+  }
   return {
     dark: `https://assets.nikxart.xyz/BannerGridDark-${piece}-web.gif`,
     light: `https://assets.nikxart.xyz/BannerGridLight-${piece}-web.gif`,
+  } as const;
+}
+
+/** F27 pre-claim hero stills (canvas state No.26). */
+export function getBannerStillUrls(_piece: number) {
+  return {
+    dark: FRAGMENT_27_REVEAL.bannerStill.dark,
+    light: FRAGMENT_27_REVEAL.bannerStill.light,
+  } as const;
+}
+
+/** Final animated banner GIFs (post-claim / live F26–27 window). */
+export function getBannerMotionUrls(_piece: number) {
+  return {
+    dark: BANNER_LAST.dark,
+    light: BANNER_LAST.light,
   } as const;
 }
 
@@ -75,23 +149,50 @@ const FRAGMENT_SHARE_URL_BY_PIECE: Record<number, string> = {
   23: 'https://assets.nikxart.xyz/Fragment-23_1080P.mp4',
   24: 'https://assets.nikxart.xyz/Fragment-24_1080P.mp4',
   25: 'https://assets.nikxart.xyz/Fragment-25_1080P.mp4',
+  26: 'https://assets.nikxart.xyz/Fragment-26_1080P.mp4',
+  27: 'https://assets.nikxart.xyz/Fragment-27_1080P.mp4',
 };
 
 /**
- * Hero banner — theme GIF for the live mint window piece (not deploy-time latest).
- * Matches mint + Theatre canvas timing so early evolutions do not flash the next grid.
+ * Hero banner for a piece/window.
+ * F27 special: canvas state No.26 still until claim, then BannerGrid-*-last.gif.
+ * Pieces 26+: always the final *-last masters (never -26-web / -27-web).
+ * Earlier pieces: theme GIF for the live mint window (not deploy-time latest).
  */
 export function getSiteBanner(options: {
   theme: 'dark' | 'light';
   piece?: number;
   now?: number;
+  /** When true and piece is 27, serve the full animated GIF */
+  revealed?: boolean;
 }) {
-  const piece = options.piece ?? getCanvasStatePiece(options.now);
+  // Banner follows the live mint window (not Theatre canvas, which can lag on F27).
+  const piece =
+    options.piece ??
+    getPrimaryLiveMintPiece(options.now) ??
+    getCanvasStatePiece(options.now);
+  if (piece === FINAL_FRAGMENT_PIECE) {
+    const still = getBannerStillUrls(piece);
+    const motion = getBannerMotionUrls(piece);
+    const base = options.revealed
+      ? options.theme === 'dark'
+        ? motion.dark
+        : motion.light
+      : options.theme === 'dark'
+        ? still.dark
+        : still.light;
+    return {
+      piece,
+      src: `${base}?v=${SITE_ASSET_VERSION}`,
+      kind: 'image' as const,
+    };
+  }
   const urls = getBannerUrls(piece);
   const base = options.theme === 'dark' ? urls.dark : urls.light;
   return {
     piece,
     src: `${base}?v=${SITE_ASSET_VERSION}`,
+    kind: 'image' as const,
   };
 }
 
@@ -126,6 +227,11 @@ export const ON_CHAIN_MEDIA: Record<number, string> = {
 
 /** Web-optimised share downloads (Cloudflare CDN) — one URL per released fragment. */
 export const FRAGMENT_SHARE_URLS: Record<number, string> = { ...FRAGMENT_SHARE_URL_BY_PIECE };
+
+/** 4K masters (HEVC) — Theatre loads only when the viewer asks. */
+export function fragment4kUrl(piece: number): string {
+  return `https://assets.nikxart.xyz/Fragment-${String(piece).padStart(2, '0')}_4K.mp4`;
+}
 
 /**
  * Web-optimised playback assets (Cloudflare CDN).
@@ -262,6 +368,17 @@ export const FRAGMENT_SITE_MEDIA: Record<
   },
   25: {
     displayUrl: FRAGMENT_SHARE_URLS[25],
+    posterUrl: 'https://assets.nikxart.xyz/releasedfragment25.jpg',
+    hasAudio: true,
+  },
+  26: {
+    displayUrl: FRAGMENT_SHARE_URLS[26],
+    posterUrl: 'https://assets.nikxart.xyz/Fragments/releasedfragment26.jpg',
+    hasAudio: true,
+  },
+  27: {
+    displayUrl: FRAGMENT_SHARE_URLS[27],
+    posterUrl: 'https://assets.nikxart.xyz/Fragment-27_Cover.jpg?v=cover-02',
     hasAudio: true,
   },
 };
@@ -273,6 +390,12 @@ export const FRAGMENT_SITE_MEDIA: Record<
 export const FRAGMENT_CLAIM_URI_MARKERS: Record<number, string[]> = {
   1: ['y59jKPO1M12WQ81y-h4sRouWXegvhxYV_Wxg1ccjyQk'],
   2: ['tyMlGm_W8v-sIn8PyTWRKcGw3owGbfDGU-vOERVRksM'],
+  /** F27 — Arweave metadata + media ids from Manifold claim */
+  27: [
+    'Ef2qTOX3jkPHqTPElYX9-FxCcdZPxLLsGpZ89WE_iNc',
+    '5cB2vYPtoLTgl7kqhjgxXiWapwU85BuaUVVhLqDSJnY',
+    '2heSZSUA5ajAXNoNefNpKlI0uXk3PLa-0V2JO5IO8h4',
+  ],
 };
 
 /** Manifold claim instance per fragment — add a row when each piece drops. */
@@ -405,6 +528,16 @@ export const CLAIM_INSTANCES: Record<
     manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4040900848',
     mintPrice: '0.00044 ETH',
   },
+  26: {
+    instanceId: '4040253680',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4040253680',
+    mintPrice: '0.00044 ETH',
+  },
+  27: {
+    instanceId: '4039770352',
+    manifoldUrl: 'https://manifold.xyz/@nikxnames-art/id/4039770352',
+    mintPrice: '0 ETH',
+  },
 };
 
 /** Resolve fragment number from a Manifold claim instance id. */
@@ -434,6 +567,8 @@ function toDropISO(ms: number): string {
 
 function getDropWindowMeta(piece: number): Pick<DropScheduleEntry, 'windowType' | 'windowHours'> {
   if (piece === 1) return { windowType: 'launch', windowHours: 96 };
+  /** F27 free claim: Mon 11am ET → Thu 11am ET (Manifold closes Thursday). */
+  if (piece === FINAL_FRAGMENT_PIECE) return { windowType: 'weekend', windowHours: 72 };
   if (piece % 3 === 2) return { windowType: 'weekend', windowHours: 72 };
   return { windowType: 'forty-eight', windowHours: 48 };
 }
@@ -501,20 +636,31 @@ export function getPrimaryLiveMintPiece(now = Date.now()): number | null {
  * Canvas state for Theatre = the fragment currently in its mint window.
  * Falls back to the latest opened piece (never the next unopened evolution).
  * Matches mint timing so early deploys do not advance Theatre canvas early.
+ *
+ * F27 special: hold canvas still on No.26 until personal claim reveal
+ * (see FRAGMENT_27_REVEAL / TheatreDrawer).
  */
 export function getCanvasStatePiece(now = Date.now()): number {
   const live = getPrimaryLiveMintPiece(now);
+  if (live === FINAL_FRAGMENT_PIECE) {
+    return FRAGMENT_27_REVEAL.canvasStillPiece;
+  }
   if (live != null) {
     return Math.min(live, CANVAS_STATE_LATEST_PIECE);
   }
 
   for (let piece = CANVAS_STATE_LATEST_PIECE; piece >= 1; piece--) {
+    if (piece === FINAL_FRAGMENT_PIECE) continue;
     if (isDropWindowOpen(piece, now) || isDropWindowEnded(piece, now)) {
       return piece;
     }
   }
 
   return 1;
+}
+
+export function isFinalFragmentLive(now = Date.now()): boolean {
+  return getPrimaryLiveMintPiece(now) === FINAL_FRAGMENT_PIECE;
 }
 
 export function getFragmentThumbUrl(piece: number, width = 160): string | null {
@@ -628,20 +774,17 @@ export function getDropState(now = Date.now()) {
   };
 }
 
-/** About drawer footer tags — add one at a time. */
+/** About drawer — primary outbound link only. */
 export const ABOUT_COLLECTIONS = [
   {
-    label: 'Portfolio & Secondary',
-    href: 'https://www.raster.art/artist/nikxname',
+    label: 'Explore body of work',
+    href: 'https://explore.nikxart.xyz',
     external: true as const,
-  },
-  {
-    label: 'Social | X',
-    href: 'https://x.com/nikxname',
-    external: true as const,
-    icon: 'x' as const,
   },
 ] as const;
+
+/** About drawer name-line social */
+export const ABOUT_X_URL = 'https://x.com/nikxname';
 
 /** Pinned X post introducing Together It Blooms / Fragment 01. */
 export const PROJECT_X_ARTICLE = 'https://x.com/Nikxname/status/2064076924138172738';

@@ -4,8 +4,8 @@ import type { ExploreWork, SeriesId } from '../config/catalog';
 import { SERIES, getSeriesById, LIVE_SITE } from '../config/catalog';
 import { getChainCollection } from '../lib/chainWorks';
 import { fetchTokenOwner, type OwnerResult } from '../lib/owner';
-import { captureHang } from '../lib/captureHang';
-import { canonicalSlug } from '../lib/workSlug';
+import { downloadAsset } from '../lib/downloadAsset';
+import { shareAssetForWork } from '../lib/shareAssets';
 import {
   catalogueThumbUrl,
   defaultTierId,
@@ -98,6 +98,7 @@ export function WorkStage({
   const [tierId, setTierId] = useState<MediaTierId>('1080');
   const [isPhone, setIsPhone] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState(false);
   const [qShow, setQShow] = useState(true);
   const qTimer = useRef(0);
   const [magnifyOn, setMagnifyOn] = useState(false);
@@ -186,6 +187,7 @@ export function WorkStage({
     setTierId(work ? defaultTierId(mediaTiersFor(work)) : 'fit');
     setMagnifyOn(false);
     setObserveOpen(false);
+    setSaveError(false);
   }, [work]);
 
   useEffect(() => {
@@ -414,27 +416,14 @@ export function WorkStage({
 
   const saveWork = useCallback(async () => {
     if (!work || saving) return;
+    const asset = shareAssetForWork(work);
+    if (!asset) return;
     setSaving(true);
+    setSaveError(false);
     try {
-      const el = mediaNodeRef.current;
-      let ar = 4 / 5;
-      if (el instanceof HTMLVideoElement && el.videoWidth && el.videoHeight) {
-        ar = el.videoWidth / el.videoHeight;
-      } else if (el instanceof HTMLImageElement && el.naturalWidth && el.naturalHeight) {
-        ar = el.naturalWidth / el.naturalHeight;
-      }
-      const stage = document.querySelector('.ex-theatre');
-      const wallColor = stage ? getComputedStyle(stage).backgroundColor : '#0c0b0f';
-      await captureHang({
-        wallColor,
-        pale: false,
-        hang: 0.82,
-        step: 0,
-        pieces: [{ work, ar, media: el }],
-        filename: `nikxart-${canonicalSlug(work)}.jpg`,
-      });
+      await downloadAsset(asset.downloadUrl, asset.downloadName);
     } catch {
-      /* keep viewing */
+      setSaveError(true);
     } finally {
       setSaving(false);
     }
@@ -537,10 +526,12 @@ export function WorkStage({
                 className="ex-theatre-save"
                 disabled={saving}
                 onClick={() => void saveWork()}
-                title="Save a high-res image of this work"
-                aria-label={saving ? 'Saving' : 'Save'}
+                title="Save the same Full HD file as Share the work"
+                aria-label={saving ? 'Saving' : saveError ? 'Save failed, try again' : 'Save'}
               >
-                <span className="ex-theatre-save-label">{saving ? 'Saving…' : 'Save'}</span>
+                <span className="ex-theatre-save-label">
+                  {saving ? 'Saving…' : saveError ? 'Retry' : 'Save'}
+                </span>
                 <svg className="ex-theatre-save-icon" viewBox="0 0 16 16" width="15" height="15" aria-hidden>
                   <path
                     d="M8 2v8M5 7.5 8 10.5 11 7.5M3 13h10"
@@ -857,7 +848,9 @@ export function WorkStage({
                 )}
                 {work.editionCount != null && work.editionCount > 1 && (
                   <p className="ex-theatre-panel-meta-line">
-                    ×{work.editionCount} claimed
+                    {work.seriesId === 'life-impressions' && work.editionCount === 5
+                      ? 'A–E · ×5'
+                      : `×${work.editionCount} claimed`}
                   </p>
                 )}
 

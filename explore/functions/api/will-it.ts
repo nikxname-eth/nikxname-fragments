@@ -28,7 +28,7 @@ type Env = {
   GARDEN_EGG?: { get(key: string): Promise<string | null>; put(key: string, value: string, opts?: { expirationTtl?: number }): Promise<void> };
 };
 
-const CACHE_KEY = 'will-it:status:v4';
+const CACHE_KEY = 'will-it:status:v5';
 const CACHE_TTL = 90;
 const TREASURY = new Set(WOULD_IT_TREASURY.map((a) => a.toLowerCase()));
 const CORS = {

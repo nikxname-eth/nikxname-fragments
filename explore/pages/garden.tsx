@@ -12,7 +12,6 @@ import { ArrangeWall } from '../components/ArrangeWall';
 import { CatalogueBook } from '../components/CatalogueBook';
 import { LookBook } from '../components/LookBook';
 import { CanvasLook } from '../components/CanvasLook';
-import { LivePill } from '../components/LivePill';
 import { observeStillUrl } from '../lib/mediaUrl';
 import { rasterMarketUrl } from '../config/catalog';
 
@@ -369,13 +368,15 @@ export default function GardenPage() {
               <a className="ex-nav-link" href="/">
                 Explore
               </a>
-              <a className="ex-nav-link" href="/who">
+              <a className="ex-nav-link ex-nav-who" href="/who">
                 Who?
+              </a>
+              <a className="ex-nav-link" href="/marche">
+                Marché
               </a>
             </nav>
           </div>
           <div className="ex-nav-right">
-            <LivePill />
             {gardenWallet && (
               <span className="ex-garden-addr" title={gardenWallet}>
                 {curator ? (
@@ -689,7 +690,9 @@ export default function GardenPage() {
         ) : null}
 
         <footer className="ex-garden-foot">
-          <LivePill />
+          <a className="ex-footer-who" href="/who">
+            Who?
+          </a>
           <a className="ex-garden-market" href={rasterMarketUrl()} target="_blank" rel="noopener noreferrer">
             Secondary Market
           </a>

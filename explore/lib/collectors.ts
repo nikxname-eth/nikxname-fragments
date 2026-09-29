@@ -26,7 +26,7 @@ export const COLLECTORS: CollectorProfile[] = [
     name: 'Nikxname',
     title: 'Artist',
     kicker: 'The studio book',
-    lead: 'Every canvas in the house — held, listed, or already in other gardens.',
+    lead: 'Every canvas in La Maison — held, listed, or already in other gardens.',
     admin: true,
   },
   {

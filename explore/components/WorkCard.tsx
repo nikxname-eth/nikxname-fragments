@@ -30,14 +30,20 @@ export function WorkCard({
         : undefined;
 
   const eager = compact ? index < 7 : index < 6;
+  const motionSrc = work.motionUrl;
+  const [armed, setArmed] = useState(false);
 
   return (
     <motion.button
       type="button"
       className={`ex-card${isActive ? ' is-active' : ''}${compact ? ' ex-card--compact' : ''}${
         work.tags?.includes('portrait') ? ' ex-card--portrait' : ''
-      }${work.tags?.includes('embers') ? ' ex-card--ember' : ''}`}
+      }${work.tags?.includes('embers') ? ' ex-card--ember' : ''}${motionSrc ? ' has-motion' : ''}${
+        armed ? ' is-armed' : ''
+      }`}
       onClick={() => onSelect(work)}
+      onMouseEnter={() => motionSrc && setArmed(true)}
+      onFocus={() => motionSrc && setArmed(true)}
       initial={eager ? { opacity: 0, y: 10 } : false}
       animate={{ opacity: 1, y: 0 }}
       transition={eager ? { delay: Math.min(index * 0.03, 0.25), duration: 0.4 } : { duration: 0 }}
@@ -46,6 +52,7 @@ export function WorkCard({
     >
       <div className="ex-card-media">
         <img
+          className="ex-card-still"
           src={src}
           alt=""
           loading={eager ? 'eager' : 'lazy'}
@@ -62,7 +69,26 @@ export function WorkCard({
             if (fallback && src !== fallback) setSrc(fallback);
           }}
         />
+        {motionSrc && armed ? (
+          <img className="ex-card-gif" src={motionSrc} alt="" decoding="async" />
+        ) : null}
+        {motionSrc && !compact ? (
+          <span
+            className="ex-motion-view"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setArmed((v) => !v);
+            }}
+            onPointerDown={(e) => e.stopPropagation()}
+          >
+            {armed ? 'Still' : 'View'}
+          </span>
+        ) : null}
         {!compact && work.tags?.includes('live') && <span className="ex-card-badge live">Live</span>}
+        {!compact && work.editionCount != null && work.editionCount > 1 ? (
+          <span className="ex-card-badge editions">×{work.editionCount}</span>
+        ) : null}
       </div>
       <div className="ex-card-meta">
         <p className="ex-card-title">{work.title}</p>

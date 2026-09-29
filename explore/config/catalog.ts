@@ -13,7 +13,7 @@ import {
   PIECE_NAMES,
   getPrimaryLiveMintPiece,
 } from '../../src/config/artist';
-import { afbFragmentCopies, getChainWorksForSeries } from '../lib/chainWorks';
+import { afbFragmentCopies, afbFragmentTokenIds, getChainWorksForSeries } from '../lib/chainWorks';
 import { getMarketWorks } from '../lib/market';
 import { resolveCatalogueCover } from '../lib/previews';
 
@@ -35,8 +35,10 @@ export type ExploreWork = {
   /** Light caption under the card - keep short; omit token # unless fragment */
   subtitle?: string;
   kind: WorkKind;
-  /** Catalogue grid (prefer R2 preview) */
+  /** Catalogue grid still (prefer R2 preview). GIF lives on motionUrl. */
   coverUrl: string;
+  /** Cover GIF — catalogue plays this on hover only, so the grid stays still. */
+  motionUrl?: string;
   /** Origin still/poster - used when R2 preview is missing */
   originCoverUrl?: string;
   /** Theatre playback (1080p / optimized when available) */
@@ -51,6 +53,8 @@ export type ExploreWork = {
   openSeaUrl?: string;
   contractAddress?: string;
   tokenId?: number;
+  /** Sibling edition token ids when the card is collapsed (e.g. Life Impression 56 A–E). */
+  tokenIds?: number[];
   pieceNumber?: number;
   mintPrice?: string;
   tags?: string[];
@@ -275,7 +279,7 @@ export function getBlossomCanvasWork(mode: 'still' | 'animated' = 'still'): Expl
  * Catalogue / landing use GIF; Theatre opens full video (with audio).
  */
 function fragmentCoverGif(piece: number): string {
-  if (piece === 27) return 'https://assets.nikxart.xyz/Fragment-27_Cover.gif';
+  if (piece === 27) return 'https://assets.nikxart.xyz/Fragment-27_Cover.jpg?v=cover-02';
   const pad = String(piece).padStart(2, '0');
   return `https://assets.nikxart.xyz/Fragments/Fragment-${pad}_Cover.gif`;
 }
@@ -308,15 +312,16 @@ export function getFragmentWorks(now = Date.now()): ExploreWork[] {
     const coverGif = fragmentCover(piece);
     const video = fragmentVideo(piece);
     const id = `fragment-${piece}`;
+    const tokenIds = afbFragmentTokenIds(piece);
     return {
       id,
       seriesId: 'a-familiar-burn' as const,
       title: PIECE_NAMES[piece] ?? `Fragment ${piece}`,
       subtitle: isLive ? 'Live' : undefined,
       kind: 'fragment' as const,
-      // Cover GIF for grid / feature / thumbs (not BannerGrid, not R2 still previews)
-      coverUrl: coverGif,
-      originCoverUrl: coverGif,
+      coverUrl: fragmentStill(piece),
+      originCoverUrl: fragmentStill(piece),
+      motionUrl: coverGif,
       // Full MP4 with audio when opened in Theatre (1080p). 4K on demand.
       mediaUrl: video,
       mediaUrlHi: fragment4kUrl(piece),
@@ -328,6 +333,8 @@ export function getFragmentWorks(now = Date.now()): ExploreWork[] {
       sort: piece,
       editionCount: afbFragmentCopies(piece),
       nativeFps: 24,
+      tokenId: tokenIds[0],
+      tokenIds,
     };
   });
 }

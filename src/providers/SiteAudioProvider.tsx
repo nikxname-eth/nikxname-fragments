@@ -7,7 +7,6 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { SITE_AUDIO_URL, SITE_AUDIO_VOLUME } from '../config/artist';
 
 const STORAGE_KEY = 'nikxart-sound-on';
 
@@ -44,38 +43,21 @@ const SiteAudioContext = createContext<SiteAudioContextValue | null>(null);
 export function SiteAudioProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const suppressSources = useRef(new Set<string>());
-  const [soundOn, setSoundOn] = useState(true);
+  const [soundOn, setSoundOn] = useState(false);
   const [masterSuppressed, setMasterSuppressedState] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setSoundOn(readSoundPref());
-    const audio = new Audio(SITE_AUDIO_URL);
-    audio.loop = true;
-    audio.preload = 'auto';
-    audio.volume = SITE_AUDIO_VOLUME;
-    audioRef.current = audio;
+    /* Ambient music is parked for now — keep the provider so callers stay valid. */
+    setSoundOn(false);
     setReady(true);
-
-    return () => {
-      audio.pause();
-      audio.src = '';
-      audioRef.current = null;
-    };
   }, []);
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || !ready) return;
-
-    if (soundOn && !masterSuppressed) {
-      audio.play().catch(() => {
-        /* autoplay blocked until user toggles sound */
-      });
-    } else {
-      audio.pause();
-      if (!soundOn) audio.currentTime = 0;
-    }
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
   }, [soundOn, masterSuppressed, ready]);
 
   const toggleSound = useCallback(() => {

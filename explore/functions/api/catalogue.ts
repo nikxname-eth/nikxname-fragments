@@ -27,6 +27,7 @@ function toRow(w: ExploreWork, collection: string) {
     collection,
     seriesId: w.seriesId,
     tokenId: w.tokenId,
+    tokenIds: w.tokenIds,
     contract: w.contractAddress,
     qty: w.editionCount && w.editionCount > 1 ? w.editionCount : 1,
     cover: w.coverUrl || w.originCoverUrl,

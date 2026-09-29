@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 import { EMBERS, type EmberButterfly } from '../config/embers';
-import { LivePill } from '../components/LivePill';
 
 const SLOT_COUNT = 5;
 
@@ -90,10 +89,15 @@ export default function FlutterIntoTheEmbersPage() {
               <a className="ex-nav-link" href="https://explore.nikxart.xyz">
                 Explore
               </a>
+              <a className="ex-nav-link ex-nav-who" href="https://explore.nikxart.xyz/who">
+                Who?
+              </a>
+              <a className="ex-nav-link" href="https://explore.nikxart.xyz/marche">
+                Marché
+              </a>
             </nav>
           </div>
           <div className="ex-nav-right">
-            <LivePill />
             <button
               type="button"
               className="ex-theme-btn"
@@ -232,7 +236,11 @@ export default function FlutterIntoTheEmbersPage() {
             P.S. If you think this all ends with your selection.. think again.
           </p>
           <footer className="ex-footer">
-            <LivePill />
+            <div className="ex-footer-links">
+              <a className="ex-footer-who" href="https://explore.nikxart.xyz/who">
+                Who?
+              </a>
+            </div>
           </footer>
         </div>
       </div>

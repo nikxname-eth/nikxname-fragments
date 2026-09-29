@@ -6,8 +6,8 @@
   "name": "Life Impressions by Nikxname",
   "symbol": "LIMP",
   "chainId": 1,
-  "fetchedAt": "2026-08-06T21:01:52.448Z",
-  "count": 55,
+  "fetchedAt": "2026-09-21T23:10:00.000Z",
+  "count": 60,
   "tokens": [
     {
       "tokenId": 1,
@@ -558,6 +558,56 @@
       "mediaType": "image",
       "tokenUri": "https://arweave.net/X6YirSnZERgJ8owk_334kS49fFTeNVZM-6bxa01h2KE/11",
       "editionCount": 1
+    },
+    {
+      "tokenId": 56,
+      "name": "Life Impression 56",
+      "description": "Two chairs on the water. The first edition in this row — A through E.",
+      "image": "https://3hrhxzqo3kafkdnfdo4ebfm7a4qhif3c6knm4t4ogk7ycvu5e2va.arweave.net/2eJ75g7agFUNpRu4QJWfByB0F2Lyms5PjjK_gVadJqo",
+      "mediaUrl": "https://3hrhxzqo3kafkdnfdo4ebfm7a4qhif3c6knm4t4ogk7ycvu5e2va.arweave.net/2eJ75g7agFUNpRu4QJWfByB0F2Lyms5PjjK_gVadJqo",
+      "mediaType": "image",
+      "tokenUri": "https://opensea.io/item/ethereum/0xb00b42b5baa62f6ce800fb919b3d090b51c4463c/56",
+      "editionCount": 5
+    },
+    {
+      "tokenId": 57,
+      "name": "Life Impression 56",
+      "description": "Two chairs on the water. Edition B of five.",
+      "image": "https://3hrhxzqo3kafkdnfdo4ebfm7a4qhif3c6knm4t4ogk7ycvu5e2va.arweave.net/2eJ75g7agFUNpRu4QJWfByB0F2Lyms5PjjK_gVadJqo",
+      "mediaUrl": "https://3hrhxzqo3kafkdnfdo4ebfm7a4qhif3c6knm4t4ogk7ycvu5e2va.arweave.net/2eJ75g7agFUNpRu4QJWfByB0F2Lyms5PjjK_gVadJqo",
+      "mediaType": "image",
+      "tokenUri": "https://opensea.io/item/ethereum/0xb00b42b5baa62f6ce800fb919b3d090b51c4463c/57",
+      "editionCount": 5
+    },
+    {
+      "tokenId": 58,
+      "name": "Life Impression 56",
+      "description": "Two chairs on the water. Edition C of five.",
+      "image": "https://3hrhxzqo3kafkdnfdo4ebfm7a4qhif3c6knm4t4ogk7ycvu5e2va.arweave.net/2eJ75g7agFUNpRu4QJWfByB0F2Lyms5PjjK_gVadJqo",
+      "mediaUrl": "https://3hrhxzqo3kafkdnfdo4ebfm7a4qhif3c6knm4t4ogk7ycvu5e2va.arweave.net/2eJ75g7agFUNpRu4QJWfByB0F2Lyms5PjjK_gVadJqo",
+      "mediaType": "image",
+      "tokenUri": "https://opensea.io/item/ethereum/0xb00b42b5baa62f6ce800fb919b3d090b51c4463c/58",
+      "editionCount": 5
+    },
+    {
+      "tokenId": 59,
+      "name": "Life Impression 56",
+      "description": "Two chairs on the water. Edition D of five.",
+      "image": "https://3hrhxzqo3kafkdnfdo4ebfm7a4qhif3c6knm4t4ogk7ycvu5e2va.arweave.net/2eJ75g7agFUNpRu4QJWfByB0F2Lyms5PjjK_gVadJqo",
+      "mediaUrl": "https://3hrhxzqo3kafkdnfdo4ebfm7a4qhif3c6knm4t4ogk7ycvu5e2va.arweave.net/2eJ75g7agFUNpRu4QJWfByB0F2Lyms5PjjK_gVadJqo",
+      "mediaType": "image",
+      "tokenUri": "https://opensea.io/item/ethereum/0xb00b42b5baa62f6ce800fb919b3d090b51c4463c/59",
+      "editionCount": 5
+    },
+    {
+      "tokenId": 60,
+      "name": "Life Impression 56",
+      "description": "Two chairs on the water. Edition E of five.",
+      "image": "https://3hrhxzqo3kafkdnfdo4ebfm7a4qhif3c6knm4t4ogk7ycvu5e2va.arweave.net/2eJ75g7agFUNpRu4QJWfByB0F2Lyms5PjjK_gVadJqo",
+      "mediaUrl": "https://3hrhxzqo3kafkdnfdo4ebfm7a4qhif3c6knm4t4ogk7ycvu5e2va.arweave.net/2eJ75g7agFUNpRu4QJWfByB0F2Lyms5PjjK_gVadJqo",
+      "mediaType": "image",
+      "tokenUri": "https://opensea.io/item/ethereum/0xb00b42b5baa62f6ce800fb919b3d090b51c4463c/60",
+      "editionCount": 5
     }
   ]
 }

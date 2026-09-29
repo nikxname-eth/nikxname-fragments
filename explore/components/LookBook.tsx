@@ -47,6 +47,7 @@ export function LookBook({ open, catalogue, ownedIds, onToggle, onHang, onObserv
   const [listedIds, setListedIds] = useState<Set<string>>(new Set());
   const [listedHref, setListedHref] = useState<Record<string, string>>({});
   const [nativeBuy, setNativeBuy] = useState<Set<string>>(new Set());
+  const [openCols, setOpenCols] = useState<Set<string>>(() => new Set());
 
   useEffect(() => {
     let alive = true;
@@ -192,10 +193,30 @@ export function LookBook({ open, catalogue, ownedIds, onToggle, onHang, onObserv
                     { label: 'Will It..', works: will },
                   ].filter((b) => b.works.length)
                 : [{ label: null as string | null, works: g.works }];
+            const expanded = openCols.has(g.id);
             return (
             <section key={g.id}>
-              <h3>{g.label}</h3>
-              {blocks.map((b) => (
+              <h3>
+                <button
+                  type="button"
+                  className="ex-lookbook-fold"
+                  aria-expanded={expanded}
+                  onClick={() =>
+                    setOpenCols((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(g.id)) next.delete(g.id);
+                      else next.add(g.id);
+                      return next;
+                    })
+                  }
+                >
+                  <span aria-hidden="true">{expanded ? '▾' : '▸'}</span>
+                  {g.label}
+                  <em>{g.works.length}</em>
+                </button>
+              </h3>
+              {expanded
+                ? blocks.map((b) => (
                 <div key={b.label || 'main'}>
                   {b.label ? <h4 className="ex-lookbook-sub">{b.label}</h4> : null}
                   <ul>
@@ -203,7 +224,12 @@ export function LookBook({ open, catalogue, ownedIds, onToggle, onHang, onObserv
                   const st = stock(w);
                   const thumb = catalogueThumbUrl(w.coverUrl, 160) || w.coverUrl;
                   const href = marketHref(w, listingHref(w));
-                  const copies = w.editionCount && w.editionCount > 1 ? ` · ×${w.editionCount}` : '';
+                  const copies =
+                    w.editionCount && w.editionCount > 1
+                      ? w.editionCount === 5 && w.seriesId === 'life-impressions'
+                        ? ' · A–E · ×5'
+                        : ` · ×${w.editionCount}`
+                      : '';
                   return (
                     <li key={w.id}>
                       <button
@@ -243,7 +269,8 @@ export function LookBook({ open, catalogue, ownedIds, onToggle, onHang, onObserv
                     })}
                   </ul>
                 </div>
-              ))}
+              ))
+                : null}
             </section>
             );
           })}

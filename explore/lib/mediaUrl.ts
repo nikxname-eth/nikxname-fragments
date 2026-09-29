@@ -32,7 +32,12 @@ export const FIT_LONG_EDGE = 1600;
 export const HI_LONG_EDGE = 3840;
 
 function isVideoUrl(url: string): boolean {
-  return /\.(mp4|webm|mov)(\?|$)/i.test(url);
+  if (/\.(mp4|webm|mov)(\?|$)/i.test(url)) return true;
+  return false;
+}
+
+function isBlobVideo(work: Pick<ExploreWork, 'mediaType' | 'mediaUrl'>): boolean {
+  return work.mediaType === 'video' && Boolean(work.mediaUrl?.startsWith('blob:'));
 }
 
 function isPreviewUrl(url: string): boolean {
@@ -110,9 +115,16 @@ export function mediaTiersFor(work: ExploreWork): MediaTier[] {
 
   if (isVideoWork(work) && work.mediaUrl) {
     for (const url of [work.mediaUrl, work.mediaUrlHi, work.mediaUrlMax]) {
-      if (!url || !isVideoUrl(url)) continue;
-      const { id, label } = classifyVideo(url);
+      if (!url) continue;
+      if (!isVideoUrl(url) && !url.startsWith('blob:')) continue;
+      if (url.startsWith('blob:') && work.mediaType !== 'video') continue;
+      const { id, label } = url.startsWith('blob:')
+        ? { id: '1080' as MediaTierId, label: 'Review' }
+        : classifyVideo(url);
       push({ id, label, url, kind: 'video' });
+    }
+    if (isBlobVideo(work) && !tiers.length) {
+      push({ id: '1080', label: 'Review', url: work.mediaUrl, kind: 'video' });
     }
     tiers.sort((a, b) => TIER_RANK[a.id] - TIER_RANK[b.id]);
     return tiers;
@@ -141,6 +153,7 @@ export function mediaTiersFor(work: ExploreWork): MediaTier[] {
 /** Catalogue / strip thumb — small, fast, lazy-friendly */
 export function catalogueThumbUrl(url: string | undefined, width = 420): string {
   if (!url) return '';
+  if (url.startsWith('blob:') || url.startsWith('data:')) return url;
   // Keep GIF motion intact (Cloudflare resize would flatten them)
   if (/\.gif(\?|$)/i.test(url)) return url;
   return optimizeAssetUrl(url, { width, quality: 72, format: 'auto' });

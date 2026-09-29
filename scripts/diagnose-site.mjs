@@ -35,6 +35,11 @@ const CHECKS = [
   { id: 'mobile-nav', label: 'Mobile connect button sizing (44px tap)', pattern: /min-height:44px!important/ },
   { id: 'mint-overflow', label: 'Mint card overflow visible', pattern: /\.mint-card[^}]*overflow:visible/ },
 
+  { id: 'frag-27-instance', label: 'Fragment 27 Manifold instance', pattern: /4039770352/ },
+  { id: 'frag-27-share', label: 'Fragment 27 share asset', pattern: /Fragment-27_1080P\.mp4/ },
+  { id: 'frag-27-reveal', label: 'Fragment 27 still→GIF reveal', pattern: /BannerGridDark-last\.gif|BannerGridLight-last\.gif|f27-reveal/ },
+  { id: 'frag-26-instance', label: 'Fragment 26 Manifold instance', pattern: /4040253680/ },
+  { id: 'frag-26-share', label: 'Fragment 26 share asset', pattern: /Fragment-26_1080P\.mp4/ },
   { id: 'frag-25-instance', label: 'Fragment 25 Manifold instance', pattern: /4040900848/ },
   { id: 'frag-25-share', label: 'Fragment 25 share asset', pattern: /Fragment-25_1080P\.mp4/ },
   { id: 'frag-24-share', label: 'Fragment 24 share asset', pattern: /Fragment-24_1080P\.mp4/ },
@@ -76,10 +81,12 @@ const CHECKS = [
   { id: 'released-cover-22', label: 'Released fragment 22 cover', pattern: /releasedfragment22\.jpg/ },
   { id: 'released-cover-23', label: 'Released fragment 23 cover', pattern: /releasedfragment23\.jpg/ },
   { id: 'released-cover-24', label: 'Released fragment 24 cover', pattern: /releasedfragment24\.jpg/ },
-  { id: 'banner-gif', label: 'Stage II banner GIFs (live-window piece)', pattern: /BannerGridDark-\d+-web\.gif/ },
+  { id: 'released-cover-25', label: 'Released fragment 25 cover', pattern: /releasedfragment25\.jpg/ },
+  { id: 'banner-gif', label: 'Stage II banner GIFs (live-window / last masters)', pattern: /BannerGridDark-(\d+-web|last)\.gif/ },
   { id: 'site-audio', label: 'Site audio loop', pattern: /TogetherItBloomsAudio\.mp3/ },
-  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260805f25a/ },
-  { id: 'canvas-state-latest', label: 'Theatre canvas state stills (latest CDN)', pattern: /canvasstatedark-25\.jpg|canvasstatelight-25\.jpg/ },
+  { id: 'asset-version', label: 'Site asset cache version', pattern: /20260810f27b/ },
+  // F27 holds canvas still on 26 until personal reveal; CDN templates remain canvasstatedark-N
+  { id: 'canvas-state-latest', label: 'Theatre canvas state stills (CDN template)', pattern: /canvasstatedark-(26|27)\.jpg|canvasstatedark-\$\{piece\}|canvasstatedark-|canvasStillPiece|27-web\.gif/ },
   { id: 'f2-teaser', label: 'Fragment 02 coming-soon section', pattern: /piece-coming-soon/ },
   { id: 'released-gallery', label: 'Released fragments gallery', pattern: /released-section|Released fragments/ },
 

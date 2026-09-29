@@ -28,6 +28,10 @@ export const onRequest = async (context: {
     path.startsWith('/garden') ||
     path.startsWith('/atelier') ||
     path.startsWith('/market') ||
+    path.startsWith('/marche') ||
+    path.startsWith('/on-the-block') ||
+    path.startsWith('/auction') ||
+    path.startsWith('/will-it') ||
     path.startsWith('/looking') ||
     /\.[a-z0-9]+$/i.test(path)
   ) {

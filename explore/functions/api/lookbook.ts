@@ -16,7 +16,7 @@ type Env = {
   };
 };
 
-const CACHE_KEY = 'lookbook:v1';
+const CACHE_KEY = 'lookbook:v2';
 const CACHE_TTL = 90;
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -29,7 +29,10 @@ const ARTWORK_SLUGS = [
   'life-impressions-by-nikxname',
   'for-you-by-nikxname',
   'for-her-by-nikxname',
-  'nikxname-1-1s-by-nikxname',
+  'crimson-falls-by-nikxname',
+  'burn-the-roses-by-nikxname',
+  'the-last-dance-by-nikxname',
+  'reflection-of-self-by-nikxname',
 ];
 
 function json(data: unknown, status = 200) {
@@ -43,8 +46,9 @@ export const onRequestOptions = async () =>
   new Response(null, { status: 204, headers: CORS });
 
 export const onRequestGet = async (context: { env: Env; request: Request }): Promise<Response> => {
+  const fresh = new URL(context.request.url).searchParams.get('fresh') === '1';
   const kv = context.env.GARDEN_EGG;
-  if (kv) {
+  if (kv && !fresh) {
     try {
       const hit = await kv.get(CACHE_KEY);
       if (hit) return json(JSON.parse(hit));
@@ -88,7 +92,7 @@ async function fetchStudio(origin: string): Promise<string[]> {
   }
 }
 
-type ListedRow = { id: string; href: string };
+type ListedRow = { id: string; href: string; price?: string };
 
 async function fetchListed(apiKey: string | undefined): Promise<ListedRow[]> {
   if (!apiKey) return [];
@@ -112,6 +116,7 @@ async function fetchListed(apiKey: string | undefined): Promise<ListedRow[]> {
             col.address.toLowerCase() === WOULD_IT_CONTRACT
               ? wouldItOpenSeaItem(Number(tokenId))
               : `https://opensea.io/item/${chain}/${col.address}/${tokenId}`,
+          price: node.price,
         });
       }
     }),
@@ -123,47 +128,81 @@ async function fetchListed(apiKey: string | undefined): Promise<ListedRow[]> {
 async function rasterListed(
   slug: string,
   apiKey: string,
-): Promise<{ tokenId?: string; contractAddress?: string }[]> {
+): Promise<{ tokenId?: string; contractAddress?: string; price?: string }[]> {
+  const out: { tokenId?: string; contractAddress?: string; price?: string }[] = [];
+  let after: string | null = null;
   const query = `
-    query Listed($slug: String!) {
-      artwork(slug: $slug) {
-        tokens(first: 80) {
+    query Listed($slug: String!, $after: String) {
+      artworkBySlug(slug: $slug) {
+        tokens(first: 80, after: $after) {
+          pageInfo { hasNextPage endCursor }
           nodes {
             tokenId
             contractAddress
-            bestListing { marketplaceId }
+            bestListing {
+              marketplaceId
+              unitPrice { amount currency decimals symbol }
+            }
           }
         }
       }
     }
   `;
   try {
-    const res = await fetch('https://api.raster.art/graphql', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Api-Key ${apiKey}`,
-      },
-      body: JSON.stringify({ query, variables: { slug } }),
-    });
-    if (!res.ok) return [];
-    const body = (await res.json()) as {
-      errors?: unknown;
-      data?: {
-        artwork?: {
-          tokens?: {
-            nodes?: {
-              tokenId?: string;
-              contractAddress?: string;
-              bestListing?: { marketplaceId?: string } | null;
-            }[];
-          };
+    for (let page = 0; page < 24; page++) {
+      const res = await fetch('https://api.raster.art/graphql', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          Authorization: `Api-Key ${apiKey}`,
+        },
+        body: JSON.stringify({ query, variables: { slug, after } }),
+      });
+      if (!res.ok) return out;
+      const body = (await res.json()) as {
+        errors?: unknown;
+        data?: {
+          artworkBySlug?: {
+            tokens?: {
+              pageInfo?: { hasNextPage?: boolean; endCursor?: string | null };
+              nodes?: {
+                tokenId?: string;
+                contractAddress?: string;
+                bestListing?: {
+                  unitPrice?: { amount?: string; currency?: string; decimals?: number; symbol?: string };
+                } | null;
+              }[];
+            };
+          } | null;
         };
       };
-    };
-    if (body.errors) return [];
-    return (body.data?.artwork?.tokens?.nodes || []).filter((n) => n?.bestListing);
+      if (body.errors) return out;
+      const conn = body.data?.artworkBySlug?.tokens;
+      if (!conn) return out;
+      for (const n of conn.nodes || []) {
+        if (!n?.bestListing) continue;
+        const unit = n.bestListing.unitPrice;
+        let price: string | undefined;
+        if (unit?.amount) {
+          const dec = unit.decimals ?? 18;
+          const val = Number(unit.amount) / 10 ** dec;
+          if (Number.isFinite(val) && val > 0) {
+            const bodyAmt =
+              val < 0.01 ? val.toFixed(4) : val.toFixed(3).replace(/0+$/, '').replace(/\.$/, '');
+            price = `${bodyAmt} ${unit.symbol || unit.currency || 'ETH'}`;
+          }
+        }
+        out.push({
+          tokenId: n.tokenId,
+          contractAddress: n.contractAddress,
+          price,
+        });
+      }
+      if (!conn.pageInfo?.hasNextPage || !conn.pageInfo.endCursor) return out;
+      after = conn.pageInfo.endCursor;
+    }
   } catch {
-    return [];
+    return out;
   }
+  return out;
 }

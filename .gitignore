@@ -14,6 +14,8 @@
 /out/
 /explore/.next/
 /explore/out/
+/blossoms/.next/
+/blossoms/out/
 
 # production
 /build
@@ -33,9 +35,23 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.dev.vars
+**/.dev.vars
 
 # vercel
 .vercel
 
+# wrangler local state
+.wrangler/
+
 # typescript
 *.tsbuildinfo
+
+# local encode scratch
+/explore/.cache/
+
+# local starred-study library (thumbs + index live on disk for the painter loop)
+/blossoms/studio-stars/*
+!/blossoms/studio-stars/.gitkeep
+/blossoms/studio-learned/
+/blossoms/.api-dev/

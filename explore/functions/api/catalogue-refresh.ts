@@ -37,6 +37,7 @@ export const onRequestPost = async (context: { env: Env; request: Request }) => 
     signature?: string;
     contract?: string;
     tokenId?: string | number;
+    tokens?: { contract?: string; tokenId?: string | number }[];
   } | null;
   const wallet = normalizeWallet(body?.address);
   if (!wallet || !body?.signature || !isAtelierAdmin(wallet)) {
@@ -53,33 +54,49 @@ export const onRequestPost = async (context: { env: Env; request: Request }) => 
     return json({ ok: false, error: 'unauthorized' }, 401);
   }
 
-  const contract = String(body.contract || '').toLowerCase();
-  const tokenId = String(body.tokenId ?? '');
-  if (!/^0x[a-f0-9]{40}$/.test(contract) || !tokenId) {
-    return json({ ok: false, error: 'bad_token' }, 400);
+  const batch = (body.tokens?.length
+    ? body.tokens
+    : [{ contract: body.contract, tokenId: body.tokenId }]
+  )
+    .map((row) => ({
+      contract: String(row.contract || '').toLowerCase(),
+      tokenId: String(row.tokenId ?? ''),
+    }))
+    .filter((row) => /^0x[a-f0-9]{40}$/.test(row.contract) && row.tokenId)
+    .slice(0, 180);
+
+  if (!batch.length) return json({ ok: false, error: 'bad_token' }, 400);
+
+  const ping = async (contract: string, tokenId: string) => {
+    const alchemy = await fetch('https://eth-mainnet.g.alchemy.com/nft/v3/demo/refreshNftMetadata', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ contractAddress: contract, tokenId }),
+    });
+    let opensea = 0;
+    if (context.env.OPENSEA_API_KEY) {
+      const res = await fetch(
+        `https://api.opensea.io/api/v2/chain/ethereum/contract/${contract}/nfts/${tokenId}/refresh`,
+        {
+          method: 'POST',
+          headers: { accept: 'application/json', 'x-api-key': context.env.OPENSEA_API_KEY },
+        },
+      );
+      opensea = res.status;
+    }
+    return { alchemy: alchemy.status, opensea, ok: alchemy.ok || alchemy.status === 202 };
+  };
+
+  const results = [];
+  for (const row of batch) {
+    results.push(await ping(row.contract, row.tokenId));
+    if (batch.length > 1) await new Promise((r) => setTimeout(r, 80));
   }
-
-  const alchemy = await fetch('https://eth-mainnet.g.alchemy.com/nft/v3/demo/refreshNftMetadata', {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ contractAddress: contract, tokenId }),
-  });
-
-  let opensea = 0;
-  if (context.env.OPENSEA_API_KEY) {
-    const res = await fetch(
-      `https://api.opensea.io/api/v2/chain/ethereum/contract/${contract}/nfts/${tokenId}/refresh`,
-      {
-        method: 'POST',
-        headers: { accept: 'application/json', 'x-api-key': context.env.OPENSEA_API_KEY },
-      },
-    );
-    opensea = res.status;
-  }
-
+  const last = results[results.length - 1];
   return json({
-    ok: alchemy.ok || alchemy.status === 202,
-    alchemy: alchemy.status,
-    opensea,
+    ok: results.some((r) => r.ok),
+    count: results.length,
+    alchemy: last?.alchemy,
+    opensea: last?.opensea,
   });
 };

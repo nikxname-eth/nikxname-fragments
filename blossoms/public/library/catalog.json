@@ -1,0 +1,1374 @@
+{
+  "heroes": [
+    {
+      "id": "hero-01",
+      "kind": "figure",
+      "src": "/library/heroes/hero-01.webp",
+      "bytes": 149542
+    },
+    {
+      "id": "hero-02",
+      "kind": "figure",
+      "src": "/library/heroes/hero-02.webp",
+      "bytes": 66128
+    },
+    {
+      "id": "hero-03",
+      "kind": "figure",
+      "src": "/library/heroes/hero-03.webp",
+      "bytes": 123816
+    },
+    {
+      "id": "hero-04",
+      "kind": "thicket",
+      "src": "/library/heroes/hero-04.webp",
+      "bytes": 263162
+    },
+    {
+      "id": "hero-05",
+      "kind": "figure",
+      "src": "/library/heroes/hero-05.webp",
+      "bytes": 126134
+    },
+    {
+      "id": "hero-06",
+      "kind": "figure",
+      "src": "/library/heroes/hero-06.webp",
+      "bytes": 162976
+    },
+    {
+      "id": "hero-07",
+      "kind": "thicket",
+      "src": "/library/heroes/hero-07.webp",
+      "bytes": 205592
+    },
+    {
+      "id": "hero-08",
+      "kind": "thicket",
+      "src": "/library/heroes/hero-08.webp",
+      "bytes": 232144
+    },
+    {
+      "id": "hero-09",
+      "kind": "thicket",
+      "src": "/library/heroes/hero-09.webp",
+      "bytes": 206706
+    },
+    {
+      "id": "hero-10",
+      "kind": "thicket",
+      "src": "/library/heroes/hero-10.webp",
+      "bytes": 263162
+    },
+    {
+      "id": "hero-11",
+      "kind": "figure",
+      "src": "/library/heroes/hero-11.webp",
+      "bytes": 126912
+    },
+    {
+      "id": "hero-12",
+      "kind": "figure",
+      "src": "/library/heroes/hero-12.webp",
+      "bytes": 79128
+    },
+    {
+      "id": "bloom-01",
+      "kind": "bloom",
+      "src": "/library/heroes/bloom-01.webp",
+      "bytes": 162812
+    },
+    {
+      "id": "bloom-02",
+      "kind": "bloom",
+      "src": "/library/heroes/bloom-02.webp",
+      "bytes": 182392
+    },
+    {
+      "id": "bloom-03",
+      "kind": "bloom",
+      "src": "/library/heroes/bloom-03.webp",
+      "bytes": 346280
+    },
+    {
+      "id": "bloom-04",
+      "kind": "bloom",
+      "src": "/library/heroes/bloom-04.webp",
+      "bytes": 345960
+    },
+    {
+      "id": "bloom-05",
+      "kind": "bloom",
+      "src": "/library/heroes/bloom-05.webp",
+      "bytes": 323308
+    },
+    {
+      "id": "bloom-06",
+      "kind": "bloom",
+      "src": "/library/heroes/bloom-06.webp",
+      "bytes": 272622
+    },
+    {
+      "id": "bloom-07",
+      "kind": "bloom",
+      "src": "/library/heroes/bloom-07.webp",
+      "bytes": 274552
+    },
+    {
+      "id": "bloom-08",
+      "kind": "bloom",
+      "src": "/library/heroes/bloom-08.webp",
+      "bytes": 398532
+    }
+  ],
+  "marks": [
+    {
+      "id": "gray001_001",
+      "src": "/library/marks/gray001_001.webp"
+    },
+    {
+      "id": "gray001_002",
+      "src": "/library/marks/gray001_002.webp"
+    },
+    {
+      "id": "gray001_003",
+      "src": "/library/marks/gray001_003.webp"
+    },
+    {
+      "id": "gray001_004",
+      "src": "/library/marks/gray001_004.webp"
+    },
+    {
+      "id": "gray001_005",
+      "src": "/library/marks/gray001_005.webp"
+    },
+    {
+      "id": "gray001_006",
+      "src": "/library/marks/gray001_006.webp"
+    },
+    {
+      "id": "gray001_007",
+      "src": "/library/marks/gray001_007.webp"
+    },
+    {
+      "id": "gray001_008",
+      "src": "/library/marks/gray001_008.webp"
+    },
+    {
+      "id": "gray001_009",
+      "src": "/library/marks/gray001_009.webp"
+    },
+    {
+      "id": "gray001_010",
+      "src": "/library/marks/gray001_010.webp"
+    },
+    {
+      "id": "gray001_011",
+      "src": "/library/marks/gray001_011.webp"
+    },
+    {
+      "id": "gray001_012",
+      "src": "/library/marks/gray001_012.webp"
+    },
+    {
+      "id": "gray001_013",
+      "src": "/library/marks/gray001_013.webp"
+    },
+    {
+      "id": "gray001_014",
+      "src": "/library/marks/gray001_014.webp"
+    },
+    {
+      "id": "gray001_015",
+      "src": "/library/marks/gray001_015.webp"
+    },
+    {
+      "id": "gray001_016",
+      "src": "/library/marks/gray001_016.webp"
+    },
+    {
+      "id": "gray001_017",
+      "src": "/library/marks/gray001_017.webp"
+    },
+    {
+      "id": "gray001_018",
+      "src": "/library/marks/gray001_018.webp"
+    },
+    {
+      "id": "gray001_019",
+      "src": "/library/marks/gray001_019.webp"
+    },
+    {
+      "id": "gray001_020",
+      "src": "/library/marks/gray001_020.webp"
+    },
+    {
+      "id": "gray001_021",
+      "src": "/library/marks/gray001_021.webp"
+    },
+    {
+      "id": "gray001_022",
+      "src": "/library/marks/gray001_022.webp"
+    },
+    {
+      "id": "gray001_023",
+      "src": "/library/marks/gray001_023.webp"
+    },
+    {
+      "id": "gray001_024",
+      "src": "/library/marks/gray001_024.webp"
+    },
+    {
+      "id": "gray001_025",
+      "src": "/library/marks/gray001_025.webp"
+    },
+    {
+      "id": "gray001_026",
+      "src": "/library/marks/gray001_026.webp"
+    },
+    {
+      "id": "gray001_027",
+      "src": "/library/marks/gray001_027.webp"
+    },
+    {
+      "id": "gray001_028",
+      "src": "/library/marks/gray001_028.webp"
+    },
+    {
+      "id": "gray001_029",
+      "src": "/library/marks/gray001_029.webp"
+    },
+    {
+      "id": "gray001_030",
+      "src": "/library/marks/gray001_030.webp"
+    },
+    {
+      "id": "gray001_031",
+      "src": "/library/marks/gray001_031.webp"
+    },
+    {
+      "id": "gray001_032",
+      "src": "/library/marks/gray001_032.webp"
+    },
+    {
+      "id": "gray001_033",
+      "src": "/library/marks/gray001_033.webp"
+    },
+    {
+      "id": "gray001_034",
+      "src": "/library/marks/gray001_034.webp"
+    },
+    {
+      "id": "gray001_035",
+      "src": "/library/marks/gray001_035.webp"
+    },
+    {
+      "id": "gray001_036",
+      "src": "/library/marks/gray001_036.webp"
+    },
+    {
+      "id": "gray001_037",
+      "src": "/library/marks/gray001_037.webp"
+    },
+    {
+      "id": "gray001_038",
+      "src": "/library/marks/gray001_038.webp"
+    },
+    {
+      "id": "gray001_039",
+      "src": "/library/marks/gray001_039.webp"
+    },
+    {
+      "id": "gray001_040",
+      "src": "/library/marks/gray001_040.webp"
+    },
+    {
+      "id": "gray001_041",
+      "src": "/library/marks/gray001_041.webp"
+    },
+    {
+      "id": "gray001_042",
+      "src": "/library/marks/gray001_042.webp"
+    },
+    {
+      "id": "gray001_043",
+      "src": "/library/marks/gray001_043.webp"
+    },
+    {
+      "id": "gray001_044",
+      "src": "/library/marks/gray001_044.webp"
+    },
+    {
+      "id": "gray001_045",
+      "src": "/library/marks/gray001_045.webp"
+    },
+    {
+      "id": "gray001_046",
+      "src": "/library/marks/gray001_046.webp"
+    },
+    {
+      "id": "gray001_047",
+      "src": "/library/marks/gray001_047.webp"
+    },
+    {
+      "id": "gray001_048",
+      "src": "/library/marks/gray001_048.webp"
+    },
+    {
+      "id": "gray001_049",
+      "src": "/library/marks/gray001_049.webp"
+    },
+    {
+      "id": "gray001_050",
+      "src": "/library/marks/gray001_050.webp"
+    },
+    {
+      "id": "gray001_051",
+      "src": "/library/marks/gray001_051.webp"
+    },
+    {
+      "id": "gray001_052",
+      "src": "/library/marks/gray001_052.webp"
+    },
+    {
+      "id": "gray001_053",
+      "src": "/library/marks/gray001_053.webp"
+    },
+    {
+      "id": "gray001_054",
+      "src": "/library/marks/gray001_054.webp"
+    },
+    {
+      "id": "gray001_055",
+      "src": "/library/marks/gray001_055.webp"
+    },
+    {
+      "id": "gray001_056",
+      "src": "/library/marks/gray001_056.webp"
+    },
+    {
+      "id": "gray001_057",
+      "src": "/library/marks/gray001_057.webp"
+    },
+    {
+      "id": "gray001_058",
+      "src": "/library/marks/gray001_058.webp"
+    },
+    {
+      "id": "gray001_059",
+      "src": "/library/marks/gray001_059.webp"
+    },
+    {
+      "id": "gray001_060",
+      "src": "/library/marks/gray001_060.webp"
+    },
+    {
+      "id": "gray001_061",
+      "src": "/library/marks/gray001_061.webp"
+    },
+    {
+      "id": "gray001_062",
+      "src": "/library/marks/gray001_062.webp"
+    },
+    {
+      "id": "gray001_063",
+      "src": "/library/marks/gray001_063.webp"
+    },
+    {
+      "id": "gray001_064",
+      "src": "/library/marks/gray001_064.webp"
+    },
+    {
+      "id": "gray001_065",
+      "src": "/library/marks/gray001_065.webp"
+    },
+    {
+      "id": "gray001_066",
+      "src": "/library/marks/gray001_066.webp"
+    },
+    {
+      "id": "gray001_067",
+      "src": "/library/marks/gray001_067.webp"
+    },
+    {
+      "id": "gray001_068",
+      "src": "/library/marks/gray001_068.webp"
+    },
+    {
+      "id": "gray001_069",
+      "src": "/library/marks/gray001_069.webp"
+    },
+    {
+      "id": "gray001_070",
+      "src": "/library/marks/gray001_070.webp"
+    },
+    {
+      "id": "gray001_071",
+      "src": "/library/marks/gray001_071.webp"
+    },
+    {
+      "id": "gray001_072",
+      "src": "/library/marks/gray001_072.webp"
+    },
+    {
+      "id": "gray001_073",
+      "src": "/library/marks/gray001_073.webp"
+    },
+    {
+      "id": "gray001_074",
+      "src": "/library/marks/gray001_074.webp"
+    },
+    {
+      "id": "gray001_075",
+      "src": "/library/marks/gray001_075.webp"
+    },
+    {
+      "id": "gray001_076",
+      "src": "/library/marks/gray001_076.webp"
+    },
+    {
+      "id": "gray001_077",
+      "src": "/library/marks/gray001_077.webp"
+    },
+    {
+      "id": "gray001_078",
+      "src": "/library/marks/gray001_078.webp"
+    },
+    {
+      "id": "gray001_079",
+      "src": "/library/marks/gray001_079.webp"
+    },
+    {
+      "id": "gray001_080",
+      "src": "/library/marks/gray001_080.webp"
+    },
+    {
+      "id": "gray001_081",
+      "src": "/library/marks/gray001_081.webp"
+    },
+    {
+      "id": "gray001_082",
+      "src": "/library/marks/gray001_082.webp"
+    },
+    {
+      "id": "gray001_083",
+      "src": "/library/marks/gray001_083.webp"
+    },
+    {
+      "id": "gray001_084",
+      "src": "/library/marks/gray001_084.webp"
+    },
+    {
+      "id": "gray001_085",
+      "src": "/library/marks/gray001_085.webp"
+    },
+    {
+      "id": "gray001_086",
+      "src": "/library/marks/gray001_086.webp"
+    },
+    {
+      "id": "gray001_087",
+      "src": "/library/marks/gray001_087.webp"
+    },
+    {
+      "id": "gray001_088",
+      "src": "/library/marks/gray001_088.webp"
+    },
+    {
+      "id": "gray001_089",
+      "src": "/library/marks/gray001_089.webp"
+    },
+    {
+      "id": "gray001_090",
+      "src": "/library/marks/gray001_090.webp"
+    },
+    {
+      "id": "gray001_091",
+      "src": "/library/marks/gray001_091.webp"
+    },
+    {
+      "id": "gray001_092",
+      "src": "/library/marks/gray001_092.webp"
+    },
+    {
+      "id": "gray001_093",
+      "src": "/library/marks/gray001_093.webp"
+    },
+    {
+      "id": "gray001_094",
+      "src": "/library/marks/gray001_094.webp"
+    },
+    {
+      "id": "gray001_095",
+      "src": "/library/marks/gray001_095.webp"
+    },
+    {
+      "id": "gray001_096",
+      "src": "/library/marks/gray001_096.webp"
+    },
+    {
+      "id": "gray001_097",
+      "src": "/library/marks/gray001_097.webp"
+    },
+    {
+      "id": "gray001_098",
+      "src": "/library/marks/gray001_098.webp"
+    },
+    {
+      "id": "gray001_099",
+      "src": "/library/marks/gray001_099.webp"
+    },
+    {
+      "id": "gray001_100",
+      "src": "/library/marks/gray001_100.webp"
+    },
+    {
+      "id": "fire003_001",
+      "src": "/library/marks/fire003_001.webp"
+    },
+    {
+      "id": "fire003_002",
+      "src": "/library/marks/fire003_002.webp"
+    },
+    {
+      "id": "fire003_003",
+      "src": "/library/marks/fire003_003.webp"
+    },
+    {
+      "id": "fire003_004",
+      "src": "/library/marks/fire003_004.webp"
+    },
+    {
+      "id": "fire003_005",
+      "src": "/library/marks/fire003_005.webp"
+    },
+    {
+      "id": "fire003_006",
+      "src": "/library/marks/fire003_006.webp"
+    },
+    {
+      "id": "fire003_007",
+      "src": "/library/marks/fire003_007.webp"
+    },
+    {
+      "id": "fire003_008",
+      "src": "/library/marks/fire003_008.webp"
+    },
+    {
+      "id": "fire003_009",
+      "src": "/library/marks/fire003_009.webp"
+    },
+    {
+      "id": "fire003_010",
+      "src": "/library/marks/fire003_010.webp"
+    },
+    {
+      "id": "fire003_011",
+      "src": "/library/marks/fire003_011.webp"
+    },
+    {
+      "id": "fire003_012",
+      "src": "/library/marks/fire003_012.webp"
+    },
+    {
+      "id": "fire003_013",
+      "src": "/library/marks/fire003_013.webp"
+    },
+    {
+      "id": "fire003_014",
+      "src": "/library/marks/fire003_014.webp"
+    },
+    {
+      "id": "fire003_015",
+      "src": "/library/marks/fire003_015.webp"
+    },
+    {
+      "id": "fire003_016",
+      "src": "/library/marks/fire003_016.webp"
+    },
+    {
+      "id": "fire003_017",
+      "src": "/library/marks/fire003_017.webp"
+    },
+    {
+      "id": "fire003_018",
+      "src": "/library/marks/fire003_018.webp"
+    },
+    {
+      "id": "fire003_019",
+      "src": "/library/marks/fire003_019.webp"
+    },
+    {
+      "id": "fire003_020",
+      "src": "/library/marks/fire003_020.webp"
+    },
+    {
+      "id": "fire003_021",
+      "src": "/library/marks/fire003_021.webp"
+    },
+    {
+      "id": "fire003_022",
+      "src": "/library/marks/fire003_022.webp"
+    },
+    {
+      "id": "fire003_023",
+      "src": "/library/marks/fire003_023.webp"
+    },
+    {
+      "id": "fire003_024",
+      "src": "/library/marks/fire003_024.webp"
+    },
+    {
+      "id": "fire003_025",
+      "src": "/library/marks/fire003_025.webp"
+    },
+    {
+      "id": "fire003_026",
+      "src": "/library/marks/fire003_026.webp"
+    },
+    {
+      "id": "fire003_027",
+      "src": "/library/marks/fire003_027.webp"
+    },
+    {
+      "id": "fire003_028",
+      "src": "/library/marks/fire003_028.webp"
+    },
+    {
+      "id": "fire003_029",
+      "src": "/library/marks/fire003_029.webp"
+    },
+    {
+      "id": "fire003_030",
+      "src": "/library/marks/fire003_030.webp"
+    },
+    {
+      "id": "fire003_031",
+      "src": "/library/marks/fire003_031.webp"
+    },
+    {
+      "id": "fire003_032",
+      "src": "/library/marks/fire003_032.webp"
+    },
+    {
+      "id": "fire003_033",
+      "src": "/library/marks/fire003_033.webp"
+    },
+    {
+      "id": "fire003_034",
+      "src": "/library/marks/fire003_034.webp"
+    },
+    {
+      "id": "fire003_035",
+      "src": "/library/marks/fire003_035.webp"
+    },
+    {
+      "id": "fire003_036",
+      "src": "/library/marks/fire003_036.webp"
+    },
+    {
+      "id": "fire003_037",
+      "src": "/library/marks/fire003_037.webp"
+    },
+    {
+      "id": "fire003_038",
+      "src": "/library/marks/fire003_038.webp"
+    },
+    {
+      "id": "fire003_039",
+      "src": "/library/marks/fire003_039.webp"
+    },
+    {
+      "id": "fire003_040",
+      "src": "/library/marks/fire003_040.webp"
+    },
+    {
+      "id": "fire003_041",
+      "src": "/library/marks/fire003_041.webp"
+    },
+    {
+      "id": "fire003_042",
+      "src": "/library/marks/fire003_042.webp"
+    },
+    {
+      "id": "fire003_043",
+      "src": "/library/marks/fire003_043.webp"
+    },
+    {
+      "id": "fire003_044",
+      "src": "/library/marks/fire003_044.webp"
+    },
+    {
+      "id": "fire003_045",
+      "src": "/library/marks/fire003_045.webp"
+    },
+    {
+      "id": "fire003_046",
+      "src": "/library/marks/fire003_046.webp"
+    },
+    {
+      "id": "fire003_047",
+      "src": "/library/marks/fire003_047.webp"
+    },
+    {
+      "id": "fire003_048",
+      "src": "/library/marks/fire003_048.webp"
+    },
+    {
+      "id": "fire003_049",
+      "src": "/library/marks/fire003_049.webp"
+    },
+    {
+      "id": "fire003_050",
+      "src": "/library/marks/fire003_050.webp"
+    },
+    {
+      "id": "fire003_051",
+      "src": "/library/marks/fire003_051.webp"
+    },
+    {
+      "id": "fire003_052",
+      "src": "/library/marks/fire003_052.webp"
+    },
+    {
+      "id": "fire003_053",
+      "src": "/library/marks/fire003_053.webp"
+    },
+    {
+      "id": "fire003_054",
+      "src": "/library/marks/fire003_054.webp"
+    },
+    {
+      "id": "fire003_055",
+      "src": "/library/marks/fire003_055.webp"
+    },
+    {
+      "id": "fire003_056",
+      "src": "/library/marks/fire003_056.webp"
+    },
+    {
+      "id": "fire003_057",
+      "src": "/library/marks/fire003_057.webp"
+    },
+    {
+      "id": "fire003_058",
+      "src": "/library/marks/fire003_058.webp"
+    },
+    {
+      "id": "fire003_059",
+      "src": "/library/marks/fire003_059.webp"
+    },
+    {
+      "id": "fire003_060",
+      "src": "/library/marks/fire003_060.webp"
+    },
+    {
+      "id": "fire003_061",
+      "src": "/library/marks/fire003_061.webp"
+    },
+    {
+      "id": "fire003_062",
+      "src": "/library/marks/fire003_062.webp"
+    },
+    {
+      "id": "fire003_063",
+      "src": "/library/marks/fire003_063.webp"
+    },
+    {
+      "id": "fire003_064",
+      "src": "/library/marks/fire003_064.webp"
+    },
+    {
+      "id": "fire003_065",
+      "src": "/library/marks/fire003_065.webp"
+    },
+    {
+      "id": "fire003_066",
+      "src": "/library/marks/fire003_066.webp"
+    },
+    {
+      "id": "fire003_067",
+      "src": "/library/marks/fire003_067.webp"
+    },
+    {
+      "id": "fire003_068",
+      "src": "/library/marks/fire003_068.webp"
+    },
+    {
+      "id": "fire003_069",
+      "src": "/library/marks/fire003_069.webp"
+    },
+    {
+      "id": "fire003_070",
+      "src": "/library/marks/fire003_070.webp"
+    },
+    {
+      "id": "fire003_071",
+      "src": "/library/marks/fire003_071.webp"
+    },
+    {
+      "id": "fire003_072",
+      "src": "/library/marks/fire003_072.webp"
+    },
+    {
+      "id": "fire003_073",
+      "src": "/library/marks/fire003_073.webp"
+    },
+    {
+      "id": "fire003_074",
+      "src": "/library/marks/fire003_074.webp"
+    },
+    {
+      "id": "fire003_075",
+      "src": "/library/marks/fire003_075.webp"
+    },
+    {
+      "id": "fire003_076",
+      "src": "/library/marks/fire003_076.webp"
+    },
+    {
+      "id": "fire003_077",
+      "src": "/library/marks/fire003_077.webp"
+    },
+    {
+      "id": "fire003_078",
+      "src": "/library/marks/fire003_078.webp"
+    },
+    {
+      "id": "fire003_079",
+      "src": "/library/marks/fire003_079.webp"
+    },
+    {
+      "id": "fire003_080",
+      "src": "/library/marks/fire003_080.webp"
+    },
+    {
+      "id": "fire001_001",
+      "src": "/library/marks/fire001_001.webp"
+    },
+    {
+      "id": "fire001_002",
+      "src": "/library/marks/fire001_002.webp"
+    },
+    {
+      "id": "fire001_003",
+      "src": "/library/marks/fire001_003.webp"
+    },
+    {
+      "id": "fire001_004",
+      "src": "/library/marks/fire001_004.webp"
+    },
+    {
+      "id": "fire001_005",
+      "src": "/library/marks/fire001_005.webp"
+    },
+    {
+      "id": "fire001_006",
+      "src": "/library/marks/fire001_006.webp"
+    },
+    {
+      "id": "fire001_007",
+      "src": "/library/marks/fire001_007.webp"
+    },
+    {
+      "id": "fire001_008",
+      "src": "/library/marks/fire001_008.webp"
+    },
+    {
+      "id": "fire001_009",
+      "src": "/library/marks/fire001_009.webp"
+    },
+    {
+      "id": "fire001_010",
+      "src": "/library/marks/fire001_010.webp"
+    },
+    {
+      "id": "fire001_011",
+      "src": "/library/marks/fire001_011.webp"
+    },
+    {
+      "id": "fire001_012",
+      "src": "/library/marks/fire001_012.webp"
+    },
+    {
+      "id": "fire001_013",
+      "src": "/library/marks/fire001_013.webp"
+    },
+    {
+      "id": "fire001_014",
+      "src": "/library/marks/fire001_014.webp"
+    },
+    {
+      "id": "fire001_015",
+      "src": "/library/marks/fire001_015.webp"
+    },
+    {
+      "id": "fire001_016",
+      "src": "/library/marks/fire001_016.webp"
+    },
+    {
+      "id": "fire001_017",
+      "src": "/library/marks/fire001_017.webp"
+    },
+    {
+      "id": "fire001_018",
+      "src": "/library/marks/fire001_018.webp"
+    },
+    {
+      "id": "fire001_019",
+      "src": "/library/marks/fire001_019.webp"
+    },
+    {
+      "id": "fire001_020",
+      "src": "/library/marks/fire001_020.webp"
+    },
+    {
+      "id": "fire001_021",
+      "src": "/library/marks/fire001_021.webp"
+    },
+    {
+      "id": "fire001_022",
+      "src": "/library/marks/fire001_022.webp"
+    },
+    {
+      "id": "fire001_023",
+      "src": "/library/marks/fire001_023.webp"
+    },
+    {
+      "id": "fire001_024",
+      "src": "/library/marks/fire001_024.webp"
+    },
+    {
+      "id": "fire001_025",
+      "src": "/library/marks/fire001_025.webp"
+    },
+    {
+      "id": "fire001_026",
+      "src": "/library/marks/fire001_026.webp"
+    },
+    {
+      "id": "fire001_027",
+      "src": "/library/marks/fire001_027.webp"
+    },
+    {
+      "id": "fire001_028",
+      "src": "/library/marks/fire001_028.webp"
+    },
+    {
+      "id": "fire001_029",
+      "src": "/library/marks/fire001_029.webp"
+    },
+    {
+      "id": "fire001_030",
+      "src": "/library/marks/fire001_030.webp"
+    },
+    {
+      "id": "fire001_031",
+      "src": "/library/marks/fire001_031.webp"
+    },
+    {
+      "id": "fire001_032",
+      "src": "/library/marks/fire001_032.webp"
+    },
+    {
+      "id": "fire001_033",
+      "src": "/library/marks/fire001_033.webp"
+    },
+    {
+      "id": "fire001_034",
+      "src": "/library/marks/fire001_034.webp"
+    },
+    {
+      "id": "fire001_035",
+      "src": "/library/marks/fire001_035.webp"
+    },
+    {
+      "id": "fire001_036",
+      "src": "/library/marks/fire001_036.webp"
+    },
+    {
+      "id": "fire001_037",
+      "src": "/library/marks/fire001_037.webp"
+    },
+    {
+      "id": "fire001_038",
+      "src": "/library/marks/fire001_038.webp"
+    },
+    {
+      "id": "fire001_039",
+      "src": "/library/marks/fire001_039.webp"
+    },
+    {
+      "id": "fire001_040",
+      "src": "/library/marks/fire001_040.webp"
+    },
+    {
+      "id": "fire001_041",
+      "src": "/library/marks/fire001_041.webp"
+    },
+    {
+      "id": "fire001_042",
+      "src": "/library/marks/fire001_042.webp"
+    },
+    {
+      "id": "fire001_043",
+      "src": "/library/marks/fire001_043.webp"
+    },
+    {
+      "id": "fire001_044",
+      "src": "/library/marks/fire001_044.webp"
+    },
+    {
+      "id": "fire001_045",
+      "src": "/library/marks/fire001_045.webp"
+    },
+    {
+      "id": "fire001_046",
+      "src": "/library/marks/fire001_046.webp"
+    },
+    {
+      "id": "fire001_047",
+      "src": "/library/marks/fire001_047.webp"
+    },
+    {
+      "id": "fire001_048",
+      "src": "/library/marks/fire001_048.webp"
+    },
+    {
+      "id": "fire001_049",
+      "src": "/library/marks/fire001_049.webp"
+    },
+    {
+      "id": "fire001_050",
+      "src": "/library/marks/fire001_050.webp"
+    },
+    {
+      "id": "sml_001",
+      "src": "/library/marks/sml_001.webp"
+    },
+    {
+      "id": "sml_002",
+      "src": "/library/marks/sml_002.webp"
+    },
+    {
+      "id": "sml_003",
+      "src": "/library/marks/sml_003.webp"
+    },
+    {
+      "id": "sml_004",
+      "src": "/library/marks/sml_004.webp"
+    },
+    {
+      "id": "sml_005",
+      "src": "/library/marks/sml_005.webp"
+    },
+    {
+      "id": "sml_006",
+      "src": "/library/marks/sml_006.webp"
+    },
+    {
+      "id": "sml_007",
+      "src": "/library/marks/sml_007.webp"
+    },
+    {
+      "id": "sml_008",
+      "src": "/library/marks/sml_008.webp"
+    },
+    {
+      "id": "sml_009",
+      "src": "/library/marks/sml_009.webp"
+    },
+    {
+      "id": "sml_010",
+      "src": "/library/marks/sml_010.webp"
+    },
+    {
+      "id": "sml_011",
+      "src": "/library/marks/sml_011.webp"
+    },
+    {
+      "id": "sml_012",
+      "src": "/library/marks/sml_012.webp"
+    },
+    {
+      "id": "sml_013",
+      "src": "/library/marks/sml_013.webp"
+    },
+    {
+      "id": "sml_014",
+      "src": "/library/marks/sml_014.webp"
+    },
+    {
+      "id": "sml_015",
+      "src": "/library/marks/sml_015.webp"
+    },
+    {
+      "id": "sml_016",
+      "src": "/library/marks/sml_016.webp"
+    },
+    {
+      "id": "blade-01",
+      "src": "/library/marks/blade-01.webp"
+    },
+    {
+      "id": "blade-02",
+      "src": "/library/marks/blade-02.webp"
+    },
+    {
+      "id": "blade-03",
+      "src": "/library/marks/blade-03.webp"
+    },
+    {
+      "id": "blade-04",
+      "src": "/library/marks/blade-04.webp"
+    },
+    {
+      "id": "blade-05",
+      "src": "/library/marks/blade-05.webp"
+    },
+    {
+      "id": "blade-06",
+      "src": "/library/marks/blade-06.webp"
+    },
+    {
+      "id": "blade-07",
+      "src": "/library/marks/blade-07.webp"
+    },
+    {
+      "id": "blade-08",
+      "src": "/library/marks/blade-08.webp"
+    },
+    {
+      "id": "blade-09",
+      "src": "/library/marks/blade-09.webp"
+    },
+    {
+      "id": "blade-10",
+      "src": "/library/marks/blade-10.webp"
+    },
+    {
+      "id": "blade-11",
+      "src": "/library/marks/blade-11.webp"
+    },
+    {
+      "id": "blade-12",
+      "src": "/library/marks/blade-12.webp"
+    },
+    {
+      "id": "blade-13",
+      "src": "/library/marks/blade-13.webp"
+    },
+    {
+      "id": "blade-14",
+      "src": "/library/marks/blade-14.webp"
+    },
+    {
+      "id": "blade-15",
+      "src": "/library/marks/blade-15.webp"
+    },
+    {
+      "id": "blade-16",
+      "src": "/library/marks/blade-16.webp"
+    },
+    {
+      "id": "blade-17",
+      "src": "/library/marks/blade-17.webp"
+    },
+    {
+      "id": "blade-18",
+      "src": "/library/marks/blade-18.webp"
+    }
+  ],
+  "branches": [
+    {
+      "id": "branch-sheet-01",
+      "src": "/library/branches/branch-sheet-01.webp",
+      "kind": "thicket",
+      "axis": 2.4769,
+      "trunk": [
+        0.9998,
+        0.0639
+      ]
+    },
+    {
+      "id": "branch-02",
+      "src": "/library/branches/branch-02.webp",
+      "kind": "thicket",
+      "axis": -3.0681,
+      "trunk": [
+        0.9998,
+        0.2999
+      ]
+    },
+    {
+      "id": "branch-03",
+      "src": "/library/branches/branch-03.webp",
+      "kind": "thicket",
+      "axis": 2.8906,
+      "trunk": [
+        0.9998,
+        0.1509
+      ]
+    },
+    {
+      "id": "branch-04",
+      "src": "/library/branches/branch-04.webp",
+      "kind": "thicket",
+      "axis": 2.6846,
+      "trunk": [
+        0.9998,
+        0.0074
+      ]
+    },
+    {
+      "id": "branch-05",
+      "src": "/library/branches/branch-05.webp",
+      "kind": "thicket",
+      "axis": 2.5615,
+      "trunk": [
+        0.9997,
+        0.012
+      ]
+    },
+    {
+      "id": "branch-sheet-06",
+      "src": "/library/branches/branch-sheet-06.webp",
+      "kind": "thicket",
+      "axis": -0.6748,
+      "trunk": [
+        0.0061,
+        0.9994
+      ]
+    },
+    {
+      "id": "branch-07",
+      "src": "/library/branches/branch-07.webp",
+      "kind": "rise",
+      "axis": -1.5332,
+      "trunk": [
+        0.8428,
+        0.9998
+      ]
+    },
+    {
+      "id": "branch-08",
+      "src": "/library/branches/branch-08.webp",
+      "kind": "rise",
+      "axis": -1.6918,
+      "trunk": [
+        0.9498,
+        0.9997
+      ]
+    },
+    {
+      "id": "branch-09",
+      "src": "/library/branches/branch-09.webp",
+      "kind": "rise",
+      "axis": -1.434,
+      "trunk": [
+        0.0769,
+        0.9996
+      ]
+    },
+    {
+      "id": "branch-10",
+      "src": "/library/branches/branch-10.webp",
+      "kind": "rise",
+      "axis": -1.6851,
+      "trunk": [
+        0.8969,
+        0.9995
+      ]
+    },
+    {
+      "id": "branch-11",
+      "src": "/library/branches/branch-11.webp",
+      "kind": "rise",
+      "axis": -1.5363,
+      "trunk": [
+        0.1677,
+        0.9994
+      ]
+    },
+    {
+      "id": "branch-12",
+      "src": "/library/branches/branch-12.webp",
+      "kind": "rise",
+      "axis": -1.6546,
+      "trunk": [
+        0.8165,
+        0.9984
+      ]
+    },
+    {
+      "id": "branch-sheet-13",
+      "src": "/library/branches/branch-sheet-13.webp",
+      "kind": "sweep",
+      "axis": 0.0755,
+      "trunk": [
+        0,
+        0.828
+      ]
+    },
+    {
+      "id": "branch-sheet-14",
+      "src": "/library/branches/branch-sheet-14.webp",
+      "kind": "hang",
+      "axis": 0.6169,
+      "trunk": [
+        0.0073,
+        0
+      ]
+    },
+    {
+      "id": "branch-15",
+      "src": "/library/branches/branch-15.webp",
+      "kind": "hang",
+      "axis": 0.9964,
+      "trunk": [
+        0.0295,
+        0
+      ]
+    },
+    {
+      "id": "branch-16",
+      "src": "/library/branches/branch-16.webp",
+      "kind": "rise",
+      "axis": 1.7414,
+      "trunk": [
+        0.9639,
+        0
+      ]
+    },
+    {
+      "id": "branch-sheet-17",
+      "src": "/library/branches/branch-sheet-17.webp",
+      "kind": "sweep",
+      "axis": 0.5412,
+      "trunk": [
+        0,
+        0.0156
+      ]
+    },
+    {
+      "id": "branch-sheet-18",
+      "src": "/library/branches/branch-sheet-18.webp",
+      "kind": "fork",
+      "axis": 0.7234,
+      "trunk": [
+        0.007,
+        0.0002
+      ]
+    },
+    {
+      "id": "branch-19",
+      "src": "/library/branches/branch-19.webp",
+      "kind": "fork",
+      "axis": 0.92,
+      "trunk": [
+        0.08,
+        0.04
+      ]
+    }
+  ]
+}

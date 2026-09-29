@@ -1,12 +1,16 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
+  FINAL_FRAGMENT_PIECE,
+  FRAGMENT_27_REVEAL,
   getCanvasStatePiece,
   getCanvasStateStill,
   getFragmentThumbUrl,
+  isFinalFragmentLive,
   PIECE_NAMES,
 } from '../config/artist';
 import { useDropSchedule } from '../hooks/useDropSchedule';
+import { MINT_COMPLETE_EVENT, type MintCompleteDetail } from '../lib/mintEvents';
 import { useSiteAudio } from '../providers/SiteAudioProvider';
 import { FragmentMedia } from './FragmentMedia';
 
@@ -14,18 +18,54 @@ type Props = {
   open: boolean;
   pieceNumbers: number[];
   theme: 'dark' | 'light';
+  /** Wallet holds F27 (or parent already detected reveal) */
+  finalFragmentRevealed?: boolean;
 };
 
-export function TheatreDrawer({ open, pieceNumbers, theme }: Props) {
+function readF27Reveal(): boolean {
+  if (typeof window === 'undefined') return false;
+  try {
+    return window.localStorage.getItem(FRAGMENT_27_REVEAL.storageKey) === '1';
+  } catch {
+    return false;
+  }
+}
+
+export function TheatreDrawer({ open, pieceNumbers, theme, finalFragmentRevealed }: Props) {
   const [expanded, setExpanded] = useState<number | null>(null);
   const [canvasOpen, setCanvasOpen] = useState(false);
   const [immersive, setImmersive] = useState(false);
+  const [f27Revealed, setF27Revealed] = useState(false);
   const { setMasterSuppressed } = useSiteAudio();
   /** Same clock as mint — canvas does not advance until the live window flips. */
   const { now } = useDropSchedule();
+  const finalLive = isFinalFragmentLive(now);
   const canvasPiece = getCanvasStatePiece(now);
   const canvasState = getCanvasStateStill({ theme, width: 720, piece: canvasPiece, now });
   const canvasStateFull = getCanvasStateStill({ theme, width: 1920, piece: canvasPiece, now });
+  const showRevealGif = finalLive && (f27Revealed || !!finalFragmentRevealed);
+  const canvasLabel = showRevealGif ? FINAL_FRAGMENT_PIECE : canvasPiece;
+  const canvasThumbSrc = showRevealGif ? FRAGMENT_27_REVEAL.canvasRevealGif : canvasState.src;
+  const canvasFullSrc = showRevealGif ? FRAGMENT_27_REVEAL.canvasRevealGif : canvasStateFull.fullSrc;
+
+  useEffect(() => {
+    if (!finalLive) {
+      setF27Revealed(false);
+      return;
+    }
+    if (finalFragmentRevealed || readF27Reveal()) setF27Revealed(true);
+  }, [finalLive, finalFragmentRevealed]);
+
+  useEffect(() => {
+    if (!finalLive) return;
+    const onMint = (event: Event) => {
+      const detail = (event as CustomEvent<MintCompleteDetail>).detail;
+      if (detail?.pieceNumber != null && detail.pieceNumber !== FINAL_FRAGMENT_PIECE) return;
+      setF27Revealed(true);
+    };
+    window.addEventListener(MINT_COMPLETE_EVENT, onMint);
+    return () => window.removeEventListener(MINT_COMPLETE_EVENT, onMint);
+  }, [finalLive]);
 
   const pieceIndex = expanded != null ? pieceNumbers.indexOf(expanded) : -1;
   const canNavigate = pieceNumbers.length > 1 && pieceIndex >= 0;
@@ -129,12 +169,12 @@ export function TheatreDrawer({ open, pieceNumbers, theme }: Props) {
             type="button"
             className="theatre-canvas-option"
             onClick={openCanvas}
-            aria-label={`View canvas state No.${canvasPiece}`}
+            aria-label={`View canvas state No.${canvasLabel}`}
           >
             <div className="theatre-canvas-option-media">
               <img
-                key={canvasState.src}
-                src={canvasState.src}
+                key={canvasThumbSrc}
+                src={canvasThumbSrc}
                 alt=""
                 loading="lazy"
                 decoding="async"
@@ -142,7 +182,9 @@ export function TheatreDrawer({ open, pieceNumbers, theme }: Props) {
               />
             </div>
             <div className="theatre-canvas-option-label">
-              Canvas state No.{canvasPiece}
+              Canvas state No.{canvasLabel}
+              {finalLive && !showRevealGif ? ' · still' : ''}
+              {showRevealGif ? ' · living' : ''}
             </div>
           </button>
 
@@ -213,16 +255,26 @@ export function TheatreDrawer({ open, pieceNumbers, theme }: Props) {
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               onClick={(event) => event.stopPropagation()}
             >
-              <p className="theatre-stage-title">Canvas state No.{canvasPiece}</p>
+              <p className="theatre-stage-title">Canvas state No.{canvasLabel}</p>
               <div className="theatre-stage-media theatre-canvas-media">
                 <img
-                  key={canvasStateFull.fullSrc}
-                  src={canvasStateFull.fullSrc}
-                  alt="Current canvas — revealed grid still"
+                  key={canvasFullSrc}
+                  src={canvasFullSrc}
+                  alt={
+                    showRevealGif
+                      ? 'Living canvas — Fragment 27 grid reveal'
+                      : 'Current canvas — revealed grid still'
+                  }
                   decoding="async"
                 />
               </div>
-              <p className="theatre-stage-hint">Click outside or press Esc to close</p>
+              <p className="theatre-stage-hint">
+                {showRevealGif
+                  ? 'Your claim unlocked the living canvas'
+                  : finalLive
+                    ? 'Claim Fragment XXVII to awaken this canvas'
+                    : 'Click outside or press Esc to close'}
+              </p>
             </motion.div>
           </motion.div>
         )}

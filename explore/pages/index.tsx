@@ -20,7 +20,7 @@ import { WorkCard } from '../components/WorkCard';
 import { AfbCanvas } from '../components/AfbCanvas';
 import { AfbPuzzlingEye, AfbWillIt } from '../components/AfbPrelude';
 import { collectionHref } from '../lib/sites';
-import { LivePill } from '../components/LivePill';
+
 import { SeriesCopy } from '../components/SeriesCopy';
 import { AfbEmbers } from '../components/AfbEmbers';
 import { ShareDownloads } from '../components/ShareDownloads';
@@ -273,7 +273,7 @@ export default function ExploreHome() {
               Nikxname
             </a>
             <nav className="ex-nav-links" aria-label="Primary">
-              <a className="ex-nav-link" href="/who">
+              <a className="ex-nav-link ex-nav-who" href="/who">
                 Who?
               </a>
               <button type="button" className="ex-nav-link ex-nav-action" onClick={openArchiveTheatre}>
@@ -288,10 +288,12 @@ export default function ExploreHome() {
               >
                 Collections
               </button>
+              <a className="ex-nav-link" href="/marche">
+                Marché
+              </a>
             </nav>
           </div>
           <div className="ex-nav-right">
-            <LivePill />
             <button
               type="button"
               className="ex-theme-btn"
@@ -517,7 +519,9 @@ export default function ExploreHome() {
         <footer className="ex-footer">
           <span className="ex-footer-copy">© {new Date().getFullYear()} Nikxname · Art Theatre</span>
           <div className="ex-footer-links">
-            <LivePill />
+            <a className="ex-footer-who" href="/who">
+              Who?
+            </a>
             <a href={rasterMarketUrl()} target="_blank" rel="noopener noreferrer">
               Secondary Market
             </a>

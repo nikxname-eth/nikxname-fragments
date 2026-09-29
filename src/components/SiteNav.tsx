@@ -1,8 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { ManifoldConnect } from './ManifoldConnect';
 import { WalletButton } from './WalletButton';
-import { useSiteAudio } from '../providers/SiteAudioProvider';
+
 import { useWallet } from '../providers/WalletProvider';
+import { WILL_IT_URL } from '../config/house';
 
 type Props = {
   dark: boolean;
@@ -13,6 +14,8 @@ type Props = {
   onToggleAbout: () => void;
   onToggleTheatre: () => void;
   onToggleCollection: () => void;
+  /** Post-F27 lockdown: hide About / Theatre / Collection */
+  limited?: boolean;
 };
 
 function SunIcon() {
@@ -42,44 +45,6 @@ function MoonIcon() {
   );
 }
 
-function SoundOnIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M11 5L6 9H3v6h3l5 4V5z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M15.5 9.5a4.5 4.5 0 010 5M17.8 7.2a7.5 7.5 0 010 9.6"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function SoundOffIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M11 5L6 9H3v6h3l5 4V5z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M16 9l5 5M21 9l-5 5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 export function SiteNav({
   dark,
   onToggleTheme,
@@ -89,105 +54,123 @@ export function SiteNav({
   onToggleAbout,
   onToggleTheatre,
   onToggleCollection,
+  limited = false,
 }: Props) {
   const { address, shortAddress } = useWallet();
-  const { soundOn, toggleSound } = useSiteAudio();
   const themeClass = dark ? '' : ' theme-light';
 
   return (
     <>
-      <nav className="nav">
+      <nav className={`nav${limited ? ' nav--limited' : ''}`}>
         <div className="nav-left">
-          <motion.span
-            className="nav-mark"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1, duration: 0.8 }}
-          >
-            Nikxname
-          </motion.span>
-          <div className="nav-links">
-            <motion.button
-              type="button"
-              className="nav-about"
-              onClick={onToggleAbout}
+          {limited ? (
+            <motion.a
+              href="https://nikxart.xyz"
+              className="nav-mark"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              aria-expanded={aboutOpen}
+              transition={{ delay: 0.1, duration: 0.8 }}
             >
-              About
-              <svg
-                className={`nav-about-chevron${aboutOpen ? ' open' : ''}`}
-                width="10"
-                height="10"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </motion.button>
-            <motion.button
-              type="button"
-              className="nav-theatre"
-              onClick={onToggleTheatre}
+              Nikxname
+            </motion.a>
+          ) : (
+            <motion.span
+              className="nav-mark"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.22, duration: 0.8 }}
-              aria-expanded={theatreOpen}
+              transition={{ delay: 0.1, duration: 0.8 }}
             >
-              Theatre
-              <svg
-                className={`nav-theatre-chevron${theatreOpen ? ' open' : ''}`}
-                width="10"
-                height="10"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+              Nikxname
+            </motion.span>
+          )}
+          {!limited && (
+            <div className="nav-links">
+              <motion.button
+                type="button"
+                className="nav-about"
+                onClick={onToggleAbout}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.8 }}
+                aria-expanded={aboutOpen}
               >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </motion.button>
-            <AnimatePresence>
-              {address && (
-                <motion.button
-                  type="button"
-                  className="nav-collection"
-                  onClick={onToggleCollection}
-                  initial={{ opacity: 0, x: 8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 8 }}
-                  transition={{ duration: 0.7 }}
-                  aria-expanded={collectionOpen}
+                About
+                <svg
+                  className={`nav-about-chevron${aboutOpen ? ' open' : ''}`}
+                  width="10"
+                  height="10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  Collection
-                  <svg
-                    className={`nav-collection-chevron${collectionOpen ? ' open' : ''}`}
-                    width="10"
-                    height="10"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </motion.button>
+              <motion.button
+                type="button"
+                className="nav-theatre"
+                onClick={onToggleTheatre}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.22, duration: 0.8 }}
+                aria-expanded={theatreOpen}
+              >
+                Theatre
+                <svg
+                  className={`nav-theatre-chevron${theatreOpen ? ' open' : ''}`}
+                  width="10"
+                  height="10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </motion.button>
+              <AnimatePresence>
+                {address && (
+                  <motion.button
+                    type="button"
+                    className="nav-collection"
+                    onClick={onToggleCollection}
+                    initial={{ opacity: 0, x: 8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 8 }}
+                    transition={{ duration: 0.7 }}
+                    aria-expanded={collectionOpen}
                   >
-                    <polyline points="6 9 12 15 18 9" />
-                  </svg>
-                </motion.button>
-              )}
-            </AnimatePresence>
-          </div>
+                    Collection
+                    <svg
+                      className={`nav-collection-chevron${collectionOpen ? ' open' : ''}`}
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </motion.button>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
         </div>
 
         <div className="nav-right">
+          <a className="nav-live is-live" href={WILL_IT_URL} aria-label="Live · Will It..">
+            <span className="nav-live-dot" aria-hidden="true" />
+            Live
+          </a>
           <motion.button
             type="button"
             className={`nav-utility-toggle nav-theme-toggle${themeClass}`}
@@ -201,30 +184,17 @@ export function SiteNav({
             <span className="nav-utility-label">{dark ? 'Light' : 'Dark'}</span>
           </motion.button>
 
-          <motion.button
-            type="button"
-            className={`nav-utility-toggle nav-sound-toggle${soundOn ? ' is-on' : ''}`}
-            onClick={toggleSound}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.18, duration: 0.8 }}
-            aria-label={soundOn ? 'Turn sound off' : 'Turn sound on'}
-            aria-pressed={soundOn}
-          >
-            {soundOn ? <SoundOnIcon /> : <SoundOffIcon />}
-            <span className="nav-utility-label">Sound</span>
-          </motion.button>
-
           <motion.div
             className="nav-connect"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
+            {/* Always mount Manifold so connect + disconnect controls stay available */}
             <ManifoldConnect visible={!address} variant="nav" />
-            {address && (
+            {address ? (
               <WalletButton address={address} shortAddress={shortAddress} />
-            )}
+            ) : null}
           </motion.div>
         </div>
       </nav>

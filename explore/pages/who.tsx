@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ARTIST, X_PROFILE, rasterMarketUrl } from '../config/catalog';
-import { LivePill } from '../components/LivePill';
 
 export default function WhoPage() {
   const [dark, setDark] = useState(true);
@@ -46,13 +45,15 @@ export default function WhoPage() {
               <a className="ex-nav-link" href="/">
                 Explore
               </a>
-              <a className="ex-nav-link is-active" href="/who">
+              <a className="ex-nav-link ex-nav-who is-active" href="/who">
                 Who?
+              </a>
+              <a className="ex-nav-link" href="/marche">
+                Marché
               </a>
             </nav>
           </div>
           <div className="ex-nav-right">
-            <LivePill />
             <button
               type="button"
               className="ex-theme-btn"
@@ -184,7 +185,9 @@ export default function WhoPage() {
         <footer className="ex-footer">
           <span className="ex-footer-copy">© {new Date().getFullYear()} Nikxname</span>
           <div className="ex-footer-links">
-            <LivePill />
+            <a className="ex-footer-who is-active" href="/who">
+              Who?
+            </a>
             <a href={rasterMarketUrl()} target="_blank" rel="noopener noreferrer">
               Secondary Market
             </a>

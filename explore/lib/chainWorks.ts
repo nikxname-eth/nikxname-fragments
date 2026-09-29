@@ -91,14 +91,40 @@ function subgroupSortKey(g: VoidSubgroup): number {
 
 /** Strip "#1/9" style suffixes so numbered edition tokens group as one work. */
 export function editionGroupName(name: string): string {
-  return name.replace(/\s*#\s*\d+\s*\/\s*\d+\s*$/i, '').trim();
+  return name
+    .replace(/\s*#\s*\d+\s*\/\s*\d+\s*$/i, '')
+    .replace(/\s*[\|·]\s*[A-E]\s*$/i, '')
+    .replace(/\s*\([A-E]\)\s*$/i, '')
+    .trim();
+}
+
+function afbFragmentRows(piece: number) {
+  const re = new RegExp(`^fragment\\s*0*${piece}(?:\\b|$)`, 'i');
+  return (afbJson as ChainCollectionJson).tokens.filter((t) => re.test(t.name));
+}
+
+/** Token ids minted after the last AFB dump (through Fragment 25 / #724). */
+const AFB_FRAGMENT_TOKEN_FALLBACK: Record<number, number[]> = {
+  26: [
+    738, 739, 740, 741, 742, 743, 744, 745, 746, 748, 749, 750, 751, 752, 753, 754, 755, 756, 757,
+    758, 759, 760, 761, 762,
+  ],
+  27: Array.from({ length: 27 }, (_, i) => 763 + i),
+};
+
+export function afbFragmentTokenIds(piece: number): number[] {
+  const fromDump = afbFragmentRows(piece)
+    .map((t) => t.tokenId)
+    .sort((a, b) => a - b);
+  if (fromDump.length) return fromDump;
+  return AFB_FRAGMENT_TOKEN_FALLBACK[piece] || [];
 }
 
 /** Minted copies of a numbered fragment from the AFB dump (claimed overlay wins). */
 export function afbFragmentCopies(piece: number): number {
-  const re = new RegExp(`^fragment\\s*0*${piece}(?:\\b|$)`, 'i');
-  const rows = (afbJson as ChainCollectionJson).tokens.filter((t) => re.test(t.name));
-  const n = Math.max(rows.length, Number(rows[0]?.editionCount) || 0, 1);
+  const rows = afbFragmentRows(piece);
+  const ids = afbFragmentTokenIds(piece);
+  const n = Math.max(rows.length, ids.length, Number(rows[0]?.editionCount) || 0, 1);
   return claimedEditionCount(
     'a-familiar-burn',
     `Fragment ${String(piece).padStart(2, '0')}`,
@@ -191,6 +217,9 @@ export function chainTokensToWorks(collection: ChainCollectionJson): ExploreWork
       sort: t.tokenId || mintOrder + 1,
       contractAddress: collection.contract,
       tokenId: t.tokenId,
+      tokenIds: 'tokenIds' in t && Array.isArray((t as { tokenIds?: number[] }).tokenIds)
+        ? (t as { tokenIds: number[] }).tokenIds
+        : [t.tokenId],
       openSeaUrl: `${openSeaBase}/${t.tokenId}`,
       editionCount,
       voidSubgroup: voidGroup,

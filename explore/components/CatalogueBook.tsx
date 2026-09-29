@@ -8,6 +8,7 @@ type CatalogueWork = {
   collection: string;
   seriesId: string;
   tokenId?: number;
+  tokenIds?: number[];
   contract?: string;
   qty: number;
   cover?: string;
@@ -109,18 +110,45 @@ export function CatalogueBook({ mode, wallet, holdings, onClose }: Props) {
     setNote('');
     try {
       const signature = await sign();
+      const ids = work.tokenIds?.length ? work.tokenIds : [work.tokenId];
       const res = await fetch('/api/catalogue-refresh', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           address: wallet,
           signature,
-          contract: work.contract,
-          tokenId: work.tokenId,
+          tokens: ids.map((tokenId) => ({ contract: work.contract, tokenId })),
         }),
       });
       const data = (await res.json()) as { ok?: boolean };
       setNote(data.ok ? `Refresh asked for ${work.title}` : 'Refresh was not accepted.');
+    } catch {
+      setNote('Signature cancelled.');
+    } finally {
+      setBusy(null);
+    }
+  };
+
+  const refreshAll = async () => {
+    const rows = collections.flatMap((col) =>
+      col.works.flatMap((w) => {
+        if (!w.contract || w.tokenId == null) return [];
+        const ids = w.tokenIds?.length ? w.tokenIds : [w.tokenId];
+        return ids.map((tokenId) => ({ contract: w.contract, tokenId }));
+      }),
+    );
+    if (!rows.length) return;
+    setBusy('all');
+    setNote('');
+    try {
+      const signature = await sign();
+      const res = await fetch('/api/catalogue-refresh', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ address: wallet, signature, tokens: rows }),
+      });
+      const data = (await res.json()) as { ok?: boolean; count?: number };
+      setNote(data.ok ? `Refresh asked for ${data.count ?? rows.length} tokens.` : 'Refresh was not accepted.');
     } catch {
       setNote('Signature cancelled.');
     } finally {
@@ -133,6 +161,16 @@ export function CatalogueBook({ mode, wallet, holdings, onClose }: Props) {
       <div className="ex-book-panel" onClick={(e) => e.stopPropagation()}>
         <header className="ex-book-bar">
           <p>{mode === 'offers' ? 'Live offers' : 'Studio catalogue'}</p>
+          {mode === 'book' ? (
+            <button
+              type="button"
+              className="ex-book-refresh"
+              disabled={busy === 'all'}
+              onClick={() => void refreshAll()}
+            >
+              Refresh all
+            </button>
+          ) : null}
           <button type="button" className="ex-look-close" onClick={onClose} aria-label="Close">
             ✕
           </button>

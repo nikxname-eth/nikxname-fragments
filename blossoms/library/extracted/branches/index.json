@@ -1,0 +1,290 @@
+[
+  {
+    "id": "branch-sheet-01",
+    "src": "/library/branches/branch-sheet-01.webp",
+    "kind": "thicket",
+    "axis": 2.4769,
+    "trunk": [
+      0.9998,
+      0.0639
+    ],
+    "tip": [
+      0.0063,
+      0.7892
+    ],
+    "area": 2092041,
+    "sheet": "Branch- 2.png"
+  },
+  {
+    "id": "branch-02",
+    "src": "/library/branches/branch-02.webp",
+    "kind": "thicket",
+    "axis": -3.0681,
+    "trunk": [
+      0.9998,
+      0.2999
+    ],
+    "tip": [
+      0.0055,
+      0.0662
+    ],
+    "area": 327068,
+    "sheet": "Branch- 2.png"
+  },
+  {
+    "id": "branch-03",
+    "src": "/library/branches/branch-03.webp",
+    "kind": "thicket",
+    "axis": 2.8906,
+    "trunk": [
+      0.9998,
+      0.1509
+    ],
+    "tip": [
+      0.0047,
+      0.953
+    ],
+    "area": 769363,
+    "sheet": "Branch- 2.png"
+  },
+  {
+    "id": "branch-04",
+    "src": "/library/branches/branch-04.webp",
+    "kind": "thicket",
+    "axis": 2.6846,
+    "trunk": [
+      0.9998,
+      0.0074
+    ],
+    "tip": [
+      0.0044,
+      0.8256
+    ],
+    "area": 766373,
+    "sheet": "Branch- 2.png"
+  },
+  {
+    "id": "branch-05",
+    "src": "/library/branches/branch-05.webp",
+    "kind": "thicket",
+    "axis": 2.5615,
+    "trunk": [
+      0.9997,
+      0.012
+    ],
+    "tip": [
+      0.0092,
+      0.8609
+    ],
+    "area": 226377,
+    "sheet": "Branch- 2.png"
+  },
+  {
+    "id": "branch-sheet-06",
+    "src": "/library/branches/branch-sheet-06.webp",
+    "kind": "thicket",
+    "axis": -0.6748,
+    "trunk": [
+      0.0061,
+      0.9994
+    ],
+    "tip": [
+      0.9937,
+      0.0077
+    ],
+    "area": 1200787,
+    "sheet": "Branch- 3.png"
+  },
+  {
+    "id": "branch-07",
+    "src": "/library/branches/branch-07.webp",
+    "kind": "rise",
+    "axis": -1.5332,
+    "trunk": [
+      0.8428,
+      0.9998
+    ],
+    "tip": [
+      0.9796,
+      0.0054
+    ],
+    "area": 548094,
+    "sheet": "Branch- 3.png"
+  },
+  {
+    "id": "branch-08",
+    "src": "/library/branches/branch-08.webp",
+    "kind": "rise",
+    "axis": -1.6918,
+    "trunk": [
+      0.9498,
+      0.9997
+    ],
+    "tip": [
+      0.209,
+      0.0076
+    ],
+    "area": 294528,
+    "sheet": "Branch- 3.png"
+  },
+  {
+    "id": "branch-09",
+    "src": "/library/branches/branch-09.webp",
+    "kind": "rise",
+    "axis": -1.434,
+    "trunk": [
+      0.0769,
+      0.9996
+    ],
+    "tip": [
+      0.8966,
+      0.0123
+    ],
+    "area": 146428,
+    "sheet": "Branch- 3.png"
+  },
+  {
+    "id": "branch-10",
+    "src": "/library/branches/branch-10.webp",
+    "kind": "rise",
+    "axis": -1.6851,
+    "trunk": [
+      0.8969,
+      0.9995
+    ],
+    "tip": [
+      0.1375,
+      0.013
+    ],
+    "area": 112262,
+    "sheet": "Branch- 3.png"
+  },
+  {
+    "id": "branch-11",
+    "src": "/library/branches/branch-11.webp",
+    "kind": "rise",
+    "axis": -1.5363,
+    "trunk": [
+      0.1677,
+      0.9994
+    ],
+    "tip": [
+      0.5329,
+      0.0156
+    ],
+    "area": 68637,
+    "sheet": "Branch- 3.png"
+  },
+  {
+    "id": "branch-12",
+    "src": "/library/branches/branch-12.webp",
+    "kind": "rise",
+    "axis": -1.6546,
+    "trunk": [
+      0.8165,
+      0.9984
+    ],
+    "tip": [
+      0.5063,
+      0.0458
+    ],
+    "area": 29185,
+    "sheet": "Branch- 3.png"
+  },
+  {
+    "id": "branch-sheet-13",
+    "src": "/library/branches/branch-sheet-13.webp",
+    "kind": "sweep",
+    "axis": 0.0755,
+    "trunk": [
+      0.0,
+      0.828
+    ],
+    "tip": [
+      0.992,
+      0.982
+    ],
+    "area": 645922,
+    "sheet": "Branch- 4.png"
+  },
+  {
+    "id": "branch-sheet-14",
+    "src": "/library/branches/branch-sheet-14.webp",
+    "kind": "hang",
+    "axis": 0.6169,
+    "trunk": [
+      0.0073,
+      0.0
+    ],
+    "tip": [
+      0.9814,
+      0.755
+    ],
+    "area": 691779,
+    "sheet": "Branch- 5.png"
+  },
+  {
+    "id": "branch-15",
+    "src": "/library/branches/branch-15.webp",
+    "kind": "hang",
+    "axis": 0.9964,
+    "trunk": [
+      0.0295,
+      0.0
+    ],
+    "tip": [
+      0.8335,
+      0.976
+    ],
+    "area": 102948,
+    "sheet": "Branch- 5.png"
+  },
+  {
+    "id": "branch-16",
+    "src": "/library/branches/branch-16.webp",
+    "kind": "rise",
+    "axis": 1.7414,
+    "trunk": [
+      0.9639,
+      0.0
+    ],
+    "tip": [
+      0.5019,
+      0.9942
+    ],
+    "area": 587761,
+    "sheet": "Branch- 5.png"
+  },
+  {
+    "id": "branch-sheet-17",
+    "src": "/library/branches/branch-sheet-17.webp",
+    "kind": "sweep",
+    "axis": 0.5412,
+    "trunk": [
+      0.0,
+      0.0156
+    ],
+    "tip": [
+      0.9936,
+      0.9894
+    ],
+    "area": 1293491,
+    "sheet": "Branch- 6.png"
+  },
+  {
+    "id": "branch-sheet-18",
+    "src": "/library/branches/branch-sheet-18.webp",
+    "kind": "fork",
+    "axis": 0.7234,
+    "trunk": [
+      0.007,
+      0.0002
+    ],
+    "tip": [
+      0.9475,
+      0.9615
+    ],
+    "area": 2232654,
+    "sheet": "Branch-.png"
+  }
+]

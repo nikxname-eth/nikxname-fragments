@@ -1,0 +1,67 @@
+/**
+ * GET /api/on-the-block
+ * Auction frame for the 1/1 triptych. Config-driven until a Manifold
+ * listing id or Seaport hash is set on BLOCK_LISTING.
+ */
+
+import {
+  BLOCK_CHAIN,
+  BLOCK_CONTRACT,
+  BLOCK_LISTING,
+  BLOCK_PANELS,
+  BLOCK_PLACEHOLDER,
+  BLOCK_TREASURY,
+  BLOCK_WORK_TITLE,
+  blockOpenSeaItem,
+  blockStatusAt,
+  blockStatusLabel,
+} from '../../config/on-the-block';
+
+const CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Cache-Control': 'public, max-age=15',
+};
+
+function json(data: unknown, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status,
+    headers: { 'Content-Type': 'application/json', ...CORS },
+  });
+}
+
+export const onRequestOptions = async () =>
+  new Response(null, { status: 204, headers: CORS });
+
+export const onRequestGet = async () => {
+  const status = blockStatusAt();
+  return json({
+    ok: true,
+    placeholder: BLOCK_PLACEHOLDER,
+    status,
+    statusLabel: blockStatusLabel(status),
+    title: BLOCK_WORK_TITLE,
+    contract: BLOCK_CONTRACT,
+    chain: BLOCK_CHAIN,
+    treasury: BLOCK_TREASURY,
+    listing: {
+      manifoldId: BLOCK_LISTING.manifoldId,
+      seaportHash: BLOCK_LISTING.seaportHash,
+      startsAt: BLOCK_LISTING.startsAt,
+      endsAt: BLOCK_LISTING.endsAt,
+      reserveEth: BLOCK_LISTING.reserveEth,
+    },
+    currentBid: null as string | null,
+    bidCount: 0,
+    winner: null as string | null,
+    fulfillment: 'studio-transfer',
+    panels: BLOCK_PANELS.map((p) => ({
+      panel: p.panel,
+      role: p.role,
+      label: p.label,
+      name: p.name,
+      tokenId: p.tokenId,
+      revealed: p.revealed,
+      href: blockOpenSeaItem(p.tokenId),
+    })),
+  });
+};

@@ -112,7 +112,7 @@ export const onRequestGet = async (context: { request: Request; env: Env }) => {
         name: name || 'Collector',
         title: 'Collector',
         kicker: 'Holds Nikxname work',
-        lead: 'Works held from the house.',
+        lead: 'Works held from La Maison.',
         admin: false,
         enabled: true,
         notes: '',

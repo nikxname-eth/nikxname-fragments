@@ -4,6 +4,8 @@ import {
   WOULD_IT_BANNER,
   WOULD_IT_COLLECTION,
   WOULD_IT_LIST_ETH,
+  WOULD_IT_PANEL_LIST_AT,
+  WOULD_IT_PANEL_REVEAL_AT,
   WOULD_IT_RASTER,
   WOULD_IT_SHARE,
   WOULD_PANELS,
@@ -16,7 +18,6 @@ import {
   wouldPanelThumb,
   type WouldPanelRow,
 } from '../config/would-it';
-import { LivePill } from '../components/LivePill';
 import { CanvasLook } from '../components/CanvasLook';
 import { willItLookSrc, willItPreviewSrc } from '../lib/willItWorks';
 
@@ -24,6 +25,35 @@ const PAGE_URL = 'https://explore.nikxart.xyz/will-it';
 const PAGE_TITLE = 'Will It.. · Nikxname';
 const PAGE_DESC =
   'A triptych: three canvases, one painting. To be revealed one panel at a time.';
+
+function ReloadPrompt() {
+  const [msg, setMsg] = useState<string | null>(null);
+  useEffect(() => {
+    const loaded = Date.now();
+    const revealAt = Date.parse(WOULD_IT_PANEL_REVEAL_AT[3] ?? '');
+    const listAt = Date.parse(WOULD_IT_PANEL_LIST_AT[3] ?? '');
+    const tick = () => {
+      const n = Date.now();
+      if (listAt && n >= listAt && loaded < listAt) {
+        setMsg(`Panel 3 is listed at ${WOULD_IT_LIST_ETH} ETH. Reload to see live availability.`);
+      } else if (revealAt && n >= revealAt && loaded < revealAt) {
+        setMsg('Panel 3 metadata is updating. Reload to see the new work.');
+      }
+    };
+    tick();
+    const id = window.setInterval(tick, 8000);
+    return () => window.clearInterval(id);
+  }, []);
+  if (!msg) return null;
+  return (
+    <div className="ex-reload-prompt" role="status">
+      <p>{msg}</p>
+      <button type="button" onClick={() => window.location.reload()}>
+        Reload
+      </button>
+    </div>
+  );
+}
 
 export default function WillItPage() {
   const [dark, setDark] = useState(true);
@@ -87,10 +117,15 @@ export default function WillItPage() {
               <a className="ex-nav-link" href="https://explore.nikxart.xyz">
                 Explore
               </a>
+              <a className="ex-nav-link ex-nav-who" href="https://explore.nikxart.xyz/who">
+                Who?
+              </a>
+              <a className="ex-nav-link" href="https://explore.nikxart.xyz/marche">
+                Marché
+              </a>
             </nav>
           </div>
           <div className="ex-nav-right">
-            <LivePill />
             <button
               type="button"
               className="ex-theme-btn"
@@ -117,7 +152,7 @@ export default function WillItPage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={WOULD_IT_BANNER}
-              alt="Will It.. — three frames hung as a set. Canvas A is open; B and C wait."
+              alt="Will It.. — three frames hung as a set. All three canvases are open."
             />
           </figure>
           <p className="ex-would-hang-note">Three frames, hung as a set. A Triptych</p>
@@ -210,9 +245,10 @@ export default function WillItPage() {
             </p>
             <p>
               As canvases reveal, patrons are welcome to place offers on unrevealed tokens if they
-              wish to get ahead of the launch. Panel 1 of each lettered set is listed at{' '}
-              <strong>{WOULD_IT_LIST_ETH} ETH</strong>. Panel 2 becomes available at{' '}
-              <strong>10AM EST, 14 September</strong>.
+              wish to get ahead of the launch. Each listed panel is{' '}
+              <strong>{WOULD_IT_LIST_ETH} ETH</strong>. Panel 3 — the last remaining — becomes
+              available at <strong>8PM EST, 21 September</strong>. Metadata updates around{' '}
+              <strong>7:50PM</strong>.
             </p>
           </section>
 
@@ -252,6 +288,9 @@ export default function WillItPage() {
           <hr className="ex-would-rule" />
 
           <footer className="ex-would-foot">
+            <a className="ex-footer-who" href="https://explore.nikxart.xyz/who">
+              Who?
+            </a>
             <a className="ex-read-more" href={WOULD_IT_COLLECTION}>
               Full Collection | A Familiar Burn
             </a>
@@ -288,6 +327,8 @@ export default function WillItPage() {
           </button>
         ) : null}
       </div>
+
+      <ReloadPrompt />
 
       {look ? (
         <CanvasLook

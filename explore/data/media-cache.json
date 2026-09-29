@@ -326,6 +326,13 @@
       "mediaUrlHi": "https://assets.nikxart.xyz/explore/media/the-void/the-void-73-4k.mp4",
       "mediaType": "video",
       "posterUrl": "https://assets.nikxart.xyz/explore/media/the-void/the-void-73.gif"
+    },
+    {
+      "seriesId": "life-impressions",
+      "workId": "life-impressions-56",
+      "mediaUrl": "https://assets.nikxart.xyz/explore/media/life-impressions/56.jpg",
+      "mediaType": "image",
+      "posterUrl": "https://assets.nikxart.xyz/explore/previews/life-impressions/life-impressions-56.jpg"
     }
   ]
 }

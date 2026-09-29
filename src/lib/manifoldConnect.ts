@@ -101,33 +101,61 @@ export function waitForManifoldProvider(timeoutMs = 12_000): Promise<boolean> {
   });
 }
 
+export type EnsureAuthOptions = {
+  /**
+   * Always re-run getOAuth even if the session already looks authenticated.
+   * Manifold claim checkout often sits half-authed (address bar + isAuthenticated)
+   * while OAuth is stale — mint stays blocked until disconnect/reconnect.
+   * Force refresh fixes that before "Claim now · Free".
+   */
+  force?: boolean;
+  timeoutMs?: number;
+};
+
 /**
- * Claim widgets need an OAuth token — not just a connected provider.
+ * Claim widgets need a live OAuth token — not just a connected provider address.
  * Rainbow/WalletConnect can show an address while mint still fails without this.
  */
-export function ensureManifoldAuthenticated(): Promise<boolean> {
-  if (authInFlight) return authInFlight;
+export function ensureManifoldAuthenticated(
+  options: EnsureAuthOptions = {},
+): Promise<boolean> {
+  const { force = false, timeoutMs = 15_000 } = options;
 
-  authInFlight = (async () => {
-    if (readManifoldSession().isAuthenticated) return true;
+  // Coalesce concurrent soft checks; force always runs a fresh handshake.
+  if (authInFlight && !force) return authInFlight;
 
-    const ready = await waitForManifoldProvider();
+  const run = (async () => {
+    if (!force && readManifoldSession().isAuthenticated) return true;
+
+    const ready = await waitForManifoldProvider(timeoutMs);
     if (!ready || !window.ManifoldEthereumProvider?.getOAuth) return false;
 
     try {
-      await window.ManifoldEthereumProvider.getOAuth({
-        appName: MANIFOLD_APP_NAME,
-        clientId: MANIFOLD_CLIENT_ID,
-      });
+      await Promise.race([
+        window.ManifoldEthereumProvider.getOAuth({
+          appName: MANIFOLD_APP_NAME,
+          clientId: MANIFOLD_CLIENT_ID,
+        }),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('oauth timeout')), timeoutMs),
+        ),
+      ]);
       window.dispatchEvent(new CustomEvent('m-reauthenticate'));
       refreshManifoldWidgets();
+      // After force refresh, prefer success of getOAuth itself; session flag can lag.
+      if (force) return true;
       return readManifoldSession().isAuthenticated;
     } catch {
       return false;
-    } finally {
-      authInFlight = null;
     }
   })();
 
-  return authInFlight;
+  if (!force) {
+    authInFlight = run.finally(() => {
+      authInFlight = null;
+    });
+    return authInFlight;
+  }
+
+  return run;
 }

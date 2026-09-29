@@ -1,199 +1,144 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import Head from 'next/head';
 import { motion } from 'framer-motion';
 import {
-  getSiteBanner,
-  PREVIEW_MODE,
-  SHARE_PIECES,
-} from '../config/artist';
-import { AboutDrawer } from '../components/AboutDrawer';
-import { CollectionDrawer } from '../components/CollectionDrawer';
-import { CountdownSection } from '../components/CountdownSection';
-import { PieceMintSection } from '../components/PieceMintSection';
-import { ProjectAboutSection } from '../components/ProjectAboutSection';
-import { ReleasedFragmentsGallery } from '../components/ReleasedFragmentsGallery';
-import { ShareSection } from '../components/ShareSection';
-import { SiteFooter } from '../components/SiteFooter';
-import { SiteNav } from '../components/SiteNav';
-import { TheatreDrawer } from '../components/TheatreDrawer';
-import { useCountdown } from '../hooks/useCountdown';
-import { useDropSchedule } from '../hooks/useDropSchedule';
-import { useExclusiveDrawer } from '../hooks/useExclusiveDrawer';
-import { useGasPrice } from '../hooks/useGasPrice';
-import { useOwnedFragments } from '../hooks/useOwnedFragments';
-import { useSiteAudio } from '../providers/SiteAudioProvider';
-import { useWallet } from '../providers/WalletProvider';
+  EXPLORE_ORIGIN,
+  GARDEN_URL,
+  HOUSE_ROOMS,
+  SECONDARY_MARKET_URL,
+  WILL_IT_URL,
+  houseImage,
+} from '../config/house';
+
+const fadeUp = {
+  initial: { opacity: 0 },
+  whileInView: { opacity: 1 },
+  viewport: { once: true, amount: 0.18 },
+  transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] as const },
+};
+
+function destinationForHost(hostname: string): string | null {
+  const host = hostname.toLowerCase();
+  if (host === 'fragment.nikxart.xyz' || host.startsWith('fragment.')) {
+    return '/fragment';
+  }
+  return null;
+}
 
 export default function Home() {
-  const { address } = useWallet();
-  const { startSoundOnLanding } = useSiteAudio();
-  const soundUnlockAttempted = useRef(false);
-  const [dark, setDark] = useState(true);
-  const pieceSectionRef = useRef<HTMLDivElement>(null);
-  const gwei = useGasPrice();
-
-  const drawer = useExclusiveDrawer();
-  const schedule = useDropSchedule();
-  const countdown = useCountdown(schedule.countdownTarget, schedule.now);
-  const collection = useOwnedFragments(address);
-
-  const siteBanner = getSiteBanner({ theme: dark ? 'dark' : 'light', now: schedule.now });
-  const themeClass = dark ? '' : ' theme-light';
-  const showContent = schedule.dropsStarted || PREVIEW_MODE;
-  const releasedSharePieces = SHARE_PIECES.filter(
-    (piece) => (schedule.dropsStarted || PREVIEW_MODE) && piece.number <= schedule.maxSharePiece,
-  );
-
   useEffect(() => {
-    document.body.classList.toggle('wallet-authed', !!address);
-    return () => document.body.classList.remove('wallet-authed');
-  }, [address]);
-
-  const unlockAmbientSound = useCallback(() => {
-    if (soundUnlockAttempted.current) return;
-    soundUnlockAttempted.current = true;
-    startSoundOnLanding();
-  }, [startSoundOnLanding]);
-
-  useEffect(() => {
-    const onScroll = () => unlockAmbientSound();
-    window.addEventListener('scroll', onScroll, { once: true, passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [unlockAmbientSound]);
+    const dest = destinationForHost(window.location.hostname);
+    if (dest) window.location.replace(dest);
+  }, []);
 
   return (
     <>
       <Head>
-        <link rel="preload" as="image" href={siteBanner.src} />
+        <title>La Maison · Nikxname</title>
+        <meta
+          name="description"
+          content="La Maison — a living house of digital paintings. Walk the rooms. Collectors enter the Garden."
+        />
+        <meta name="robots" content="index,follow" />
+        <link rel="canonical" href="https://nikxart.xyz/" />
       </Head>
-      <div className="glow glow-r" />
-      <div className="glow glow-b" />
 
-      <motion.div
-        className={`site${themeClass}`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.9, ease: 'easeOut' }}
-      >
-        <SiteNav
-          dark={dark}
-          onToggleTheme={() => setDark((value) => !value)}
-          aboutOpen={drawer.aboutOpen}
-          theatreOpen={drawer.theatreOpen}
-          collectionOpen={drawer.collectionOpen}
-          onToggleAbout={drawer.toggleAbout}
-          onToggleTheatre={drawer.toggleTheatre}
-          onToggleCollection={drawer.toggleCollection}
-        />
-
-        <AboutDrawer
-          open={drawer.aboutOpen}
-          bioExpanded={drawer.bioExpanded}
-          onToggleBio={() => drawer.setBioExpanded((value) => !value)}
-        />
-
-        <TheatreDrawer
-          open={drawer.theatreOpen}
-          pieceNumbers={schedule.releasedFragments}
-          theme={dark ? 'dark' : 'light'}
-        />
-
-        <CollectionDrawer
-          open={drawer.collectionOpen}
-          address={address}
-          owned={collection.owned}
-          balance={collection.balance}
-          isLoading={collection.isLoading}
-          walletOwnsAny={collection.walletOwnsAny}
-        />
-
-        <header className="hero">
-          <motion.p
-            className="eyebrow"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-          >
-            Collection &nbsp;|&nbsp; A Familiar Burn
-          </motion.p>
-          <motion.h1
-            className="hero-title"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.9 }}
-          >
-            Together It Blooms
-          </motion.h1>
-          <motion.p
-            className="hero-sub"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-          >
-            An on-chain art discovery experience
-          </motion.p>
-        </header>
-
-        <motion.div
-          className="banner-outer"
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45, duration: 1 }}
-        >
-          <div className="banner-inner">
-            <img
-              key={dark ? 'banner-dark' : 'banner-light'}
-              src={siteBanner.src}
-              alt="Together It Blooms — A Familiar Burn"
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-              onLoad={unlockAmbientSound}
-            />
+      <div className="house">
+        <nav className="nav house-nav" aria-label="La Maison">
+          <div className="nav-left">
+            <a className="nav-mark" href="/">
+              Nikxname
+            </a>
+            <div className="nav-links">
+              <a className="house-nav-explore" href={EXPLORE_ORIGIN}>
+                Explore
+              </a>
+            </div>
           </div>
-        </motion.div>
+          <div className="nav-right">
+            <a className="nav-live is-live" href={WILL_IT_URL} aria-label="Live · Will It..">
+              <span className="nav-live-dot" aria-hidden="true" />
+              Live
+            </a>
+            <a className="house-nav-garden" href={GARDEN_URL}>
+              Garden
+            </a>
+          </div>
+        </nav>
 
-        <CountdownSection
-          dropsStarted={schedule.dropsStarted}
-          countdownPhase={schedule.countdownPhase}
-          units={countdown}
-        />
+        <motion.section
+          className="house-hero"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.15, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <p className="house-kicker">Welcome</p>
+          <h1 className="house-title">La Maison</h1>
+          <p className="house-lead">
+            A quiet entrance. The rooms hold the work. If you collect, the Garden and Atelier wait
+            beyond.
+          </p>
+        </motion.section>
 
-        <ProjectAboutSection open={drawer.projectAboutOpen} onToggle={drawer.toggleProjectAbout} />
+        <main className="house-rooms" aria-label="The Rooms">
+          {HOUSE_ROOMS.map((room, i) => (
+            <motion.article key={room.id} className="house-panel" {...fadeUp}>
+              <a className="house-panel-frame" href={room.href} aria-label={`Discover ${room.label}`}>
+                <img
+                  src={houseImage(room.image, i === 0 ? 2200 : 1800)}
+                  alt={room.imageAlt}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  fetchPriority={i === 0 ? 'high' : 'low'}
+                  style={room.objectPosition ? { objectPosition: room.objectPosition } : undefined}
+                />
+                <span className="house-panel-veil" aria-hidden="true" />
+                <span className="house-panel-copy">
+                  <span className="house-panel-tagline">{room.tagline}</span>
+                  <span className="house-panel-title">{room.label}</span>
+                  <span className="house-discover">Discover</span>
+                </span>
+              </a>
+            </motion.article>
+          ))}
+        </main>
 
-        <div className="divider section-divider" />
+        <motion.section className="house-close" {...fadeUp}>
+          <p className="house-kicker">Patrons</p>
+          <h2 className="house-close-title">
+            The{' '}
+            <span className="house-garden-word">
+              Gard
+              <span className="house-garden-en">
+                en
+                <span className="house-garden-fly" aria-hidden="true">
+                  <img src="/garden/butterfly-dark.png" alt="" draggable={false} />
+                </span>
+              </span>
+            </span>
+          </h2>
+          <p className="house-lead">
+            Hold a work, and a garden opens — beds of what you keep, and an Atelier to hang them.
+          </p>
+          <a className="house-discover" href={GARDEN_URL}>
+            Enter the Garden
+          </a>
+        </motion.section>
 
-        {showContent && schedule.primaryLivePiece && (
-          <PieceMintSection
-            pieceNumber={schedule.primaryLivePiece}
-            mode="live"
-            sessionKey={address ?? 'anon'}
-            sectionRef={pieceSectionRef}
-          />
-        )}
-
-        {showContent && schedule.teaserPiece != null && (
-          <PieceMintSection
-            pieceNumber={schedule.teaserPiece}
-            mode="teaser"
-            sessionKey={address ?? 'anon'}
-            motionDelay={0.7}
-            compact
-          />
-        )}
-
-        {showContent && schedule.releasedFragments.length > 0 && (
-          <ReleasedFragmentsGallery pieceNumbers={schedule.releasedFragments} />
-        )}
-
-        <ShareSection
-          open={drawer.shareOpen}
-          onToggle={drawer.toggleShare}
-          pieces={releasedSharePieces}
-        />
-
-        <SiteFooter themeClass={themeClass} gwei={gwei} />
-      </motion.div>
+        <footer className="house-footer">
+          <span>© {new Date().getFullYear()} Nikxname</span>
+          <div className="house-footer-right">
+            <a className="nav-live is-live" href={WILL_IT_URL} aria-label="Live · Will It..">
+              <span className="nav-live-dot" aria-hidden="true" />
+              Live
+            </a>
+            <a href={SECONDARY_MARKET_URL} target="_blank" rel="noopener noreferrer">
+              Secondary Market
+            </a>
+            <a href={EXPLORE_ORIGIN}>Explore</a>
+          </div>
+        </footer>
+      </div>
     </>
   );
 }

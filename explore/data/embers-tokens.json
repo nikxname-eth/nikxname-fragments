@@ -75,10 +75,11 @@
       "mediaType": "image",
       "tokenUri": "https://arweave.net/QHFype0myuldLUUcPyFzjTBW50d9mEZQ-WAHaXq27uw/5",
       "fps": 24,
-      "coverGif": "https://assets.nikxart.xyz/explore/media/a-familiar-burn/embers-watermelon-cover.gif",
-      "localCover": "/embers/covers/watermelon.gif",
-      "media1080": "https://assets.nikxart.xyz/explore/media/a-familiar-burn/embers-watermelon-fhd.jpg",
-      "posterUrl": "https://assets.nikxart.xyz/explore/media/a-familiar-burn/embers-watermelon-cover.gif"
+      "coverGif": "https://assets.nikxart.xyz/explore/media/a-familiar-burn/embers-watermelon-cover.jpg?v=torched-02",
+      "localCover": "/embers/covers/watermelon.jpg",
+      "localPoster": "/embers/thumbs/watermelon.webp",
+      "media1080": "https://assets.nikxart.xyz/explore/media/a-familiar-burn/embers-watermelon-fhd.jpg?v=torched-02",
+      "posterUrl": "https://assets.nikxart.xyz/explore/media/a-familiar-burn/embers-watermelon-cover.jpg?v=torched-02"
     },
     {
       "tokenId": 826,

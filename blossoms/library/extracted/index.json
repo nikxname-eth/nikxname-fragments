@@ -1,0 +1,3910 @@
+{
+  "count": 300,
+  "sheets": {
+    "gray001": 100,
+    "fire001": 100,
+    "fire003": 100
+  },
+  "blossoms": [
+    {
+      "id": "gray001_001",
+      "sheet": "gray001",
+      "file": "gray001_001.png",
+      "w": 504,
+      "h": 504,
+      "bbox": [
+        279,
+        407
+      ],
+      "area": 74496,
+      "phash": "200000003380000073800000331000003ff000003fe000003ff80001fff80001fffc0000fffe0000fffc0000fffe0000ffff8000ffff8000ffff8000ffff8000fffe0000fffe0000ffff00007fff00003ffc00001ffc00001ffe00000ff800000ff8000007a000000000000000000000000000"
+    },
+    {
+      "id": "gray001_002",
+      "sheet": "gray001",
+      "file": "gray001_002.png",
+      "w": 536,
+      "h": 536,
+      "bbox": [
+        433,
+        303
+      ],
+      "area": 83437,
+      "phash": "7800000ffc00003ffe00007fffc000ffffc000ffffe000fffff800fffffe00fffffe00fffffe00fffffe00fffffe001fffff801fffff800fffff0007ffc10001ff8000001f00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_003",
+      "sheet": "gray001",
+      "file": "gray001_003.png",
+      "w": 436,
+      "h": 436,
+      "bbox": [
+        262,
+        352
+      ],
+      "area": 64791,
+      "phash": "1c8000003fc00000ffe00000fff80001fffc0000fffe0000ffff0001ffff8001ffff8001ffff8000ffff8000ffff0001ffff8000ffff0000ffff8000ffffc0003fffc0003fff80001fff000007fe000007ff000001ff000001ff000000fc000000e00000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_004",
+      "sheet": "gray001",
+      "file": "gray001_004.png",
+      "w": 448,
+      "h": 448,
+      "bbox": [
+        362,
+        287
+      ],
+      "area": 73868,
+      "phash": "80000383c00007e7f80007ffff000fffff000fffff800fffff800fffffc00fffffc007ffffe007ffffe007fffff007fffff003fffff001fffff0007ffff0003fffe0003fffe0001fffe000001fc0000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_005",
+      "sheet": "gray001",
+      "file": "gray001_005.png",
+      "w": 540,
+      "h": 540,
+      "bbox": [
+        436,
+        294
+      ],
+      "area": 83199,
+      "phash": "17000000ffc00001ffe00033fff0003bfff8001ffffc00bfffff01ffffff807fffff007fffff803fffff801fffff000ffffe000ffffe0002fffe00007ffe00007ff400002c00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_006",
+      "sheet": "gray001",
+      "file": "gray001_006.png",
+      "w": 450,
+      "h": 450,
+      "bbox": [
+        363,
+        348
+      ],
+      "area": 70598,
+      "phash": "300000012000000198000001ff700000fff40005fffc000fffff0007ffff0001ffff0003ffffc003ffffe002ffffe001ffffc001fffff0017ffff800fffff0003fffe0007ffff0003fffe0007fffc0000fff000007fe000003fc000000380000001000000000000000000000000000"
+    },
+    {
+      "id": "gray001_007",
+      "sheet": "gray001",
+      "file": "gray001_007.png",
+      "w": 510,
+      "h": 510,
+      "bbox": [
+        412,
+        282
+      ],
+      "area": 69878,
+      "phash": "200000005fc00000ffe001f7fff001fffff000fffff8007ffffc003ffffc00fffffe00fffffe003fffff001fffff0007ffff0003ffff0000fffe00007ffc00003ff000001e00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_008",
+      "sheet": "gray001",
+      "file": "gray001_008.png",
+      "w": 567,
+      "h": 567,
+      "bbox": [
+        458,
+        364
+      ],
+      "area": 104489,
+      "phash": "80000007f000001ffc00003fffc0007fffc0007fffe0007ffff007fffff00ffffff00ffffff00ffffff00ffffff007fffff001fffff000fffff0007fffe0001fffc00007ff000000f80000007000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_009",
+      "sheet": "gray001",
+      "file": "gray001_009.png",
+      "w": 465,
+      "h": 465,
+      "bbox": [
+        375,
+        288
+      ],
+      "area": 71427,
+      "phash": "4000060ff800079ffc0003ffff0003ffff0001ffffc001ffffe00fffffe007ffffe003ffffe00fffffe001ffffe000ffffe0007ffff0003ffff0000ffff00007ffe00007ffe00003ffc000001e00000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_010",
+      "sheet": "gray001",
+      "file": "gray001_010.png",
+      "w": 421,
+      "h": 421,
+      "bbox": [
+        340,
+        317
+      ],
+      "area": 68671,
+      "phash": "70300000f1f0000ff7e0000fffe000ffffc001ffff8001ffff0003ffff0003ffff0003ffff8007ffff800fffffc00fffffc00fffffc00fffff801fffff001ffffe001ffffc000ffffc000ffff80007ffe00001c800000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_011",
+      "sheet": "gray001",
+      "file": "gray001_011.png",
+      "w": 633,
+      "h": 633,
+      "bbox": [
+        388,
+        511
+      ],
+      "area": 130532,
+      "phash": "c8000001d8000001f9000003ff00001fff00001fff80001fff80003fff0000ffff0000fffe0001fffe0000ffff0000ffff0001ffff0001ffff0001ffff0003ffff0003fffe0003fffc0003fffc0001fff80001fff80000ffe000003fc00000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_012",
+      "sheet": "gray001",
+      "file": "gray001_012.png",
+      "w": 556,
+      "h": 556,
+      "bbox": [
+        315,
+        449
+      ],
+      "area": 93153,
+      "phash": "80000000c000000cc000000cc000000ef000000fff000007ff800007ffc0001fffe0000fffe0001ffff0000ffff8000ffff8000ffff00007fff0000ffff8001ffff0000ffff0001ffff0000ffff8000ffff00007ffe00003ffc00003ff800001fe000000f0000000000000000000000000000"
+    },
+    {
+      "id": "gray001_013",
+      "sheet": "gray001",
+      "file": "gray001_013.png",
+      "w": 657,
+      "h": 657,
+      "bbox": [
+        315,
+        530
+      ],
+      "area": 114149,
+      "phash": "3c0000007e000000ff000001ff800001ff800003ffc00007ffe00007ffe00007ffe0000fffe0000fffe0000fffe0000fffe0000fffe0000fffe00007ffe00007ffe00007fff00003ffe00001ffe00000ffc000007fc000000fc0000007c0000006c0000002000000000000000000000000000"
+    },
+    {
+      "id": "gray001_014",
+      "sheet": "gray001",
+      "file": "gray001_014.png",
+      "w": 605,
+      "h": 605,
+      "bbox": [
+        332,
+        488
+      ],
+      "area": 100805,
+      "phash": "60000000e0000008e000000dec00000dfc00001ffc00001ff800001ffc00007ffd00007fff00003fff00003fff00007fff8000ffff8001ffff8001ffff8000ffff0000ffff00007fff00007ffe00003ffe00003ffe00003ffe00001ff8000007800000010000000000000000000000000000"
+    },
+    {
+      "id": "gray001_015",
+      "sheet": "gray001",
+      "file": "gray001_015.png",
+      "w": 603,
+      "h": 603,
+      "bbox": [
+        334,
+        487
+      ],
+      "area": 108528,
+      "phash": "17e000001ff000001ffc00003ffc00007ffc00007ffe0000fffe0000fffe0000fffe0001ffff0000ffff0000ffff8000ffff0000ffff00007ffe00007ffc00003ffc00003ffc00003ff80000fff80000ffe80000f7e0000027c0000006400000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_016",
+      "sheet": "gray001",
+      "file": "gray001_016.png",
+      "w": 598,
+      "h": 598,
+      "bbox": [
+        346,
+        483
+      ],
+      "area": 96022,
+      "phash": "3000000030000000f0000000e000000df380000fff00001fff00001ffe00007ffe00007ffe00007fff0000ffff0000ffff0001ffff0001ffff0001ffff0001ffff0001ffff0001fffe0001fffc0000fff800007ff000003fe000003f8000000f000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_017",
+      "sheet": "gray001",
+      "file": "gray001_017.png",
+      "w": 523,
+      "h": 523,
+      "bbox": [
+        422,
+        306
+      ],
+      "area": 73965,
+      "phash": "3f000001ffc00003ffe00003fff00007fff80007fffe000ffffe01ffffff81ffffff00ffffff001fffff800fffff000fffff000ffffe0003fffc00007ff800000f8000000600000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_018",
+      "sheet": "gray001",
+      "file": "gray001_018.png",
+      "w": 519,
+      "h": 519,
+      "bbox": [
+        419,
+        275
+      ],
+      "area": 72453,
+      "phash": "f000001ffe00007fff0000fffff800fffff800fffff801fffff800fffffc00ffffff00ffffff80ffffff007fffff007ffffc000fff800007ff800003fe0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_019",
+      "sheet": "gray001",
+      "file": "gray001_019.png",
+      "w": 541,
+      "h": 541,
+      "bbox": [
+        437,
+        337
+      ],
+      "area": 97897,
+      "phash": "3fc000007ff80001fffc0007fffe000fffff00cffffe00fffffe007ffffe003ffffc001ffffe003fffff003fffff007fffff00ffffff00e3ffff0003fffe00013ff800000f80000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_020",
+      "sheet": "gray001",
+      "file": "gray001_020.png",
+      "w": 553,
+      "h": 553,
+      "bbox": [
+        446,
+        300
+      ],
+      "area": 88280,
+      "phash": "180000003f800000fffe0003fffe0007ffff000ffffff00ffffff80ffffff00ffffff01ffffff01ffffff00ffffff00ffffff003fffc0001fffc00007ff000001fe0000002000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_021",
+      "sheet": "gray001",
+      "file": "gray001_021.png",
+      "w": 664,
+      "h": 664,
+      "bbox": [
+        397,
+        536
+      ],
+      "area": 141446,
+      "phash": "20000007b0000003f000001bf000001ff100001fff80000fffc0000fffe0000fffe0001ffff0003ffff8001ffff8000ffff8000ffff8000ffff8001ffff8001ffff8000ffff8000ffff80007fff80003fff00001fff00001ffe00000ffc000007f8000001e000000000000000000000000000"
+    },
+    {
+      "id": "gray001_022",
+      "sheet": "gray001",
+      "file": "gray001_022.png",
+      "w": 629,
+      "h": 629,
+      "bbox": [
+        508,
+        441
+      ],
+      "area": 133564,
+      "phash": "30000000f1f00003f7f000efffe001ffffc003ffff8003fffff803fffff003ffffc007ffff800fffff000fffff801fffff801fffff000ffffe001ffffe001ffffc000ffff80007fff00003ffc000017e0000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_023",
+      "sheet": "gray001",
+      "file": "gray001_023.png",
+      "w": 603,
+      "h": 603,
+      "bbox": [
+        487,
+        433
+      ],
+      "area": 116039,
+      "phash": "1000000030000000bb800000fffc0000fffe000fffff0007ffff0003ffff8001ffff8000ffffc000ffffc001ffffe001fffff000ffffe0003fffe0003fffe0003fffe0001fff80000fff000003ff000001fe0000007c000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_024",
+      "sheet": "gray001",
+      "file": "gray001_024.png",
+      "w": 706,
+      "h": 706,
+      "bbox": [
+        387,
+        570
+      ],
+      "area": 148496,
+      "phash": "fc000003fe000007fe000007ff80000fff80000fffc0000fffe0000ffff0000ffff0001ffff8001ffff0001ffff0001fffc0001fffe0001ffff0000ffff0000ffff00007fff00003ffc00001ffe00000ffe0000007e0000007c0000007c0000003c0000002000000000000000000000000000"
+    },
+    {
+      "id": "gray001_025",
+      "sheet": "gray001",
+      "file": "gray001_025.png",
+      "w": 761,
+      "h": 761,
+      "bbox": [
+        614,
+        433
+      ],
+      "area": 167411,
+      "phash": "3f0000007fc00001ffe00003fff00033fffe007ffffe007fffff003fffff007fffff003fffff00ffffff005fffff000ffffe000ffffc0003fff800007fe000003f8000001800000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_026",
+      "sheet": "gray001",
+      "file": "gray001_026.png",
+      "w": 621,
+      "h": 621,
+      "bbox": [
+        358,
+        501
+      ],
+      "area": 109046,
+      "phash": "80000001f0000003f800000ffe00001fff00003fff80007fff8000ffff8001ffff8001ffff8001ffff8001ffff0001ffff0001ffff0001ffff0001ffff0000fffe00007ff00000ffe00001ffe00001ffc000019ec000001c0000003800000038000000100000000000000000000000000000"
+    },
+    {
+      "id": "gray001_027",
+      "sheet": "gray001",
+      "file": "gray001_027.png",
+      "w": 484,
+      "h": 484,
+      "bbox": [
+        391,
+        380
+      ],
+      "area": 97925,
+      "phash": "1e000000ff800001ffc0000fffc0001ffff0003ffff0007ffff0007ffff8007ffff800fffff800fffff800fffff800fffff801fffff800fffff800fffff000fffff003ffffe00fffffe00fffffc000ffff80007fff00007fe0000040000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_028",
+      "sheet": "gray001",
+      "file": "gray001_028.png",
+      "w": 593,
+      "h": 593,
+      "bbox": [
+        479,
+        368
+      ],
+      "area": 114168,
+      "phash": "ff800003fff80007fffc000ffffc000ffffc001ffffe000fffff000fffff8007ffffc007ffffe007ffffe003ffffe003ffffc001ffffc001ffffe000fffff0007ffff8003ff0f0000fe07000018000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_029",
+      "sheet": "gray001",
+      "file": "gray001_029.png",
+      "w": 486,
+      "h": 486,
+      "bbox": [
+        370,
+        392
+      ],
+      "area": 81761,
+      "phash": "70000000fc00001ffe00003fff00003fff80007fffc0007fffe0007ffff0003ffff0003ffff0003ffff8003ffffc001ffffe001ffffc001ffff0000ffff80007fffc0007fffc0000fffc00007fc600001bc2000001c0000000c0000000c000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_030",
+      "sheet": "gray001",
+      "file": "gray001_030.png",
+      "w": 647,
+      "h": 647,
+      "bbox": [
+        522,
+        347
+      ],
+      "area": 115733,
+      "phash": "18000003fe000007ff00000fffc0045ffff007fffff80ffffff80ffffff80ffffff80ffffff80ffffff003ffffe003ffffc001ffff8000ffff000007fc000007e0000000800000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_031",
+      "sheet": "gray001",
+      "file": "gray001_031.png",
+      "w": 695,
+      "h": 695,
+      "bbox": [
+        380,
+        561
+      ],
+      "area": 131476,
+      "phash": "40000000c0000001c0000013c000003fe000007fc00000ffe00000ffc00001ffc00001ffe0000ffff0000ffff8000ffff0001ffff8000ffff0000ffff0000ffff0001ffff0000fffe0000fffe0000fff80000fff000007fc000003f4000003c000000040000000000000000000000000000"
+    },
+    {
+      "id": "gray001_032",
+      "sheet": "gray001",
+      "file": "gray001_032.png",
+      "w": 677,
+      "h": 677,
+      "bbox": [
+        377,
+        546
+      ],
+      "area": 126024,
+      "phash": "40000001f8000007fc00000ffe00001ffe00003fff00007fff0000ffff00007fff0001ffff0001ffff0001ffff8001ffff8001ffff8000ffff0001fffc0000fff800007ff800003ff800001ff000001fe000001fe000001fc000001fc000003c000000100000000000000000000000000000"
+    },
+    {
+      "id": "gray001_033",
+      "sheet": "gray001",
+      "file": "gray001_033.png",
+      "w": 668,
+      "h": 668,
+      "bbox": [
+        362,
+        539
+      ],
+      "area": 123902,
+      "phash": "4000000240000007c0000007c000006fc000007fe000003fe000003ff800003ffc00003fff0000ffff00007fff00007fff0000ffff8000ffff8000ffff8000ffff8000ffff80007fff80003fff00003fff00003fff00001fff00000ffe00000fd80000034000000000000000000000000000"
+    },
+    {
+      "id": "gray001_034",
+      "sheet": "gray001",
+      "file": "gray001_034.png",
+      "w": 597,
+      "h": 597,
+      "bbox": [
+        404,
+        482
+      ],
+      "area": 125429,
+      "phash": "30c000003cc000001fe000001ffe00001fff80000fffc0000fffc0000ffff0003ffff8003ffff8003ffffc001ffffc001ffffc000ffffc0007fffc0007fffc0007fffc0007fffc0007fffc0003fffc0001fffc00007ff800003ff000001fe0000007000000000000000000000000000"
+    },
+    {
+      "id": "gray001_035",
+      "sheet": "gray001",
+      "file": "gray001_035.png",
+      "w": 700,
+      "h": 700,
+      "bbox": [
+        375,
+        565
+      ],
+      "area": 134923,
+      "phash": "7f000000ffc00001fff00003fff00003fff00007fff8000ffff8000ffff8000ffff8001ffff0000ffff8000ffff0000ffff0000ffff0000ffff0000fff80000fff80000fff800007ff000007fb0000027800000070000000700000006000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_036",
+      "sheet": "gray001",
+      "file": "gray001_036.png",
+      "w": 597,
+      "h": 597,
+      "bbox": [
+        333,
+        482
+      ],
+      "area": 92933,
+      "phash": "100000007f000001ff800001ffc00003ffc00007ffe00007ffe0000fffe0000fffe0001ffff0001ffff0001ffff8001ffff0000fffe0000fffc0000fffc0000fffc00007ffc00001ff800000ff800000ff0000007f00000078000000780000007000000060000000000000000000000000000"
+    },
+    {
+      "id": "gray001_037",
+      "sheet": "gray001",
+      "file": "gray001_037.png",
+      "w": 513,
+      "h": 513,
+      "bbox": [
+        325,
+        414
+      ],
+      "area": 90607,
+      "phash": "300000007c000004fe00000fff00001fff00003fff00003fff0000ffff8001ffff8003ffff0003ffff8003ffff8003ffff8003ffff8003ffff8003ffff8001ffff0001ffff0001fffe0000fffe0000fff800007fe000001f00000002000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_038",
+      "sheet": "gray001",
+      "file": "gray001_038.png",
+      "w": 584,
+      "h": 584,
+      "bbox": [
+        471,
+        346
+      ],
+      "area": 110402,
+      "phash": "7d800070ffc0003dffe0003ffff000fffff800fffffc00fffffc007ffffe007fffff003fffff001fffff001fffff000ffffe000ffffe0003fffe0000fffe00007ffc00001ff8000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_039",
+      "sheet": "gray001",
+      "file": "gray001_039.png",
+      "w": 498,
+      "h": 498,
+      "bbox": [
+        402,
+        326
+      ],
+      "area": 85425,
+      "phash": "3c0000607f000078ffe0007ffff000fffff800fffff8007ffff8003ffffc003ffffc003ffffe003ffffe000fffff000fffff0003fffe0003ffff0001fffe0000fffe0000fffc00007ffc00001ff80000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_040",
+      "sheet": "gray001",
+      "file": "gray001_040.png",
+      "w": 617,
+      "h": 617,
+      "bbox": [
+        498,
+        328
+      ],
+      "area": 91039,
+      "phash": "20000001f000000ff800001fff80007fffe000fffff001fffff001fffff001fffff801fffffe00ffffff007fffff003fffc0003fff80000fff800007ff000001ff0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_041",
+      "sheet": "gray001",
+      "file": "gray001_041.png",
+      "w": 672,
+      "h": 672,
+      "bbox": [
+        437,
+        542
+      ],
+      "area": 133786,
+      "phash": "30000001fc000007fe000007ff80000fff80000fff80001fffe0003fffe0001ffff0001ffff0001fffe0001fffe0000fffe0000ffff8000ffff8000fffe0000ffff00003fff00003fff800007fdc00003fc800000fc000000e4000000e0000000600000004000000000000000000000000000"
+    },
+    {
+      "id": "gray001_042",
+      "sheet": "gray001",
+      "file": "gray001_042.png",
+      "w": 575,
+      "h": 575,
+      "bbox": [
+        317,
+        464
+      ],
+      "area": 92371,
+      "phash": "1c0000001e0000005e0000007e0000007e800000fff00000fffc0000fffc0000fffc0000fffe0000fffe00007fff0000ffff0000ffff0001ffff8001ffff0000ffff00007ffe00003ffe00001ffe00001ffc00000ff800000ff8000003f0000000e000000000000000000000000000"
+    },
+    {
+      "id": "gray001_043",
+      "sheet": "gray001",
+      "file": "gray001_043.png",
+      "w": 670,
+      "h": 670,
+      "bbox": [
+        362,
+        541
+      ],
+      "area": 118761,
+      "phash": "1f0000003f800000ffc00001ffe00001fff00007fff80007fff8000ffff8000ffff8000ffff8000ffff0000ffff8001ffff0001ffff0000fffe0000fffc00007ff800007ff800007ff000007ff00000476000000f0000000e0000000c0000000c0000000000000000000000000000"
+    },
+    {
+      "id": "gray001_044",
+      "sheet": "gray001",
+      "file": "gray001_044.png",
+      "w": 732,
+      "h": 732,
+      "bbox": [
+        591,
+        387
+      ],
+      "area": 129677,
+      "phash": "f800000ffc00001ffe00007fffc000fffff000fffff800fffff800fffff000fffffc00ffffff007fffff803ffff7001fffc00007ff800007ff000001ff0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_045",
+      "sheet": "gray001",
+      "file": "gray001_045.png",
+      "w": 634,
+      "h": 634,
+      "bbox": [
+        512,
+        395
+      ],
+      "area": 130329,
+      "phash": "b1e00003ffd00007fff0000ffff00007fff0000ffffc001ffffe000fffff0007ffff8007ffffe007ffff8003ffff8001ffffc001ffffe001ffffe000fffff000fffff8007ff5e0000fc06000020000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_046",
+      "sheet": "gray001",
+      "file": "gray001_046.png",
+      "w": 565,
+      "h": 565,
+      "bbox": [
+        456,
+        385
+      ],
+      "area": 110476,
+      "phash": "800000058380001f9f80005fff001ffffe000ffff8001ffff0001ffff4003ffff2003ffffc007ffff800fffff000fffff801fffff801fffff001fffff001fffff001ffffe001ffff8000ffff800035f7000022000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_047",
+      "sheet": "gray001",
+      "file": "gray001_047.png",
+      "w": 491,
+      "h": 491,
+      "bbox": [
+        327,
+        396
+      ],
+      "area": 86782,
+      "phash": "20000000610000003300000e7e00000dfe00001ffc00001ffc00007ffc00007ffe0001ffff0001ffff0003ffffe003ffffc003ffff8003ffff8003ffff8003ffffc003ffff8003ffffc003ffff8001fffe0001fffc0001fff000007fe0000007e00000008000000000000000000000000000"
+    },
+    {
+      "id": "gray001_048",
+      "sheet": "gray001",
+      "file": "gray001_048.png",
+      "w": 571,
+      "h": 571,
+      "bbox": [
+        321,
+        461
+      ],
+      "area": 97625,
+      "phash": "3e0000003fc00000ffe00000fff000007ffc00007ffe0001ffff0001ffff0000ffff0001ffff0001ffff0000ffff0001ffff0000ffff0000ffff80007fff00003fff80003fff80001fff800007ff000000fe000000fe000000fe000000ce000000c80000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_049",
+      "sheet": "gray001",
+      "file": "gray001_049.png",
+      "w": 510,
+      "h": 510,
+      "bbox": [
+        397,
+        412
+      ],
+      "area": 100990,
+      "phash": "38000000ff800001ffc00001fff80003fffe0007fffe0007ffff0007ffff0007ffff0003ffff0003ffff0003ffff8003ffff8001ffff8001ffffc001ffff8000ffff8000ffffc0007fffc0001fffe0000fffe00003f7e0000011c0000000c0000000c000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_050",
+      "sheet": "gray001",
+      "file": "gray001_050.png",
+      "w": 685,
+      "h": 685,
+      "bbox": [
+        553,
+        380
+      ],
+      "area": 144332,
+      "phash": "7fc00001fffc0003fffe0007fffe0007ffff0007fffff00ffffff01fffffc01ffffff01ffffff00ffffff00ffffff003fffff001ffff80007ff000001fe0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_051",
+      "sheet": "gray001",
+      "file": "gray001_051.png",
+      "w": 631,
+      "h": 631,
+      "bbox": [
+        468,
+        509
+      ],
+      "area": 154217,
+      "phash": "10000001d00000a7fc0001fffe0003ffff0003ffff0007ffff000fffff000ffffe003ffffe003ffffe007ffffe003ffffc003ffffc001ffffc000ffffc0007fff80007fff0000fffe0001fff70001ffe00003f3e00007cfc0000f8800000704000006000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_052",
+      "sheet": "gray001",
+      "file": "gray001_052.png",
+      "w": 655,
+      "h": 655,
+      "bbox": [
+        388,
+        529
+      ],
+      "area": 127930,
+      "phash": "1c0000003a0000037e000007ff00000fff00001fff00001fff80003fff80003fff00007fff0001ffff0001ffff0001ffff8001ffff0001ffff8001ffff0003ffff0001fffe0001fffc0000fffc0000ffe000003fe000003f0000000e000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_053",
+      "sheet": "gray001",
+      "file": "gray001_053.png",
+      "w": 688,
+      "h": 688,
+      "bbox": [
+        408,
+        555
+      ],
+      "area": 151117,
+      "phash": "e0000001f000001ff000003ff800007ff00000fff00000fff80003fff80007fff8000ffff8000ffff8000ffff8000ffff8000ffff8000ffff8000ffff0001ffff0001fffe0001fffc0001fffc0000fffc0000fff000007f00000038000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_054",
+      "sheet": "gray001",
+      "file": "gray001_054.png",
+      "w": 616,
+      "h": 616,
+      "bbox": [
+        327,
+        497
+      ],
+      "area": 113745,
+      "phash": "7f000000ff800001ffc00003ffc00003ffc00007ffe00007ffe0000fffe0000ffff0000ffff0000ffff0000ffff00007fff00007fff00007fff00003ffe00003ffe00003ffc00007ffc0000fffc00004ffc000007f0000007f0000007e00000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_055",
+      "sheet": "gray001",
+      "file": "gray001_055.png",
+      "w": 731,
+      "h": 731,
+      "bbox": [
+        590,
+        399
+      ],
+      "area": 156161,
+      "phash": "78000000ffc00061ffe0007ffff0007ffffc00fffffc00fffffc003ffffe001fffff007fffff00ffffff01ffffff00ffffff0007fffe0007fffe00007ffc00003ff000001c00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_056",
+      "sheet": "gray001",
+      "file": "gray001_056.png",
+      "w": 675,
+      "h": 675,
+      "bbox": [
+        395,
+        545
+      ],
+      "area": 148738,
+      "phash": "f8000001fe000001ffc00003fff00007fff00007fff0000ffff8000ffff8001ffff8001ffff8001ffff8000ffff8001ffff8000ffff8000ffff80007fff80007ffe00003ff800003ff800007ff00000ffe00000ffc00000fc80000078800000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_057",
+      "sheet": "gray001",
+      "file": "gray001_057.png",
+      "w": 587,
+      "h": 587,
+      "bbox": [
+        379,
+        474
+      ],
+      "area": 126499,
+      "phash": "80000017f800003ffc00007ffe0000ffff0000ffff0000ffff0001ffff8001ffff8001ffff8001ffffc001ffffc001ffff8001ffff0001ffff0001ffff0000fffe00007ffe00007ffe00007ffc00007ff000007ff000007ff000003fb0000003300000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_058",
+      "sheet": "gray001",
+      "file": "gray001_058.png",
+      "w": 543,
+      "h": 543,
+      "bbox": [
+        406,
+        438
+      ],
+      "area": 114530,
+      "phash": "700000003a0000003f0600003f7f00003fff80001fffc0001ffff0002ffff8007ffff8007ffffc003ffffc003ffffc001ffffc001ffffc000ffffc0007fffe0007fffc0007fffc0007fffe0003fffe0003fffe0001fffe00001ff800000ff8000000e00000000000000000000000000"
+    },
+    {
+      "id": "gray001_059",
+      "sheet": "gray001",
+      "file": "gray001_059.png",
+      "w": 693,
+      "h": 693,
+      "bbox": [
+        559,
+        395
+      ],
+      "area": 137163,
+      "phash": "78000031fc8000ffffe000fffff001fffff803fffff807ffffa00ffffe000ffffe001ffffe001ffffe001ffffe001ffffe000ffffc000ffffc0002fff800009fc000000f800000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_060",
+      "sheet": "gray001",
+      "file": "gray001_060.png",
+      "w": 471,
+      "h": 471,
+      "bbox": [
+        380,
+        265
+      ],
+      "area": 67721,
+      "phash": "7000000ffc00000fff00001fff80003fffc00fffffe007ffffe003fffff007fffff007fffff007fffff00ffffff007fffff0003ffff0003fffe0007fff8000017a000000800000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_061",
+      "sheet": "gray001",
+      "file": "gray001_061.png",
+      "w": 574,
+      "h": 574,
+      "bbox": [
+        463,
+        457
+      ],
+      "area": 116133,
+      "phash": "20000000b0000001f8000001fcc00001fff00001fff80001fffc000dfffe000fffff0007ffff0003ffff8001ffffc000ffffc001ffffe001ffffe000fffff0007fffe0007fffe0007fffe0003fffc0001fff000007fe000003fe000000fc0000003000000000000000000000000000"
+    },
+    {
+      "id": "gray001_062",
+      "sheet": "gray001",
+      "file": "gray001_062.png",
+      "w": 688,
+      "h": 688,
+      "bbox": [
+        418,
+        555
+      ],
+      "area": 152701,
+      "phash": "fc000007fe00000fff80003fff80007fffc000ffffc000ffffc000ffffc000ffffc001ffff8001ffff8001ffff8001ffff8001ffff8000ffff00007fff00007ff600007ff00000ffe00000ffc00001ff000001fe00000060000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_063",
+      "sheet": "gray001",
+      "file": "gray001_063.png",
+      "w": 642,
+      "h": 642,
+      "bbox": [
+        379,
+        518
+      ],
+      "area": 118015,
+      "phash": "1c000000ff800000ffc00000ffe00000fff80000fffe0001ffff0001ffff0000ffff0000fffe0001fffe0001ffff0001ffff8001ffff8001ffff80007fff80003fffc0003fff80003fff00000dfe0000007e0000003f0000000f0000000f0000000e0000000400000000000000000000000000"
+    },
+    {
+      "id": "gray001_064",
+      "sheet": "gray001",
+      "file": "gray001_064.png",
+      "w": 693,
+      "h": 693,
+      "bbox": [
+        409,
+        559
+      ],
+      "area": 145749,
+      "phash": "3c000000fe000003ff000007ff80000fffc0000fffc0001fffe0001fffe0001ffff0001ffff8001ffff8001ffff8000ffff8000ffff8000ffff8000ffff8000ffff80007fff00001fff00001fff00000fff800003ff800000f980000078000000300000002000000000000000000000000000"
+    },
+    {
+      "id": "gray001_065",
+      "sheet": "gray001",
+      "file": "gray001_065.png",
+      "w": 570,
+      "h": 570,
+      "bbox": [
+        401,
+        460
+      ],
+      "area": 104965,
+      "phash": "3c000000fe000003ff80000bffc0000fff80001fffc0003fffe0003fffe0007fffe0007fffe000ffffc000ffffe001ffffc000ffff80007fff80007fff8001ffff0003fffe0007fffe0005bfd800007fa000007b8000007300000013000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_066",
+      "sheet": "gray001",
+      "file": "gray001_066.png",
+      "w": 680,
+      "h": 680,
+      "bbox": [
+        549,
+        404
+      ],
+      "area": 143084,
+      "phash": "60000002fc00001ffd00001fff00073fffa003bffff003fffff003fffff007fffff80ffffff80ffffff80ffffff806fffff0007fffe000ffffe00067ffc00007ffc00007ff800001fa0000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_067",
+      "sheet": "gray001",
+      "file": "gray001_067.png",
+      "w": 530,
+      "h": 530,
+      "bbox": [
+        281,
+        428
+      ],
+      "area": 77779,
+      "phash": "300000003000000076000002fe000006fe00000ffe00000fff00001ffe00001ffe00007fff00007fff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff00007fff00007ffe00007ffe00007ffc00003ff800003ff000001fc000000f800000020000000000000000000000000000"
+    },
+    {
+      "id": "gray001_068",
+      "sheet": "gray001",
+      "file": "gray001_068.png",
+      "w": 686,
+      "h": 686,
+      "bbox": [
+        554,
+        421
+      ],
+      "area": 142267,
+      "phash": "18000001bc0000fbfdf800fbfff001ffffe001ffff8001ffff8003ffff000fffff000fffff000ffffe000fffff001fffff000fffff001ffffe001ffffc000ffff80007fff000007fe00000238000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_069",
+      "sheet": "gray001",
+      "file": "gray001_069.png",
+      "w": 598,
+      "h": 598,
+      "bbox": [
+        475,
+        483
+      ],
+      "area": 140254,
+      "phash": "20000008f000001ffc0005fffc0003fffe0007ffff0007ffff800fffff001fffff001fffff003fffff007ffffe003ffffe003ffffe001ffff8000ffff8001ffff8003ffff000ffffe000fffce0003ff800003ff000007c400000602000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_070",
+      "sheet": "gray001",
+      "file": "gray001_070.png",
+      "w": 518,
+      "h": 518,
+      "bbox": [
+        310,
+        418
+      ],
+      "area": 84032,
+      "phash": "80000003e000000fe00000bff00003fff00007fff80007fff80007fffc000ffffc000ffff8001ffff8001ffff8003ffff8003ffff8001ffff8001ffff8000fffe0000fff000003ff000007ff00000ffd00000ffe00001ffc00001fe000000f40000006c0000000000000000000000000000"
+    },
+    {
+      "id": "gray001_071",
+      "sheet": "gray001",
+      "file": "gray001_071.png",
+      "w": 724,
+      "h": 724,
+      "bbox": [
+        392,
+        584
+      ],
+      "area": 132785,
+      "phash": "78000001fe000001ff000003ff800003ff800007ffc00007ffe00007fff0000ffff8000ffff0001ffff0001fffe0001fffe0000fffe00007fff00007fff00007fff00003ffe00003ffe000007fa000000f8000000780000003800000030000000300000001000000000000000000000000000"
+    },
+    {
+      "id": "gray001_072",
+      "sheet": "gray001",
+      "file": "gray001_072.png",
+      "w": 560,
+      "h": 560,
+      "bbox": [
+        438,
+        452
+      ],
+      "area": 121554,
+      "phash": "8000001c8000001e8e0000cfff0000ffffe000ffffe0007ffff0003ffff8001ffff8001ffffc003ffffc003ffffc001ffffc000ffffe0007ffff0007ffff0007fffe0007fffe0003fffe0001fffe0000fffe00007ffe00003ffc00000ff8000006c00000000000000000000000000"
+    },
+    {
+      "id": "gray001_073",
+      "sheet": "gray001",
+      "file": "gray001_073.png",
+      "w": 523,
+      "h": 523,
+      "bbox": [
+        422,
+        345
+      ],
+      "area": 92526,
+      "phash": "8000000ffdc0000ff3e0000ffff0003ffff800fffff801fffff801fffff801fffff801fffff001fffff000fffff001ffffe007ffffe001ffff8001ffffc007ffff800feffe001f5ed4001f1f8000001c0000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_074",
+      "sheet": "gray001",
+      "file": "gray001_074.png",
+      "w": 632,
+      "h": 632,
+      "bbox": [
+        510,
+        353
+      ],
+      "area": 105120,
+      "phash": "10000001fc00001ffc00007ffe0000ffffc000ffffe000fffff800fffff801fffff800fffffc007fffff003fffff001fffff800fffff8007ff830003ff800001ff0000000e00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_075",
+      "sheet": "gray001",
+      "file": "gray001_075.png",
+      "w": 708,
+      "h": 708,
+      "bbox": [
+        571,
+        387
+      ],
+      "area": 151128,
+      "phash": "100000007f800000fff000f1fff8007fffff003fffff00ffffff003fffff003fffff801fffff003fffff007fffff81ffffff00e7ffff0003fffe0007fffc00077ff800001d40000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_076",
+      "sheet": "gray001",
+      "file": "gray001_076.png",
+      "w": 736,
+      "h": 736,
+      "bbox": [
+        594,
+        402
+      ],
+      "area": 143654,
+      "phash": "c1c00001eff80001fffe0000ffff0000ffff001fffffc00fffffc007ffffe003fffff000fffff001fffff001fffff000fffff0003fffe0000fffc00003ff000003f4000001800000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_077",
+      "sheet": "gray001",
+      "file": "gray001_077.png",
+      "w": 496,
+      "h": 496,
+      "bbox": [
+        400,
+        325
+      ],
+      "area": 80568,
+      "phash": "180000030ce00007bff00007fff80003ffff0011ffff001fffff800fffffc007ffff8003ffffe000ffffe001fffff000fffff000fffff0003ffff0000fffe0001ffff0000fffc00007ffc00001ff40000008000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_078",
+      "sheet": "gray001",
+      "file": "gray001_078.png",
+      "w": 519,
+      "h": 519,
+      "bbox": [
+        419,
+        348
+      ],
+      "area": 90415,
+      "phash": "3c000003ffc00007ffc00007fff00007fff8000ffffc0007fffc0007fffe0007ffff0007ffff8007ffff8003ffffe001ffff8001ffff8001ffffc000ffffc000ffffc0003ffff00007e5f00007cd8800008040000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_079",
+      "sheet": "gray001",
+      "file": "gray001_079.png",
+      "w": 411,
+      "h": 411,
+      "bbox": [
+        332,
+        319
+      ],
+      "area": 74011,
+      "phash": "f9800007ffe0001ffff0001ffff8003ffff8007ffff800fffff800fffff001fffff001fffff801fffff801fffff001fffff001fffff007ffffe00fffffe00fffffc00fffff800fffff800fffff000fffce0007ff0000071c000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_080",
+      "sheet": "gray001",
+      "file": "gray001_080.png",
+      "w": 570,
+      "h": 570,
+      "bbox": [
+        460,
+        433
+      ],
+      "area": 127279,
+      "phash": "20000071f00001f3f00003ffe0000fffc000fffff001fffff001ffffc003ffff8003ffff8003ffff8007ffff800fffff800fffffc00fffffc00fffff801fffff001ffffe000ffffc000ffff80007fff80003ffc000000800000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_081",
+      "sheet": "gray001",
+      "file": "gray001_081.png",
+      "w": 757,
+      "h": 757,
+      "bbox": [
+        380,
+        611
+      ],
+      "area": 139567,
+      "phash": "4000000040000004e0000006e000000fe000000fe000000fe000003ff400003ffe00003fff00003ffe00003fff00007fff0000ffff0000ffff0000ffff00007fff0000fffe00007ffe00003ffe00003ffc00003ff800001ff000001fe000000fc00000060000000000000000000000000000"
+    },
+    {
+      "id": "gray001_082",
+      "sheet": "gray001",
+      "file": "gray001_082.png",
+      "w": 615,
+      "h": 615,
+      "bbox": [
+        357,
+        496
+      ],
+      "area": 106631,
+      "phash": "20000000e0000001c000001fc000007f8000007fa00000ffe00001ffe00001ffe00001ffe00007fff0001ffff8001ffff8001ffff0001ffff8001ffff0001ffff0000fffe0001ffff0001fffe0000fffc0000fff00000ffe000007f00000026000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_083",
+      "sheet": "gray001",
+      "file": "gray001_083.png",
+      "w": 648,
+      "h": 648,
+      "bbox": [
+        348,
+        523
+      ],
+      "area": 110189,
+      "phash": "2000000070000001f0000003f0000003f0000003f8000003ff000007ffc0000fffe0000fffe0000fffe00007fff00007fff00007fff0000ffff8000ffff0001ffff0000ffff0000ffff00007ffe00003ffe00001ffc00001ffc00000ff0000007f0000003d000000000000000000000000000"
+    },
+    {
+      "id": "gray001_084",
+      "sheet": "gray001",
+      "file": "gray001_084.png",
+      "w": 577,
+      "h": 577,
+      "bbox": [
+        336,
+        466
+      ],
+      "area": 99449,
+      "phash": "18000000ff000001ff00000fff00001fff80007fff80007fff80007fff8000ffff8000ffff8000ffff8001ffff8001ffff8000ffff8000ffff0000ffff00007ffc0000fff00001fff000003fe000007fe0000077000000e600000004000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_085",
+      "sheet": "gray001",
+      "file": "gray001_085.png",
+      "w": 691,
+      "h": 691,
+      "bbox": [
+        558,
+        374
+      ],
+      "area": 119917,
+      "phash": "40000001f0000007f000003fff80007fffe000fffff001ffffe001fffff001fffffe01ffffff81ffffff80fffff0003ffff8003fffd8001fff800007ff800003ff000000c000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_086",
+      "sheet": "gray001",
+      "file": "gray001_086.png",
+      "w": 616,
+      "h": 616,
+      "bbox": [
+        497,
+        331
+      ],
+      "area": 104930,
+      "phash": "30000007fc00001ffe00001fff80007fff8000ffffe001fffff00ffffff81ffffff80ffffff807fffff807fffff000ffffe000ffffc0003fffc0000bff800003ff0000001c0000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_087",
+      "sheet": "gray001",
+      "file": "gray001_087.png",
+      "w": 508,
+      "h": 508,
+      "bbox": [
+        378,
+        410
+      ],
+      "area": 91576,
+      "phash": "1c0000003f800000bfe00000fffc0003fffe0003ffff0003fffe8007ffff800fffff8003ffff8003ffff8003ffffc003ffffc001ffffc001ffffe000ffffc000ffffe0007fffe0007fffc0001fff70000fff8000003fc000001fc000000fc0000005c000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_088",
+      "sheet": "gray001",
+      "file": "gray001_088.png",
+      "w": 487,
+      "h": 487,
+      "bbox": [
+        322,
+        393
+      ],
+      "area": 79725,
+      "phash": "3e0000007fc00001fff00001fff80003fffe0003fffe0003fffe0001fffe0001fffe0001ffff0001ffff0000ffff8000ffff8000ffff8000ffff80007fff80003fff80001fffc0001fffc0000fffc00001ff000000fe0000006c00000020000000200000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_089",
+      "sheet": "gray001",
+      "file": "gray001_089.png",
+      "w": 514,
+      "h": 514,
+      "bbox": [
+        316,
+        415
+      ],
+      "area": 84371,
+      "phash": "1000000010300000307800003cf800007ff00001ffe00003ffe00003ffe00007ffe0001fffe0001ffff0001ffff8001ffff8001ffff8001ffff8003ffff0003ffff0003fffe0003fffe0001fffc0001fff80001ffe00000ff00000030000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_090",
+      "sheet": "gray001",
+      "file": "gray001_090.png",
+      "w": 592,
+      "h": 592,
+      "bbox": [
+        478,
+        364
+      ],
+      "area": 109928,
+      "phash": "7c000018ff80001fffe0001ffff0001ffff0007ffff800fffffc00fffffe007fffff001fffff000fffff000fffff000fffff0007fffe0001fffc00007ffc00003ffc00001ff0000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_091",
+      "sheet": "gray001",
+      "file": "gray001_091.png",
+      "w": 527,
+      "h": 527,
+      "bbox": [
+        298,
+        425
+      ],
+      "area": 81416,
+      "phash": "4000000048000001ec000003fc000003fc000007fc000003fe000005ffc0000fffc0000ffff0000ffff0000ffff00007fff0001ffff0001ffff0000ffff0001ffff8000ffff0000fffe0000fffe00007ffc00007ff800003ff800001ff800000fe8000003e000000000000000000000000000"
+    },
+    {
+      "id": "gray001_092",
+      "sheet": "gray001",
+      "file": "gray001_092.png",
+      "w": 518,
+      "h": 518,
+      "bbox": [
+        372,
+        418
+      ],
+      "area": 98524,
+      "phash": "2020000030600000186000001c7600001e7f00000fffc0000fffe0000ffff0007ffffc007ffff8003ffffc003ffffc001ffffc001ffffc000ffffc0007fffc0007fffc0007fffe0007fffc0007fffc0003fffc0001fffe00001ff800000ff8000001e00000000000000000000000000"
+    },
+    {
+      "id": "gray001_093",
+      "sheet": "gray001",
+      "file": "gray001_093.png",
+      "w": 572,
+      "h": 572,
+      "bbox": [
+        331,
+        462
+      ],
+      "area": 101381,
+      "phash": "83000000c3000000ff000001ff000001fe000001ff000007ff80000fffc0000fffe0000ffff0000ffff0000ffff8001ffff8001ffff8001ffff8001ffff8000ffff8001ffff0000ffff0000ffff00007fff00003ffe00003ffe00000ffc000007fc000001f000000000000000000000000000"
+    },
+    {
+      "id": "gray001_094",
+      "sheet": "gray001",
+      "file": "gray001_094.png",
+      "w": 507,
+      "h": 507,
+      "bbox": [
+        286,
+        409
+      ],
+      "area": 81390,
+      "phash": "60000000f0000003fc000003fe000003fe000007fe000007ffc00007ffe0000fffe0001ffff0000ffff00017fff0001ffff8000ffff0000ffff8000ffff00007fff0000ffff0001ffff00017ffc0000fffc00003ff800001ff800000ff8000007e0000003c000000000000000000000000000"
+    },
+    {
+      "id": "gray001_095",
+      "sheet": "gray001",
+      "file": "gray001_095.png",
+      "w": 538,
+      "h": 538,
+      "bbox": [
+        351,
+        434
+      ],
+      "area": 84057,
+      "phash": "78000001fc000007ff00001fff00001fff80001fffc0003fffe0001ffff0001ffff8001ffff8001ffff0000ffff8000ffff8000ffff0000ffff00007fff00003fff80003fffc0001fffc0000ffe4000007c0000003c0000003800000038000000180000001800000000000000000000000000"
+    },
+    {
+      "id": "gray001_096",
+      "sheet": "gray001",
+      "file": "gray001_096.png",
+      "w": 560,
+      "h": 560,
+      "bbox": [
+        312,
+        452
+      ],
+      "area": 86872,
+      "phash": "40000000f800001ffc00003ffe00003ffe00007fff00007fff00007fff0000ffff0000ffff0001ffff0001ffff8000ffff0001ffff8001ffff0001fffe0000fff800003ff800003ff800007ff000007fe000007ec000003e0000003800000038000000300000000000000000000000000000"
+    },
+    {
+      "id": "gray001_097",
+      "sheet": "gray001",
+      "file": "gray001_097.png",
+      "w": 482,
+      "h": 482,
+      "bbox": [
+        377,
+        389
+      ],
+      "area": 89305,
+      "phash": "e0000000e0000000f0000000fdfc0000fffc0001fffe0007ffff0007ffff8007ffffe001ffffe001ffffe001ffffe001ffffe001ffffe000ffffe0003fffe0003fffe0003fffe0003fffe0003fffe0000fffe00001ffe00000ffc000001f8000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_098",
+      "sheet": "gray001",
+      "file": "gray001_098.png",
+      "w": 510,
+      "h": 510,
+      "bbox": [
+        328,
+        412
+      ],
+      "area": 93979,
+      "phash": "fd800001ff800000ff800000ffc00000fff80000fffc0001fffe0003ffff0003ffff0003ffff8001ffff8001ffffc001ffffc001ffff8001ffff8001ffffc001ffffc000ffff8000ffff80003fff80001fff80000fff000003fe0000003000000000000000000000000000"
+    },
+    {
+      "id": "gray001_099",
+      "sheet": "gray001",
+      "file": "gray001_099.png",
+      "w": 448,
+      "h": 448,
+      "bbox": [
+        308,
+        362
+      ],
+      "area": 71346,
+      "phash": "1c000001fe000007ff80001fffc0007fffc0007fffe0007fffe000ffffe000ffffe001ffffe001ffffc003ffffc001ffffc001ffff8000ffff8001ffff8003ffff00007fff0000fff80001fff00001ffe00001ffe00001dc00000118000000000000000000000000000000000000"
+    },
+    {
+      "id": "gray001_100",
+      "sheet": "gray001",
+      "file": "gray001_100.png",
+      "w": 486,
+      "h": 486,
+      "bbox": [
+        392,
+        264
+      ],
+      "area": 67805,
+      "phash": "3c0000003ffc00007ffe0003ffffd007fffff007fffff00ffffff81fffffd01fffffd01fffff800fffff801fffff0007fffe0003fffc0000fff800005fc0000002000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_001",
+      "sheet": "fire001",
+      "file": "fire001_001.png",
+      "w": 344,
+      "h": 344,
+      "bbox": [
+        201,
+        278
+      ],
+      "area": 34448,
+      "phash": "100000003800000078000000f0000007f380000fff00000ffe00001ffe00001ffe00003fff00003fff80007fff8001ffff8001ffff8001ffff8001ffff0000ffff0000ffff0000fffe0000fffe0000fff800007ff000007ff000003f8000001f800000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_002",
+      "sheet": "fire001",
+      "file": "fire001_002.png",
+      "w": 306,
+      "h": 306,
+      "bbox": [
+        170,
+        247
+      ],
+      "area": 28336,
+      "phash": "4c000000fc000000fe000000ffc00001ffc00001ff800007ff800007ffc00007ffe00007ffe00007fff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000fffe0000fffe0000fffe0000fffc00007ff800007ff800000ff00000018000000000000000000000000000"
+    },
+    {
+      "id": "fire001_003",
+      "sheet": "fire001",
+      "file": "fire001_003.png",
+      "w": 291,
+      "h": 291,
+      "bbox": [
+        200,
+        235
+      ],
+      "area": 32429,
+      "phash": "8c000001dc000001fc300001fff80001fffc0003fffe0003ffff0003ffff8003ffff8003ffff8003ffff8003ffff8003ffffc001ffff8001ffffc000ffff80007fff80007fffc0007fffc0007fffc0001fffc0000fff800003ff000001fe0000003c00000000000000000000000000"
+    },
+    {
+      "id": "fire001_004",
+      "sheet": "fire001",
+      "file": "fire001_004.png",
+      "w": 296,
+      "h": 296,
+      "bbox": [
+        175,
+        239
+      ],
+      "area": 26483,
+      "phash": "80000000c0000001f0000001f0000003f000007ff000007ff000007ff800007ffe00007fff00007fff0000ffff0000ffff8000ffff8001ffff8001ffff8001ffff8000ffff8000ffff0000fffe0000fffc00007ffc00003ff800001ff000000ff00000038000000000000000000000000000"
+    },
+    {
+      "id": "fire001_005",
+      "sheet": "fire001",
+      "file": "fire001_005.png",
+      "w": 329,
+      "h": 329,
+      "bbox": [
+        266,
+        195
+      ],
+      "area": 34168,
+      "phash": "780c00007c7f00007fffc0007ffff0003ffff000fffff800fffffc00fffffc003ffffc001ffffe000fffff000fffff000fffff0003fffe0003fffe0001fffc00007ffc00000ff8000000400000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_006",
+      "sheet": "fire001",
+      "file": "fire001_006.png",
+      "w": 313,
+      "h": 313,
+      "bbox": [
+        253,
+        174
+      ],
+      "area": 27218,
+      "phash": "c0000003f000000ff000003fffc0007fffe000ffffe000ffffff01ffffff81ffffff01fffffc01fffffc01fffff001ffffe0007fffe0001fffc00007ff800003fc0000007000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_007",
+      "sheet": "fire001",
+      "file": "fire001_007.png",
+      "w": 252,
+      "h": 252,
+      "bbox": [
+        204,
+        194
+      ],
+      "area": 27103,
+      "phash": "3f800007ffe0001ffff0003ffff8003ffff8007ffff800fffff800fffff801fffff003fffff001fffff001fffff000fffff000ffffe001ffffc003ffffc00fffff800fffff800fffff000ffffe000fff80000f9600000c00000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_008",
+      "sheet": "fire001",
+      "file": "fire001_008.png",
+      "w": 375,
+      "h": 375,
+      "bbox": [
+        303,
+        210
+      ],
+      "area": 39261,
+      "phash": "3c000000ff800001ffe00007fff8000ffffc000fffff000fffff000fffff800fffff803fffff80ffffff00ffffff003ffffe0007fffc0003fff80003ffe0000003e000000180000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_009",
+      "sheet": "fire001",
+      "file": "fire001_009.png",
+      "w": 355,
+      "h": 355,
+      "bbox": [
+        287,
+        201
+      ],
+      "area": 36384,
+      "phash": "60000003ffc00007ffc0000ffff0001fffff003ffffe007ffffe00ffffff80ffffff01fffffe01ffffe001ffffe000ffffc000ffffc0007fff80007ffe000007f80000007000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_010",
+      "sheet": "fire001",
+      "file": "fire001_010.png",
+      "w": 283,
+      "h": 283,
+      "bbox": [
+        229,
+        216
+      ],
+      "area": 31371,
+      "phash": "1000000070700001fbf00003ffe0000fffc001efff8001ffff8003ffff0003ffff0003ffff8003ffff8007ffffc00fffffc00fffffc00fffffc01fffff801fffff801fffff001ffffc001ffffc000ffff80007ffe00001ec00000100000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_011",
+      "sheet": "fire001",
+      "file": "fire001_011.png",
+      "w": 339,
+      "h": 339,
+      "bbox": [
+        218,
+        274
+      ],
+      "area": 39589,
+      "phash": "e0000007fc00000ffe00001fff00001fffc0003ffff0003ffff0001ffff0001fffe0001ffff0001ffff0000ffff0000ffff8000ffff8000ffff80007fff80007fff80003fff80003fff80001fffc0000fffc00004fe0000007e0000003e0000001c0000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_012",
+      "sheet": "fire001",
+      "file": "fire001_012.png",
+      "w": 355,
+      "h": 355,
+      "bbox": [
+        194,
+        287
+      ],
+      "area": 32777,
+      "phash": "f0000001f8000007fc00000ffe00001ffe00003ffe00007ffe0000fffe0000fffe0000ffff0000ffff0000ffff0000ffff0001ffff0001fffc0000fff800003ff800003ff800001fe000001fe000000e6000000e6000001c6000001c000000180000000000000000000000000000"
+    },
+    {
+      "id": "fire001_013",
+      "sheet": "fire001",
+      "file": "fire001_013.png",
+      "w": 286,
+      "h": 286,
+      "bbox": [
+        231,
+        218
+      ],
+      "area": 30647,
+      "phash": "3f000003ffc0001fffe0003fffe0003ffff0007ffff0007ffff800fffff800fffff001fffff001ffffe001ffffe001ffffe001ffffc003ffffc00fffff8007ffff0003fffe0001fffc0001fff80003ef000003ce00000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_014",
+      "sheet": "fire001",
+      "file": "fire001_014.png",
+      "w": 308,
+      "h": 308,
+      "bbox": [
+        214,
+        249
+      ],
+      "area": 37000,
+      "phash": "d800000ffc00003ffc00007ff80000fff80001fff00007fff0001ffff8003ffff8003ffff8003ffffc003ffffc003ffffc003ffffc007ffffc007ffff8007ffff8007ffff8007ffff0003fffe0003fffc0001fff000007f80000001000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_015",
+      "sheet": "fire001",
+      "file": "fire001_015.png",
+      "w": 328,
+      "h": 328,
+      "bbox": [
+        265,
+        260
+      ],
+      "area": 47396,
+      "phash": "1c000003fe000007fe000007fff80007fffc001ffffe000fffff0007ffffc003ffffc003ffffe003ffffe007ffffe003ffffe003fffff001fffff003ffffe003ffffe003ffffe001fffff0007ffff0003fffe0003fffe0000fffc00003ff0000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_016",
+      "sheet": "fire001",
+      "file": "fire001_016.png",
+      "w": 305,
+      "h": 305,
+      "bbox": [
+        210,
+        246
+      ],
+      "area": 31485,
+      "phash": "1e0000003e0000077e00000ffc00001fff80001fffe0003fffc000ffff8001ffff0003ffff0003ffff0003ffff0003ffff0003ffff0007ffff0007ffff0007fffe0007fffe0003fffc0003fff80001fff00001ffc00000fd00000038000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_017",
+      "sheet": "fire001",
+      "file": "fire001_017.png",
+      "w": 331,
+      "h": 331,
+      "bbox": [
+        267,
+        231
+      ],
+      "area": 36072,
+      "phash": "20000000f0000000f00000007980000c7ff8000f7ffe000fffff000fffff0007ffff8003ffff8003ffff8003ffffe003ffffe003ffffe001ffffe000ffffe0007ffff0003fffe0001fffe0000fffe0000fff8000003e000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_018",
+      "sheet": "fire001",
+      "file": "fire001_018.png",
+      "w": 297,
+      "h": 297,
+      "bbox": [
+        233,
+        240
+      ],
+      "area": 36325,
+      "phash": "60e00000e3e00003efc00003ff800003ffb0000ffff0007ffff001ffffe001ffffc003ffffc003ffffc007ffffc007ffffc00fffffc00fffff800fffff000fffff000ffffe000ffffc000ffffc000ffff80007ffe00003ff800000c0000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_019",
+      "sheet": "fire001",
+      "file": "fire001_019.png",
+      "w": 347,
+      "h": 347,
+      "bbox": [
+        280,
+        191
+      ],
+      "area": 35106,
+      "phash": "7fc00001ffe00001fff8003bfff8007ffffe007fffff00ffffff00ffffff81ffffff80ffffff003fffff000fffff000ffffe0007fff80000fff800003ff000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_020",
+      "sheet": "fire001",
+      "file": "fire001_020.png",
+      "w": 287,
+      "h": 287,
+      "bbox": [
+        227,
+        232
+      ],
+      "area": 32008,
+      "phash": "2000000060000011e000003be700007ffe0000fffc000ffff8001ffff8001ffff8003ffff0003ffff0003ffff8003ffff8007ffff800fffffc00fffffc00fffff800fffff000ffffe001ffffc000ffff8000ffff80003fff80000fe0000007c000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_021",
+      "sheet": "fire001",
+      "file": "fire001_021.png",
+      "w": 296,
+      "h": 296,
+      "bbox": [
+        219,
+        239
+      ],
+      "area": 32057,
+      "phash": "180000007800000278000003fcc00007fff80007fffc0007fffe0003ffff0003ffff8001ffffc003ffffc003ffffc001ffffc001ffffc000ffffc0007fffc0007fffe0007fffe0003fffe0003fffc0000fffc00007ff800003ff000000fe0000003800000000000000000000000000"
+    },
+    {
+      "id": "fire001_022",
+      "sheet": "fire001",
+      "file": "fire001_022.png",
+      "w": 333,
+      "h": 333,
+      "bbox": [
+        182,
+        269
+      ],
+      "area": 31764,
+      "phash": "18000000fe000000ff000001ff800003ffc00003ffc00007ffc0000fffe0000fffe0000ffff0001ffff0000ffff0000ffff0000ffff0000ffff0000fffe00007ffc00007ffc00003ffc00000ff800000ff000000fe000001fe000001fe0000017800000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_023",
+      "sheet": "fire001",
+      "file": "fire001_023.png",
+      "w": 277,
+      "h": 277,
+      "bbox": [
+        218,
+        224
+      ],
+      "area": 31797,
+      "phash": "10000000380000007800000efc00000effc0000fffe0000ffff8000ffffc0007ffff0007ffff0007ffff800fffffc00fffffc007ffffc003ffffc003ffffe003ffffe003ffffe001ffffe000ffffe0007ffff0007ffff0003fffe0001fffc00000ff8000007f00000000000000000000000000"
+    },
+    {
+      "id": "fire001_024",
+      "sheet": "fire001",
+      "file": "fire001_024.png",
+      "w": 283,
+      "h": 283,
+      "bbox": [
+        158,
+        229
+      ],
+      "area": 22350,
+      "phash": "c000000dc000001fc000003fc000007fc00000ffc00001ffe00001ffe00001ffe00007fff0000ffff8001ffff8000ffff8001ffff0000ffff0000ffff0000ffff0000fffe0000fffe0000fff800007ff000007fc000003f8000001e000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_025",
+      "sheet": "fire001",
+      "file": "fire001_025.png",
+      "w": 341,
+      "h": 341,
+      "bbox": [
+        275,
+        186
+      ],
+      "area": 31660,
+      "phash": "7f800000ffc0001cffe000dffff800fffffc00fffffc00ffffff007fffff001fffff001fffff000fffff000fffff0003ffff00007ffe00003ff800001f4000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_026",
+      "sheet": "fire001",
+      "file": "fire001_026.png",
+      "w": 292,
+      "h": 292,
+      "bbox": [
+        236,
+        174
+      ],
+      "area": 27724,
+      "phash": "1fff00003fff80007fffc0007fffc000ffffc000fffff000fffff800fffff8007ffffc007ffffc007ffffc003ffffe001fffff001ffffe000fffff0007ffbf8003ff070000fe00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_027",
+      "sheet": "fire001",
+      "file": "fire001_027.png",
+      "w": 279,
+      "h": 279,
+      "bbox": [
+        192,
+        225
+      ],
+      "area": 28609,
+      "phash": "1000000038c000001cc000001ffe00001fff00001fff80001fffc0003fffe0003ffff8003ffff8003ffffc001ffffc001ffffc000ffffc000ffffc000ffffc000ffffe000ffffc0007fffc0001fffc0001fffc0000fffc00001ff800000ff0000000e00000000000000000000000000"
+    },
+    {
+      "id": "fire001_028",
+      "sheet": "fire001",
+      "file": "fire001_028.png",
+      "w": 280,
+      "h": 280,
+      "bbox": [
+        226,
+        166
+      ],
+      "area": 24523,
+      "phash": "ffc00001ffe00003fff00007fff0000ffff8000ffffc000fffff001fffff000fffff800fffffc007ffffc007ffffe003fffff001fffff001ffffe0007fffe0001f9fe00000064000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_029",
+      "sheet": "fire001",
+      "file": "fire001_029.png",
+      "w": 317,
+      "h": 317,
+      "bbox": [
+        256,
+        171
+      ],
+      "area": 27020,
+      "phash": "3f800000fff0001ffffc000fffff0007ffff0007ffff8007ffff800fffff807fffff80ffffff803fffff0003fffe0003fffc0003fff00000efe0000007c000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_030",
+      "sheet": "fire001",
+      "file": "fire001_030.png",
+      "w": 324,
+      "h": 324,
+      "bbox": [
+        262,
+        178
+      ],
+      "area": 29085,
+      "phash": "40000001f800000fff00003fff80003ffff0003ffff0007ffff803fffff803fffff807fffff80ffffff01ffffff00fffffe0007fffc0007fff80007ffe000000fc000000100000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_031",
+      "sheet": "fire001",
+      "file": "fire001_031.png",
+      "w": 381,
+      "h": 381,
+      "bbox": [
+        214,
+        308
+      ],
+      "area": 41493,
+      "phash": "f0000003f8000007f8000007f800000ff800001ff800003ff800003ffe00007fff00007fff00007fff80007fff8000ffff8001ffff8001ffff8000ffff00007fff00007fff00003ffe00003ffe00001ffc00001ff800000fe0000007c00000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_032",
+      "sheet": "fire001",
+      "file": "fire001_032.png",
+      "w": 372,
+      "h": 372,
+      "bbox": [
+        204,
+        300
+      ],
+      "area": 38212,
+      "phash": "38000000fe000001ff000001ff800001ff800003ffe00007fff00007fff0000ffff8000ffff0000ffff0001ffff0000fffe0000ffff00007fff00007fff00007fff00007fff00003fff000003fe000001f8000000f8000000f800000078000000700000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_033",
+      "sheet": "fire001",
+      "file": "fire001_033.png",
+      "w": 319,
+      "h": 319,
+      "bbox": [
+        246,
+        258
+      ],
+      "area": 35420,
+      "phash": "60000000e0000019c000007fc00003fff80007fffc000fffff000ffffe001fffff003fffff007ffffc007ffff800fffff000fffff001fffff000ffffe000ffffe000ffffe0007fff80003fff80001ff900000fc000000f800000010000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_034",
+      "sheet": "fire001",
+      "file": "fire001_034.png",
+      "w": 332,
+      "h": 332,
+      "bbox": [
+        188,
+        268
+      ],
+      "area": 31707,
+      "phash": "260000002e0000003e0000003f0000007fe00000fff80000fffc0000fffc0000fffe0000fffe0000ffff0000ffff0000ffff8001ffff0001ffff0001ffff0000ffff00007fff00003ffe00003ffc00003ffc00001ffc00000ff00000038000000000000000000000000000"
+    },
+    {
+      "id": "fire001_035",
+      "sheet": "fire001",
+      "file": "fire001_035.png",
+      "w": 317,
+      "h": 317,
+      "bbox": [
+        193,
+        256
+      ],
+      "area": 31275,
+      "phash": "1000000038000000780000007c0000007e0000007ff80000fffc0001fffe0001ffff0001ffff0000ffff8000ffff8000ffff8000ffff8000ffff8000ffff80007fff80007fff80007fff80007fff00001fff00000fff000007ff000003fc000000f800000000000000000000000000"
+    },
+    {
+      "id": "fire001_036",
+      "sheet": "fire001",
+      "file": "fire001_036.png",
+      "w": 308,
+      "h": 308,
+      "bbox": [
+        179,
+        249
+      ],
+      "area": 29425,
+      "phash": "1e0000001fc000003fe000007ff000007ff800007ffc0000fffe0000ffff0000ffff0001ffff0001ffff0001fffe0001ffff0001ffff0000ffff00007fff00007fff80003fff00003fff00001ffe000007fe000007fe000001fe00000038000000080000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_037",
+      "sheet": "fire001",
+      "file": "fire001_037.png",
+      "w": 314,
+      "h": 314,
+      "bbox": [
+        254,
+        178
+      ],
+      "area": 30171,
+      "phash": "1800000ff800001ff9f0007fffe001ffff8003ffff8007fffff00ffffff00fffffc00fffffe01ffffff01fffffe01fffff000ffffe000ffff8000ffff80003fff0000011000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_038",
+      "sheet": "fire001",
+      "file": "fire001_038.png",
+      "w": 323,
+      "h": 323,
+      "bbox": [
+        224,
+        261
+      ],
+      "area": 37824,
+      "phash": "3e000000ff800001ffe00001fffc0003fffe0003ffff0003ffff0003ffff0003ffff0003ffff0003ffff0001ffff8001ffff8001ffffc001ffffc000ffffe000ffffc0007fffc0001fff80000fff800007ff800000ffc000007fc000001fc00000008000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_039",
+      "sheet": "fire001",
+      "file": "fire001_039.png",
+      "w": 349,
+      "h": 349,
+      "bbox": [
+        282,
+        198
+      ],
+      "area": 35297,
+      "phash": "40000001f0000003ff80001fffe0003fffe0007fffe000fffffc00ffffff00ffffff00fffffe00ffffff00fffffe00fffffc003fffc0001fff80000fff800003ff000000fc00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_040",
+      "sheet": "fire001",
+      "file": "fire001_040.png",
+      "w": 298,
+      "h": 298,
+      "bbox": [
+        241,
+        171
+      ],
+      "area": 24682,
+      "phash": "f000001ffc00003ffe00003fff00007fff8000ffffc00fffffe00ffffff007fffff001fffff001fffff0007ffff0007ffff0003fffe00007ffc00001ff000001f8000000e00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_041",
+      "sheet": "fire001",
+      "file": "fire001_041.png",
+      "w": 302,
+      "h": 302,
+      "bbox": [
+        239,
+        244
+      ],
+      "area": 32780,
+      "phash": "c0000001c000002380000067800000ffe00001ffe00003ffe0000fffc0001fffff003fffff003ffffe007ffffc00fffff800fffff001fffff001fffff001fffff000fffff000fffff0007fffe0003fffc0003fff00000ff80000018000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_042",
+      "sheet": "fire001",
+      "file": "fire001_042.png",
+      "w": 288,
+      "h": 288,
+      "bbox": [
+        165,
+        233
+      ],
+      "area": 25525,
+      "phash": "1c0000007f000001ff00000fff00001fff80003fff80007fff80007fff80007fff8000ffff8000ffff8001ffff8001ffff8001ffff8000ffff80007fff80007fff00003ffe00003ff000007fe00000ffe00000ff800000fc000000e0000000c00000000000000000000000000000"
+    },
+    {
+      "id": "fire001_043",
+      "sheet": "fire001",
+      "file": "fire001_043.png",
+      "w": 331,
+      "h": 331,
+      "bbox": [
+        201,
+        267
+      ],
+      "area": 31176,
+      "phash": "f8000001fc000007ff000007ff00000fff00001fff80003fff80007fff80007fffc0007fffc0007fffc0007fff80007fff80007fff80007fff00003ffe00003ffe00003ffe00007ffc0001fff00001cf3000000f0000000e0000000e000000040000000000000000000000000000"
+    },
+    {
+      "id": "fire001_044",
+      "sheet": "fire001",
+      "file": "fire001_044.png",
+      "w": 266,
+      "h": 266,
+      "bbox": [
+        167,
+        215
+      ],
+      "area": 22445,
+      "phash": "80000000c0000000c0000000e0000000f8200000fff800007ffc00007ffe0003fffe0003ffff0001ffff8001ffff8001ffff8001ffff8000ffff80007fff80007fff80007fff80007fff80007fff00003fff00001fff800007ff800003ff000001fe0000001c00000000000000000000000000"
+    },
+    {
+      "id": "fire001_045",
+      "sheet": "fire001",
+      "file": "fire001_045.png",
+      "w": 316,
+      "h": 316,
+      "bbox": [
+        255,
+        176
+      ],
+      "area": 28295,
+      "phash": "3f0000007fc00001fff80003fffe0007fffe000fffffc01fffffe01fffffe01fffffe01fffffe00ffffff00fffff0007fffc0003fffc00007ff800001fe0000007000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_046",
+      "sheet": "fire001",
+      "file": "fire001_046.png",
+      "w": 279,
+      "h": 279,
+      "bbox": [
+        185,
+        225
+      ],
+      "area": 25795,
+      "phash": "c0000007f800003ffc0001fffc0003fffc0007fffc000ffffc000ffffc000ffffc001ffffc001ffff8003ffff8003ffff8003ffff8001ffff0001ffff0001fffc0000fff00000ffe00000ffc00001ff800001fe000003d800000318000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_047",
+      "sheet": "fire001",
+      "file": "fire001_047.png",
+      "w": 300,
+      "h": 300,
+      "bbox": [
+        166,
+        242
+      ],
+      "area": 26744,
+      "phash": "3e0000007fc00000ffe00001ffe00003ffe00003fff00007fff0000ffff0001ffff0001ffff0000ffff0000ffff0000ffff0001ffff0000fffe0000fff800007ff800003ff000003ff000003ff000003fe000003fc000003f0000003f000000220000000000000000000000000000"
+    },
+    {
+      "id": "fire001_048",
+      "sheet": "fire001",
+      "file": "fire001_048.png",
+      "w": 327,
+      "h": 327,
+      "bbox": [
+        264,
+        169
+      ],
+      "area": 29397,
+      "phash": "ff800001ffc00019fff0001ffff0007ffff800fffffc00fffffe003fffff001fffff000fffff000fffff0007ffff0003fffe0001fffe0000fffc00007ff000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_049",
+      "sheet": "fire001",
+      "file": "fire001_049.png",
+      "w": 250,
+      "h": 250,
+      "bbox": [
+        202,
+        145
+      ],
+      "area": 18143,
+      "phash": "70000007fc00001fff80001fffc0003ffff0003ffff0007ffff807fffff803fffff80ffffff80ffffff807fffff007ffffe000ffffc0007fff80003ffe0000007c000000300000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_050",
+      "sheet": "fire001",
+      "file": "fire001_050.png",
+      "w": 270,
+      "h": 270,
+      "bbox": [
+        204,
+        218
+      ],
+      "area": 29037,
+      "phash": "78000000ff800001fff00001fffc0003fffe0003ffff0007ffff8007ffff8007ffff8003ffff0003ffff8003ffffc003ffffc001ffffc001ffffe001ffffe000ffffe000ffffe0007fffc0001fffc0000fffe00003ffe000003fe0000013c00000004000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_051",
+      "sheet": "fire001",
+      "file": "fire001_051.png",
+      "w": 277,
+      "h": 277,
+      "bbox": [
+        219,
+        224
+      ],
+      "area": 25994,
+      "phash": "40000000c000000180000003000000e7000001ff28000ffff0000fffff001ffffe003ffffc003ffff8007ffff0007ffff000ffffe000ffffe000ffffe000ffffe000ffffe0007fffc0003fff00001ffe00001ff800000fc00000058000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_052",
+      "sheet": "fire001",
+      "file": "fire001_052.png",
+      "w": 311,
+      "h": 311,
+      "bbox": [
+        166,
+        251
+      ],
+      "area": 27983,
+      "phash": "8000000088000001dc000001df000001ff000001ff000001ff000007ff80000fffc0000fffc0000fffe0000fffe0000fffe0000ffff0000ffff0000ffff0000ffff0000fffe0000fffe00007ffe00007ffc00007ff800003ff800003ff800000ff8000001c000000000000000000000000000"
+    },
+    {
+      "id": "fire001_053",
+      "sheet": "fire001",
+      "file": "fire001_053.png",
+      "w": 279,
+      "h": 279,
+      "bbox": [
+        178,
+        225
+      ],
+      "area": 26268,
+      "phash": "40000000e0000001e0000001f0000001fff00000fff80000fffc0001fffc0001ffff0001ffff0001ffff8001ffff8000ffff80007fff80007fffc000ffff8000ffff80007fff80007fff80007fff80003fff80001fff000003ff800003ff000000fe0000003c00000000000000000000000000"
+    },
+    {
+      "id": "fire001_054",
+      "sheet": "fire001",
+      "file": "fire001_054.png",
+      "w": 311,
+      "h": 311,
+      "bbox": [
+        251,
+        200
+      ],
+      "area": 31162,
+      "phash": "fe800001ffe00001fff00003fff00003fff80007ffff000fffff000fffff000fffff000fffffe00ffffff00ffffff007ffffe003ffff8001ffff80007fff80007ffc80001ffe0000070e0000000600000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_055",
+      "sheet": "fire001",
+      "file": "fire001_055.png",
+      "w": 318,
+      "h": 318,
+      "bbox": [
+        257,
+        210
+      ],
+      "area": 32538,
+      "phash": "61c00001e780001fff00003ffe0000ffffe000ffffe001ffff8003ffff0007ffffe007fffff00fffffe01fffff801fffff001ffffe000ffffc000ffffc0007fff80003fff00001ff000000640000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_056",
+      "sheet": "fire001",
+      "file": "fire001_056.png",
+      "w": 260,
+      "h": 260,
+      "bbox": [
+        191,
+        210
+      ],
+      "area": 26604,
+      "phash": "3000000078000000fe000000ff000000fffc0000fffe0000ffff0000ffff8003ffffc003ffffe001ffffe001ffffe001ffffe001ffffe001ffffe000ffffe0007fffe000ffffc000ffffc0007fffc0007fffe0000fffc00007ff800007ff000000f800000000000000000000000000"
+    },
+    {
+      "id": "fire001_057",
+      "sheet": "fire001",
+      "file": "fire001_057.png",
+      "w": 347,
+      "h": 347,
+      "bbox": [
+        280,
+        177
+      ],
+      "area": 32140,
+      "phash": "24000003fffe000ffffe000ffffe000ffffff00ffffff00fffffe00fffff800fffffc007ffffe003fffe0003fffe0001fffe00007ffc00003fe000000780000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_058",
+      "sheet": "fire001",
+      "file": "fire001_058.png",
+      "w": 321,
+      "h": 321,
+      "bbox": [
+        259,
+        181
+      ],
+      "area": 32324,
+      "phash": "c000000ffd80001fffc0003fffe0003ffff00ffffff00fffffe007ffffe00ffffff007fffff001fffff003fffff003fffff007ffffc00fffff800fbffc00003ff0000038000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_059",
+      "sheet": "fire001",
+      "file": "fire001_059.png",
+      "w": 332,
+      "h": 332,
+      "bbox": [
+        268,
+        197
+      ],
+      "area": 34121,
+      "phash": "1cf800007ffc0000ffffe001ffffe001fffff007fffff007fffff00ffffff00fffffc01ffffe001ffffe001ffffe001ffffc000ffffc0007fff80007ffc00001ff80000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_060",
+      "sheet": "fire001",
+      "file": "fire001_060.png",
+      "w": 302,
+      "h": 302,
+      "bbox": [
+        244,
+        199
+      ],
+      "area": 30654,
+      "phash": "1c01c0000e07f0000fcff80007ffff0003ffff0001ffff8001ffff8007ffffc007ffffc003ffffc001ffffe001ffffe000ffffe0007fffe0001ffff0001ffff0001fffe0001fffe0001fffe000033fc0000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_061",
+      "sheet": "fire001",
+      "file": "fire001_061.png",
+      "w": 288,
+      "h": 288,
+      "bbox": [
+        166,
+        233
+      ],
+      "area": 25078,
+      "phash": "f0000001fe000003ff000007ff80000fffc0000fffc0000fffe0000fffe0000ffff0001ffff0000ffff0000ffff0000ffff0000ffff00007fff80007fff00003fff00003fff00001fff000007ff000001ff800001fd800000fc000000cc000000800000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_062",
+      "sheet": "fire001",
+      "file": "fire001_062.png",
+      "w": 317,
+      "h": 317,
+      "bbox": [
+        210,
+        256
+      ],
+      "area": 31328,
+      "phash": "f8000003fe000003fe000007ff00001fff80001fff80001fffc0003fffe0001ffff0001ffff0001ffff0001ffff0001ffff0000ffff8000ffff80007fff00007fff00007fff80001fffc0000fffc00001fee000007c0000007c0000003c000000380000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_063",
+      "sheet": "fire001",
+      "file": "fire001_063.png",
+      "w": 281,
+      "h": 281,
+      "bbox": [
+        227,
+        212
+      ],
+      "area": 30642,
+      "phash": "e0000001e00001c7c00003df800007ffc001ffffc003ffffc003fffff007ffffe007ffffc007ffff800fffff800fffff801fffff801fffff001fffff001ffffe001ffffe000ffffc000ffff8000ffff00007ff800001e000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_064",
+      "sheet": "fire001",
+      "file": "fire001_064.png",
+      "w": 269,
+      "h": 269,
+      "bbox": [
+        217,
+        201
+      ],
+      "area": 28877,
+      "phash": "1a0000001f1e0000ffff0000ffffc000ffffe0007ffff0007ffff0003ffff8003ffff8007ffff800fffffc007ffffc003ffffc003ffffc001ffffe000fffff0007ffff0003fffe0007fffe0003fffe0003fffc0000fff8000007c0000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_065",
+      "sheet": "fire001",
+      "file": "fire001_065.png",
+      "w": 305,
+      "h": 305,
+      "bbox": [
+        246,
+        192
+      ],
+      "area": 30981,
+      "phash": "603e0000f8ff8000ffffe0007ffff0007ffff800fffffc00fffffc00ffffff007fffff003fffff000fffff000fffff000fffff0007ffff0003fffe0000fffc0000fffc00007fe0000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_066",
+      "sheet": "fire001",
+      "file": "fire001_066.png",
+      "w": 312,
+      "h": 312,
+      "bbox": [
+        252,
+        184
+      ],
+      "area": 30125,
+      "phash": "77c00003ffe00007ffe0000ffff0000ffffc000fffff000fffff800fffff800fffffc00fffffc007ffffe003ffffe001fffff000fffff000fffff0007ff0f0003ff0000003e00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_067",
+      "sheet": "fire001",
+      "file": "fire001_067.png",
+      "w": 290,
+      "h": 290,
+      "bbox": [
+        234,
+        175
+      ],
+      "area": 27290,
+      "phash": "7f800000fffc0001fffe0003ffff0007ffff000fffff000fffff000fffff001fffff00ffffff80ffffff01ffffff00fffffe001ffffc003ffff000ffffe000e1f3800001c000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_068",
+      "sheet": "fire001",
+      "file": "fire001_068.png",
+      "w": 319,
+      "h": 319,
+      "bbox": [
+        258,
+        220
+      ],
+      "area": 34420,
+      "phash": "e3e00000fffc0007fffe000fffff000fffff8007ffff8003ffffc001ffffc000ffffe001fffff001fffff0007ffff0007ffff0003fffe0003fffc0003fff80003fff00001fff000007fe000001fc00000078000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_069",
+      "sheet": "fire001",
+      "file": "fire001_069.png",
+      "w": 279,
+      "h": 279,
+      "bbox": [
+        175,
+        225
+      ],
+      "area": 25327,
+      "phash": "1fe000003ff00000fff80001fffc0007fffc0007fffc0007fffc000ffffc001ffffc001ffff8001ffff8003ffff8001ffff8001ffff0001ffff0000ffff00007ff000007ff00000ffe00000ffc00001ffc00001de0000039c00000018000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_070",
+      "sheet": "fire001",
+      "file": "fire001_070.png",
+      "w": 343,
+      "h": 343,
+      "bbox": [
+        277,
+        223
+      ],
+      "area": 41438,
+      "phash": "7f800001ffe00003ffe00007fff00007fff0000ffffc000fffff000fffff000fffffc00fffffc00fffffc00fffffe00ffffff003fffff803fffff001fffff000fffff0007fffe0001f838000000180000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_071",
+      "sheet": "fire001",
+      "file": "fire001_071.png",
+      "w": 318,
+      "h": 318,
+      "bbox": [
+        199,
+        257
+      ],
+      "area": 33975,
+      "phash": "70000000760000007e0000007e0000007ff800007ffc0000fffc0000fffe0000ffff0001ffff8001ffff8000ffff8000ffff8000ffff8000ffff8000ffff80007fffc0007fff80007fff80007fff80007fff80001fff800007fe000003fc000000f000000000000000000000000000"
+    },
+    {
+      "id": "fire001_072",
+      "sheet": "fire001",
+      "file": "fire001_072.png",
+      "w": 318,
+      "h": 318,
+      "bbox": [
+        216,
+        257
+      ],
+      "area": 34149,
+      "phash": "3c000000ff000003ff800007ffc00007ffc0001fffe0003ffff0003ffff0003ffff8003ffff8001ffff8001ffff8001ffff8001ffffc001ffffc000ffffc0007fff80007fff80000fffc00003ffc00001fde00001f8c00001f840000070000000600000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_073",
+      "sheet": "fire001",
+      "file": "fire001_073.png",
+      "w": 316,
+      "h": 316,
+      "bbox": [
+        176,
+        255
+      ],
+      "area": 29247,
+      "phash": "7f000000ff800003ff800007ffc0000fffe0000fffe0000fffe0000ffff0000ffff0000ffff0000ffff0000ffff0000fffe0000fffe0000fffe0000ffff00003ffc00001ffc00000ffc00000ffe000007ce000007c600000782000007800000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_074",
+      "sheet": "fire001",
+      "file": "fire001_074.png",
+      "w": 305,
+      "h": 305,
+      "bbox": [
+        163,
+        246
+      ],
+      "area": 28110,
+      "phash": "78000001fe000003ff000007ff800007ff800007ffc00007ffe0000ffff0000ffff0000ffff0000ffff0000ffff0000fffe0000fffe0000fffe00007ffe00007ffe00007ffc00007ffc00001ffc00000ffc00000ffc00000ffc00000fe0000007c00000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_075",
+      "sheet": "fire001",
+      "file": "fire001_075.png",
+      "w": 300,
+      "h": 300,
+      "bbox": [
+        188,
+        242
+      ],
+      "area": 27643,
+      "phash": "240000003c0000003e0000003e0000003f0000013ffc0003fffe0001fffe0001ffff0000ffff0000ffff0001ffff8001ffffc000ffff8000ffff80007fff80007fff80007fff80007fff80003fff00000fff000007ff000003ff000000fe0000003800000000000000000000000000"
+    },
+    {
+      "id": "fire001_076",
+      "sheet": "fire001",
+      "file": "fire001_076.png",
+      "w": 321,
+      "h": 321,
+      "bbox": [
+        259,
+        223
+      ],
+      "area": 39548,
+      "phash": "60000001ff80001fffc0007fffe000fffff001fffff003fffff007ffffe00fffffe01fffffc01fffffe01fffffe00fffffc00fffff000ffffc000ffffc000ffffc0007fffc0007fff80003ffc00000ff8000004000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_077",
+      "sheet": "fire001",
+      "file": "fire001_077.png",
+      "w": 328,
+      "h": 328,
+      "bbox": [
+        265,
+        176
+      ],
+      "area": 28166,
+      "phash": "f800000ffc00003ffe00007fff8000fffff000fffff000fffff800fffff800fffff8007ffffe007fffff003fffff803fffc0000fff800007ff800001ff0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_078",
+      "sheet": "fire001",
+      "file": "fire001_078.png",
+      "w": 303,
+      "h": 303,
+      "bbox": [
+        245,
+        181
+      ],
+      "area": 30020,
+      "phash": "183f80001cffc0003fffe0007ffff8007ffffc007ffffe003fffff00ffffff00ffffff80ffffff803fffff000ffffe000ffffe0007fffe0000fffe00007ffc00007ffc00001ff8000001e00000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_079",
+      "sheet": "fire001",
+      "file": "fire001_079.png",
+      "w": 280,
+      "h": 280,
+      "bbox": [
+        204,
+        226
+      ],
+      "area": 27695,
+      "phash": "3e0000003f0000007fc000007ffc00007ffe00007fffc0007ffff0007ffff8007ffff8007ffff8007ffff0007ffff8007ffff8003ffffc001ffffc000ffffc0007fffe0003fff80001fff800007ff800003ffc0000083c0000000c00000004000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_080",
+      "sheet": "fire001",
+      "file": "fire001_080.png",
+      "w": 338,
+      "h": 338,
+      "bbox": [
+        273,
+        206
+      ],
+      "area": 36043,
+      "phash": "ff000001ffc00047ffe0007ffff000fffff800fffff800fffffc003ffffc003ffffc003ffffe001fffff0007ffff0003ffff0003ffff0000fffe00007ffe00007ffe00007ff800003c000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_081",
+      "sheet": "fire001",
+      "file": "fire001_081.png",
+      "w": 301,
+      "h": 301,
+      "bbox": [
+        170,
+        243
+      ],
+      "area": 25230,
+      "phash": "8000000d8000000f8000001f8000007f000001ff000001ff800001ff800003ff800003ffe00003fff80007fff8000ffff0000ffff0001ffff0000ffff0000ffff0000ffff0000fffe00007ffc00007ff800007ff800003fe000003fc000001fc00000020000000000000000000000000000"
+    },
+    {
+      "id": "fire001_082",
+      "sheet": "fire001",
+      "file": "fire001_082.png",
+      "w": 344,
+      "h": 344,
+      "bbox": [
+        268,
+        278
+      ],
+      "area": 46322,
+      "phash": "37f00000fffc0001fffe0003ffff0007ffff000fffff000fffff001fffff001fffff001fffff001ffffe001ffffe000ffffe000ffffe001ffffc003ffffc00fffff800fffff80077ffe00007ff00000ffc000001c0000001800000010000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_083",
+      "sheet": "fire001",
+      "file": "fire001_083.png",
+      "w": 343,
+      "h": 343,
+      "bbox": [
+        200,
+        277
+      ],
+      "area": 35209,
+      "phash": "3f0000007f800001ffc00001ffe00003ffe00007fff0000ffff0000ffff0001ffff0001ffff8000ffff8000ffff8001ffff8001ffff0001fffe0000fffc00007ffc00007ff800007ff00000fff00000ffa000007f0000001e00000006000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_084",
+      "sheet": "fire001",
+      "file": "fire001_084.png",
+      "w": 285,
+      "h": 285,
+      "bbox": [
+        195,
+        230
+      ],
+      "area": 26532,
+      "phash": "e0000000e00000007000000078b000007df800033ffc0003fffe0001fffe0001ffff8000ffff8000ffff8001ffffc001ffffc000ffffc0007fff80007fff80007fffc0007fffc0007fffc0003fff80000fff800007ff000003ff000000fc0000003800000000000000000000000000"
+    },
+    {
+      "id": "fire001_085",
+      "sheet": "fire001",
+      "file": "fire001_085.png",
+      "w": 314,
+      "h": 314,
+      "bbox": [
+        166,
+        254
+      ],
+      "area": 26004,
+      "phash": "3c000000fe000003ff000003ff800003ff800003ffc00007ffe00007fff00007fff0000ffff0000ffff0000fffe0000fffe0000fffe00007ffe00007ffe00003ffe00003ffe00001ffe00001ffe000000f0000000700000007000000070000000100000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_086",
+      "sheet": "fire001",
+      "file": "fire001_086.png",
+      "w": 285,
+      "h": 285,
+      "bbox": [
+        209,
+        230
+      ],
+      "area": 29074,
+      "phash": "40000004f800000ffc00007ffc0001fffe0003fffe0003fffe0007fffe0007ffff000ffffe000ffffe001ffffe001ffffc000ffffc000ffffc0007fffc000ffffc000ffff0003ffff0007fffe0001ffe00000ffc00001f3000001c0000001000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_087",
+      "sheet": "fire001",
+      "file": "fire001_087.png",
+      "w": 332,
+      "h": 332,
+      "bbox": [
+        185,
+        268
+      ],
+      "area": 29388,
+      "phash": "40000003f0000003f8000007fc00000ffc00001ffe00003ffe00007ffe0000ffff0000ffff0000ffff8000ffff8000ffff0000ffff0000fffe00007ffe00007ffc00007ffc00001ff800001ff800001ff000001f8000001f8000000300000003000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_088",
+      "sheet": "fire001",
+      "file": "fire001_088.png",
+      "w": 322,
+      "h": 322,
+      "bbox": [
+        260,
+        187
+      ],
+      "area": 30583,
+      "phash": "f8000001fc00000fff80001fffe0003fffe0007ffff000fffff000fffffe00ffffff00ffffff00ffffff007fffff003ffffe001ffff00007fff00003ff800001ff8000007c00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_089",
+      "sheet": "fire001",
+      "file": "fire001_089.png",
+      "w": 266,
+      "h": 266,
+      "bbox": [
+        174,
+        215
+      ],
+      "area": 24412,
+      "phash": "2000000071c0000063c00000ffc00007ffc0000fff80001fff00007fff0000fffe0000ffff0001ffff0001ffff8001ffffc001ffffc003ffff8003ffff8003ffff0003ffff0003fffe0003fffe0003fffc0003fff80001ffc00000ff0000003e000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_090",
+      "sheet": "fire001",
+      "file": "fire001_090.png",
+      "w": 303,
+      "h": 303,
+      "bbox": [
+        245,
+        170
+      ],
+      "area": 27848,
+      "phash": "20000001ff80000fffc0001fffe0007ffffe007ffffc00ffffff00ffffff00fffffe00fffffe00ffffff00ffffff807ffff7007fffc0000fffc00007ff800003ff000000f400000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_091",
+      "sheet": "fire001",
+      "file": "fire001_091.png",
+      "w": 358,
+      "h": 358,
+      "bbox": [
+        194,
+        289
+      ],
+      "area": 36147,
+      "phash": "38000000ff800000ffe00000fff00003fff00003fff80003fff80007fff8000ffff8000ffff8000ffff0000ffff0000ffff00007fff00007ffe00007ffe00007ffe00003ffe00003ffc000039e4000071e0000021e0000001e0000000e0000000400000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_092",
+      "sheet": "fire001",
+      "file": "fire001_092.png",
+      "w": 321,
+      "h": 321,
+      "bbox": [
+        218,
+        259
+      ],
+      "area": 33870,
+      "phash": "3c000001fe000007ff00000fff80001fffc0001fffc0003fffe0003ffff0001ffff8001ffff0001ffff0001ffff8001ffff0001ffff8000ffffc000ffffc0007fff80007fffc0001fff80000fffc00003fbc0000178e000007040000070000000300000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_093",
+      "sheet": "fire001",
+      "file": "fire001_093.png",
+      "w": 295,
+      "h": 295,
+      "bbox": [
+        195,
+        238
+      ],
+      "area": 30604,
+      "phash": "3c000000ff000007ff80000fffc0003fffc0007fffc000ffffc001ffffe001ffffc001ffffc003ffffc003ffffc003ffffc003ffffc003ffffc001ffffc000ffff80007fff00007ff800007ff00000ffe00000fdc00000f8000000f0000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_094",
+      "sheet": "fire001",
+      "file": "fire001_094.png",
+      "w": 329,
+      "h": 329,
+      "bbox": [
+        265,
+        266
+      ],
+      "area": 41493,
+      "phash": "30f8000039f000003ff000003ff000003ff000003ff00009fff8001ffffc001ffffe000fffff0007ffff0007ffff0007ffff0007ffff8007ffff800fffff807fffff0007fffe0001fffe0003fffc00007ffc00003ffc00001ffc000007f0000001c00000000000000000000000000"
+    },
+    {
+      "id": "fire001_095",
+      "sheet": "fire001",
+      "file": "fire001_095.png",
+      "w": 279,
+      "h": 279,
+      "bbox": [
+        225,
+        214
+      ],
+      "area": 31520,
+      "phash": "1fe000003ff800007ffcc0007fffc000ffffc000ffffe0007fffe0007fffe0007ffff0007ffff800fffffc007ffffc007ffffe003fffff003ffffe003ffffe001ffffc001ffffc000ffffe0007fffe0000fcff0000103f0000003f0000001c000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_096",
+      "sheet": "fire001",
+      "file": "fire001_096.png",
+      "w": 342,
+      "h": 342,
+      "bbox": [
+        276,
+        205
+      ],
+      "area": 36501,
+      "phash": "19f000007ff9e000ffffc001ffffc003ffff8007fffff00ffffff80ffffff01fffffc01fffff001ffffe000ffffe000ffffe000ffffc0007fffc0007fff00003ffe000003fc00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_097",
+      "sheet": "fire001",
+      "file": "fire001_097.png",
+      "w": 318,
+      "h": 318,
+      "bbox": [
+        257,
+        220
+      ],
+      "area": 38479,
+      "phash": "10000000f0000001fff000ffffe000fffff001fffff001fffff003fffff003ffffe007ffffe00fffffe00fffffc00fffffc01fffffc01fffff001ffffe001ffffe000ffffc0003fffc0003fff000001fc000000100000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_098",
+      "sheet": "fire001",
+      "file": "fire001_098.png",
+      "w": 369,
+      "h": 369,
+      "bbox": [
+        298,
+        205
+      ],
+      "area": 37237,
+      "phash": "180000003fc00001ffe00003fffc0003fffe0003fffe0003ffff0007ffff00ffffff007fffff803fffff803fffff007fffff0007fffe0001fff800007fe0000007c000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_099",
+      "sheet": "fire001",
+      "file": "fire001_099.png",
+      "w": 345,
+      "h": 345,
+      "bbox": [
+        279,
+        201
+      ],
+      "area": 36213,
+      "phash": "7c000000ffc00030ffe0003ffff000fffff800fffffc00fffffc007ffffe00ffffff007fffff001fffff000fffff000fffff000ffffe0003fffe00007ffc00003ff800000e80000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire001_100",
+      "sheet": "fire001",
+      "file": "fire001_100.png",
+      "w": 327,
+      "h": 327,
+      "bbox": [
+        264,
+        186
+      ],
+      "area": 31258,
+      "phash": "38000000fe0001e7ffe000fffff0007ffff0003ffff8001ffff8001ffffc003ffffe003ffffc001ffffe000fffff0003ffff0001ffff0001ffff0000fffe00007ffc000019f0000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_001",
+      "sheet": "fire003",
+      "file": "fire003_001.png",
+      "w": 539,
+      "h": 539,
+      "bbox": [
+        435,
+        411
+      ],
+      "area": 97053,
+      "phash": "1e000000ffc00003fff00007fff80007fffc000ffffc000ffffe0007ffff0003ffff0003ffff8007ffffc003ffffe001ffff8001ffff8001ffffc000ffffe000fffff0007ffcf0000ffc300001fc0000000c0000000c00000004000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_002",
+      "sheet": "fire003",
+      "file": "fire003_002.png",
+      "w": 502,
+      "h": 502,
+      "bbox": [
+        388,
+        405
+      ],
+      "area": 95344,
+      "phash": "380000047000000ef000000ff3c0001fffe0003ffff000fffff001fffff001fffff001ffffe003ffffe007ffffc007ffffc00fffffe00fffffc00fffff800fffff000ffffe000ffffc0003ffe00001ff800000fc00000028000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_003",
+      "sheet": "fire003",
+      "file": "fire003_003.png",
+      "w": 638,
+      "h": 638,
+      "bbox": [
+        359,
+        515
+      ],
+      "area": 120214,
+      "phash": "f0000003fe000003ffc00003ffe00007ffe0000ffff0000ffff0000ffff0000ffff0001ffff0001ffff0001ffff0001ffff0000ffff0001ffff0000fffe00007ffc00003ff000001ff000001ff000001ff000003ef000003c3000003800000030000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_004",
+      "sheet": "fire003",
+      "file": "fire003_004.png",
+      "w": 596,
+      "h": 596,
+      "bbox": [
+        315,
+        481
+      ],
+      "area": 97334,
+      "phash": "1c0000007e0000007f000000ffc00003ffe00003ffe00003ffe00007fff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000fffe00007ffc00007ffc00001ffc00001ff800001fe000001fe000003de0000001c0000001800000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_005",
+      "sheet": "fire003",
+      "file": "fire003_005.png",
+      "w": 639,
+      "h": 639,
+      "bbox": [
+        374,
+        516
+      ],
+      "area": 114408,
+      "phash": "f8000001fc000007fc00000fff00003fff80007fff8000ffff8000ffff8000ffff8000ffff8000ffff8001ffff0001ffff0001ffff0001fffe0000fffe00007ff00000fff00000ffe000019fe000001ec000001c0000001c00000038000000100000000000000000000000000000"
+    },
+    {
+      "id": "fire003_006",
+      "sheet": "fire003",
+      "file": "fire003_006.png",
+      "w": 509,
+      "h": 509,
+      "bbox": [
+        366,
+        411
+      ],
+      "area": 85012,
+      "phash": "1c000001ff800003ff80000fffc0003fffc0007fffe0007fffe0007fffe000ffffe000ffffe001ffffe001ffffe003ffffc001ffff8000ffff80007fff8000ffff0003fffe0007fff000007fe0000079800000f1000000e000000180000001000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_007",
+      "sheet": "fire003",
+      "file": "fire003_007.png",
+      "w": 664,
+      "h": 664,
+      "bbox": [
+        536,
+        370
+      ],
+      "area": 121846,
+      "phash": "ff800000ffe00039ffe0001ffff000fffff800fffffe00ffffff007fffff003fffff001fffff800fffff800fffff0007fffe0000fffc00003ff800000fc000000700000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_008",
+      "sheet": "fire003",
+      "file": "fire003_008.png",
+      "w": 507,
+      "h": 507,
+      "bbox": [
+        275,
+        409
+      ],
+      "area": 68720,
+      "phash": "f0000003fc000003fe000003ff000003ff000007ffc0000ffff00007fff8000ffff8000ffff0000ffff0000ffff0000ffff0000ffff00007fff00007fff00007fff00003fff00001ffc00001ffc0000007c000000180000001800000008000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_009",
+      "sheet": "fire003",
+      "file": "fire003_009.png",
+      "w": 471,
+      "h": 471,
+      "bbox": [
+        254,
+        380
+      ],
+      "area": 64084,
+      "phash": "198000001fc000001fc000001fc000001fc000003fe00000fff80000fffc0000fffe0000fffe0000fffe00007fff00007fff00007fff0000ffff0000ffff0000ffff0000ffff00007ffe00003ffe00001ffc00001ffc00000ffc000007f8000001e000000000000000000000000000"
+    },
+    {
+      "id": "fire003_010",
+      "sheet": "fire003",
+      "file": "fire003_010.png",
+      "w": 472,
+      "h": 472,
+      "bbox": [
+        381,
+        263
+      ],
+      "area": 64168,
+      "phash": "40000001f800000fff00003fffc0003ffff0003ffff0003ffff8007ffff8007ffff801fffff80ffffff007ffffe007ffffe00fffffc003ffff00003fff00003ffe000000080000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_011",
+      "sheet": "fire003",
+      "file": "fire003_011.png",
+      "w": 646,
+      "h": 646,
+      "bbox": [
+        368,
+        521
+      ],
+      "area": 116949,
+      "phash": "b8000000fc000001f8000007f800000ff800001ff800001ff800003ffc00003ffe00003fff00007fff8001ffff8001ffff0001ffff0001ffff0000ffff0000ffff0000fffe0000fffc00007ffc00007ff000003ff000003fc000001f800000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_012",
+      "sheet": "fire003",
+      "file": "fire003_012.png",
+      "w": 520,
+      "h": 520,
+      "bbox": [
+        420,
+        283
+      ],
+      "area": 68568,
+      "phash": "67c00001ffc00007ffc0000ffff0000ffffe000fffff800fffff800fffff0007ffff8003ffffc003ffffe001fffff000fffe7000fff800003ff000001ff0000000400000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_013",
+      "sheet": "fire003",
+      "file": "fire003_013.png",
+      "w": 499,
+      "h": 499,
+      "bbox": [
+        377,
+        403
+      ],
+      "area": 85190,
+      "phash": "60000007fc00002ffe00003ffe0001fffe0003ffff0003ffff0007ffff0007ffff000fffff001fffff001ffffe001ffffe001ffffe000ffffc0007fffc001ffffc0003ffe00003ff800007fe00000fbe00000f1800001c100000180000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_014",
+      "sheet": "fire003",
+      "file": "fire003_014.png",
+      "w": 566,
+      "h": 566,
+      "bbox": [
+        457,
+        336
+      ],
+      "area": 95788,
+      "phash": "1fff00007fff00007fff0000ffff0000ffffc000fffff000fffff8007ffff8007ffffc007ffffc003ffff0001ffff8001ffffc000ffffe000fffff0007ff8f0000fe0300003c00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_015",
+      "sheet": "fire003",
+      "file": "fire003_015.png",
+      "w": 536,
+      "h": 536,
+      "bbox": [
+        305,
+        433
+      ],
+      "area": 80533,
+      "phash": "1e0000003f8000007fe000007fe000007ff80000fffc0000ffff0000ffff0000ffff0000fffe0000fffe0000ffff0000ffff0001ffff0000ffff80007fff00007fff00003fff00001fff00001fff0000003f0000003c0000001c0000000c0000000c0000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_016",
+      "sheet": "fire003",
+      "file": "fire003_016.png",
+      "w": 647,
+      "h": 647,
+      "bbox": [
+        522,
+        343
+      ],
+      "area": 106868,
+      "phash": "3c3c00007ffc0000fffc0003fffff007fffff00ffffff01fffffc01ffffe001ffffe001ffffe000ffffe000ffffe000ffffc0001fff80000ffe000000f80000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_017",
+      "sheet": "fire003",
+      "file": "fire003_017.png",
+      "w": 538,
+      "h": 538,
+      "bbox": [
+        434,
+        326
+      ],
+      "area": 79366,
+      "phash": "40000000630000007ffc00003ffc000e3ffe0007ffff0003ffff8003ffffc000ffffc001ffffc003ffffe001fffff0007ffff0001ffff0001ffff0000fffe00007ffc00003ff0000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_018",
+      "sheet": "fire003",
+      "file": "fire003_018.png",
+      "w": 553,
+      "h": 553,
+      "bbox": [
+        446,
+        343
+      ],
+      "area": 96927,
+      "phash": "10000000f8e00003fbf000fffff001ffffe001ffff8001ffff0003ffff0007ffff000fffff000fffff000fffff801fffff801fffff001ffffe001ffffc000ffff80007fff00003ffe00000110000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_019",
+      "sheet": "fire003",
+      "file": "fire003_019.png",
+      "w": 518,
+      "h": 518,
+      "bbox": [
+        418,
+        402
+      ],
+      "area": 107476,
+      "phash": "3000000038000000fc1c00007fff00007fffe0003ffff0003ffff8007ffff8007ffffc007ffffc003ffffc003ffffe001ffffe001ffffe000ffffe000fffff000fffff000fffff000ffffe000ffffe0003fffc0000fff800003ff800000ff0000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_020",
+      "sheet": "fire003",
+      "file": "fire003_020.png",
+      "w": 549,
+      "h": 549,
+      "bbox": [
+        443,
+        300
+      ],
+      "area": 81443,
+      "phash": "380400007ffc0000fffc0000fffff001fffff803fffff007ffff800fffff000ffffe001ffffe001ffffe001ffffe000ffffe000ffffc0007fff80000ffe000001fc0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_021",
+      "sheet": "fire003",
+      "file": "fire003_021.png",
+      "w": 663,
+      "h": 663,
+      "bbox": [
+        360,
+        535
+      ],
+      "area": 114002,
+      "phash": "18000000380000007800000778000007f800000ff800001ff800001ffe00003ffe00007fff8000ffff8000ffff8000ffff0000ffff0000ffff0000ffff0000ffff0000ffff0000fffe00007ffc00007ff000003fe000003f8000001e000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_022",
+      "sheet": "fire003",
+      "file": "fire003_022.png",
+      "w": 598,
+      "h": 598,
+      "bbox": [
+        321,
+        483
+      ],
+      "area": 84274,
+      "phash": "1800000018000000180000003c0000003c000001bc000001fe000003ffc00003ffe00003ffe00003ffe00003fff00007fff0000ffff0000ffff8000ffff00007fff00007fff00003ffe00003ffc00003ffc00001ff000000fe0000007e00000038000000000000000000000000000"
+    },
+    {
+      "id": "fire003_023",
+      "sheet": "fire003",
+      "file": "fire003_023.png",
+      "w": 582,
+      "h": 582,
+      "bbox": [
+        323,
+        470
+      ],
+      "area": 93507,
+      "phash": "1000000018000000380000003c1000003c3000001e7000003ff80001fff80000fffc0000fffc0000fffe00007fff00007fff00007fff00007fff0000ffff0000ffff0001fffe0001fffe00007ffe00003ffe00001ffc00001ffc00000ffc000003f8000000e000000000000000000000000000"
+    },
+    {
+      "id": "fire003_024",
+      "sheet": "fire003",
+      "file": "fire003_024.png",
+      "w": 497,
+      "h": 497,
+      "bbox": [
+        295,
+        401
+      ],
+      "area": 72794,
+      "phash": "180000007f000003ff00001fff80003fff80007fff80007fff80007fffc000ffff8000ffff8000ffff8001ffff8001ffff8001ffff80007fff80003fff00003ff800003ff800003ff000007fe000007fc0000078800000f0000000e0000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_025",
+      "sheet": "fire003",
+      "file": "fire003_025.png",
+      "w": 577,
+      "h": 577,
+      "bbox": [
+        466,
+        308
+      ],
+      "area": 80836,
+      "phash": "e0000003f000001ffc00003fffc0007ffff000fffff000ffffe000fffff800fffffc00ffffff007fffff003fffc0001fff80000fff800007ff000001ff0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_026",
+      "sheet": "fire003",
+      "file": "fire003_026.png",
+      "w": 567,
+      "h": 567,
+      "bbox": [
+        458,
+        311
+      ],
+      "area": 82280,
+      "phash": "20000003fc00001ffe00001fff80001fffc000ffffe000fffff0007ffff000fffff80ffffff807fffff801fffff0003fffe0007fffc0007fffc00005ff0000007c000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_027",
+      "sheet": "fire003",
+      "file": "fire003_027.png",
+      "w": 514,
+      "h": 514,
+      "bbox": [
+        415,
+        292
+      ],
+      "area": 71623,
+      "phash": "380000007e0000c0ffc000ffffe0007ffff0003ffff0001ffff8000ffffc001ffffc003ffffc001ffffe000fffff0007ffff0001ffff00007fff0000fffe00007ffe00007de0000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_028",
+      "sheet": "fire003",
+      "file": "fire003_028.png",
+      "w": 575,
+      "h": 575,
+      "bbox": [
+        464,
+        303
+      ],
+      "area": 77515,
+      "phash": "ff800000ffe00001ffe00001fff80007fffc00fffffc00ffffff007fffff001fffff0007ffff000fffff000ffffe0003fffc00003ff800001f8000000f0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_029",
+      "sheet": "fire003",
+      "file": "fire003_029.png",
+      "w": 533,
+      "h": 533,
+      "bbox": [
+        430,
+        294
+      ],
+      "area": 77803,
+      "phash": "3bfc0000fff80000fffff001fffff007ffffe007ffff000ffffe000ffffe001ffffe001fffff001fffff801ffffe000ffffe0007fff800007ff000001fc0000000800000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_030",
+      "sheet": "fire003",
+      "file": "fire003_030.png",
+      "w": 458,
+      "h": 458,
+      "bbox": [
+        370,
+        300
+      ],
+      "area": 70065,
+      "phash": "1dc40000fffe0000ffff0003ffff8003ffff800fffff801fffff801fffff001fffff000fffff000fffff000ffffc000ffff8000ffffc001ffffc003ffff8007ffff000fcf80000e0f000000180000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_031",
+      "sheet": "fire003",
+      "file": "fire003_031.png",
+      "w": 605,
+      "h": 605,
+      "bbox": [
+        355,
+        488
+      ],
+      "area": 95550,
+      "phash": "60000000e0000000c0000009c0000009e380001fef00001ffe00003ffe00007ffe00007ffe0000fffe0000fffe0001fffe0001ffff0001fffe0001fffe0001fffe0001fffc0001fffc0000fff000007ff000003fe000003f8000001f000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_032",
+      "sheet": "fire003",
+      "file": "fire003_032.png",
+      "w": 606,
+      "h": 606,
+      "bbox": [
+        329,
+        489
+      ],
+      "area": 92400,
+      "phash": "80000001c0000001c0000003c0000003c000001bc000001fc000003ff800003ffc00003ffe00003fff00007fff00007fff0000ffff0000ffff0001ffff0000ffff0000ffff00007fff00003ffe00003ffc00003ff800001ff000000fe0000007e00000038000000000000000000000000000"
+    },
+    {
+      "id": "fire003_033",
+      "sheet": "fire003",
+      "file": "fire003_033.png",
+      "w": 672,
+      "h": 672,
+      "bbox": [
+        542,
+        367
+      ],
+      "area": 130852,
+      "phash": "ff800000ffc00041ffe000fffff000fffffe00fffffe007fffff003fffff001fffff001fffff003fffff00ffffff001fffff0003fffe0003fffe00003ff000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_034",
+      "sheet": "fire003",
+      "file": "fire003_034.png",
+      "w": 586,
+      "h": 586,
+      "bbox": [
+        312,
+        473
+      ],
+      "area": 80959,
+      "phash": "c0000007e0000007f000001ff800001ffc00003ffc00007ffc0000fffe0000ffff0000ffff0001ffff0000ffff0000fffe0000fffc0000fffc0000fffc0000fffc00007ffc00001ff8000003d8000003c0000001800000018000000180000001000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_035",
+      "sheet": "fire003",
+      "file": "fire003_035.png",
+      "w": 525,
+      "h": 525,
+      "bbox": [
+        329,
+        424
+      ],
+      "area": 88227,
+      "phash": "20000000fe000003ff80001fff80003fffc0007fffc000ffffc000ffffc000ffffc001ffffc001ffff8003ffff8003ffff8003ffff8001ffff8001ffff8000ffff00007ff000007ff000007fe00000ffc00000f3800001e3000001c0000001800000000000000000000000000000"
+    },
+    {
+      "id": "fire003_036",
+      "sheet": "fire003",
+      "file": "fire003_036.png",
+      "w": 541,
+      "h": 541,
+      "bbox": [
+        399,
+        437
+      ],
+      "area": 108708,
+      "phash": "3000000070000000780600007e1e00003fff00003fff80001fffc0001ffff0007ffff8007ffff8007ffff8003ffffc003ffffc001ffffc001ffffc000ffffe0007fffc000ffffc000ffffc000ffffc000ffffe0003fffc0000fffc00001ff8000000f00000000000000000000000000"
+    },
+    {
+      "id": "fire003_037",
+      "sheet": "fire003",
+      "file": "fire003_037.png",
+      "w": 703,
+      "h": 703,
+      "bbox": [
+        567,
+        392
+      ],
+      "area": 135111,
+      "phash": "7800000ffc00001ffe00003fff80003fffc0003ffff0007ffff007fffff007fffff80ffffff80ffffff00fffffe007ffffc0007fff80007fff00003ffc000000f8000000200000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_038",
+      "sheet": "fire003",
+      "file": "fire003_038.png",
+      "w": 570,
+      "h": 570,
+      "bbox": [
+        460,
+        308
+      ],
+      "area": 79937,
+      "phash": "7800000ffc00003ffc00007fff8000ffffe000fffff800fffff800fffff0007ffff8003ffffe003fffff003fffff000fffc3000fff800007ff000001fe0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_039",
+      "sheet": "fire003",
+      "file": "fire003_039.png",
+      "w": 396,
+      "h": 396,
+      "bbox": [
+        320,
+        290
+      ],
+      "area": 56455,
+      "phash": "80080000c01e0000603e0000703e0000307f000003ffb80007fff80007fffc00e7fffc007ffffc000ffffc001ffffc000ffffe000ffffe0007fffe0003fffe0001fffe0001ffff0001ffff0003fffe0001fffe000007fc000003f8000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_040",
+      "sheet": "fire003",
+      "file": "fire003_040.png",
+      "w": 534,
+      "h": 534,
+      "bbox": [
+        431,
+        348
+      ],
+      "area": 97635,
+      "phash": "c0380000e07e0000f9ff80007ffff0007ffff0007ffff0003ffff8007ffffc007ffffc007ffffc003ffffe001ffffe000ffffe0007fffe0001ffff0001ffff0001fffe0001fffe0000fffe000037fc0000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_041",
+      "sheet": "fire003",
+      "file": "fire003_041.png",
+      "w": 555,
+      "h": 555,
+      "bbox": [
+        386,
+        448
+      ],
+      "area": 102370,
+      "phash": "6000000070000000780000037ff80003fffc0003fffe0003fffe0001ffff0001ffff8003ffffc003ffffc000ffffc0007fffc0003fffc0003fff80007fffc0007fffc0007fffc0003fffc0001fff800003ff800003ff800000ff0000001c00000000000000000000000000"
+    },
+    {
+      "id": "fire003_042",
+      "sheet": "fire003",
+      "file": "fire003_042.png",
+      "w": 525,
+      "h": 525,
+      "bbox": [
+        309,
+        424
+      ],
+      "area": 80506,
+      "phash": "40000000600000006000000070000000700000007c3000007ff800007ffc0001fffe0001fffe0001ffff0001ffff8001ffff8000ffff8000ffff8000ffff8000ffff0000ffff0000ffff8000ffff00003fff00000fff000007fe000003fe000000fc0000003800000000000000000000000000"
+    },
+    {
+      "id": "fire003_043",
+      "sheet": "fire003",
+      "file": "fire003_043.png",
+      "w": 626,
+      "h": 626,
+      "bbox": [
+        505,
+        357
+      ],
+      "area": 103705,
+      "phash": "380000007e000080ffc000e1ffe0007ffff0003ffff0001ffff8000ffffc000ffffc003ffffc001ffffe000fffff0007ffff0001ffff00007fff00007ffe00007ffc00003cc0000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_044",
+      "sheet": "fire003",
+      "file": "fire003_044.png",
+      "w": 472,
+      "h": 472,
+      "bbox": [
+        367,
+        381
+      ],
+      "area": 90889,
+      "phash": "6000000ffc0001fffe0007fffe0007ffff0007ffff001fffff001fffff003fffff003fffff007fffff003ffffe003ffffc003ffffc001ffffc001ffffc001ffffc001ffff8001fff80003ffc0000fff80000f878000070700000e00000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_045",
+      "sheet": "fire003",
+      "file": "fire003_045.png",
+      "w": 452,
+      "h": 452,
+      "bbox": [
+        275,
+        365
+      ],
+      "area": 60454,
+      "phash": "1e0000003f0000007f000003ff800007ff80001fff80003fff80003fff80003fff80007fff80007fff8000ffff8001ffff0001ffff8000ffff00007ffe00007ffe00003ffc00003ff000003ff000007fe000007f8000007700000040000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_046",
+      "sheet": "fire003",
+      "file": "fire003_046.png",
+      "w": 541,
+      "h": 541,
+      "bbox": [
+        317,
+        437
+      ],
+      "area": 81986,
+      "phash": "100000003f0000017f00000fff80001fff80007fff80007fff80007fff80007fff8000ffff8000ffff0001ffff0001ffff0001ffff8000ffff80007fff00003ff800003ff000003ff000003fe000007dc00000798000007000000060000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_047",
+      "sheet": "fire003",
+      "file": "fire003_047.png",
+      "w": 507,
+      "h": 507,
+      "bbox": [
+        409,
+        332
+      ],
+      "area": 86484,
+      "phash": "1ff40000fffc0000ffff0003ffff0007ffff800fffff801fffff801fffff001fffff001fffff000fffff000ffffe000ffffc001ffffc001ffff8007ffff800fffff000fffe0000e3f8000001c0000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_048",
+      "sheet": "fire003",
+      "file": "fire003_048.png",
+      "w": 469,
+      "h": 469,
+      "bbox": [
+        379,
+        268
+      ],
+      "area": 62604,
+      "phash": "3c000000fc00007ffff800fffff001ffffe001ffff8003ffff0007fffe000ffffe000ffffe000ffffc001ffffe001ffffe001ffffc000ffff00007ffe00003ffc0000074000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_049",
+      "sheet": "fire003",
+      "file": "fire003_049.png",
+      "w": 527,
+      "h": 527,
+      "bbox": [
+        425,
+        323
+      ],
+      "area": 79503,
+      "phash": "3000000ff800000ffe00001fff00001fff80003fffc00fffffe007fffff003fffff000fffff000fffff000fffff000ffffe000ffffc000ffff8000fff80000ffe00000ff00000070000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_050",
+      "sheet": "fire003",
+      "file": "fire003_050.png",
+      "w": 462,
+      "h": 462,
+      "bbox": [
+        313,
+        373
+      ],
+      "area": 71829,
+      "phash": "c00000e3c00001e7800007ff000007fe00000fff00005ffe0001ffff0003ffff0003ffff8003ffff8003ffffc003ffffc003ffff8003ffff8007ffff0007ffff0007fffe0007fffe0007fffc0003fff00003ffe00001ff00000060000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_051",
+      "sheet": "fire003",
+      "file": "fire003_051.png",
+      "w": 644,
+      "h": 644,
+      "bbox": [
+        354,
+        520
+      ],
+      "area": 110530,
+      "phash": "3000000038000000180000001e0000001f0000001ff00000bff00000fff80000fffc0000fffc0000fffe00007fff00007fff00007fff8000ffff8000ffff8000ffff80007fff00007fff00001fff00001ffe00000ffe000003fc000000fc0000007000000000000000000000000000"
+    },
+    {
+      "id": "fire003_052",
+      "sheet": "fire003",
+      "file": "fire003_052.png",
+      "w": 550,
+      "h": 550,
+      "bbox": [
+        384,
+        444
+      ],
+      "area": 98354,
+      "phash": "c0000000c0000000c0000060e0000070f800003dfe00003fffc0001fffc0001ffff0000ffff0003ffff0003ffff8003ffff8001ffff8001ffff8001ffffc001ffffc000ffff80007fff80003fffc0003fffc0001fff80000fff800003ff000001e000000000000000000000000000"
+    },
+    {
+      "id": "fire003_053",
+      "sheet": "fire003",
+      "file": "fire003_053.png",
+      "w": 556,
+      "h": 556,
+      "bbox": [
+        370,
+        449
+      ],
+      "area": 102317,
+      "phash": "43800000cf000001ff000007fe00000ffe00001ffe0000fffe0001ffff0003ffff0003ffff8003ffffc003ffffc003ffff8007ffff8007ffff8007ffff0007ffff0003fffe0003fffe0003fff80001ffc00000fd80000030000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_054",
+      "sheet": "fire003",
+      "file": "fire003_054.png",
+      "w": 560,
+      "h": 560,
+      "bbox": [
+        424,
+        452
+      ],
+      "area": 109513,
+      "phash": "c0000000e00000007000000078f000007ff800047ffc0007fffe0007ffff0003ffff8001ffffc001ffffc001ffffe003ffffe001ffffe000ffffc000ffffe0007fffe0007fffe0007fffc0003fffc0001fffc00003ffc00001ff8000007f8000000e00000000000000000000000000"
+    },
+    {
+      "id": "fire003_055",
+      "sheet": "fire003",
+      "file": "fire003_055.png",
+      "w": 629,
+      "h": 629,
+      "bbox": [
+        340,
+        508
+      ],
+      "area": 107214,
+      "phash": "f8000001fc000003ff000003ff000003ff800007ffe00007fff0000ffff8000ffff0000ffff0000fffe0000fffe0000fffe0000ffff0000ffff00007fff00007fff00003fff00001fff00001ffc0000007c0000003c0000001c00000018000000180000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_056",
+      "sheet": "fire003",
+      "file": "fire003_056.png",
+      "w": 607,
+      "h": 607,
+      "bbox": [
+        490,
+        336
+      ],
+      "area": 100138,
+      "phash": "1e0000003fc00000fff00003fffe0007ffff0007ffff8007ffff8007ffff8007ffff8007ffff000ffffe003ffffe007ffffc00fffff000fffff00063ffe00003e1c000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_057",
+      "sheet": "fire003",
+      "file": "fire003_057.png",
+      "w": 600,
+      "h": 600,
+      "bbox": [
+        484,
+        359
+      ],
+      "area": 106898,
+      "phash": "3fc000007ffe0001fffe0003ffff0007ffff800fffff800fffff800fffff000fffff0007ffff0007fffe000ffffc001ffff8003ffff000fffff000ffffe00039f8c00001f000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_058",
+      "sheet": "fire003",
+      "file": "fire003_058.png",
+      "w": 665,
+      "h": 665,
+      "bbox": [
+        537,
+        373
+      ],
+      "area": 123785,
+      "phash": "80000003fe00000fff00003fffe0007fffe0007ffff0007ffff0007ffff800fffff803fffff80ffffff00ffffff01fffffe0007fffc0007fff00007ffe0000633c000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_059",
+      "sheet": "fire003",
+      "file": "fire003_059.png",
+      "w": 546,
+      "h": 546,
+      "bbox": [
+        326,
+        441
+      ],
+      "area": 93547,
+      "phash": "1f0000007fc000007fe00001fff00000fff80000fffc0000fffe0001fffe0001ffff0001ffff0001fffe0001fffe0001ffff0001ffff0001ffff0000ffff80007fff80003fff80001fff00000fff0000047f0000003f0000001f0000001f0000000e0000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_060",
+      "sheet": "fire003",
+      "file": "fire003_060.png",
+      "w": 603,
+      "h": 603,
+      "bbox": [
+        487,
+        355
+      ],
+      "area": 103391,
+      "phash": "380000007f0001c1ffe000fdffe0007ffff0007ffff8003ffff8000ffffc000ffffc003ffffc001ffffe000fffff0007ffff8001ffff0000ffff00007ffe00007ffc00007ff0000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_061",
+      "sheet": "fire003",
+      "file": "fire003_061.png",
+      "w": 612,
+      "h": 612,
+      "bbox": [
+        368,
+        494
+      ],
+      "area": 106789,
+      "phash": "1c0000003f800000ffc00000ffe00000fffc0000fffe0000ffff0000ffff0000fffe0000fffe0001fffe0001fffe0001ffff0001ffff0001ffff8000ffff80007fff80003fff80001ffc00001ffc00000c3e0000001e0000000e00000006000000060000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_062",
+      "sheet": "fire003",
+      "file": "fire003_062.png",
+      "w": 610,
+      "h": 610,
+      "bbox": [
+        329,
+        492
+      ],
+      "area": 93681,
+      "phash": "80000000c0000001c0000001c0000001c0000001e0000005fe00000fffc0000fffc0000fffc0000fffe0000fffe00007ffe00007fff00007fff0000ffff0000ffff0000ffff00007ffe00007ffe00001ffe00001ffc00000ff8000007f8000003f8000001e000000000000000000000000000"
+    },
+    {
+      "id": "fire003_063",
+      "sheet": "fire003",
+      "file": "fire003_063.png",
+      "w": 618,
+      "h": 618,
+      "bbox": [
+        338,
+        499
+      ],
+      "area": 101875,
+      "phash": "e0000001f8000003fe000003ff000003ff800007ffc0000fffe0000ffff0000ffff0000ffff0000fffe0000fffe0000fffe0001fffe0000ffff00007fff00003fff00003fff00001ffd00001ffc0000007c0000003c0000001c0000001c0000000c0000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_064",
+      "sheet": "fire003",
+      "file": "fire003_064.png",
+      "w": 512,
+      "h": 512,
+      "bbox": [
+        406,
+        413
+      ],
+      "area": 110290,
+      "phash": "b8000000fe000001fff00003fffc0002fffe0007fffe0007fffe0007fffe0007fffc000fffff000fffff8007ffff8007ffffc007ffffe007ffffe003fffff003fffff003ffff8001ffffc0007fffc0003fffe0001fffe00007ccf000000c700000043000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_065",
+      "sheet": "fire003",
+      "file": "fire003_065.png",
+      "w": 628,
+      "h": 628,
+      "bbox": [
+        333,
+        507
+      ],
+      "area": 97445,
+      "phash": "240000007f0000007f000000ff800001ffc00003ffc00003ffc00007ffe00007ffe0000ffff0000ffff0000ffff0000ffff0000fffe0000fffc0000fffc0000fffc00007ff800000ff8000007f8000007f0000003a00000038000000700000007000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_066",
+      "sheet": "fire003",
+      "file": "fire003_066.png",
+      "w": 622,
+      "h": 622,
+      "bbox": [
+        502,
+        368
+      ],
+      "area": 112405,
+      "phash": "7800000ffc00003ffc00007fff0000ffffc000ffffe000fffff800fffff800fffffc00fffff8007ffffc003ffffe003fffff001fffff000fffde0007ff000003fe0000007c00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_067",
+      "sheet": "fire003",
+      "file": "fire003_067.png",
+      "w": 581,
+      "h": 581,
+      "bbox": [
+        469,
+        339
+      ],
+      "area": 96646,
+      "phash": "160000007ff00000fffe0003ffff0007ffff8007ffff8007ffff8007ffff8007ffff0007ffff0007fffe000ffffe003ffffc007ffff800fffff000f1fff00003f8e00001c000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_068",
+      "sheet": "fire003",
+      "file": "fire003_068.png",
+      "w": 567,
+      "h": 567,
+      "bbox": [
+        308,
+        458
+      ],
+      "area": 79550,
+      "phash": "f8000001fc000007fc00000ffe00003ffe00003ffe00007ffe0000fffe0000fffe0000ffff0000ffff0000ffff0000ffff0000fffe0000fff800007ff800003ff000001ff000001ff000001fe000001fc000001f0000001c00000018000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_069",
+      "sheet": "fire003",
+      "file": "fire003_069.png",
+      "w": 543,
+      "h": 543,
+      "bbox": [
+        326,
+        438
+      ],
+      "area": 88344,
+      "phash": "2000000070000009f000003fe000003fc000007fc00000ffc00000ffc0000fffe0001fffe0001ffff8001ffff8001ffff8001ffff8003ffff0003ffff0001ffff0001ffff0001ffff0001fffe0001fff80001ffe00000ffc00000fe00000008000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_070",
+      "sheet": "fire003",
+      "file": "fire003_070.png",
+      "w": 579,
+      "h": 579,
+      "bbox": [
+        467,
+        311
+      ],
+      "area": 79331,
+      "phash": "40000001e0000003f000001fff00007fffe000fffff001ffffc001ffffe001fffffc00ffffff00ffffff00ffffe0003fff80001fff000007ff000003ff000000f00000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_071",
+      "sheet": "fire003",
+      "file": "fire003_071.png",
+      "w": 598,
+      "h": 598,
+      "bbox": [
+        378,
+        483
+      ],
+      "area": 111871,
+      "phash": "380000007800001cf000003ff000007fe00000ffe00001ffe00007ffe0001fffe0003fffe0003ffff8003ffff8003ffff8001ffff8003ffff0003ffff0003fffe0003fffe0003fffe0003fffc0003fff00001ff800000fd00000038000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_072",
+      "sheet": "fire003",
+      "file": "fire003_072.png",
+      "w": 529,
+      "h": 529,
+      "bbox": [
+        326,
+        427
+      ],
+      "area": 88806,
+      "phash": "b0000001fe000003ff00001fff80003fff80007fff8000ffffc000ffffc001ffffc001ffff8001ffff8001ffff8003ffff8001ffff8001ffff8000ffff80007fff80007ff000007fe000007fc000007fc00000fb800000fb000001f0000000800000000000000000000000000000"
+    },
+    {
+      "id": "fire003_073",
+      "sheet": "fire003",
+      "file": "fire003_073.png",
+      "w": 515,
+      "h": 515,
+      "bbox": [
+        416,
+        376
+      ],
+      "area": 97584,
+      "phash": "1c0000000ec1e0000fc7f00007fff80007fffe0003ffff8001ffff8001ffffc00fffffc00fffffc007ffffc003ffffc001ffffe000ffffe0003fffe0001fffe0001ffff0001ffff0001ffff0001fffe00007ffe000007fc000003f8000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_074",
+      "sheet": "fire003",
+      "file": "fire003_074.png",
+      "w": 658,
+      "h": 658,
+      "bbox": [
+        531,
+        375
+      ],
+      "area": 121616,
+      "phash": "70000005f800001ffc00007fffc000ffffe000fffffe00ffffff01fffffc01fffffc00fffffe00ffffff00ffffff00ffffc0007fffc0003fffc00007ff000003fe0000007000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_075",
+      "sheet": "fire003",
+      "file": "fire003_075.png",
+      "w": 465,
+      "h": 465,
+      "bbox": [
+        271,
+        375
+      ],
+      "area": 60118,
+      "phash": "40000000600000007000000070000000300000003c1000003ff800003ffc0001bffc0001fffe0000ffff0000ffff8000ffff80007fff80007fff80003fff80007fff8000ffff0000ffff8000ffff80007ffe00001ffe000007fe000007fe000001fc0000007800000000000000000000000000"
+    },
+    {
+      "id": "fire003_076",
+      "sheet": "fire003",
+      "file": "fire003_076.png",
+      "w": 591,
+      "h": 591,
+      "bbox": [
+        477,
+        313
+      ],
+      "area": 82700,
+      "phash": "ff800000ffe00001ffe00003fff80007fffc01fffffc00fffffe003fffff000fffff0007ffff000fffff000fffff0001fffe00003ff800001fe000000f0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_077",
+      "sheet": "fire003",
+      "file": "fire003_077.png",
+      "w": 660,
+      "h": 660,
+      "bbox": [
+        533,
+        362
+      ],
+      "area": 117206,
+      "phash": "40000003f800000fff80003fffc0003fffe0007ffff0007ffff0007ffff8007ffff800fffff803fffff01fffffe001ffffe001ffff8003fffe0007fffe00001e3c000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_078",
+      "sheet": "fire003",
+      "file": "fire003_078.png",
+      "w": 560,
+      "h": 560,
+      "bbox": [
+        452,
+        305
+      ],
+      "area": 76191,
+      "phash": "200000007f800000ffc00001ffe000e1fff000fffff8007ffffc001ffffc000ffffe000fffff001fffff000fffff0007ffff0000ffff00003ffe00003ff800001f6000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_079",
+      "sheet": "fire003",
+      "file": "fire003_079.png",
+      "w": 538,
+      "h": 538,
+      "bbox": [
+        434,
+        300
+      ],
+      "area": 82325,
+      "phash": "ff800000fff80001fffe0007fffe00fffffe00fffffe007ffffe001fffff0007ffff000fffff000fffff000fffff001ffffe007ffffc00f8fff00001ff0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_080",
+      "sheet": "fire003",
+      "file": "fire003_080.png",
+      "w": 597,
+      "h": 597,
+      "bbox": [
+        482,
+        325
+      ],
+      "area": 95837,
+      "phash": "3f2000007ff00001fffe0007ffff0007ffff8007ffff8007ffff8007ffff0007ffff0007fffe000ffffe003ffffc00fffff801fffff00001fff00003f9e000010000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_081",
+      "sheet": "fire003",
+      "file": "fire003_081.png",
+      "w": 628,
+      "h": 628,
+      "bbox": [
+        409,
+        507
+      ],
+      "area": 115422,
+      "phash": "7c000000ff000003ff00000fff80001fff80003fff80007fff80007fffc0007fffc0007fffc000ffffc000ffffc000ffffc000ffff8000ffff00007ffe0000fffe0003fffc00001ff800003fe000003f6000007e0000005c00000018000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_082",
+      "sheet": "fire003",
+      "file": "fire003_082.png",
+      "w": 621,
+      "h": 621,
+      "bbox": [
+        361,
+        501
+      ],
+      "area": 109005,
+      "phash": "1e0000003f8000007fe000007ff000007ff800007ffc0000ffff0000ffff0000ffff0000fffe0001fffe0001fffe0001fffe0001ffff0000ffff00007fff80007fff80003fff80003ffd80001ffc0000007c0000001c0000000e0000000e000000060000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_083",
+      "sheet": "fire003",
+      "file": "fire003_083.png",
+      "w": 648,
+      "h": 648,
+      "bbox": [
+        364,
+        523
+      ],
+      "area": 109023,
+      "phash": "6000000060000000f0000000f8000000f8000006fc000007ff800007ffc00007ffe00007ffe00007ffe00007fff00007fff00007fff8000ffff8000ffff0000ffff0000fffe00007ffe00003ffc00001ffc00001ff800000ff0000007e00000038000000000000000000000000000"
+    },
+    {
+      "id": "fire003_084",
+      "sheet": "fire003",
+      "file": "fire003_084.png",
+      "w": 580,
+      "h": 580,
+      "bbox": [
+        468,
+        354
+      ],
+      "area": 104091,
+      "phash": "8000000fc000003f830007ffff800fffff001ffffe001ffffc003ffffc007ffff800fffff000fffff000fffff000fffff001fffff001ffffe000ffffc0007fff00003ffe000003fc00000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_085",
+      "sheet": "fire003",
+      "file": "fire003_085.png",
+      "w": 610,
+      "h": 610,
+      "bbox": [
+        492,
+        325
+      ],
+      "area": 90281,
+      "phash": "1f000001ff800007fffc000fffff000fffff000ffffe000fffff000fffffe00ffffff003fffff803fffe0001fffc0000fff800007ff000003ff0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_086",
+      "sheet": "fire003",
+      "file": "fire003_086.png",
+      "w": 620,
+      "h": 620,
+      "bbox": [
+        500,
+        329
+      ],
+      "area": 91526,
+      "phash": "f0000001f800001ffe00003fffc000fffff000fffff000ffffe000fffff800fffffe00ffffff007fffff003fffc0001fff800007ff800007ff000001fe0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_087",
+      "sheet": "fire003",
+      "file": "fire003_087.png",
+      "w": 634,
+      "h": 634,
+      "bbox": [
+        512,
+        361
+      ],
+      "area": 116744,
+      "phash": "e1e00003ffe00007ffe0000fffff000fffff001ffffe007ffff8007ffff000ffffe000ffffe001ffffe001ffffe001ffffe000ffffc000ffff80007fff000007fc0000001000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_088",
+      "sheet": "fire003",
+      "file": "fire003_088.png",
+      "w": 415,
+      "h": 415,
+      "bbox": [
+        335,
+        312
+      ],
+      "area": 65252,
+      "phash": "e0000000f01c0000783f00003eff80003fffe0001ffff8001ffff8001ffff8001ffffc003ffffc003ffffc003ffffc003ffffe001fffff000ffffe0007fffe0003fffe0002ffff0000ffff0000fffe0000fffe00000ffc000003f8000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_089",
+      "sheet": "fire003",
+      "file": "fire003_089.png",
+      "w": 580,
+      "h": 580,
+      "bbox": [
+        468,
+        315
+      ],
+      "area": 81794,
+      "phash": "7800001ffc00007ffc0000ffff0000ffffe000fffff800fffff800fffff0007ffff0003ffffc003ffffe000fffff000fffff0007ff800003ff000001fe0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_090",
+      "sheet": "fire003",
+      "file": "fire003_090.png",
+      "w": 554,
+      "h": 554,
+      "bbox": [
+        447,
+        295
+      ],
+      "area": 84142,
+      "phash": "3f0000007fe00001fff00003fffe007ffffe003fffff001fffff0007ffff0007ffff000fffff003fffff00ffffff007fffff0003fffe0003fff800006fc000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_091",
+      "sheet": "fire003",
+      "file": "fire003_091.png",
+      "w": 642,
+      "h": 642,
+      "bbox": [
+        342,
+        518
+      ],
+      "area": 107621,
+      "phash": "18000000198000003bc000003f8000007f800001ff800001ff800003ffe00003ffe00003ffe00007fff0000ffff0000ffff0000ffff0000ffff00007fff00007fff00007ffe00007ffc00003ffc00003ff800001ff000000fe0000007e00000038000000000000000000000000000"
+    },
+    {
+      "id": "fire003_092",
+      "sheet": "fire003",
+      "file": "fire003_092.png",
+      "w": 675,
+      "h": 675,
+      "bbox": [
+        545,
+        352
+      ],
+      "area": 113988,
+      "phash": "f0000007f800001ffc00003fff8000ffffe000fffff800fffff800fffff800fffffc007ffffe003fffff803ffffb000fffe00007ffc00007ffc00001ff8000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_093",
+      "sheet": "fire003",
+      "file": "fire003_093.png",
+      "w": 615,
+      "h": 615,
+      "bbox": [
+        366,
+        496
+      ],
+      "area": 112661,
+      "phash": "1000000070000008f000001de000003fe00000ffc00000ffc00003ffc0000fffe0001fffe0001ffff0001ffff8001ffff8001ffff0001ffff0003ffff0003fffe0003fffe0001fffe0001fffc0001fff80001fff00000ffc00000fe80000018000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_094",
+      "sheet": "fire003",
+      "file": "fire003_094.png",
+      "w": 689,
+      "h": 689,
+      "bbox": [
+        556,
+        366
+      ],
+      "area": 121990,
+      "phash": "f8000007fc00001ffe00003fffc0007ffff000fffff000fffff000fffff800fffffe007fffff003fffff801ffffe000ffffc0007ffc00007ff000001ff0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_095",
+      "sheet": "fire003",
+      "file": "fire003_095.png",
+      "w": 510,
+      "h": 510,
+      "bbox": [
+        273,
+        412
+      ],
+      "area": 67990,
+      "phash": "4000000040000006c0000006e0000003e0000003fe000007ffc00007ffc00007ffe00007ffe00007ffe00007ffe00003fff00007fff8000ffff0000ffff0000ffff00007ffe00007ffc00003ffc00001ffc00000ffc00000ff8000003f8000001e000000000000000000000000000"
+    },
+    {
+      "id": "fire003_096",
+      "sheet": "fire003",
+      "file": "fire003_096.png",
+      "w": 637,
+      "h": 637,
+      "bbox": [
+        514,
+        341
+      ],
+      "area": 101611,
+      "phash": "3c0000007fe40000fffe0003fffe0007ffffc00ffffff00fffff801fffff001ffffc001ffff8000ffff8000ffff8000ffff80007fff80001ffe000001f00000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_097",
+      "sheet": "fire003",
+      "file": "fire003_097.png",
+      "w": 570,
+      "h": 570,
+      "bbox": [
+        460,
+        298
+      ],
+      "area": 90834,
+      "phash": "1f000001ffe00001fff80007fffe0007ffff0007ffff0007ffff800fffff80ffffff80ffffff007fffff00fffffe00fffffc003ffff00003ffe00001ff8000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_098",
+      "sheet": "fire003",
+      "file": "fire003_098.png",
+      "w": 549,
+      "h": 549,
+      "bbox": [
+        443,
+        299
+      ],
+      "area": 76046,
+      "phash": "7fc00001ffc00007ffc0000ffff0000ffffe000fffff000fffff8007ffff0003ffff0003ffff8003ffffc000fffff000fffff8007ff860003ff800000fe0000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_099",
+      "sheet": "fire003",
+      "file": "fire003_099.png",
+      "w": 548,
+      "h": 548,
+      "bbox": [
+        442,
+        293
+      ],
+      "area": 75708,
+      "phash": "3f800001ffc00001fff80001fffc0003ffff0003ffff003fffff800fffff807fffff80ffffff803fffff0003ffff0007fffe0007fff8000007c00000038000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "fire003_100",
+      "sheet": "fire003",
+      "file": "fire003_100.png",
+      "w": 455,
+      "h": 455,
+      "bbox": [
+        367,
+        261
+      ],
+      "area": 59643,
+      "phash": "1e0000003fc00000fffe0003fffe0007ffff803fffff803fffff801fffff800fffff000fffff000ffffe000ffffe001ffff8007ffff800fffff800f9fff00001f9e000010000000000000000000000000000000000000000000000000000000000000"
+    }
+  ]
+}
