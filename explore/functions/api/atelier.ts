@@ -5,13 +5,8 @@
  * Live collector book in GARDEN_EGG KV. Notes never leave this endpoint.
  */
 
-import { verifyMessage } from 'viem';
-import {
-  ATELIER_MESSAGE,
-  isAtelierAdmin,
-  seedAtelierRows,
-  type AtelierRow,
-} from '../../lib/collectors';
+import { readAtelierAuth, verifyAtelierSig } from '../../lib/atelierAuth';
+import { isAtelierAdmin, seedAtelierRows, type AtelierRow } from '../../lib/collectors';
 
 type Kv = {
   get(key: string): Promise<string | null>;
@@ -44,17 +39,7 @@ function normalizeWallet(w: string | null | undefined): string | null {
 }
 
 async function authorized(address: string | null, signature: string | null): Promise<boolean> {
-  const wallet = normalizeWallet(address);
-  if (!wallet || !signature || !isAtelierAdmin(wallet)) return false;
-  try {
-    return await verifyMessage({
-      address: wallet as `0x${string}`,
-      message: ATELIER_MESSAGE,
-      signature: signature as `0x${string}`,
-    });
-  } catch {
-    return false;
-  }
+  return Boolean(await verifyAtelierSig(address, signature));
 }
 
 function cleanRows(input: unknown): AtelierRow[] | null {
@@ -110,10 +95,7 @@ export const onRequestGet = async (context: {
   request: Request;
   env: Env;
 }) => {
-  const url = new URL(context.request.url);
-  const address = url.searchParams.get('address') || context.request.headers.get('X-Atelier-Address');
-  const signature =
-    url.searchParams.get('signature') || context.request.headers.get('X-Atelier-Signature');
+  const { address, signature } = readAtelierAuth(context.request);
   if (!(await authorized(address, signature))) {
     return json({ ok: false, error: 'unauthorized' }, 401);
   }

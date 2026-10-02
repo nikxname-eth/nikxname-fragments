@@ -20,6 +20,10 @@ type CodeRecord = {
 
 type Env = {
   FINALE_CLAIMS?: KVNamespace;
+  /** JSON map of CODE → owner wallet. Prefer Pages secret; KV `finale:roster` is fallback. */
+  FINALE_CLAIM_ROSTER?: string;
+  /** JSON array of permanently burned codes. KV `finale:claimed-codes` is fallback. */
+  FINALE_CLAIMED_CODES?: string;
 };
 
 const RESERVE_TTL_MS = 20 * 60 * 1000; // 20 minutes
@@ -30,38 +34,59 @@ const CORS = {
   'Cache-Control': 'no-store',
 };
 
-/** Roster code → owner wallet (must match site config). */
-const CODE_OWNERS: Record<string, string> = {
-  'AFB-YEN-01-A4B7': '0x38f55f77ce4087e1c3fbf4873fec69f2a2c2037e',
-  'AFB-ROBBIE-01-C9F2': '0x4b3dcc15a8ab43128210fe3327bc830c36a15541',
-  'AFB-ROBBIE-02-E3A1': '0x4b3dcc15a8ab43128210fe3327bc830c36a15541',
-  'AFB-ROBBIE-03-F8D6': '0x4b3dcc15a8ab43128210fe3327bc830c36a15541',
-  'AFB-GEOFF-01-B5C3': '0xc58adc6945966c04c74efc5a045fec55a03685bf',
-  'AFB-GEOFF-02-D7A4': '0xc58adc6945966c04c74efc5a045fec55a03685bf',
-  'AFB-LIETTE-01-F2E8': '0x3d85e3b4bb7cfc6225110e3a9c2c35a5b7e97810',
-  'AFB-LIETTE-02-A9C1': '0x3d85e3b4bb7cfc6225110e3a9c2c35a5b7e97810',
-  'AFB-MAVV-01-E4B7': '0xcc3bcddc1bf219a88e28c2f400f4a30a466f42c7',
-  'AFB-MICHAEL-01-D3F2': '0x173820fc6e6f8d4f85a7a7e186e5852e1b4a968d',
-  'AFB-RIP-01-B8A4': '0x121fded4df77dedca7f7ae13dc2995d64b421e1e',
-  'AFB-NIKX-01-C5E9': '0x81c306bcdc036f334ef4fb8f85a8e6be730a0763',
-  'AFB-NIKX-02-F1A3': '0x81c306bcdc036f334ef4fb8f85a8e6be730a0763',
-  'AFB-NIKX-03-D7B2': '0x81c306bcdc036f334ef4fb8f85a8e6be730a0763',
-  'AFB-NIKX-04-E8F6': '0x81c306bcdc036f334ef4fb8f85a8e6be730a0763',
-  'AFB-NIKX-05-A2C4': '0x81c306bcdc036f334ef4fb8f85a8e6be730a0763',
-  'AFB-NIKX-06-B9D1': '0x81c306bcdc036f334ef4fb8f85a8e6be730a0763',
-  'AFB-NIKX-07-F4E7': '0x81c306bcdc036f334ef4fb8f85a8e6be730a0763',
-  'AFB-VANTA-01-A3C9': '0x50221b1df389649721f16df208f820138615f487',
-  'AFB-VANTA-02-E7B2': '0x50221b1df389649721f16df208f820138615f487',
-  'AFB-MARTIN-01-D8F4': '0x094e7af740db3c79dd47a9594d6dedbf1607d9d2',
-};
+type Roster = Record<string, string>;
 
-const PERMANENT_CLAIMED = new Set([
-  'AFB-VANTA-01-A3C9',
-  'AFB-VANTA-02-E7B2',
-  'AFB-RIP-01-B8A4',
-  'AFB-GEOFF-01-B5C3',
-  'AFB-GEOFF-02-D7A4',
-]);
+function parseRoster(raw: string | null | undefined): Roster | null {
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw) as Record<string, unknown>;
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return null;
+    const out: Roster = {};
+    for (const [k, v] of Object.entries(parsed)) {
+      const code = String(k).trim().toUpperCase();
+      const wallet = String(v || '').trim().toLowerCase();
+      if (code.length >= 6 && /^0x[a-f0-9]{40}$/.test(wallet)) out[code] = wallet;
+    }
+    return Object.keys(out).length ? out : null;
+  } catch {
+    return null;
+  }
+}
+
+function parseBurned(raw: string | null | undefined): string[] {
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .map((c) => String(c).trim().toUpperCase())
+      .filter((c) => c.length >= 6);
+  } catch {
+    return [];
+  }
+}
+
+async function loadRoster(env: Env): Promise<Roster> {
+  const fromEnv = parseRoster(env.FINALE_CLAIM_ROSTER);
+  if (fromEnv) return fromEnv;
+  if (!env.FINALE_CLAIMS) return {};
+  try {
+    return parseRoster(await env.FINALE_CLAIMS.get('finale:roster')) || {};
+  } catch {
+    return {};
+  }
+}
+
+async function loadBurned(env: Env): Promise<Set<string>> {
+  const fromEnv = parseBurned(env.FINALE_CLAIMED_CODES);
+  if (fromEnv.length) return new Set(fromEnv);
+  if (!env.FINALE_CLAIMS) return new Set();
+  try {
+    return new Set(parseBurned(await env.FINALE_CLAIMS.get('finale:claimed-codes')));
+  } catch {
+    return new Set();
+  }
+}
 
 function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
@@ -138,22 +163,22 @@ async function writeWalletIndex(
   await kv.put(walletKey(wallet), JSON.stringify({ used, pending, at: Date.now() }));
 }
 
-function codesForWallet(wallet: string): string[] {
-  return Object.entries(CODE_OWNERS)
+function codesForWallet(roster: Roster, wallet: string): string[] {
+  return Object.entries(roster)
     .filter(([, w]) => w === wallet)
     .map(([c]) => c);
 }
 
-function permanentForWallet(wallet: string): string[] {
-  return codesForWallet(wallet).filter((c) => PERMANENT_CLAIMED.has(c));
+function permanentForWallet(roster: Roster, burned: Set<string>, wallet: string): string[] {
+  return codesForWallet(roster, wallet).filter((c) => burned.has(c));
 }
 
-async function snapshot(kv: KVNamespace, wallet: string) {
+async function snapshot(kv: KVNamespace, wallet: string, roster: Roster, burned: Set<string>) {
   const index = await readWalletIndex(kv, wallet);
-  const permanent = permanentForWallet(wallet);
+  const permanent = permanentForWallet(roster, burned, wallet);
   const used = Array.from(new Set([...permanent, ...index.used]));
   const pending = index.pending.filter((c) => !used.includes(c));
-  const allotted = codesForWallet(wallet).length;
+  const allotted = codesForWallet(roster, wallet).length;
   return {
     wallet,
     allotted,
@@ -177,7 +202,10 @@ export const onRequestGet = async (context: {
   const wallet = normalizeWallet(url.searchParams.get('wallet'));
   if (!wallet) return json({ ok: false, error: 'invalid_wallet' }, 400);
 
-  const snap = await snapshot(kv, wallet);
+  const roster = await loadRoster(context.env);
+  if (!Object.keys(roster).length) return json({ ok: false, error: 'roster_unavailable' }, 503);
+  const burned = await loadBurned(context.env);
+  const snap = await snapshot(kv, wallet, roster, burned);
   return json({ ok: true, ...snap });
 };
 
@@ -209,15 +237,19 @@ export const onRequestPost = async (context: {
   if (!wallet) return json({ ok: false, error: 'invalid_wallet' }, 400);
   if (!code && action !== 'status') return json({ ok: false, error: 'invalid_code' }, 400);
 
+  const roster = await loadRoster(context.env);
+  if (!Object.keys(roster).length) return json({ ok: false, error: 'roster_unavailable' }, 503);
+  const burned = await loadBurned(context.env);
+
   if (action === 'status') {
-    return json({ ok: true, ...(await snapshot(kv, wallet)) });
+    return json({ ok: true, ...(await snapshot(kv, wallet, roster, burned)) });
   }
 
   if (!code) return json({ ok: false, error: 'invalid_code' }, 400);
 
   // Permanent config claims are always confirmed
-  if (PERMANENT_CLAIMED.has(code)) {
-    const owner = CODE_OWNERS[code];
+  if (burned.has(code)) {
+    const owner = roster[code];
     if (owner && owner !== wallet) {
       return json({ ok: false, error: 'wrong_wallet', status: 'confirmed' }, 403);
     }
@@ -237,11 +269,11 @@ export const onRequestPost = async (context: {
       ok: true,
       status: 'confirmed',
       permanent: true,
-      ...(await snapshot(kv, wallet)),
+      ...(await snapshot(kv, wallet, roster, burned)),
     });
   }
 
-  const owner = CODE_OWNERS[code];
+  const owner = roster[code];
   // Unknown codes: allow confirm for multi-set freeform, but still ledger them
   if (owner && owner !== wallet) {
     return json({ ok: false, error: 'wrong_wallet', owner }, 403);
@@ -273,7 +305,7 @@ export const onRequestPost = async (context: {
         ok: false,
         error: 'already_confirmed',
         status: 'confirmed',
-        ...(await snapshot(kv, wallet)),
+        ...(await snapshot(kv, wallet, roster, burned)),
       }, 409);
     }
     if (fresh?.status === 'reserved' && fresh.wallet !== wallet) {
@@ -281,17 +313,17 @@ export const onRequestPost = async (context: {
         ok: false,
         error: 'reserved_elsewhere',
         status: 'reserved',
-        ...(await snapshot(kv, wallet)),
+        ...(await snapshot(kv, wallet, roster, burned)),
       }, 409);
     }
 
     // Allotment cap: confirmed used cannot exceed roster size for VIP
-    const allotted = owner ? codesForWallet(wallet).length : 99;
+    const allotted = owner ? codesForWallet(roster, wallet).length : 99;
     if (allotted > 0 && index.used.length >= allotted && !index.used.includes(code)) {
       return json({
         ok: false,
         error: 'allotment_exhausted',
-        ...(await snapshot(kv, wallet)),
+        ...(await snapshot(kv, wallet, roster, burned)),
       }, 409);
     }
 
@@ -309,7 +341,7 @@ export const onRequestPost = async (context: {
       index.pending.push(code);
     }
     await writeWalletIndex(kv, wallet, index);
-    return json({ ok: true, status: 'reserved', ...(await snapshot(kv, wallet)) });
+    return json({ ok: true, status: 'reserved', ...(await snapshot(kv, wallet, roster, burned)) });
   }
 
   if (action === 'confirm') {
@@ -320,18 +352,18 @@ export const onRequestPost = async (context: {
         index.pending = index.pending.filter((c) => c !== code);
         await writeWalletIndex(kv, wallet, index);
       }
-      return json({ ok: true, status: 'confirmed', ...(await snapshot(kv, wallet)) });
+      return json({ ok: true, status: 'confirmed', ...(await snapshot(kv, wallet, roster, burned)) });
     }
     if (fresh?.status === 'reserved' && fresh.wallet !== wallet) {
       return json({ ok: false, error: 'reserved_elsewhere', status: 'reserved' }, 409);
     }
 
-    const allotted = owner ? codesForWallet(wallet).length : 99;
+    const allotted = owner ? codesForWallet(roster, wallet).length : 99;
     if (allotted > 0 && index.used.length >= allotted && !index.used.includes(code)) {
       return json({
         ok: false,
         error: 'allotment_exhausted',
-        ...(await snapshot(kv, wallet)),
+        ...(await snapshot(kv, wallet, roster, burned)),
       }, 409);
     }
 
@@ -347,7 +379,7 @@ export const onRequestPost = async (context: {
     if (!index.used.includes(code)) index.used.push(code);
     index.pending = index.pending.filter((c) => c !== code);
     await writeWalletIndex(kv, wallet, index);
-    return json({ ok: true, status: 'confirmed', ...(await snapshot(kv, wallet)) });
+    return json({ ok: true, status: 'confirmed', ...(await snapshot(kv, wallet, roster, burned)) });
   }
 
   if (action === 'release') {
@@ -356,7 +388,7 @@ export const onRequestPost = async (context: {
         ok: false,
         error: 'already_confirmed',
         status: 'confirmed',
-        ...(await snapshot(kv, wallet)),
+        ...(await snapshot(kv, wallet, roster, burned)),
       }, 409);
     }
     if (fresh?.status === 'reserved' && fresh.wallet !== wallet) {
@@ -365,7 +397,7 @@ export const onRequestPost = async (context: {
     await kv.delete(codeKey(code));
     index.pending = index.pending.filter((c) => c !== code);
     await writeWalletIndex(kv, wallet, index);
-    return json({ ok: true, status: 'released', ...(await snapshot(kv, wallet)) });
+    return json({ ok: true, status: 'released', ...(await snapshot(kv, wallet, roster, burned)) });
   }
 
   return json({ ok: false, error: 'unknown_action' }, 400);

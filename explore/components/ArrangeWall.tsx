@@ -204,11 +204,23 @@ function isPaleHex(hex: string) {
 type Props = {
   works: ExploreWork[];
   catalogue?: ExploreWork[];
-  seed?: ExploreWork | null;
+  seed?: ExploreWork | ExploreWork[] | null;
   onClose: () => void;
   onObserve?: (work: ExploreWork) => void;
   closeLabel?: string;
 };
+
+function workHangsMotion(work: ExploreWork | null | undefined): boolean {
+  if (!work) return false;
+  if (isVideoWork(work)) return true;
+  const motion = work.motionUrl || '';
+  if (motion && (/\.gif(\?|$)/i.test(motion) || motion.startsWith('blob:') || motion.startsWith('data:'))) {
+    return true;
+  }
+  return [work.coverUrl, work.mediaUrl, work.originCoverUrl, work.motionUrl].some((u) =>
+    /\.gif(\?|$)/i.test(u || ''),
+  );
+}
 
 const EMPTY_AR = 4 / 5;
 
@@ -231,9 +243,10 @@ function cover(work: ExploreWork, wide = false) {
 
 function hangStill(work: ExploreWork) {
   if (isVideoWork(work)) return cover(work, true);
+  if (work.motionUrl && workHangsMotion(work)) return work.motionUrl;
   const raw = stillMasterUrl(work);
   if (!raw) return cover(work, true);
-  if (/\.gif(\?|$)/i.test(raw)) return raw;
+  if (/\.gif(\?|$)/i.test(raw) || raw.startsWith('blob:') || raw.startsWith('data:')) return raw;
   return theatreStillUrl(raw, HI_LONG_EDGE) || raw;
 }
 
@@ -321,20 +334,10 @@ export function ArrangeWall({ works, catalogue, seed, onClose, onObserve, closeL
 
   const filled = useMemo(() => slots.filter(Boolean).length, [slots]);
   const hangReady = filled >= frames;
-  const hangHasMotion = useMemo(
-    () =>
-      slots.some(
-        (w) =>
-          w &&
-          (isVideoWork(w) ||
-            /\.gif(\?|$)/i.test(w.coverUrl || '') ||
-            /\.gif(\?|$)/i.test(w.mediaUrl || '')),
-      ),
-    [slots],
-  );
+  const hangHasMotion = useMemo(() => slots.some((w) => workHangsMotion(w)), [slots]);
   const hangEncodeNote = useMemo(() => {
     const hung = slots.filter((w): w is ExploreWork => Boolean(w));
-    const motion = hung.filter((w) => isVideoWork(w) || (w.nativeFps != null && w.nativeFps > 0));
+    const motion = hung.filter((w) => workHangsMotion(w) || (w.nativeFps != null && w.nativeFps > 0));
     if (!motion.length) return null;
     const rates = motion.map((w) => w.nativeFps || 0).filter((n) => n > 0);
     const unique = [...new Set(rates)];
@@ -369,14 +372,14 @@ export function ArrangeWall({ works, catalogue, seed, onClose, onObserve, closeL
 
   useEffect(() => {
     if (!seed) return;
-    setSlots((prev) => {
-      const next = [...prev];
-      next[0] = seed;
-      return next;
-    });
-    setActive(1 % frames);
+    const list = (Array.isArray(seed) ? seed : [seed]).filter(Boolean);
+    if (!list.length) return;
+    const n = Math.min(3, Math.max(1, list.length)) as 1 | 2 | 3;
+    setFrames(n);
+    setSlots(Array.from({ length: n }, (_, i) => list[i] ?? null));
+    setActive(list.length >= n ? null : list.length);
     setLookOpen(false);
-  }, [seed, frames]);
+  }, [seed]);
 
   const openTray = useCallback(() => {
     window.clearTimeout(trayClose.current);

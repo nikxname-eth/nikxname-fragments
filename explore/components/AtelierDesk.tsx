@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { formatEther, parseEther } from 'viem';
+import { atelierAuthHeaders } from '../lib/atelierAuth';
 import { ARTIST_MINT_WALLET, isArtistWallet } from '../lib/collectors';
 import { listingFamily } from '../lib/listingFamily';
 import { editionIdentity } from '../lib/editionIdentity';
@@ -342,10 +343,10 @@ export function AtelierDesk({ wallet, signature, readOnly }: Props) {
       const q = new URLSearchParams({
         work: w.id,
         full: 'offers',
-        address: wallet,
-        signature,
       });
-      const detail = await fetch(`/api/market/orders?${q}`).then((r) => r.json());
+      const detail = await fetch(`/api/market/orders?${q}`, {
+        headers: atelierAuthHeaders(wallet, signature),
+      }).then((r) => r.json());
       const best = (detail.offers || []).sort(
         (a: { priceWei: string }, b: { priceWei: string }) =>
           BigInt(b.priceWei) > BigInt(a.priceWei) ? 1 : -1,

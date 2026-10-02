@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import Head from 'next/head';
+import { atelierAuthHeaders, atelierMessageNow } from '../lib/atelierAuth';
 import {
-  ATELIER_MESSAGE,
   isArtistWallet,
   isAtelierAdmin,
   seedAtelierRows,
@@ -33,7 +33,7 @@ function emptyRow(): AtelierRow {
 async function signAtelier(eth: Eth, address: string): Promise<string> {
   const hex =
     '0x' +
-    Array.from(new TextEncoder().encode(ATELIER_MESSAGE))
+    Array.from(new TextEncoder().encode(atelierMessageNow()))
       .map((b) => b.toString(16).padStart(2, '0'))
       .join('');
   const sig = await eth.request({
@@ -59,9 +59,9 @@ export default function AtelierPage() {
   const loadBook = useCallback(async (address: string, sig: string) => {
     setStatus('loading');
     try {
-      const res = await fetch(
-        `/api/atelier?address=${encodeURIComponent(address)}&signature=${encodeURIComponent(sig)}`,
-      );
+      const res = await fetch('/api/atelier', {
+        headers: atelierAuthHeaders(address, sig),
+      });
       const data = (await res.json()) as { ok?: boolean; rows?: AtelierRow[]; updatedAt?: string; error?: string };
       if (!res.ok || !data.ok) throw new Error(data.error || 'locked');
       setRows(data.rows?.length ? data.rows : seedAtelierRows());
@@ -103,9 +103,9 @@ export default function AtelierPage() {
     setPulling(true);
     setNote('Reading holders…');
     try {
-      const res = await fetch(
-        `/api/atelier-collectors?address=${encodeURIComponent(wallet)}&signature=${encodeURIComponent(signature)}`,
-      );
+      const res = await fetch('/api/atelier-collectors', {
+        headers: atelierAuthHeaders(wallet, signature),
+      });
       const data = (await res.json()) as { ok?: boolean; rows?: AtelierRow[]; count?: number; error?: string };
       if (!res.ok || !data.ok || !data.rows) throw new Error(data.error || 'pull');
       setRows((prev) => mergeCollectorRows(prev, data.rows!));

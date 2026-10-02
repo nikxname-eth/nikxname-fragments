@@ -40,13 +40,27 @@ function isGifUrl(url?: string | null): boolean {
   return Boolean(url && /\.gif(\?|$)/i.test(url));
 }
 
+function isLocalUrl(url?: string | null): boolean {
+  return Boolean(url && (url.startsWith('blob:') || url.startsWith('data:')));
+}
+
+function gifUrlFor(work: ExploreWork): string | null {
+  if (isVideoWork(work)) return null;
+  const hit = [work.motionUrl, work.coverUrl, work.originCoverUrl, work.mediaUrl].find((u) =>
+    isGifUrl(u),
+  );
+  if (hit) return hit;
+  if (work.motionUrl && isLocalUrl(work.motionUrl)) return work.motionUrl;
+  return null;
+}
+
 function workHasMotion(
   work: ExploreWork,
   media: HTMLImageElement | HTMLVideoElement | null,
 ): boolean {
   if (media instanceof HTMLVideoElement) return true;
   if (isVideoWork(work)) return true;
-  return [work.mediaUrl, work.coverUrl, work.originCoverUrl].some((u) => isGifUrl(u));
+  return Boolean(gifUrlFor(work));
 }
 
 function snapFps(raw: number): number {
@@ -74,12 +88,6 @@ function encodeVideoUrl(work: ExploreWork, live?: HTMLVideoElement | null): stri
     videos.find((t) => t.id === defaultTierId(videos)) ||
     videos[0];
   return prefer?.url || live?.currentSrc || live?.src || '';
-}
-
-function gifUrlFor(work: ExploreWork): string | null {
-  if (isVideoWork(work)) return null;
-  const hit = [work.coverUrl, work.originCoverUrl, work.mediaUrl].find((u) => isGifUrl(u));
-  return hit || null;
 }
 
 export type HangCapturePiece = {
@@ -160,9 +168,9 @@ async function canvasFromBlob(blob: Blob): Promise<HTMLCanvasElement | null> {
 async function bitmapFromProxy(url: string): Promise<HTMLCanvasElement | ImageBitmap | null> {
   if (!url || !isStillUrl(url)) return null;
   try {
-    const res = await fetch(
-      `${PROXY}?url=${encodeURIComponent(url)}&name=hang-still.jpg`,
-    );
+    const res = isLocalUrl(url)
+      ? await fetch(url)
+      : await fetch(`${PROXY}?url=${encodeURIComponent(url)}&name=hang-still.jpg`);
     if (!res.ok) return null;
     const blob = await res.blob();
     if (!blob.size || blob.type.startsWith('video/') || blob.type.startsWith('text/')) {
@@ -575,8 +583,9 @@ async function videoForEncode(
   if (!src && fallback) return { video: fallback, cleanup: () => {} };
   if (!src) return null;
 
+  const local = isLocalUrl(src);
   try {
-    const clone = await loadVideo(src, true);
+    const clone = await loadVideo(src, !local);
     if (canvasSafe(clone)) {
       return {
         video: clone,
@@ -588,6 +597,11 @@ async function videoForEncode(
     }
   } catch {
     /* proxy */
+  }
+
+  if (local) {
+    if (fallback) return { video: fallback, cleanup: () => {} };
+    return null;
   }
 
   try {
@@ -631,7 +645,9 @@ async function decodeGifFeed(url: string): Promise<GifFeed | null> {
   } }).ImageDecoder;
   if (!Decoder) return null;
   try {
-    const res = await fetch(`${PROXY}?url=${encodeURIComponent(url)}&name=hang.gif`);
+    const res = isLocalUrl(url)
+      ? await fetch(url)
+      : await fetch(`${PROXY}?url=${encodeURIComponent(url)}&name=hang.gif`);
     if (!res.ok) return null;
     const buf = await res.arrayBuffer();
     const decoder = new Decoder({ data: buf, type: 'image/gif' });

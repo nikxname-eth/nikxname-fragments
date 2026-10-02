@@ -4,8 +4,7 @@
  * HEAD/range-check public pin URLs. Atelier admin only.
  */
 
-import { verifyMessage } from 'viem';
-import { ATELIER_MESSAGE, isAtelierAdmin } from '../../lib/collectors';
+import { verifyAtelierSig } from '../../lib/atelierAuth';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -22,12 +21,6 @@ function json(data: unknown, status = 200) {
 
 export const onRequestOptions = async () =>
   new Response(null, { status: 204, headers: CORS });
-
-function normalizeWallet(w: string | null | undefined): string | null {
-  if (!w) return null;
-  const t = String(w).trim().toLowerCase();
-  return /^0x[a-f0-9]{40}$/.test(t) ? t : null;
-}
 
 function arweaveMirrors(url: string): string[] {
   const out = [url];
@@ -73,18 +66,8 @@ export const onRequestPost = async (context: { request: Request }) => {
     signature?: string;
     urls?: string[];
   } | null;
-  const wallet = normalizeWallet(body?.address);
-  if (!wallet || !body?.signature || !isAtelierAdmin(wallet)) {
-    return json({ ok: false, error: 'unauthorized' }, 401);
-  }
-  try {
-    const ok = await verifyMessage({
-      address: wallet as `0x${string}`,
-      message: ATELIER_MESSAGE,
-      signature: body.signature as `0x${string}`,
-    });
-    if (!ok) return json({ ok: false, error: 'unauthorized' }, 401);
-  } catch {
+  const wallet = await verifyAtelierSig(body?.address, body?.signature);
+  if (!wallet || !body) {
     return json({ ok: false, error: 'unauthorized' }, 401);
   }
 

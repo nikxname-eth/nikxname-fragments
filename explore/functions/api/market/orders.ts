@@ -81,8 +81,8 @@ export const onRequestGet = async (context: { request: Request; env: Env }) => {
   if (full) {
     artist = Boolean(
       await verifyArtistSig(
-        url.searchParams.get('address') || context.request.headers.get('X-Atelier-Address'),
-        url.searchParams.get('signature') || context.request.headers.get('X-Atelier-Signature'),
+        context.request.headers.get('X-Atelier-Address') || url.searchParams.get('address'),
+        context.request.headers.get('X-Atelier-Signature'),
       ),
     );
   }

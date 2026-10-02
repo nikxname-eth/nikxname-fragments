@@ -40,6 +40,7 @@ export const COLLECTORS: CollectorProfile[] = [
   },
 ];
 
+/** Realm prefix. The signed payload is dated — see atelierAuth.atelierMessageNow(). */
 export const ATELIER_MESSAGE = 'nikxart atelier';
 
 export function collectorFor(address: string | null | undefined): CollectorProfile | null {

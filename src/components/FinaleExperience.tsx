@@ -53,7 +53,6 @@ import { verifyCompleteSets } from '../lib/setVerification';
 import { useWallet } from '../providers/WalletProvider';
 import { BlossomMagnifier } from './BlossomMagnifier';
 import { BlossomVideo } from './BlossomVideo';
-import { ClaimCodeChip } from './ClaimCodeChip';
 import { ClaimSlotForm } from './ClaimSlotForm';
 
 type Stage = 'intro' | 'thanks' | 'piece' | 'still' | 'animated' | 'claim';
@@ -121,32 +120,13 @@ export function FinaleExperience() {
     () => getClaimAllotment(wallet, sets),
     [wallet, sets],
   );
-  const usedSet = useMemo(
-    () => new Set(usedCodes.map((c) => c.toUpperCase())),
-    [usedCodes],
-  );
-  const pendingSet = useMemo(
-    () => new Set(pendingCodes.map((c) => c.toUpperCase())),
-    [pendingCodes],
-  );
-  /** Codes still available to show / enter (not used, not in-flight) */
-  const remainingEntries = useMemo(
-    () =>
-      allotment.claimEntries.filter((e) => {
-        const k = e.code.toUpperCase();
-        return !usedSet.has(k) && !pendingSet.has(k);
-      }),
-    [allotment.claimEntries, usedSet, pendingSet],
-  );
   /** Confirmed mints only — rights permanently spent */
   const remaining = Math.max(0, allotment.allotted - usedCodes.length);
   /** Rights free for a new checkout (pending locks one right) */
   const availableRights = Math.max(0, remaining - pendingCodes.length);
   const greetName = guestGreeting(allotment.guest);
   const sessionKey = wallet?.toLowerCase() ?? 'session';
-  const knownCodes = allotment.claimEntries
-    .filter((e) => !usedSet.has(e.code.toUpperCase()))
-    .map((e) => e.code);
+  const knownCodes = allotment.codes;
   const blockedCodes = useMemo(() => getBlockedFinaleCodes(wallet), [wallet, usedCodes, pendingCodes]);
   /** Can still mint more editions */
   const canClaimMore = remaining > 0 && walletReady && allotment.allotted > 0;
@@ -1019,24 +999,17 @@ export function FinaleExperience() {
               </div>
             )}
 
-            {canClaimMore && allotment.guest && remainingEntries.length > 0 && (
-              <section className="finale-codes finale-codes--panel" aria-label="Your claim codes">
+            {canClaimMore && allotment.guest && remaining > 0 && (
+              <section className="finale-codes finale-codes--panel" aria-label="Your claims">
                 <h3 className="finale-codes-heading">
-                  Your claim codes · {greetName} · {remainingEntries.length} left
+                  Your claims · {greetName} · {remaining} left
                 </h3>
                 {guestHandleLine(allotment.guest) && (
                   <p className="finale-codes-handles">{guestHandleLine(allotment.guest)}</p>
                 )}
-                <ul>
-                  {remainingEntries.map((entry) => (
-                    <li key={entry.code} className="finale-codes-item">
-                      <ClaimCodeChip code={entry.code} holder={entry.holder} />
-                    </li>
-                  ))}
-                </ul>
                 <p className="finale-codes-note">
-                  Matched to {wallet?.slice(0, 6)}…{wallet?.slice(-4)}. {remaining} of{' '}
-                  {allotment.allotted} remaining.
+                  Matched to {wallet?.slice(0, 6)}…{wallet?.slice(-4)}. Enter the claim code you
+                  were given. {remaining} of {allotment.allotted} remaining.
                 </p>
               </section>
             )}

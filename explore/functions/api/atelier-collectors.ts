@@ -4,8 +4,8 @@
  * Admin-signed. Same auth as the Atelier book.
  */
 
-import { verifyMessage } from 'viem';
-import { ATELIER_MESSAGE, isAtelierAdmin, type AtelierRow } from '../../lib/collectors';
+import { readAtelierAuth, verifyAtelierSig } from '../../lib/atelierAuth';
+import { type AtelierRow } from '../../lib/collectors';
 import { NIKX_CONTRACTS } from '../../lib/contracts';
 
 type Env = { GARDEN_EGG?: { get(key: string): Promise<string | null>; put(key: string, value: string, opts?: { expirationTtl?: number }): Promise<void> } };
@@ -13,7 +13,7 @@ type Env = { GARDEN_EGG?: { get(key: string): Promise<string | null>; put(key: s
 const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Headers': 'Content-Type, X-Atelier-Address, X-Atelier-Signature',
   'Cache-Control': 'no-store',
 };
 
@@ -34,22 +34,12 @@ function normalizeWallet(w: string | null | undefined): string | null {
 }
 
 async function authorized(address: string | null, signature: string | null) {
-  const wallet = normalizeWallet(address);
-  if (!wallet || !signature || !isAtelierAdmin(wallet)) return false;
-  try {
-    return await verifyMessage({
-      address: wallet as `0x${string}`,
-      message: ATELIER_MESSAGE,
-      signature: signature as `0x${string}`,
-    });
-  } catch {
-    return false;
-  }
+  return Boolean(await verifyAtelierSig(address, signature));
 }
 
 export const onRequestGet = async (context: { request: Request; env: Env }) => {
-  const url = new URL(context.request.url);
-  if (!(await authorized(url.searchParams.get('address'), url.searchParams.get('signature')))) {
+  const { address, signature } = readAtelierAuth(context.request);
+  if (!(await authorized(address, signature))) {
     return json({ ok: false, error: 'unauthorized' }, 401);
   }
 

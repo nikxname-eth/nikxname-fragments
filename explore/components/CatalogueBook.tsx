@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ATELIER_MESSAGE } from '../lib/collectors';
+import { atelierMessageNow } from '../lib/atelierAuth';
 import type { WouldPanelRow } from '../config/would-it';
 import { editionIdentity } from '../lib/editionIdentity';
 
@@ -98,7 +98,7 @@ export function CatalogueBook({ mode, wallet, holdings, onClose }: Props) {
     if (!eth) throw new Error('wallet');
     const hex =
       '0x' +
-      Array.from(new TextEncoder().encode(ATELIER_MESSAGE))
+      Array.from(new TextEncoder().encode(atelierMessageNow()))
         .map((b) => b.toString(16).padStart(2, '0'))
         .join('');
     return String(await eth.request({ method: 'personal_sign', params: [hex, wallet] }));

@@ -52,6 +52,14 @@ function posterFromVideo(blobUrl: string): Promise<string> {
   });
 }
 
+function isGifFile(file: File) {
+  return file.type === 'image/gif' || /\.gif$/i.test(file.name);
+}
+
+function isVideoFile(file: File) {
+  return file.type.startsWith('video/') || /\.(mp4|webm|mov)$/i.test(file.name);
+}
+
 export function ReviewHang() {
   const [works, setWorks] = useState<ExploreWork[]>([]);
   const [hang, setHang] = useState(false);
@@ -62,7 +70,8 @@ export function ReviewHang() {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const url = URL.createObjectURL(file);
-      const video = file.type.startsWith('video/') || /\.(mp4|webm|mov)$/i.test(file.name);
+      const video = isVideoFile(file);
+      const gif = !video && isGifFile(file);
       const poster = video ? await posterFromVideo(url) : url;
       added.push({
         id: `review-${Date.now()}-${i}`,
@@ -72,8 +81,9 @@ export function ReviewHang() {
         coverUrl: poster || url,
         originCoverUrl: poster || url,
         mediaUrl: url,
+        motionUrl: video || gif ? url : undefined,
         mediaType: video ? 'video' : 'image',
-        nativeFps: video ? 24 : undefined,
+        nativeFps: video || gif ? 24 : undefined,
         sort: works.length + i,
         blurb: 'Studio review — not released.',
       });
@@ -85,6 +95,7 @@ export function ReviewHang() {
     <div className="ex-review">
       <p className="ex-atelier-meta">
         Hang unreleased work exactly as in the Atelier. Files stay on this machine until you mint.
+        Drop one to three frames — Save encodes motion (GIF or video) to mp4, stills to jpeg.
       </p>
       <div className="ex-atelier-toolbar">
         <label className="ex-atelier-btn">
@@ -117,8 +128,9 @@ export function ReviewHang() {
       )}
       {hang ? (
         <ArrangeWall
+          key={works.map((w) => w.id).join('|')}
           works={works}
-          seed={works[0] ?? null}
+          seed={works}
           onClose={() => setHang(false)}
           closeLabel="Return to Review"
         />

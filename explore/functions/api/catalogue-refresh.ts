@@ -4,8 +4,7 @@
  * Prompts Alchemy (and OpenSea when keyed) to recrawl token metadata.
  */
 
-import { verifyMessage } from 'viem';
-import { ATELIER_MESSAGE, isAtelierAdmin } from '../../lib/collectors';
+import { verifyAtelierSig } from '../../lib/atelierAuth';
 
 type Env = { OPENSEA_API_KEY?: string };
 
@@ -25,12 +24,6 @@ function json(data: unknown, status = 200) {
 export const onRequestOptions = async () =>
   new Response(null, { status: 204, headers: CORS });
 
-function normalizeWallet(w: string | null | undefined): string | null {
-  if (!w) return null;
-  const t = String(w).trim().toLowerCase();
-  return /^0x[a-f0-9]{40}$/.test(t) ? t : null;
-}
-
 export const onRequestPost = async (context: { env: Env; request: Request }) => {
   const body = (await context.request.json().catch(() => null)) as {
     address?: string;
@@ -39,18 +32,8 @@ export const onRequestPost = async (context: { env: Env; request: Request }) => 
     tokenId?: string | number;
     tokens?: { contract?: string; tokenId?: string | number }[];
   } | null;
-  const wallet = normalizeWallet(body?.address);
-  if (!wallet || !body?.signature || !isAtelierAdmin(wallet)) {
-    return json({ ok: false, error: 'unauthorized' }, 401);
-  }
-  try {
-    const ok = await verifyMessage({
-      address: wallet as `0x${string}`,
-      message: ATELIER_MESSAGE,
-      signature: body.signature as `0x${string}`,
-    });
-    if (!ok) return json({ ok: false, error: 'unauthorized' }, 401);
-  } catch {
+  const wallet = await verifyAtelierSig(body?.address, body?.signature);
+  if (!wallet || !body) {
     return json({ ok: false, error: 'unauthorized' }, 401);
   }
 

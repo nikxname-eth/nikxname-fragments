@@ -201,12 +201,11 @@ export function manifoldClaimUrl(instanceId: string): string {
   return `https://manifold.xyz/@nikxnames-art/id/${instanceId}`;
 }
 
-/* ── VIP guests + claim codes (allotment = claimEntries.length) ── */
+/* ── VIP guests (allotment = claimEntries.length; codes live on the claim ledger) ── */
 
 export type FinaleClaimEntry = {
-  /** Display name on the code (matches roster) */
+  /** Display name for this allotment slot */
   holder: string;
-  code: string;
 };
 
 export type FinaleGuest = {
@@ -216,153 +215,116 @@ export type FinaleGuest = {
   /** Other people on the same wallet (e.g. Geoff with Robbie) */
   alsoKnownAs?: string[];
   ensOrHandles: string[];
-  /** Each code is owned by a named holder — allotment = length */
+  /** Named slots — allotment = length. Actual codes are not in the client. */
   claimEntries: FinaleClaimEntry[];
 };
 
 /**
  * Canonical AFB finale roster (addresses lowercase for lookup).
- * | Wallet | Profile(s) | Codes |
- * |--------|------------|-------|
- * | 0x38f55f77…037e eyequeen.eth | Yen | 1 |
- * | 0x4b3dcc15…5541 leadwithlove.eth | Robbie | 3 |
- * | 0xc58adc69…85bf 2009Block0 | Geoff | 2 |
- * | 0x3d85e3b4…7810 TheMrsLv | Liette | 2 |
- * | 0xcc3bcddc…42c7 Sir Mavv | Mavv | 1 |
- * | 0x173820fc…968d dropbearvisuals.eth | Michael | 1 |
- * | 0x121fded4…1e1e RIP | RIP | 1 |
- * | 0x81c306bc…0763 Nikx | Nikx | 7 |
- * | 0x50221b1d…f487 Vanta | Vanta | 2 |
- * | 0x094e7af7…d9d2 Martin | Martin | 1 |
+ * Claim codes are not published here — the KV ledger owns them.
  */
 export const FINALE_GUESTS: FinaleGuest[] = [
   {
     address: '0x38f55f77ce4087e1c3fbf4873fec69f2a2c2037e',
     name: 'Yen',
     ensOrHandles: ['eyequeen.eth'],
-    claimEntries: [{ holder: 'Yen', code: 'AFB-YEN-01-A4B7' }],
+    claimEntries: [{ holder: 'Yen' }],
   },
   {
     address: '0x4b3dcc15a8ab43128210fe3327bc830c36a15541',
     name: 'Robbie',
     ensOrHandles: ['leadwithlove.eth'],
-    claimEntries: [
-      { holder: 'Robbie', code: 'AFB-ROBBIE-01-C9F2' },
-      { holder: 'Robbie', code: 'AFB-ROBBIE-02-E3A1' },
-      { holder: 'Robbie', code: 'AFB-ROBBIE-03-F8D6' },
-    ],
+    claimEntries: [{ holder: 'Robbie' }, { holder: 'Robbie' }, { holder: 'Robbie' }],
   },
   {
     address: '0xc58adc6945966c04c74efc5a045fec55a03685bf',
     name: 'Geoff',
     ensOrHandles: ['2009Block0'],
-    claimEntries: [
-      { holder: 'Geoff', code: 'AFB-GEOFF-01-B5C3' },
-      { holder: 'Geoff', code: 'AFB-GEOFF-02-D7A4' },
-    ],
+    claimEntries: [{ holder: 'Geoff' }, { holder: 'Geoff' }],
   },
   {
     address: '0x3d85e3b4bb7cfc6225110e3a9c2c35a5b7e97810',
     name: 'Liette',
     ensOrHandles: ['TheMrsLv'],
-    claimEntries: [
-      { holder: 'Liette', code: 'AFB-LIETTE-01-F2E8' },
-      { holder: 'Liette', code: 'AFB-LIETTE-02-A9C1' },
-    ],
+    claimEntries: [{ holder: 'Liette' }, { holder: 'Liette' }],
   },
   {
     address: '0xcc3bcddc1bf219a88e28c2f400f4a30a466f42c7',
     name: 'Mavv',
     ensOrHandles: ['Sir Mavv'],
-    claimEntries: [{ holder: 'Mavv', code: 'AFB-MAVV-01-E4B7' }],
+    claimEntries: [{ holder: 'Mavv' }],
   },
   {
     address: '0x173820fc6e6f8d4f85a7a7e186e5852e1b4a968d',
     name: 'Michael',
     ensOrHandles: ['dropbearvisuals.eth'],
-    claimEntries: [{ holder: 'Michael', code: 'AFB-MICHAEL-01-D3F2' }],
+    claimEntries: [{ holder: 'Michael' }],
   },
   {
     address: '0x121fded4df77dedca7f7ae13dc2995d64b421e1e',
     name: 'RIP',
     ensOrHandles: ['RIP'],
-    claimEntries: [{ holder: 'RIP', code: 'AFB-RIP-01-B8A4' }],
+    claimEntries: [{ holder: 'RIP' }],
   },
   {
     address: '0x81c306bcdc036f334ef4fb8f85a8e6be730a0763',
     name: 'Nikx',
     ensOrHandles: ['Nikx'],
-    claimEntries: [
-      { holder: 'Nikx', code: 'AFB-NIKX-01-C5E9' },
-      { holder: 'Nikx', code: 'AFB-NIKX-02-F1A3' },
-      { holder: 'Nikx', code: 'AFB-NIKX-03-D7B2' },
-      { holder: 'Nikx', code: 'AFB-NIKX-04-E8F6' },
-      { holder: 'Nikx', code: 'AFB-NIKX-05-A2C4' },
-      { holder: 'Nikx', code: 'AFB-NIKX-06-B9D1' },
-      { holder: 'Nikx', code: 'AFB-NIKX-07-F4E7' },
-    ],
+    claimEntries: Array.from({ length: 7 }, () => ({ holder: 'Nikx' })),
   },
   {
     address: '0x50221b1df389649721f16df208f820138615f487',
     name: 'Vanta',
     ensOrHandles: ['Vanta'],
-    claimEntries: [
-      { holder: 'Vanta', code: 'AFB-VANTA-01-A3C9' },
-      { holder: 'Vanta', code: 'AFB-VANTA-02-E7B2' },
-    ],
+    claimEntries: [{ holder: 'Vanta' }, { holder: 'Vanta' }],
   },
   {
     address: '0x094e7af740db3c79dd47a9594d6dedbf1607d9d2',
     name: 'Martin',
     ensOrHandles: ['Martin'],
-    claimEntries: [{ holder: 'Martin', code: 'AFB-MARTIN-01-D8F4' }],
+    claimEntries: [{ holder: 'Martin' }],
   },
 ];
 
-/** Total codes across roster (Yen1 + R3 + G2 + L2 + Mav1 + Mic1 + RIP1 + Nikx7 + Van2 + Mar1 = 21). */
+/** Total allotment slots across roster. */
 export const FINALE_ROSTER_CODE_COUNT = FINALE_GUESTS.reduce(
   (n, g) => n + g.claimEntries.length,
   0,
 );
 
 /**
- * Permanently claimed on-site codes (confirmed complete — cannot remint via site gate).
- * Vanta, RIP, Geoff fully claimed; all other roster codes remain open.
+ * Wallets whose entire allotment is already claimed (cannot remint via site gate).
+ * Burned code strings live on the server ledger, not in this bundle.
  */
-export const FINALE_PERMANENTLY_CLAIMED_CODES: readonly string[] = [
-  // Vanta — both
-  'AFB-VANTA-01-A3C9',
-  'AFB-VANTA-02-E7B2',
-  // RIP — one
-  'AFB-RIP-01-B8A4',
-  // Geoff — both
-  'AFB-GEOFF-01-B5C3',
-  'AFB-GEOFF-02-D7A4',
-] as const;
+export const FINALE_FULLY_CLAIMED_WALLETS: readonly string[] = [
+  '0x50221b1df389649721f16df208f820138615f487',
+  '0x121fded4df77dedca7f7ae13dc2995d64b421e1e',
+  '0xc58adc6945966c04c74efc5a045fec55a03685bf',
+];
 
-const PERMANENT_CLAIMED_SET = new Set(
-  FINALE_PERMANENTLY_CLAIMED_CODES.map((c) => c.toUpperCase()),
-);
+const FULLY_CLAIMED_SET = new Set(FINALE_FULLY_CLAIMED_WALLETS.map((a) => a.toLowerCase()));
 
+/** Codes are not published to the client. The claim ledger is the source of truth. */
 export function isFinaleCodePermanentlyClaimed(code: string): boolean {
-  return PERMANENT_CLAIMED_SET.has(code.trim().toUpperCase());
+  return code.trim().toUpperCase().startsWith('CLAIMED:');
 }
 
-/** All permanently claimed codes for a wallet (from roster + permanent list). */
+/**
+ * Placeholder used-markers so fully-claimed wallets show remaining = 0
+ * before the remote ledger syncs. Not real redemption codes.
+ */
 export function getPermanentClaimedCodesForWallet(
   address: string | undefined | null,
 ): string[] {
   const guest = findFinaleGuest(address);
-  if (!guest) return [];
-  return guest.claimEntries
-    .map((e) => e.code.toUpperCase())
-    .filter((c) => PERMANENT_CLAIMED_SET.has(c));
+  const w = normalizeWalletAddress(address);
+  if (!guest || !w || !FULLY_CLAIMED_SET.has(w)) return [];
+  return guest.claimEntries.map((_, i) => `CLAIMED:${w}:${i + 1}`);
 }
 
 export function isFinaleWalletFullyClaimed(address: string | undefined | null): boolean {
-  const guest = findFinaleGuest(address);
-  if (!guest || guest.claimEntries.length === 0) return false;
-  return guest.claimEntries.every((e) => PERMANENT_CLAIMED_SET.has(e.code.toUpperCase()));
+  const a = normalizeWalletAddress(address);
+  return Boolean(a && FULLY_CLAIMED_SET.has(a));
 }
 
 /** Normalize 0x addresses for roster lookup (trim + lowercase). */
@@ -384,9 +346,9 @@ export function findFinaleGuest(address: string | undefined | null): FinaleGuest
 export type FinaleAllotment = {
   allotted: number;
   guest: FinaleGuest | null;
-  /** Flat codes for slot count / simple lists */
+  /** Always empty on the client — the ledger validates codes. */
   codes: string[];
-  /** Named entries for UI (holder + code) */
+  /** Named allotment slots (no redemption codes). */
   claimEntries: FinaleClaimEntry[];
   onChainSets: number;
 };
@@ -404,7 +366,7 @@ export function getClaimAllotment(
     return {
       allotted: guest.claimEntries.length,
       guest,
-      codes: guest.claimEntries.map((e) => e.code),
+      codes: [],
       claimEntries: guest.claimEntries,
       onChainSets: onChainCompleteSets,
     };
