@@ -14,7 +14,6 @@ import {
   blockStatusLabel,
   type BlockPanel,
 } from '../config/on-the-block';
-import { WOULD_IT_COLLECTION } from '../config/would-it';
 import { CanvasLook } from '../components/CanvasLook';
 
 type Market = {
@@ -133,7 +132,7 @@ export default function OnTheBlockPage() {
       <div className="glow glow-r" />
       <div className="glow glow-b" />
 
-      <div className={`ex${dark ? '' : ' theme-light'}`}>
+      <div className={`ex ex-block${dark ? '' : ' theme-light'}`}>
         <header className="ex-nav">
           <div className="ex-nav-left">
             <a className="ex-mark" href="https://nikxart.xyz">
@@ -350,11 +349,8 @@ export default function OnTheBlockPage() {
           <hr className="ex-would-rule" />
 
           <footer className="ex-would-foot">
-            <a className="ex-read-more" href={WOULD_IT_COLLECTION}>
-              Full Collection | A Familiar Burn
-            </a>
-            <a className="ex-read-more" href="/will-it">
-              Will It..
+            <a className="ex-read-more" href="/one-of-ones">
+              1 of 1's
             </a>
             <a className="ex-read-more" href="/marche">
               Marché
