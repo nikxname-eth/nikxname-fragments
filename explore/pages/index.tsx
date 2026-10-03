@@ -14,6 +14,7 @@ import {
 } from '../config/catalog';
 import { getAfbSpecialEditions } from '../lib/chainWorks';
 import { VoidCollection } from '../components/VoidCollection';
+import { OnesCollection, OnesVoices } from '../components/OnesCollection';
 import { getFeatureCacheItems, optimizeAssetUrl, resolveFeatureMedia } from '../lib/previews';
 import { WorkStage } from '../components/WorkStage';
 import { WorkCard } from '../components/WorkCard';
@@ -402,7 +403,7 @@ export default function ExploreHome() {
             ))}
           </div>
           <div className="ex-pipe-tools">
-            {filter !== 'a-familiar-burn' && filter !== 'the-void' && (
+            {filter !== 'a-familiar-burn' && filter !== 'the-void' && filter !== 'one-of-ones' && (
               <div className="ex-density" role="group" aria-label="Catalogue size">
                 <span className="ex-density-label">Size</span>
                 {(Object.keys(DENSITY) as GridDensity[]).map((d) => (
@@ -472,6 +473,12 @@ export default function ExploreHome() {
               activeId={feature?.id}
               onSelect={openWorkInTheatre}
             />
+          ) : filter === 'one-of-ones' ? (
+            <OnesCollection
+              works={works}
+              activeId={feature?.id}
+              onSelect={openWorkInTheatre}
+            />
           ) : (
             <div className={`ex-grid${filter === 'a-familiar-burn' ? ' ex-grid--afb' : ''}`}>
               {works.map((work, i) => (
@@ -488,6 +495,8 @@ export default function ExploreHome() {
           )}
           {filter === 'a-familiar-burn' ? <hr className="ex-afb-break" /> : null}
           {filter === 'a-familiar-burn' ? <AfbWillIt /> : null}
+          {filter === 'one-of-ones' ? <hr className="ex-afb-break" /> : null}
+          {filter === 'one-of-ones' ? <OnesVoices /> : null}
           {filter === 'a-familiar-burn' && embers.length ? (
             <>
               <hr className="ex-afb-break" />

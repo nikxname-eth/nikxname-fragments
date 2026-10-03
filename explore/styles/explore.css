@@ -754,6 +754,30 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;mix
 }
 .ex-void-hero-frame:hover{border-color:rgba(196,164,132,0.4)}
 .ex-section .ex-void-hero:last-child{margin-top:clamp(28px,3.5vw,44px);margin-bottom:0}
+
+/* 1 of 1s — stacked 16:9 hangs, Into The Void scale */
+.ex-ones-stack{
+  display:flex;flex-direction:column;
+  gap:clamp(40px,6vw,88px);width:100%;
+}
+.ex-ones-hang{margin:0;width:100%}
+.ex-ones-hang-title{
+  font-style:italic;font-weight:300;text-align:center;
+  font-size:clamp(18px,2.2vw,24px);color:var(--cream);margin:0 0 14px;
+}
+.ex-ones-hang-frame{
+  display:block;width:100%;padding:0;margin:0;aspect-ratio:16/9;
+  overflow:hidden;border:1px solid var(--trim-soft);
+  background:rgba(0,0,0,0.35);cursor:pointer;
+  box-shadow:inset 0 0 0 1px var(--trim-inner);
+}
+.ex-ones-hang-frame img,.ex-ones-hang-frame video{
+  display:block;width:100%;height:100%;
+  object-fit:contain;object-position:center;background:#050506;
+}
+.ex-ones-hang-frame:hover,.ex-ones-hang-frame.is-active{
+  border-color:rgba(196,164,132,0.4);
+}
 @media(max-width:640px){
   .ex-grid--void3{grid-template-columns:repeat(2, minmax(0, 1fr));gap:10px}
 }
