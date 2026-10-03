@@ -58,7 +58,7 @@ async function takeWindow(kv: Kv, key: string, max: number, windowSec: number) {
   }
   if (win.n >= max) return false;
   win.n += 1;
-  const ttl = Math.max(15, Math.ceil((win.resetAt - now) / 1000));
+  const ttl = Math.max(60, Math.ceil((win.resetAt - now) / 1000));
   await kv.put(key, JSON.stringify(win), { expirationTtl: ttl });
   return true;
 }
