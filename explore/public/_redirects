@@ -3,6 +3,8 @@
 /auction /on-the-block 302
 /auction/ /on-the-block 302
 /garden/0x* /garden 200
+/looking/0x* /looking 200
+/room/* /room 200
 /afamiliarburn /a-familiar-burn 302
 /afamiliarburn/ /a-familiar-burn 302
 /thevoid /the-void 302

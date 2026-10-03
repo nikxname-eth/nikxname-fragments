@@ -33,6 +33,7 @@ export const onRequest = async (context: {
     path.startsWith('/auction') ||
     path.startsWith('/will-it') ||
     path.startsWith('/looking') ||
+    path.startsWith('/room') ||
     /\.[a-z0-9]+$/i.test(path)
   ) {
     return context.next();

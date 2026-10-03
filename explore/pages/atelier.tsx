@@ -9,6 +9,7 @@ import {
 } from '../lib/collectors';
 import { AtelierDesk } from '../components/AtelierDesk';
 import { Archivery } from '../components/Archivery';
+import { MaisonDesk } from '../components/MaisonDesk';
 import { ReviewHang } from '../components/ReviewHang';
 
 type Eth = {
@@ -51,7 +52,7 @@ export default function AtelierPage() {
   const [status, setStatus] = useState<'locked' | 'loading' | 'ready' | 'saving' | 'error'>('locked');
   const [note, setNote] = useState('');
   const [updatedAt, setUpdatedAt] = useState('');
-  const [panel, setPanel] = useState<'book' | 'desk' | 'assets' | 'review'>('desk');
+  const [panel, setPanel] = useState<'book' | 'desk' | 'assets' | 'review' | 'maison'>('desk');
   const [pulling, setPulling] = useState(false);
 
   const admin = isAtelierAdmin(wallet);
@@ -241,11 +242,24 @@ export default function AtelierPage() {
                   Review
                 </button>
               ) : null}
+              {isArtistWallet(wallet) ? (
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={panel === 'maison'}
+                  className={`ex-atelier-tab${panel === 'maison' ? ' is-on' : ''}`}
+                  onClick={() => setPanel('maison')}
+                >
+                  Maison
+                </button>
+              ) : null}
             </div>
             {panel === 'desk' && wallet && signature ? (
               <AtelierDesk wallet={wallet} signature={signature} readOnly={!isArtistWallet(wallet)} />
             ) : panel === 'review' && isArtistWallet(wallet) ? (
               <ReviewHang />
+            ) : panel === 'maison' && isArtistWallet(wallet) && wallet && signature ? (
+              <MaisonDesk wallet={wallet} signature={signature} />
             ) : panel === 'book' ? (
             <>
             <div className="ex-atelier-toolbar">

@@ -9,6 +9,7 @@ type Props = {
   title?: string;
   onClose: () => void;
   nav?: ReactNode;
+  hint?: string;
 };
 
 function dist(a: Pt, b: Pt) {
@@ -19,7 +20,7 @@ function mid(a: Pt, b: Pt): Pt {
   return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
 }
 
-export function CanvasLook({ src, alt, title, onClose, nav }: Props) {
+export function CanvasLook({ src, alt, title, onClose, nav, hint }: Props) {
   const stageRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const viewRef = useRef<View>({ x: 0, y: 0, scale: 1 });
@@ -96,14 +97,43 @@ export function CanvasLook({ src, alt, title, onClose, nav }: Props) {
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+      if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        commit(fitView());
+        return;
+      }
+      if (e.key === '1') {
+        e.preventDefault();
+        commit(actualView());
+        return;
+      }
+      const zoomed = viewRef.current.scale > fitScale * 1.04;
+      if (!zoomed) return;
+      const step = 80;
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        commit({ ...viewRef.current, x: viewRef.current.x + step });
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        commit({ ...viewRef.current, x: viewRef.current.x - step });
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        commit({ ...viewRef.current, y: viewRef.current.y + step });
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        commit({ ...viewRef.current, y: viewRef.current.y - step });
+      }
     };
     document.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = prev;
       document.removeEventListener('keydown', onKey);
     };
-  }, [onClose]);
+  }, [onClose, commit, fitView, actualView, fitScale]);
 
   useEffect(() => {
     setLoaded(false);
@@ -258,7 +288,7 @@ export function CanvasLook({ src, alt, title, onClose, nav }: Props) {
       </div>
       {nav ? <div className="ex-look-nav">{nav}</div> : null}
       <p className="ex-look-hint">
-        {pct}% · drag to move · pinch or scroll to zoom · 100% is true size
+        {pct}% · {hint || 'drag to move · pinch or scroll to zoom · 100% is true size'}
       </p>
     </div>
   );

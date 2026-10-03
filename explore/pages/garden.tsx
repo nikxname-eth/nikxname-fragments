@@ -1,33 +1,20 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getAllWorks, getBlossomCanvasWork, type ExploreWork, type SeriesId } from '../config/catalog';
+import { type ExploreWork } from '../config/catalog';
 import { collectorFor, isAtelierAdmin, type CollectorProfile } from '../lib/collectors';
-import { getWillItWorks, matchWillItWork } from '../lib/willItWorks';
-import { getEmbersWorks, matchEmberWork } from '../lib/embersWorks';
 import { editionIdentity } from '../lib/editionIdentity';
-import { getAfbSpecialEditions } from '../lib/chainWorks';
+import { asTheatreWork, exploreCatalogue, matchWork, type GardenToken } from '../lib/gardenWorks';
 import { WorkStage } from '../components/WorkStage';
 import { ArrangeWall } from '../components/ArrangeWall';
 import { CatalogueBook } from '../components/CatalogueBook';
 import { LookBook } from '../components/LookBook';
+import { LookingPair } from '../components/LookingPair';
 import { CanvasLook } from '../components/CanvasLook';
 import { observeStillUrl } from '../lib/mediaUrl';
 import { rasterMarketUrl } from '../config/catalog';
 
-type GardenToken = {
-  seriesId: SeriesId;
-  collection: string;
-  contract: string;
-  chain: string;
-  tokenId: string;
-  name: string;
-  quantity: number;
-  previewUrl?: string;
-  contentUrl?: string;
-};
-
-type Bed = { seriesId: SeriesId; label: string; tokens: GardenToken[] };
+type Bed = { seriesId: string; label: string; tokens: GardenToken[] };
 
 type GardenPayload = {
   ok: boolean;
@@ -52,65 +39,6 @@ function gardenShareUrl(address: string) {
   return `${origin}/garden/${address.toLowerCase()}`;
 }
 
-function matchWork(token: GardenToken, catalog: ExploreWork[]): ExploreWork | null {
-  const id = `${token.seriesId}-${token.tokenId}`;
-  const byId = catalog.find((w) => w.id === id);
-  if (byId) return byId;
-  const ember = matchEmberWork(token.name, token.tokenId);
-  if (ember) return ember;
-  const will = matchWillItWork(token.name, token.tokenId);
-  if (will) return will;
-  const title = token.name.trim().toLowerCase();
-  if (title.includes('blossom fragment')) {
-    return getBlossomCanvasWork(title.includes('anim') ? 'animated' : 'still');
-  }
-  const byTitle = catalog.find(
-    (w) => w.seriesId === token.seriesId && w.title.trim().toLowerCase() === title,
-  );
-  if (byTitle) return byTitle;
-  if (token.seriesId === 'a-familiar-burn') {
-    const m = token.name.match(/fragment\s*0*(\d{1,2})/i);
-    if (m) {
-      const n = Number(m[1]);
-      return catalog.find((w) => w.pieceNumber === n) ?? null;
-    }
-  }
-  return null;
-}
-
-function asTheatreWork(token: GardenToken, catalog: ExploreWork[]): ExploreWork {
-  const matched = matchWork(token, catalog);
-  if (matched) {
-    return {
-      ...matched,
-      title: matched.title || token.name,
-      collectionLabel: token.collection || matched.collectionLabel,
-      mediaUrl: matched.mediaUrl || token.contentUrl,
-      originCoverUrl:
-        matched.originCoverUrl && !matched.originCoverUrl.includes('/explore/previews/')
-          ? matched.originCoverUrl
-          : token.contentUrl || matched.originCoverUrl,
-    };
-  }
-  const video = /\.(mp4|webm)(\?|$)/i.test(token.contentUrl || '');
-  const content = token.contentUrl || '';
-  const preview = token.previewUrl || '';
-  return {
-    id: `garden-${token.seriesId}-${token.tokenId}`,
-    seriesId: token.seriesId,
-    title: token.name,
-    collectionLabel: token.collection,
-    kind: 'edition',
-    coverUrl: preview || content,
-    originCoverUrl: video ? preview : content || preview,
-    mediaUrl: content || preview,
-    mediaType: video ? 'video' : 'image',
-    contractAddress: token.contract,
-    tokenId: Number(token.tokenId),
-    sort: Number(token.tokenId) || 0,
-  };
-}
-
 export default function GardenPage() {
   const [dark, setDark] = useState(true);
   const [viewWallet, setViewWallet] = useState<string | null>(null);
@@ -131,21 +59,7 @@ export default function GardenPage() {
   const [observeWork, setObserveWork] = useState<ExploreWork | null>(null);
   const [hangSeed, setHangSeed] = useState<ExploreWork | null>(null);
   const [collapsedBeds, setCollapsedBeds] = useState<string[]>([]);
-  const catalog = useMemo(() => {
-    const seen = new Set<string>();
-    const out: ExploreWork[] = [];
-    for (const w of [
-      ...getAfbSpecialEditions(),
-      ...getAllWorks(),
-      ...getWillItWorks(),
-      ...getEmbersWorks(),
-    ]) {
-      if (w.kind === 'market' || seen.has(w.id)) continue;
-      seen.add(w.id);
-      out.push(w);
-    }
-    return out;
-  }, []);
+  const catalog = useMemo(() => exploreCatalogue(), []);
   const viewOnly = Boolean(viewWallet);
   const gardenWallet = viewWallet || wallet;
   const inGarden = status === 'ready' || status === 'empty';
@@ -685,7 +599,9 @@ export default function GardenPage() {
               <p className="ex-garden-share-note">
                 This is yours? <a href="/garden">Enter with wallet</a> to hang.
               </p>
-            ) : null}
+            ) : (
+              <LookingPair wallet={gardenWallet} />
+            )}
           </div>
         ) : null}
 

@@ -14,3 +14,15 @@
 
 /favicon.svg
   Cache-Control: public, max-age=86400
+
+/looking
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/looking/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/room
+  X-Robots-Tag: noindex, nofollow, noarchive
+
+/room/*
+  X-Robots-Tag: noindex, nofollow, noarchive
