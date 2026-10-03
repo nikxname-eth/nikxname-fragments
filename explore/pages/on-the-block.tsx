@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import {
+  BLOCK_BLIP,
   BLOCK_DESC,
   BLOCK_LISTING,
   BLOCK_PAGE,
   BLOCK_PANELS,
-  BLOCK_PLACEHOLDER,
+  BLOCK_SHARE,
   BLOCK_TITLE,
   BLOCK_WORK_TITLE,
   blockOpenSeaItem,
@@ -39,22 +40,46 @@ function formatRemain(endsAt: string | null | undefined, now: number): string {
   return `${m}m ${s % 60}s`;
 }
 
+function HangMedia({ panel, still }: { panel: BlockPanel; still: boolean }) {
+  const src = still || !panel.revealed ? panel.still : panel.thumb;
+  return (
+    <>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={src} alt="" />
+      <em>{String(panel.panel).padStart(2, '0')}</em>
+      {!panel.revealed ? <span className="ex-would-veil">Unrevealed</span> : null}
+    </>
+  );
+}
+
 export default function OnTheBlockPage() {
   const [dark, setDark] = useState(true);
   const [showTop, setShowTop] = useState(false);
   const [look, setLook] = useState(false);
+  const [lookHi, setLookHi] = useState(false);
   const [lookPanel, setLookPanel] = useState<BlockPanel['panel']>(1);
   const [market, setMarket] = useState<Market>({});
   const [now, setNow] = useState(() => Date.now());
+  const [quiet, setQuiet] = useState(false);
 
   const status = market.status || blockStatusAt(now);
   const statusLabel = market.statusLabel || blockStatusLabel(status as ReturnType<typeof blockStatusAt>);
   const live = status === 'live';
-  const panel = BLOCK_PANELS.find((p) => p.panel === lookPanel) || BLOCK_PANELS[0];
+  const panel = BLOCK_PANELS.find((p) => p.panel === lookPanel) || BLOCK_PANELS[1];
   const remain = useMemo(
     () => formatRemain(market.listing?.endsAt || BLOCK_LISTING.endsAt, now),
     [market.listing?.endsAt, now],
   );
+  const observeSrc =
+    lookHi && panel.lookHi && panel.revealed ? panel.lookHi : panel.look;
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setQuiet(media.matches);
+    sync();
+    media.addEventListener('change', sync);
+    return () => media.removeEventListener('change', sync);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 360);
@@ -81,6 +106,12 @@ export default function OnTheBlockPage() {
     return () => window.clearInterval(id);
   }, []);
 
+  const openLook = (n: BlockPanel['panel']) => {
+    setLookPanel(n);
+    setLookHi(false);
+    setLook(true);
+  };
+
   return (
     <>
       <Head>
@@ -92,7 +123,11 @@ export default function OnTheBlockPage() {
         <meta property="og:url" content={BLOCK_PAGE} key="og-url" />
         <meta property="og:title" content={BLOCK_TITLE} key="og-title" />
         <meta property="og:description" content={BLOCK_DESC} key="og-desc" />
+        <meta property="og:image" content={`https://explore.nikxart.xyz${BLOCK_SHARE}`} key="og-image" />
         <meta name="twitter:card" content="summary_large_image" key="twitter-card" />
+        <meta name="twitter:title" content={BLOCK_TITLE} key="twitter-title" />
+        <meta name="twitter:description" content={BLOCK_DESC} key="twitter-desc" />
+        <meta name="twitter:image" content={`https://explore.nikxart.xyz${BLOCK_SHARE}`} key="twitter-image" />
       </Head>
 
       <div className="glow glow-r" />
@@ -132,24 +167,24 @@ export default function OnTheBlockPage() {
         </header>
 
         <section className="ex-series-intro ex-collection-hero">
-          <p className="ex-series-label">A Familiar Burn · 1 of 1 triptych</p>
-          <h1 className="ex-series-title">On The Block</h1>
-          <p className="ex-would-gold">Three canvases, one painting. Auctioned as one.</p>
-          <p className="ex-series-desc">
-            {BLOCK_WORK_TITLE}
-            {BLOCK_PLACEHOLDER ? ' · stand-in' : ''}
-          </p>
+          <p className="ex-series-label">On The Block · A Familiar Burn · 1 of 1 triptych</p>
+          <h1 className="ex-series-title">{BLOCK_WORK_TITLE}</h1>
+          <p className="ex-would-gold">{BLOCK_BLIP}</p>
+          <p className="ex-series-desc">Three canvases, one painting. Auctioned as one.</p>
         </section>
 
         <section className="ex-would-hero" aria-label="Triptych">
-          <div className="ex-block-hang" aria-hidden="true">
+          <div className="ex-block-hang">
             {BLOCK_PANELS.map((p) => (
-              <span key={p.panel} className={`ex-block-hang-cell${p.revealed ? '' : ' is-veil'}`}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={p.thumb} alt="" />
-                <em>{String(p.panel).padStart(2, '0')}</em>
-                {!p.revealed ? <span className="ex-would-veil">Awarded</span> : null}
-              </span>
+              <button
+                key={p.panel}
+                type="button"
+                className={`ex-block-hang-cell${p.revealed ? '' : ' is-veil'}`}
+                onClick={() => openLook(p.panel)}
+                aria-label={`${p.name}, panel ${String(p.panel).padStart(2, '0')}. Look closer.`}
+              >
+                <HangMedia panel={p} still={quiet} />
+              </button>
             ))}
           </div>
           <p className="ex-would-hang-note">Three frames, hung as a set. A 1 of 1.</p>
@@ -159,18 +194,19 @@ export default function OnTheBlockPage() {
           <section className="ex-would-copy">
             <p>
               <em>Will It..</em> let a painting exist through fractional ownership — five lettered
-              sets, panels gathered over time. This is the other thesis. The painting does not
-              fraction. One panel is called. The other two follow it home.
+              sets, panels gathered over time. <em>Voices Of Time</em> is the other thesis. The
+              painting does not fraction. The center is called. The wings follow it home.
             </p>
             <p>
-              Panel <strong>01</strong> is on the block. Panels <strong>02</strong> and{' '}
-              <strong>03</strong> stay with the studio until the bid settles, then transfer to the
-              winning wallet — so all three canvases leave together, one owner.
+              Panel <strong>02</strong> — the unrevealed middle — is on the block. Panel{' '}
+              <strong>01</strong>, Devil, and panel <strong>03</strong>, Angel, stay with the studio
+              until the bid settles, then transfer to the winning wallet. All three canvases leave
+              together. One owner.
             </p>
           </section>
 
           <section className="ex-block-desk" aria-label="Auction">
-            <p className="ex-would-gold">Panel 01 is on the block</p>
+            <p className="ex-would-gold">Panel 02 is on the block</p>
             <p className={`ex-block-live is-${status}`}>{statusLabel}</p>
             <dl className="ex-block-stats">
               <div>
@@ -190,8 +226,7 @@ export default function OnTheBlockPage() {
               {live ? 'Place bid' : 'Not live'}
             </button>
             <p className="ex-block-note">
-              Winning wallet receives panels 02 and 03 from the studio. Token 825 (TORCHED) stands
-              in for panel 01 until the painting is minted.
+              The winning wallet receives Devil and Angel from the studio. One bid. One set.
             </p>
           </section>
 
@@ -208,13 +243,17 @@ export default function OnTheBlockPage() {
                     <>
                       <span className="ex-card-media ex-would-set-media">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={p.thumb} alt="" loading="lazy" decoding="async" />
+                        <img
+                          src={quiet || !p.revealed ? p.still : p.thumb}
+                          alt=""
+                          loading="lazy"
+                          decoding="async"
+                        />
                         {!p.revealed ? <span className="ex-would-veil">Unrevealed</span> : null}
                       </span>
                       <span className="ex-card-meta">
                         <span className="ex-card-title">
-                          {String(p.panel).padStart(2, '0')}
-                          {p.tokenId != null ? ` · #${p.tokenId}` : ''}
+                          {String(p.panel).padStart(2, '0')} · {p.name}
                         </span>
                         <span className={`ex-would-status is-${p.role === 'auction' ? 'available' : 'soon'}`}>
                           <span className="ex-would-status-dot" aria-hidden="true" />
@@ -223,20 +262,28 @@ export default function OnTheBlockPage() {
                       </span>
                     </>
                   );
-                  return href ? (
-                    <a
+                  if (href) {
+                    return (
+                      <a
+                        key={p.panel}
+                        className="ex-card"
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {inner}
+                      </a>
+                    );
+                  }
+                  return (
+                    <button
                       key={p.panel}
-                      className="ex-card"
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      type="button"
+                      className="ex-card ex-block-card"
+                      onClick={() => openLook(p.panel)}
                     >
                       {inner}
-                    </a>
-                  ) : (
-                    <div key={p.panel} className="ex-card">
-                      {inner}
-                    </div>
+                    </button>
                   );
                 })}
               </div>
@@ -246,8 +293,8 @@ export default function OnTheBlockPage() {
           <section className="ex-would-copy ex-would-copy--after">
             <p>
               A triptych as three canvases is still the form — economical structure, belief in the
-              painting as a whole. Here the rarity is the whole. There is no second letter, no
-              hunt across sets. One bid. One wallet. The three panels hang as they were painted.
+              painting as a whole. Here the rarity is the whole. There is no second letter, no hunt
+              across sets. One bid. One wallet. The three panels hang as they were painted.
             </p>
           </section>
 
@@ -256,11 +303,29 @@ export default function OnTheBlockPage() {
             <button
               type="button"
               className="ex-would-panel-btn"
-              onClick={() => setLook(true)}
-              aria-label={`Look closer at Panel 0${lookPanel}`}
+              onClick={() => openLook(lookPanel)}
+              aria-label={`Look closer at ${panel.name}, panel ${String(lookPanel).padStart(2, '0')}`}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={panel.look} alt={`${BLOCK_WORK_TITLE} · Panel 0${lookPanel}`} loading="lazy" decoding="async" />
+              {panel.video && panel.revealed && !quiet ? (
+                // eslint-disable-next-line jsx-a11y/media-has-caption
+                <video
+                  key={panel.video}
+                  src={panel.video}
+                  poster={panel.still}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                />
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={quiet || !panel.revealed ? panel.still : panel.thumb}
+                  alt={`${BLOCK_WORK_TITLE} · ${panel.name}`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              )}
             </button>
             <p className="ex-would-panel-hint">click to observe</p>
             <div className="ex-would-panel-switch" role="tablist" aria-label="Panel">
@@ -271,9 +336,12 @@ export default function OnTheBlockPage() {
                   role="tab"
                   aria-selected={lookPanel === p.panel}
                   className={lookPanel === p.panel ? 'is-on' : ''}
-                  onClick={() => setLookPanel(p.panel)}
+                  onClick={() => {
+                    setLookPanel(p.panel);
+                    setLookHi(false);
+                  }}
                 >
-                  Panel 0{p.panel}
+                  {String(p.panel).padStart(2, '0')} · {p.name}
                 </button>
               ))}
             </div>
@@ -285,12 +353,15 @@ export default function OnTheBlockPage() {
             <a className="ex-read-more" href={WOULD_IT_COLLECTION}>
               Full Collection | A Familiar Burn
             </a>
+            <a className="ex-read-more" href="/will-it">
+              Will It..
+            </a>
             <a className="ex-read-more" href="/marche">
               Marché
             </a>
             <p className="ex-would-asterisk">
-              * Preview frame. Art, token IDs, reserve, and listing swap in when the painting is
-              ready. TORCHED is not for sale here.
+              * The center remains veiled until it is called. Devil and Angel are shown so the set
+              can be known as a painting, not as three listings.
             </p>
           </footer>
         </div>
@@ -317,10 +388,17 @@ export default function OnTheBlockPage() {
 
       {look ? (
         <CanvasLook
-          src={panel.look}
-          alt={`${BLOCK_WORK_TITLE} · Panel 0${lookPanel}`}
-          title={`${BLOCK_WORK_TITLE} · Panel 0${lookPanel}`}
+          src={observeSrc}
+          alt={`${BLOCK_WORK_TITLE} · ${panel.name}`}
+          title={`${BLOCK_WORK_TITLE} · ${String(lookPanel).padStart(2, '0')} ${panel.name}`}
           onClose={() => setLook(false)}
+          hint={
+            panel.lookHi && panel.revealed
+              ? lookHi
+                ? '5K motion · drag to move · pinch or scroll to zoom'
+                : 'drag to move · pinch or scroll to zoom · 5K for true size'
+              : undefined
+          }
           nav={
             <div className="ex-would-panel-switch" role="tablist" aria-label="Panel">
               {BLOCK_PANELS.map((p) => (
@@ -330,11 +408,23 @@ export default function OnTheBlockPage() {
                   role="tab"
                   aria-selected={lookPanel === p.panel}
                   className={lookPanel === p.panel ? 'is-on' : ''}
-                  onClick={() => setLookPanel(p.panel)}
+                  onClick={() => {
+                    setLookPanel(p.panel);
+                    setLookHi(false);
+                  }}
                 >
-                  Panel 0{p.panel}
+                  {String(p.panel).padStart(2, '0')} · {p.name}
                 </button>
               ))}
+              {panel.lookHi && panel.revealed ? (
+                <button
+                  type="button"
+                  className={lookHi ? 'is-on' : ''}
+                  onClick={() => setLookHi((v) => !v)}
+                >
+                  {lookHi ? 'Fit motion' : '5K'}
+                </button>
+              ) : null}
             </div>
           }
         />

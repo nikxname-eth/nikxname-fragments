@@ -1,41 +1,32 @@
 /**
- * On The Block — 1/1 triptych auction frame.
+ * On The Block — Voices Of Time.
  *
- * Will It.. fractioned a painting across fifteen editions. This is the other
- * thesis: three canvases, one painting, one wallet.
+ * A 1/1 triptych. Panel 02 (center) is auctioned. Panels 01 (Devil) and
+ * 03 (Angel) transfer to the winning wallet so the set leaves together.
  *
- * Swap when the real work is ready:
- * 1. Replace each panel's `thumb` / `look` (and the hang stills).
- * 2. Set tokenId on panels 02 and 03 once those tokens exist.
- * 3. Set BLOCK_LISTING.manifoldId (Gallery listing) or a Seaport order later.
- * 4. Set startsAt, endsAt, reserveEth, then flip status off `framework`.
- *
- * Settlement: panel 01 is the token on the block. 02 and 03 stay in the
- * studio wallet and transfer to the winning address after the bid settles,
- * so the set leaves together.
+ * Token IDs stay null until mint. Set BLOCK_LISTING.manifoldId / dates
+ * when the Gallery listing is live, then flip status off `framework`.
  */
 
-import { WOULD_IT_CONTRACT, WOULD_UNREVEALED, WOULD_UNREVEALED_THUMB } from './would-it';
-
-export const BLOCK_CONTRACT = WOULD_IT_CONTRACT;
+export const BLOCK_CONTRACT = '0x1641b09e11d19e6f6b9f80273158f9da28555593';
 export const BLOCK_CHAIN = 'ethereum' as const;
 export const BLOCK_TREASURY = '0x81c306bcdc036f334ef4fb8f85a8e6be730a0763';
 
 export const BLOCK_PAGE = 'https://explore.nikxart.xyz/on-the-block';
-export const BLOCK_TITLE = 'On The Block · Nikxname';
+export const BLOCK_TITLE = 'Voices Of Time · On The Block';
 export const BLOCK_DESC =
-  'A triptych: three canvases, one painting. Auctioned as a 1 of 1 — one panel on the block, the other two follow the winning wallet.';
+  'Voices Of Time — a triptych: three canvases, one painting. Auctioned as a 1 of 1. The center is on the block; Devil and Angel follow the winning wallet.';
+export const BLOCK_WORK_TITLE = 'Voices Of Time';
+export const BLOCK_BLIP = "Mirror Mirror.. Who's whisper rings truer?";
+export const BLOCK_SHARE = '/voices-of-time/share.jpg';
+export const BLOCK_PLACEHOLDER = false;
 
-/** Working title until the painting is named. TORCHED is the stand-in token. */
-export const BLOCK_WORK_TITLE = 'TORCHED';
-export const BLOCK_PLACEHOLDER = true;
+const CDN = 'https://assets.nikxart.xyz/explore/media/a-familiar-burn';
 
 export type BlockStatus = 'framework' | 'scheduled' | 'live' | 'settled';
 
 export const BLOCK_LISTING = {
-  /** Manifold Gallery listing id when the auction is created in Studio. */
   manifoldId: null as string | null,
-  /** Optional Seaport order hash if we settle on our own rails later. */
   seaportHash: null as string | null,
   startsAt: null as string | null,
   endsAt: null as string | null,
@@ -49,33 +40,38 @@ export type BlockPanel = {
   label: string;
   tokenId: number | null;
   name: string;
+  /** Light motion for the hang — cover GIF, never the 5K master. */
   thumb: string;
+  still: string;
   look: string;
+  lookHi?: string;
+  video?: string;
   revealed: boolean;
 };
-
-const TORCHED_THUMB = '/embers/thumbs/watermelon.webp';
-const TORCHED_LOOK = '/embers/close/watermelon.webp';
 
 export const BLOCK_PANELS: BlockPanel[] = [
   {
     panel: 1,
-    role: 'auction',
-    label: '01 · On the block',
-    tokenId: 825,
-    name: 'TORCHED',
-    thumb: TORCHED_THUMB,
-    look: TORCHED_LOOK,
+    role: 'awarded',
+    label: '01 · Awarded with the win',
+    tokenId: null,
+    name: 'Devil',
+    thumb: '/voices-of-time/devil-cover.gif',
+    still: '/voices-of-time/devil-still.webp',
+    look: `${CDN}/voices-devil-look.gif`,
+    lookHi: `${CDN}/voices-devil-full.gif`,
+    video: `${CDN}/voices-devil-1080.mp4`,
     revealed: true,
   },
   {
     panel: 2,
-    role: 'awarded',
-    label: '02 · Awarded with the win',
+    role: 'auction',
+    label: '02 · On the block',
     tokenId: null,
-    name: 'Panel 02',
-    thumb: WOULD_UNREVEALED_THUMB,
-    look: WOULD_UNREVEALED,
+    name: 'The whisper',
+    thumb: '/voices-of-time/unrevealed.webp',
+    still: '/voices-of-time/unrevealed.webp',
+    look: '/voices-of-time/unrevealed.webp',
     revealed: false,
   },
   {
@@ -83,10 +79,13 @@ export const BLOCK_PANELS: BlockPanel[] = [
     role: 'awarded',
     label: '03 · Awarded with the win',
     tokenId: null,
-    name: 'Panel 03',
-    thumb: WOULD_UNREVEALED_THUMB,
-    look: WOULD_UNREVEALED,
-    revealed: false,
+    name: 'Angel',
+    thumb: '/voices-of-time/halo-cover.gif',
+    still: '/voices-of-time/halo-still.webp',
+    look: `${CDN}/voices-halo-look.gif`,
+    lookHi: `${CDN}/voices-halo-full.gif`,
+    video: `${CDN}/voices-halo-1080.mp4`,
+    revealed: true,
   },
 ];
 
