@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 import { EMBERS, type EmberButterfly } from '../config/embers';
+import { LivePill } from '../components/LivePill';
 
 const SLOT_COUNT = 5;
 
@@ -106,6 +107,7 @@ export default function FlutterIntoTheEmbersPage() {
             >
               {dark ? '☀' : '☾'}
             </button>
+            <LivePill />
             <a className="ex-nav-garden" href="https://explore.nikxart.xyz/garden">
               Garden
             </a>
@@ -237,6 +239,7 @@ export default function FlutterIntoTheEmbersPage() {
           </p>
           <footer className="ex-footer">
             <div className="ex-footer-links">
+              <LivePill />
               <a className="ex-footer-who" href="https://explore.nikxart.xyz/who">
                 Who?
               </a>

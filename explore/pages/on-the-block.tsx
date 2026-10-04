@@ -10,6 +10,8 @@ import {
   BLOCK_PANELS,
   BLOCK_REVEAL_AT,
   BLOCK_SHARE,
+  BLOCK_SHARE_H,
+  BLOCK_SHARE_W,
   BLOCK_TIERS,
   BLOCK_TITLE,
   BLOCK_WORK_TITLE,
@@ -24,6 +26,7 @@ import {
   type BlockTier,
 } from '../config/on-the-block';
 import { CanvasLook } from '../components/CanvasLook';
+import { LivePill } from '../components/LivePill';
 
 type Market = {
   status?: string;
@@ -198,6 +201,10 @@ export default function OnTheBlockPage() {
         <meta property="og:title" content={BLOCK_TITLE} key="og-title" />
         <meta property="og:description" content={BLOCK_DESC} key="og-desc" />
         <meta property="og:image" content={`https://explore.nikxart.xyz${BLOCK_SHARE}`} key="og-image" />
+        <meta property="og:image:width" content={BLOCK_SHARE_W} key="og-image-w" />
+        <meta property="og:image:height" content={BLOCK_SHARE_H} key="og-image-h" />
+        <meta property="og:image:type" content="image/jpeg" key="og-image-type" />
+        <meta property="og:image:alt" content="Voices Of Time hung as a triptych" key="og-image-alt" />
         <meta name="twitter:card" content="summary_large_image" key="twitter-card" />
         <meta name="twitter:title" content={BLOCK_TITLE} key="twitter-title" />
         <meta name="twitter:description" content={BLOCK_DESC} key="twitter-desc" />
@@ -234,6 +241,7 @@ export default function OnTheBlockPage() {
             >
               {dark ? '☀' : '☾'}
             </button>
+            <LivePill />
             <a className="ex-nav-garden" href="/garden">
               Garden
             </a>
@@ -455,6 +463,7 @@ export default function OnTheBlockPage() {
           <hr className="ex-would-rule" />
 
           <footer className="ex-would-foot">
+            <LivePill />
             <a className="ex-read-more" href="/one-of-ones">
               1 of 1's
             </a>

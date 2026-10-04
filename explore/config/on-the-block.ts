@@ -19,7 +19,9 @@ export const BLOCK_DESC =
   'Voices Of Time — a triptych: three canvases, one painting. Auctioned as a 1 of 1. The center is on the block; Devil and Angel follow the winning wallet.';
 export const BLOCK_WORK_TITLE = 'Voices Of Time';
 export const BLOCK_BLIP = "Mirror Mirror.. Who's whisper rings truer?";
-export const BLOCK_SHARE = '/voices-of-time/share.jpg?v=h264';
+export const BLOCK_SHARE = '/voices-of-time/share.jpg?v=framed';
+export const BLOCK_SHARE_W = '2400';
+export const BLOCK_SHARE_H = '1257';
 export const BLOCK_PLACEHOLDER = false;
 
 const CDN = 'https://assets.nikxart.xyz/explore/media/a-familiar-burn';

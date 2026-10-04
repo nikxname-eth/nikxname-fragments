@@ -7,7 +7,9 @@ const META = {
   description:
     'A luxurious art theatre for Nikxname - enter the world, explore collections, and open works with care. Telling human stories through brushstrokes.',
   url: 'https://explore.nikxart.xyz',
-  ogImage: 'https://assets.nikxart.xyz/og/life-impression-02.jpg',
+  ogImage: 'https://explore.nikxart.xyz/voices-of-time/share.jpg?v=framed',
+  ogWidth: '2400',
+  ogHeight: '1257',
 };
 
 export default function ExploreApp({ Component, pageProps }: AppProps) {
@@ -20,6 +22,10 @@ export default function ExploreApp({ Component, pageProps }: AppProps) {
         <meta property="og:title" content={META.title} key="og-title" />
         <meta property="og:description" content={META.description} key="og-desc" />
         <meta property="og:image" content={META.ogImage} key="og-image" />
+        <meta property="og:image:width" content={META.ogWidth} key="og-image-w" />
+        <meta property="og:image:height" content={META.ogHeight} key="og-image-h" />
+        <meta property="og:image:type" content="image/jpeg" key="og-image-type" />
+        <meta property="og:image:alt" content="Voices Of Time — a 1 of 1 triptych on the block" key="og-image-alt" />
         <meta name="twitter:card" content="summary_large_image" key="twitter-card" />
         <meta name="twitter:title" content={META.title} key="twitter-title" />
         <meta name="twitter:description" content={META.description} key="twitter-desc" />

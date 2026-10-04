@@ -19,6 +19,7 @@ import {
   type WouldPanelRow,
 } from '../config/would-it';
 import { CanvasLook } from '../components/CanvasLook';
+import { LivePill } from '../components/LivePill';
 import { willItLookSrc, willItPreviewSrc } from '../lib/willItWorks';
 
 const PAGE_URL = 'https://explore.nikxart.xyz/will-it';
@@ -107,7 +108,7 @@ export default function WillItPage() {
       <div className="glow glow-r" />
       <div className="glow glow-b" />
 
-      <div className={`ex${dark ? '' : ' theme-light'}`}>
+      <div className={`ex ex-would${dark ? '' : ' theme-light'}`}>
         <header className="ex-nav">
           <div className="ex-nav-left">
             <a className="ex-mark" href="https://nikxart.xyz">
@@ -134,6 +135,7 @@ export default function WillItPage() {
             >
               {dark ? '☀' : '☾'}
             </button>
+            <LivePill />
             <a className="ex-nav-garden" href="https://explore.nikxart.xyz/garden">
               Garden
             </a>
@@ -171,67 +173,73 @@ export default function WillItPage() {
             </p>
           </section>
 
-          <section className="ex-would-sets" aria-label="Letter sets">
-            {WOULD_SETS.map((letter) => (
-              <div key={letter} className="ex-would-set">
-                <h2>
-                  Set {letter}
-                  <span>Panels 1–3</span>
-                </h2>
-                <div className="ex-would-set-grid">
-                  {WOULD_PANELS.map((panel) => {
-                    const open = wouldPanelRevealed(panel);
-                    const tokenId = wouldItTokenId(letter, panel);
-                    const row = market[`${letter}${panel}`];
-                    const listed = wouldPanelListed(panel);
-                    const status = row?.status ?? (listed ? 'available' : 'soon');
-                    const href = wouldItOpenSeaItem(tokenId);
-                    const sub =
-                      row?.label ||
-                      (listed
-                        ? `Listed · ${WOULD_IT_LIST_ETH} ETH`
-                        : wouldPanelSoonLabel(panel));
-                    return (
-                      <a
-                        key={panel}
-                        className={`ex-card${status === 'sold' ? ' is-sold' : ''}`}
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <span className="ex-card-media ex-would-set-media">
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={wouldPanelThumb(panel)}
-                            alt=""
-                            loading="lazy"
-                            decoding="async"
-                          />
-                          {!open && status !== 'sold' ? (
-                            <span className="ex-would-veil">Unrevealed</span>
-                          ) : null}
-                          {status === 'sold' ? <span className="ex-would-sold">Sold</span> : null}
-                        </span>
-                        <span className="ex-card-meta">
-                          <span className="ex-card-title">
-                            {letter}
-                            {panel}
+          <details className="ex-would-drawer">
+            <summary>
+              The sets
+              <span>A–E · fifteen editions</span>
+            </summary>
+            <section className="ex-would-sets" aria-label="Letter sets">
+              {WOULD_SETS.map((letter) => (
+                <div key={letter} className="ex-would-set">
+                  <h2>
+                    Set {letter}
+                    <span>Panels 1–3</span>
+                  </h2>
+                  <div className="ex-would-set-grid">
+                    {WOULD_PANELS.map((panel) => {
+                      const open = wouldPanelRevealed(panel);
+                      const tokenId = wouldItTokenId(letter, panel);
+                      const row = market[`${letter}${panel}`];
+                      const listed = wouldPanelListed(panel);
+                      const status = row?.status ?? (listed ? 'available' : 'soon');
+                      const href = wouldItOpenSeaItem(tokenId);
+                      const sub =
+                        row?.label ||
+                        (listed
+                          ? `Listed · ${WOULD_IT_LIST_ETH} ETH`
+                          : wouldPanelSoonLabel(panel));
+                      return (
+                        <a
+                          key={panel}
+                          className={`ex-card${status === 'sold' ? ' is-sold' : ''}`}
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <span className="ex-card-media ex-would-set-media">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={wouldPanelThumb(panel)}
+                              alt=""
+                              loading="lazy"
+                              decoding="async"
+                            />
+                            {!open && status !== 'sold' ? (
+                              <span className="ex-would-veil">Unrevealed</span>
+                            ) : null}
+                            {status === 'sold' ? <span className="ex-would-sold">Sold</span> : null}
                           </span>
-                          <span className={`ex-would-status is-${status}`}>
-                            <span className="ex-would-status-dot" aria-hidden="true" />
-                            {sub}
+                          <span className="ex-card-meta">
+                            <span className="ex-card-title">
+                              {letter}
+                              {panel}
+                            </span>
+                            <span className={`ex-would-status is-${status}`}>
+                              <span className="ex-would-status-dot" aria-hidden="true" />
+                              {sub}
+                            </span>
+                            {row?.offer ? (
+                              <span className="ex-would-offer">Offer {row.offer}</span>
+                            ) : null}
                           </span>
-                          {row?.offer ? (
-                            <span className="ex-would-offer">Offer {row.offer}</span>
-                          ) : null}
-                        </span>
-                      </a>
-                    );
-                  })}
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </section>
+              ))}
+            </section>
+          </details>
 
           <section className="ex-would-copy ex-would-copy--after">
             <p>
@@ -288,6 +296,7 @@ export default function WillItPage() {
           <hr className="ex-would-rule" />
 
           <footer className="ex-would-foot">
+            <LivePill />
             <a className="ex-footer-who" href="https://explore.nikxart.xyz/who">
               Who?
             </a>
@@ -302,9 +311,6 @@ export default function WillItPage() {
             >
               Secondary Market
             </a>
-            <p className="ex-would-asterisk">
-              * For the keen collector, serious offers may be considered on unrevealed canvases
-            </p>
           </footer>
         </div>
 

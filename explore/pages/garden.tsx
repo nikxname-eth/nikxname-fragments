@@ -13,6 +13,7 @@ import { LookingPair } from '../components/LookingPair';
 import { CanvasLook } from '../components/CanvasLook';
 import { observeStillUrl } from '../lib/mediaUrl';
 import { rasterMarketUrl } from '../config/catalog';
+import { LivePill } from '../components/LivePill';
 
 type Bed = { seriesId: string; label: string; tokens: GardenToken[] };
 
@@ -321,6 +322,7 @@ export default function GardenPage() {
                 Atelier
               </a>
             ) : null}
+            <LivePill />
             <a className="ex-nav-garden is-active" href="/garden">
               Garden
             </a>
@@ -606,6 +608,7 @@ export default function GardenPage() {
         ) : null}
 
         <footer className="ex-garden-foot">
+          <LivePill />
           <a className="ex-footer-who" href="/who">
             Who?
           </a>

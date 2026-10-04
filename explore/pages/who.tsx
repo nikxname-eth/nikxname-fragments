@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ARTIST, X_PROFILE, rasterMarketUrl } from '../config/catalog';
+import { LivePill } from '../components/LivePill';
 
 export default function WhoPage() {
   const [dark, setDark] = useState(true);
@@ -62,6 +63,7 @@ export default function WhoPage() {
             >
               {dark ? '☀' : '☾'}
             </button>
+            <LivePill />
             <a className="ex-nav-garden" href="/garden">
               Garden
             </a>
@@ -185,6 +187,7 @@ export default function WhoPage() {
         <footer className="ex-footer">
           <span className="ex-footer-copy">© {new Date().getFullYear()} Nikxname</span>
           <div className="ex-footer-links">
+            <LivePill />
             <a className="ex-footer-who is-active" href="/who">
               Who?
             </a>

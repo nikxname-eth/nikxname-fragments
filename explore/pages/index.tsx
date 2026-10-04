@@ -27,6 +27,7 @@ import { AfbEmbers } from '../components/AfbEmbers';
 import { ShareDownloads } from '../components/ShareDownloads';
 import { getEmbersWorks } from '../lib/embersWorks';
 import { allShareAssets } from '../lib/shareAssets';
+import { LivePill } from '../components/LivePill';
 
 /** Collection bar only (no Market) */
 const COLLECTION_NAV: { id: SeriesId; label: string }[] = SERIES.filter(
@@ -322,6 +323,7 @@ export default function ExploreHome() {
                 </svg>
               )}
             </button>
+            <LivePill />
             <a className="ex-nav-garden" href="/garden">
               Garden
             </a>
@@ -528,6 +530,7 @@ export default function ExploreHome() {
         <footer className="ex-footer">
           <span className="ex-footer-copy">© {new Date().getFullYear()} Nikxname · Art Theatre</span>
           <div className="ex-footer-links">
+            <LivePill />
             <a className="ex-footer-who" href="/who">
               Who?
             </a>

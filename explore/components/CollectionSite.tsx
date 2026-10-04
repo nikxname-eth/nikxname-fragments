@@ -23,6 +23,7 @@ import { AfbCanvas } from './AfbCanvas';
 import { AfbPuzzlingEye, AfbWillIt } from './AfbPrelude';
 import { ShareDownloads } from './ShareDownloads';
 import { SeriesCopy } from './SeriesCopy';
+import { LivePill } from './LivePill';
 
 type Props = {
   seriesId: SeriesId;
@@ -144,6 +145,7 @@ export function CollectionSite({ seriesId, itemSlug }: Props) {
             >
               {dark ? '☀' : '☾'}
             </button>
+            <LivePill />
             <a className="ex-nav-garden" href="https://explore.nikxart.xyz/garden">
               Garden
             </a>
@@ -236,6 +238,7 @@ export function CollectionSite({ seriesId, itemSlug }: Props) {
         <footer className="ex-footer">
           <span className="ex-footer-copy">© {new Date().getFullYear()} Nikxname · {series?.label}</span>
           <div className="ex-footer-links">
+            <LivePill />
             <a className="ex-footer-who" href="https://explore.nikxart.xyz/who">
               Who?
             </a>

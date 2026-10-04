@@ -1,4 +1,4 @@
-const LIVE_HREF = 'https://explore.nikxart.xyz/will-it';
+const LIVE_HREF = 'https://explore.nikxart.xyz/on-the-block';
 
 type Props = {
   href?: string;
@@ -7,7 +7,7 @@ type Props = {
 
 export function LivePill({ href = LIVE_HREF, onClick }: Props) {
   return (
-    <a className="ex-nav-live is-live" href={href} onClick={onClick} aria-label="Live · Will It..">
+    <a className="ex-nav-live is-live" href={href} onClick={onClick} aria-label="Live · Voices Of Time">
       <span className="ex-nav-live-dot" aria-hidden="true" />
       Live
     </a>

@@ -14,6 +14,8 @@ import { getEmbersWorks, matchEmberWork } from '../lib/embersWorks';
 import { fetchTokenOwner, type OwnerResult } from '../lib/owner';
 import { getWillItWorks, matchWillItWork } from '../lib/willItWorks';
 import { catalogueThumbUrl, observeStillUrl } from '../lib/mediaUrl';
+import { BLOCK_BLIP, BLOCK_PAGE, BLOCK_SHARE, BLOCK_WORK_TITLE } from '../config/on-the-block';
+import { LivePill } from '../components/LivePill';
 
 type MarcheListing = {
   id: string;
@@ -623,6 +625,7 @@ export default function MarchePage() {
           >
             {dark ? '☀' : '☾'}
           </button>
+          <LivePill />
           <a className="ex-nav-garden" href="/garden">
             Garden
           </a>
@@ -722,6 +725,24 @@ export default function MarchePage() {
         </p>
         {note ? <p className="ex-atelier-note">{note}</p> : null}
       </section>
+
+      <a className="ex-marche-block" href={BLOCK_PAGE}>
+        <span className="ex-marche-block-frame">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={BLOCK_SHARE} alt={`${BLOCK_WORK_TITLE} hung as a triptych`} />
+        </span>
+        <span className="ex-marche-block-meta">
+          <span className="ex-nav-live is-live" aria-hidden="true">
+            <span className="ex-nav-live-dot" />
+            Live
+          </span>
+          <span className="ex-marche-block-copy">
+            <em>On The Block</em>
+            <strong>{BLOCK_WORK_TITLE}</strong>
+            <span>{BLOCK_BLIP}</span>
+          </span>
+        </span>
+      </a>
 
       {view === 'listed' && groups.length === 0 && !busy ? (
         <p className="ex-atelier-lead" style={{ padding: '0 6vw 48px' }}>
@@ -830,6 +851,7 @@ export default function MarchePage() {
       <footer className="ex-footer">
         <span className="ex-footer-copy">© {new Date().getFullYear()} Nikxname</span>
         <div className="ex-footer-links">
+          <LivePill />
           <a className="ex-footer-who" href="/who">
             Who?
           </a>
