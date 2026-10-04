@@ -5,15 +5,19 @@
  */
 
 import {
+  BLOCK_AUCTION_HOURS,
+  BLOCK_BID_OPENS_AT,
   BLOCK_CHAIN,
   BLOCK_CONTRACT,
   BLOCK_LISTING,
   BLOCK_PANELS,
   BLOCK_PLACEHOLDER,
   BLOCK_BLIP,
+  BLOCK_REVEAL_AT,
   BLOCK_TREASURY,
   BLOCK_WORK_TITLE,
   blockOpenSeaItem,
+  blockPanelRevealed,
   blockStatusAt,
   blockStatusLabel,
 } from '../../config/on-the-block';
@@ -51,6 +55,10 @@ export const onRequestGet = async () => {
       startsAt: BLOCK_LISTING.startsAt,
       endsAt: BLOCK_LISTING.endsAt,
       reserveEth: BLOCK_LISTING.reserveEth,
+      timer: BLOCK_LISTING.timer,
+      durationHours: BLOCK_AUCTION_HOURS,
+      revealAt: BLOCK_REVEAL_AT,
+      bidOpensAt: BLOCK_BID_OPENS_AT,
     },
     currentBid: null as string | null,
     bidCount: 0,
@@ -62,7 +70,7 @@ export const onRequestGet = async () => {
       label: p.label,
       name: p.name,
       tokenId: p.tokenId,
-      revealed: p.revealed,
+      revealed: blockPanelRevealed(p),
       href: blockOpenSeaItem(p.tokenId),
     })),
   });

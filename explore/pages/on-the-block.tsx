@@ -1,18 +1,27 @@
 import { useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
 import {
+  BLOCK_AUCTION_HOURS,
+  BLOCK_BID_OPENS_AT,
   BLOCK_BLIP,
   BLOCK_DESC,
   BLOCK_LISTING,
   BLOCK_PAGE,
   BLOCK_PANELS,
+  BLOCK_REVEAL_AT,
   BLOCK_SHARE,
+  BLOCK_TIERS,
   BLOCK_TITLE,
   BLOCK_WORK_TITLE,
+  blockManifoldListingUrl,
   blockOpenSeaItem,
+  blockPanelRevealed,
   blockStatusAt,
   blockStatusLabel,
+  formatEastern,
+  panelVideo,
   type BlockPanel,
+  type BlockTier,
 } from '../config/on-the-block';
 import { CanvasLook } from '../components/CanvasLook';
 
@@ -24,10 +33,16 @@ type Market = {
   listing?: { reserveEth?: string | null; endsAt?: string | null; startsAt?: string | null };
 };
 
+type Eth = {
+  request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
+  on?: (event: string, fn: (accounts: string[]) => void) => void;
+  removeListener?: (event: string, fn: (accounts: string[]) => void) => void;
+};
+
 function formatRemain(endsAt: string | null | undefined, now: number): string {
-  if (!endsAt) return 'Not scheduled';
+  if (!endsAt) return `${BLOCK_AUCTION_HOURS}h from first bid`;
   const end = Date.parse(endsAt);
-  if (!Number.isFinite(end)) return 'Not scheduled';
+  if (!Number.isFinite(end)) return `${BLOCK_AUCTION_HOURS}h from first bid`;
   const ms = end - now;
   if (ms <= 0) return 'Ended';
   const s = Math.floor(ms / 1000);
@@ -39,14 +54,31 @@ function formatRemain(endsAt: string | null | undefined, now: number): string {
   return `${m}m ${s % 60}s`;
 }
 
-function HangMedia({ panel, still }: { panel: BlockPanel; still: boolean }) {
-  const src = still || !panel.revealed ? panel.still : panel.thumb;
+function shortWallet(addr: string) {
+  return `${addr.slice(0, 6)}…${addr.slice(-4)}`;
+}
+
+function HangMedia({
+  panel,
+  still,
+  revealed,
+}: {
+  panel: BlockPanel;
+  still: boolean;
+  revealed: boolean;
+}) {
+  const video = !still && revealed ? panel.video : undefined;
   return (
     <>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt="" />
+      {video ? (
+        // eslint-disable-next-line jsx-a11y/media-has-caption
+        <video src={video} poster={panel.still} autoPlay muted loop playsInline />
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={still || !revealed ? panel.still : panel.thumb} alt="" />
+      )}
       <em>{String(panel.panel).padStart(2, '0')}</em>
-      {!panel.revealed ? <span className="ex-would-veil">Unrevealed</span> : null}
+      {!revealed ? <span className="ex-would-veil">Unrevealed</span> : null}
     </>
   );
 }
@@ -55,22 +87,27 @@ export default function OnTheBlockPage() {
   const [dark, setDark] = useState(true);
   const [showTop, setShowTop] = useState(false);
   const [look, setLook] = useState(false);
-  const [lookHi, setLookHi] = useState(false);
+  const [lookTier, setLookTier] = useState<BlockTier>('1080');
   const [lookPanel, setLookPanel] = useState<BlockPanel['panel']>(1);
   const [market, setMarket] = useState<Market>({});
   const [now, setNow] = useState(() => Date.now());
   const [quiet, setQuiet] = useState(false);
+  const [wallet, setWallet] = useState<string | null>(null);
+  const [walletNote, setWalletNote] = useState<string | null>(null);
 
   const status = market.status || blockStatusAt(now);
   const statusLabel = market.statusLabel || blockStatusLabel(status as ReturnType<typeof blockStatusAt>);
   const live = status === 'live';
-  const panel = BLOCK_PANELS.find((p) => p.panel === lookPanel) || BLOCK_PANELS[1];
+  const listingUrl = blockManifoldListingUrl();
+  const panel = BLOCK_PANELS.find((p) => p.panel === lookPanel) || BLOCK_PANELS[0];
+  const panelOpen = blockPanelRevealed(panel, now);
   const remain = useMemo(
     () => formatRemain(market.listing?.endsAt || BLOCK_LISTING.endsAt, now),
     [market.listing?.endsAt, now],
   );
-  const observeSrc =
-    lookHi && panel.lookHi && panel.revealed ? panel.lookHi : panel.look;
+  const observeSrc = panelOpen
+    ? panelVideo(panel, lookTier) || panel.look
+    : panel.look;
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -105,11 +142,49 @@ export default function OnTheBlockPage() {
     return () => window.clearInterval(id);
   }, []);
 
+  useEffect(() => {
+    const eth = (window as unknown as { ethereum?: Eth }).ethereum;
+    if (!eth?.on) return;
+    const onAccounts = (accounts: string[]) => setWallet(accounts?.[0]?.toLowerCase() || null);
+    eth.on('accountsChanged', onAccounts);
+    return () => {
+      eth.removeListener?.('accountsChanged', onAccounts);
+    };
+  }, []);
+
+  const connectWallet = async () => {
+    const eth = (window as unknown as { ethereum?: Eth }).ethereum;
+    if (!eth) {
+      setWalletNote('Open this page in a wallet browser, or install a wallet.');
+      return;
+    }
+    try {
+      const accounts = (await eth.request({ method: 'eth_requestAccounts' })) as string[];
+      const next = accounts?.[0]?.toLowerCase() || null;
+      setWallet(next);
+      setWalletNote(null);
+    } catch {
+      setWalletNote('Connection was cancelled.');
+    }
+  };
+
+  const placeBid = async () => {
+    if (!wallet) {
+      await connectWallet();
+      return;
+    }
+    if (listingUrl) {
+      window.open(listingUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   const openLook = (n: BlockPanel['panel']) => {
     setLookPanel(n);
-    setLookHi(false);
+    setLookTier('1080');
     setLook(true);
   };
+
+  const bidLabel = live ? (wallet ? 'Place bid' : 'Connect to bid') : 'Not live';
 
   return (
     <>
@@ -174,17 +249,20 @@ export default function OnTheBlockPage() {
 
         <section className="ex-would-hero" aria-label="Triptych">
           <div className="ex-block-hang">
-            {BLOCK_PANELS.map((p) => (
-              <button
-                key={p.panel}
-                type="button"
-                className={`ex-block-hang-cell${p.revealed ? '' : ' is-veil'}`}
-                onClick={() => openLook(p.panel)}
-                aria-label={`${p.name}, panel ${String(p.panel).padStart(2, '0')}. Look closer.`}
-              >
-                <HangMedia panel={p} still={quiet} />
-              </button>
-            ))}
+            {BLOCK_PANELS.map((p) => {
+              const open = blockPanelRevealed(p, now);
+              return (
+                <button
+                  key={p.panel}
+                  type="button"
+                  className={`ex-block-hang-cell${open ? '' : ' is-veil'}`}
+                  onClick={() => openLook(p.panel)}
+                  aria-label={`${p.name}, panel ${String(p.panel).padStart(2, '0')}. Look closer.`}
+                >
+                  <HangMedia panel={p} still={quiet} revealed={open} />
+                </button>
+              );
+            })}
           </div>
           <p className="ex-would-hang-note">Three frames, hung as a set. A 1 of 1.</p>
         </section>
@@ -207,6 +285,17 @@ export default function OnTheBlockPage() {
           <section className="ex-block-desk" aria-label="Auction">
             <p className="ex-would-gold">Panel 02 is on the block</p>
             <p className={`ex-block-live is-${status}`}>{statusLabel}</p>
+            <ul className="ex-block-schedule">
+              <li>
+                Center unveils <strong>{formatEastern(BLOCK_REVEAL_AT)}</strong>
+              </li>
+              <li>
+                Bidding opens <strong>{formatEastern(BLOCK_BID_OPENS_AT)}</strong>
+              </li>
+              <li>
+                <strong>{BLOCK_AUCTION_HOURS} hours</strong> from the first bid
+              </li>
+            </ul>
             <dl className="ex-block-stats">
               <div>
                 <dt>Current bid</dt>
@@ -221,11 +310,27 @@ export default function OnTheBlockPage() {
                 <dd>{remain}</dd>
               </div>
             </dl>
-            <button type="button" className="ex-garden-enter" disabled={!live}>
-              {live ? 'Place bid' : 'Not live'}
-            </button>
+            <div className="ex-block-actions">
+              {wallet ? (
+                <span className="ex-block-wallet">{shortWallet(wallet)}</span>
+              ) : (
+                <button type="button" className="ex-read-more" onClick={() => void connectWallet()}>
+                  Connect wallet
+                </button>
+              )}
+              <button
+                type="button"
+                className="ex-garden-enter"
+                disabled={!live}
+                onClick={() => void placeBid()}
+              >
+                {bidLabel}
+              </button>
+            </div>
+            {walletNote ? <p className="ex-block-note">{walletNote}</p> : null}
             <p className="ex-block-note">
               The winning wallet receives Devil and Angel from the studio. One bid. One set.
+              {listingUrl ? ' Bids settle on Manifold Gallery from this desk.' : ''}
             </p>
           </section>
 
@@ -237,18 +342,19 @@ export default function OnTheBlockPage() {
               </h2>
               <div className="ex-would-set-grid">
                 {BLOCK_PANELS.map((p) => {
+                  const open = blockPanelRevealed(p, now);
                   const href = blockOpenSeaItem(p.tokenId);
                   const inner = (
                     <>
                       <span className="ex-card-media ex-would-set-media">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src={quiet || !p.revealed ? p.still : p.thumb}
+                          src={quiet || !open ? p.still : p.thumb}
                           alt=""
                           loading="lazy"
                           decoding="async"
                         />
-                        {!p.revealed ? <span className="ex-would-veil">Unrevealed</span> : null}
+                        {!open ? <span className="ex-would-veil">Unrevealed</span> : null}
                       </span>
                       <span className="ex-card-meta">
                         <span className="ex-card-title">
@@ -305,7 +411,7 @@ export default function OnTheBlockPage() {
               onClick={() => openLook(lookPanel)}
               aria-label={`Look closer at ${panel.name}, panel ${String(lookPanel).padStart(2, '0')}`}
             >
-              {panel.video && panel.revealed && !quiet ? (
+              {panel.video && panelOpen && !quiet ? (
                 // eslint-disable-next-line jsx-a11y/media-has-caption
                 <video
                   key={panel.video}
@@ -319,7 +425,7 @@ export default function OnTheBlockPage() {
               ) : (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={quiet || !panel.revealed ? panel.still : panel.thumb}
+                  src={quiet || !panelOpen ? panel.still : panel.thumb}
                   alt={`${BLOCK_WORK_TITLE} · ${panel.name}`}
                   loading="lazy"
                   decoding="async"
@@ -337,7 +443,7 @@ export default function OnTheBlockPage() {
                   className={lookPanel === p.panel ? 'is-on' : ''}
                   onClick={() => {
                     setLookPanel(p.panel);
-                    setLookHi(false);
+                    setLookTier('1080');
                   }}
                 >
                   {String(p.panel).padStart(2, '0')} · {p.name}
@@ -385,14 +491,13 @@ export default function OnTheBlockPage() {
       {look ? (
         <CanvasLook
           src={observeSrc}
+          poster={panel.still}
           alt={`${BLOCK_WORK_TITLE} · ${panel.name}`}
           title={`${BLOCK_WORK_TITLE} · ${String(lookPanel).padStart(2, '0')} ${panel.name}`}
           onClose={() => setLook(false)}
           hint={
-            panel.lookHi && panel.revealed
-              ? lookHi
-                ? '5K motion · drag to move · pinch or scroll to zoom'
-                : 'drag to move · pinch or scroll to zoom · 5K for true size'
+            panelOpen && panel.video
+              ? `${lookTier.toUpperCase()} motion · drag to move · pinch or scroll to zoom`
               : undefined
           }
           nav={
@@ -406,21 +511,24 @@ export default function OnTheBlockPage() {
                   className={lookPanel === p.panel ? 'is-on' : ''}
                   onClick={() => {
                     setLookPanel(p.panel);
-                    setLookHi(false);
+                    setLookTier('1080');
                   }}
                 >
                   {String(p.panel).padStart(2, '0')} · {p.name}
                 </button>
               ))}
-              {panel.lookHi && panel.revealed ? (
-                <button
-                  type="button"
-                  className={lookHi ? 'is-on' : ''}
-                  onClick={() => setLookHi((v) => !v)}
-                >
-                  {lookHi ? 'Fit motion' : '5K'}
-                </button>
-              ) : null}
+              {panelOpen && panel.video
+                ? BLOCK_TIERS.filter((t) => panelVideo(panel, t.id)).map((t) => (
+                    <button
+                      key={t.id}
+                      type="button"
+                      className={lookTier === t.id ? 'is-on' : ''}
+                      onClick={() => setLookTier(t.id)}
+                    >
+                      {t.label}
+                    </button>
+                  ))
+                : null}
             </div>
           }
         />

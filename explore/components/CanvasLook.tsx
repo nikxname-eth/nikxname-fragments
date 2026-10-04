@@ -10,7 +10,12 @@ type Props = {
   onClose: () => void;
   nav?: ReactNode;
   hint?: string;
+  poster?: string;
 };
+
+function isVideoSrc(src: string) {
+  return /\.(mp4|webm|mov)(\?|$)/i.test(src);
+}
 
 function dist(a: Pt, b: Pt) {
   return Math.hypot(a.x - b.x, a.y - b.y);
@@ -20,9 +25,11 @@ function mid(a: Pt, b: Pt): Pt {
   return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
 }
 
-export function CanvasLook({ src, alt, title, onClose, nav, hint }: Props) {
+export function CanvasLook({ src, alt, title, onClose, nav, hint, poster }: Props) {
   const stageRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const video = isVideoSrc(src);
   const viewRef = useRef<View>({ x: 0, y: 0, scale: 1 });
   const ptsRef = useRef(new Map<number, Pt>());
   const pinchRef = useRef<{ dist: number; view: View } | null>(null);
@@ -38,12 +45,19 @@ export function CanvasLook({ src, alt, title, onClose, nav, hint }: Props) {
   }, []);
 
   const size = useCallback(() => {
+    if (video) {
+      const v = videoRef.current;
+      return {
+        nw: v?.videoWidth || nat.w,
+        nh: v?.videoHeight || nat.h,
+      };
+    }
     const img = imgRef.current;
     return {
       nw: img?.naturalWidth || nat.w,
       nh: img?.naturalHeight || nat.h,
     };
-  }, [nat.w, nat.h]);
+  }, [nat.w, nat.h, video]);
 
   const fitView = useCallback((): View => {
     const stage = stageRef.current;
@@ -266,25 +280,52 @@ export function CanvasLook({ src, alt, title, onClose, nav, hint }: Props) {
         onDoubleClick={onDoubleClick}
       >
         {!loaded ? <div className="ex-look-loading">Loading canvas…</div> : null}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          ref={imgRef}
-          src={src}
-          alt={alt}
-          draggable={false}
-          decoding="async"
-          onLoad={() => {
-            const img = imgRef.current;
-            if (img?.naturalWidth) setNat({ w: img.naturalWidth, h: img.naturalHeight });
-            setLoaded(true);
-          }}
-          style={{
-            width: nat.w,
-            height: nat.h,
-            transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})`,
-            opacity: loaded ? 1 : 0,
-          }}
-        />
+        {video ? (
+          // eslint-disable-next-line jsx-a11y/media-has-caption
+          <video
+            ref={videoRef}
+            key={src}
+            src={src}
+            poster={poster}
+            muted
+            loop
+            autoPlay
+            playsInline
+            draggable={false}
+            onLoadedMetadata={() => {
+              const v = videoRef.current;
+              if (v?.videoWidth) setNat({ w: v.videoWidth, h: v.videoHeight });
+              setLoaded(true);
+              v?.play().catch(() => {});
+            }}
+            style={{
+              width: nat.w,
+              height: nat.h,
+              transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})`,
+              opacity: loaded ? 1 : 0,
+            }}
+          />
+        ) : (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            ref={imgRef}
+            src={src}
+            alt={alt}
+            draggable={false}
+            decoding="async"
+            onLoad={() => {
+              const img = imgRef.current;
+              if (img?.naturalWidth) setNat({ w: img.naturalWidth, h: img.naturalHeight });
+              setLoaded(true);
+            }}
+            style={{
+              width: nat.w,
+              height: nat.h,
+              transform: `translate(${view.x}px, ${view.y}px) scale(${view.scale})`,
+              opacity: loaded ? 1 : 0,
+            }}
+          />
+        )}
       </div>
       {nav ? <div className="ex-look-nav">{nav}</div> : null}
       <p className="ex-look-hint">
