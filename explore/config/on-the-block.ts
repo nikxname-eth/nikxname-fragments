@@ -18,10 +18,12 @@ export const BLOCK_DESC =
   'Voices Of Time — a triptych: three canvases, one painting. Auctioned as a 1 of 1. The center is on the block; Devil and Angel follow the winning wallet.';
 export const BLOCK_WORK_TITLE = 'Voices Of Time';
 export const BLOCK_BLIP = "Mirror Mirror.. Who's whisper rings truer?";
-export const BLOCK_SHARE = '/voices-of-time/share.jpg';
+export const BLOCK_SHARE = '/voices-of-time/share.jpg?v=horns';
 export const BLOCK_PLACEHOLDER = false;
 
 const CDN = 'https://assets.nikxart.xyz/explore/media/a-familiar-burn';
+/** Bump when Devil/Angel masters are replaced so CDN/browser caches miss. */
+const DEVIL_V = 'horns';
 
 export type BlockStatus = 'framework' | 'scheduled' | 'live' | 'settled';
 
@@ -56,11 +58,11 @@ export const BLOCK_PANELS: BlockPanel[] = [
     label: '01 · Awarded with the win',
     tokenId: null,
     name: 'Devil',
-    thumb: '/voices-of-time/devil-cover.gif',
-    still: '/voices-of-time/devil-still.webp',
-    look: `${CDN}/voices-devil-look.gif`,
-    lookHi: `${CDN}/voices-devil-full.gif`,
-    video: `${CDN}/voices-devil-1080.mp4`,
+    thumb: `/voices-of-time/devil-cover.gif?v=${DEVIL_V}`,
+    still: `/voices-of-time/devil-still.webp?v=${DEVIL_V}`,
+    look: `${CDN}/voices-devil-look.gif?v=${DEVIL_V}`,
+    lookHi: `${CDN}/voices-devil-full.gif?v=${DEVIL_V}`,
+    video: `${CDN}/voices-devil-1080.mp4?v=${DEVIL_V}`,
     revealed: true,
   },
   {
