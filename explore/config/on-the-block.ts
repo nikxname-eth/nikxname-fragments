@@ -1,22 +1,26 @@
 /**
  * On The Block — Voices Of Time.
  *
- * A 1/1 triptych. Panel 02 (center) is auctioned. Panels 01 (Devil) and
- * 03 (Angel) transfer to the winning wallet so the set leaves together.
+ * A 1/1 triptych on the 1 of 1s contract (not A Familiar Burn).
+ * Panel 02 (center) is auctioned. Panels 01 (Devil) and 03 (Angel)
+ * transfer to the winning wallet so the set leaves together.
  *
  * Token IDs stay null until mint. Set BLOCK_LISTING.manifoldId when the
  * Gallery listing is live. Studio listing: 48h from first bid, opens
  * Tuesday 11:00 AM Eastern.
  */
 
-export const BLOCK_CONTRACT = '0x1641b09e11d19e6f6b9f80273158f9da28555593';
+export const BLOCK_SERIES = 'one-of-ones' as const;
+export const BLOCK_CONTRACT = '0x07f3bfe5ca8d84108df5c020f885d1d6bf40585e';
 export const BLOCK_CHAIN = 'ethereum' as const;
 export const BLOCK_TREASURY = '0x81c306bcdc036f334ef4fb8f85a8e6be730a0763';
+export const BLOCK_COLLECTION_HREF = '/one-of-ones';
+export const BLOCK_COLLECTION_LABEL = "1 of 1's";
 
 export const BLOCK_PAGE = 'https://explore.nikxart.xyz/on-the-block';
 export const BLOCK_TITLE = 'Voices Of Time · On The Block';
 export const BLOCK_DESC =
-  'Voices Of Time — a triptych: three canvases, one painting. Auctioned as a 1 of 1. The center is on the block; Devil and Angel follow the winning wallet.';
+  'Voices Of Time — a triptych: three canvases, one painting. A 1 of 1 on the 1 of 1s contract. The center is on the block; Devil and Angel follow the winning wallet.';
 export const BLOCK_WORK_TITLE = 'Voices Of Time';
 export const BLOCK_BLIP = "Mirror Mirror.. Who's whisper rings truer?";
 export const BLOCK_SHARE = '/voices-of-time/share.jpg?v=framed';

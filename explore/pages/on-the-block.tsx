@@ -4,6 +4,8 @@ import {
   BLOCK_AUCTION_HOURS,
   BLOCK_BID_OPENS_AT,
   BLOCK_BLIP,
+  BLOCK_COLLECTION_HREF,
+  BLOCK_COLLECTION_LABEL,
   BLOCK_DESC,
   BLOCK_LISTING,
   BLOCK_PAGE,
@@ -249,7 +251,7 @@ export default function OnTheBlockPage() {
         </header>
 
         <section className="ex-series-intro ex-collection-hero">
-          <p className="ex-series-label">On The Block · A Familiar Burn · 1 of 1 triptych</p>
+          <p className="ex-series-label">On The Block · 1 of 1s · triptych</p>
           <h1 className="ex-series-title">{BLOCK_WORK_TITLE}</h1>
           <p className="ex-would-gold">{BLOCK_BLIP}</p>
           <p className="ex-series-desc">Three canvases, one painting. Auctioned as one.</p>
@@ -278,9 +280,9 @@ export default function OnTheBlockPage() {
         <div className="ex-grid-wrap ex-would-wrap">
           <section className="ex-would-copy">
             <p>
-              <em>Will It..</em> let a painting exist through fractional ownership — five lettered
-              sets, panels gathered over time. <em>Voices Of Time</em> is the other thesis. The
-              painting does not fraction. The center is called. The wings follow it home.
+              <em>Voices Of Time</em> is a 1 of 1 on the 1 of 1s contract. Three canvases, one
+              painting, auctioned as one. The painting does not fraction. The center is called. The
+              wings follow it home.
             </p>
             <p>
               Panel <strong>02</strong> — the unrevealed middle — is on the block. Panel{' '}
@@ -406,8 +408,8 @@ export default function OnTheBlockPage() {
           <section className="ex-would-copy ex-would-copy--after">
             <p>
               A triptych as three canvases is still the form — economical structure, belief in the
-              painting as a whole. Here the rarity is the whole. There is no second letter, no hunt
-              across sets. One bid. One wallet. The three panels hang as they were painted.
+              painting as a whole. Here the rarity is the whole. One bid. One wallet. The three
+              panels hang as they were painted.
             </p>
           </section>
 
@@ -464,8 +466,8 @@ export default function OnTheBlockPage() {
 
           <footer className="ex-would-foot">
             <LivePill />
-            <a className="ex-read-more" href="/one-of-ones">
-              1 of 1's
+            <a className="ex-read-more" href={BLOCK_COLLECTION_HREF}>
+              {BLOCK_COLLECTION_LABEL}
             </a>
             <a className="ex-read-more" href="/marche">
               Marché
