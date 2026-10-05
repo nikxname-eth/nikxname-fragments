@@ -3,7 +3,7 @@ import { ManifoldConnect } from './ManifoldConnect';
 import { WalletButton } from './WalletButton';
 
 import { useWallet } from '../providers/WalletProvider';
-import { WILL_IT_URL } from '../config/house';
+import { ON_THE_BLOCK_URL } from '../config/house';
 
 type Props = {
   dark: boolean;
@@ -167,7 +167,7 @@ export function SiteNav({
         </div>
 
         <div className="nav-right">
-          <a className="nav-live is-live" href={WILL_IT_URL} aria-label="Live · Will It..">
+          <a className="nav-live is-live" href={ON_THE_BLOCK_URL} aria-label="Live · Voices Of Time">
             <span className="nav-live-dot" aria-hidden="true" />
             Live
           </a>

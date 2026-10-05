@@ -3,6 +3,7 @@
 export const EXPLORE_ORIGIN = 'https://explore.nikxart.xyz';
 export const GARDEN_URL = `${EXPLORE_ORIGIN}/garden`;
 export const WILL_IT_URL = `${EXPLORE_ORIGIN}/will-it`;
+export const ON_THE_BLOCK_URL = `${EXPLORE_ORIGIN}/on-the-block`;
 export const SECONDARY_MARKET_URL = 'https://www.raster.art/artist/nikxname';
 
 export type HouseRoom = {

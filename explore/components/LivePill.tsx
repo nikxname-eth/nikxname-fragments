@@ -1,4 +1,4 @@
-const LIVE_HREF = 'https://explore.nikxart.xyz/on-the-block';
+const LIVE_HREF = '/on-the-block';
 
 type Props = {
   href?: string;

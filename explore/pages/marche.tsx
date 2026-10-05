@@ -14,7 +14,7 @@ import { getEmbersWorks, matchEmberWork } from '../lib/embersWorks';
 import { fetchTokenOwner, type OwnerResult } from '../lib/owner';
 import { getWillItWorks, matchWillItWork } from '../lib/willItWorks';
 import { catalogueThumbUrl, observeStillUrl } from '../lib/mediaUrl';
-import { BLOCK_BLIP, BLOCK_PAGE, BLOCK_SHARE, BLOCK_WORK_TITLE } from '../config/on-the-block';
+import { BLOCK_BLIP, BLOCK_SHARE, BLOCK_WORK_TITLE } from '../config/on-the-block';
 import { LivePill } from '../components/LivePill';
 
 type MarcheListing = {
@@ -726,7 +726,7 @@ export default function MarchePage() {
         {note ? <p className="ex-atelier-note">{note}</p> : null}
       </section>
 
-      <a className="ex-marche-block" href={BLOCK_PAGE}>
+      <a className="ex-marche-block" href="/on-the-block">
         <span className="ex-marche-block-frame">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={BLOCK_SHARE} alt={`${BLOCK_WORK_TITLE} hung as a triptych`} />
