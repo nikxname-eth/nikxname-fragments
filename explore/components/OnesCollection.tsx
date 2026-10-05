@@ -5,6 +5,7 @@ import {
   BLOCK_PAGE,
   BLOCK_PANELS,
   BLOCK_WORK_TITLE,
+  blockPanelRevealed,
 } from '../config/on-the-block';
 import { catalogueThumbUrl, isVideoWork, stillMasterUrl } from '../lib/mediaUrl';
 import { getFeatureCacheUrl } from '../lib/previews';
@@ -123,14 +124,17 @@ export function OnesVoices() {
       </div>
       <p className="ex-afb-will-sub">{BLOCK_BLIP}</p>
       <div className="ex-afb-will-row" aria-hidden="true">
-        {BLOCK_PANELS.map((p) => (
-          <span key={p.panel} className="ex-afb-will-cell">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={p.thumb} alt="" loading="lazy" decoding="async" />
-            <em>{String(p.panel).padStart(2, '0')}</em>
-            {!p.revealed ? <span className="ex-would-veil">Unrevealed</span> : null}
-          </span>
-        ))}
+        {BLOCK_PANELS.map((p) => {
+          const open = blockPanelRevealed(p);
+          return (
+            <span key={p.panel} className="ex-afb-will-cell">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={open ? p.thumb : p.still} alt="" loading="lazy" decoding="async" />
+              <em>{String(p.panel).padStart(2, '0')}</em>
+              {!open ? <span className="ex-would-veil">Unrevealed</span> : null}
+            </span>
+          );
+        })}
       </div>
       <hr className="ex-afb-rule" />
       <a className="ex-read-more" href={BLOCK_PAGE}>

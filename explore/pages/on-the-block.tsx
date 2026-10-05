@@ -73,14 +73,16 @@ function HangMedia({
   revealed: boolean;
 }) {
   const video = !still && revealed ? panel.video : undefined;
+  const poster = revealed ? panel.look || panel.still : panel.still;
+  const img = !revealed ? panel.still : still ? poster : panel.thumb;
   return (
     <>
       {video ? (
         // eslint-disable-next-line jsx-a11y/media-has-caption
-        <video src={video} poster={panel.still} autoPlay muted loop playsInline />
+        <video src={video} poster={poster} autoPlay muted loop playsInline />
       ) : (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={still || !revealed ? panel.still : panel.thumb} alt="" />
+        <img src={img} alt="" />
       )}
       <em>{String(panel.panel).padStart(2, '0')}</em>
       {!revealed ? <span className="ex-would-veil">Unrevealed</span> : null}
@@ -93,7 +95,7 @@ export default function OnTheBlockPage() {
   const [showTop, setShowTop] = useState(false);
   const [look, setLook] = useState(false);
   const [lookTier, setLookTier] = useState<BlockTier>('1080');
-  const [lookPanel, setLookPanel] = useState<BlockPanel['panel']>(1);
+  const [lookPanel, setLookPanel] = useState<BlockPanel['panel']>(2);
   const [market, setMarket] = useState<Market>({});
   const [now, setNow] = useState(() => Date.now());
   const [quiet, setQuiet] = useState(false);
@@ -106,13 +108,14 @@ export default function OnTheBlockPage() {
   const listingUrl = blockManifoldListingUrl();
   const panel = BLOCK_PANELS.find((p) => p.panel === lookPanel) || BLOCK_PANELS[0];
   const panelOpen = blockPanelRevealed(panel, now);
+  const centerOpen = blockPanelRevealed(BLOCK_PANELS[1], now);
   const remain = useMemo(
     () => formatRemain(market.listing?.endsAt || BLOCK_LISTING.endsAt, now),
     [market.listing?.endsAt, now],
   );
   const observeSrc = panelOpen
     ? panelVideo(panel, lookTier) || panel.look
-    : panel.look;
+    : panel.still;
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -285,7 +288,8 @@ export default function OnTheBlockPage() {
               wings follow it home.
             </p>
             <p>
-              Panel <strong>02</strong> — the unrevealed middle — is on the block. Panel{' '}
+              Panel <strong>02</strong>
+              {centerOpen ? ', Pendant,' : ' — the unrevealed middle —'} is on the block. Panel{' '}
               <strong>01</strong>, Devil, and panel <strong>03</strong>, Angel, stay with the studio
               until the bid settles, then transfer to the winning wallet. All three canvases leave
               together. One owner.
@@ -359,7 +363,7 @@ export default function OnTheBlockPage() {
                       <span className="ex-card-media ex-would-set-media">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src={quiet || !open ? p.still : p.thumb}
+                          src={!open ? p.still : quiet ? p.look || p.still : p.thumb}
                           alt=""
                           loading="lazy"
                           decoding="async"
@@ -426,7 +430,7 @@ export default function OnTheBlockPage() {
                 <video
                   key={panel.video}
                   src={panel.video}
-                  poster={panel.still}
+                  poster={panel.look || panel.still}
                   autoPlay
                   muted
                   loop
@@ -435,7 +439,13 @@ export default function OnTheBlockPage() {
               ) : (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={quiet || !panelOpen ? panel.still : panel.thumb}
+                  src={
+                    !panelOpen
+                      ? panel.still
+                      : quiet
+                        ? panel.look || panel.still
+                        : panel.thumb
+                  }
                   alt={`${BLOCK_WORK_TITLE} · ${panel.name}`}
                   loading="lazy"
                   decoding="async"
@@ -472,10 +482,12 @@ export default function OnTheBlockPage() {
             <a className="ex-read-more" href="/marche">
               Marché
             </a>
-            <p className="ex-would-asterisk">
-              * The center remains veiled until it is called. Devil and Angel are shown so the set
-              can be known as a painting, not as three listings.
-            </p>
+            {centerOpen ? null : (
+              <p className="ex-would-asterisk">
+                * The center remains veiled until it is called. Devil and Angel are shown so the set
+                can be known as a painting, not as three listings.
+              </p>
+            )}
           </footer>
         </div>
 
@@ -502,7 +514,7 @@ export default function OnTheBlockPage() {
       {look ? (
         <CanvasLook
           src={observeSrc}
-          poster={panel.still}
+          poster={panelOpen ? panel.look || panel.still : panel.still}
           alt={`${BLOCK_WORK_TITLE} · ${panel.name}`}
           title={`${BLOCK_WORK_TITLE} · ${String(lookPanel).padStart(2, '0')} ${panel.name}`}
           onClose={() => setLook(false)}

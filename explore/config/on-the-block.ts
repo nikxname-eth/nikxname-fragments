@@ -30,7 +30,7 @@ export const BLOCK_PLACEHOLDER = false;
 
 const CDN = 'https://assets.nikxart.xyz/explore/media/a-familiar-burn';
 /** Bump when masters are replaced so CDN/browser caches miss. */
-const MEDIA_V = 'h264';
+const MEDIA_V = 'pendant';
 
 /** Center panel stays veiled until this instant (Eastern). */
 export const BLOCK_REVEAL_AT = '2026-10-05T17:00:00-04:00';
@@ -94,11 +94,14 @@ export const BLOCK_PANELS: BlockPanel[] = [
     role: 'auction',
     label: '02 · On the block',
     tokenId: null,
-    name: 'The whisper',
-    thumb: '/voices-of-time/unrevealed.webp',
+    name: 'Pendant',
+    thumb: `/voices-of-time/pendant-cover.gif?v=${MEDIA_V}`,
     still: '/voices-of-time/unrevealed.webp',
-    look: '/voices-of-time/unrevealed.webp',
-    revealed: false,
+    look: `/voices-of-time/pendant-still.webp?v=${MEDIA_V}`,
+    video: `${CDN}/voices-pendant-1080.mp4?v=${MEDIA_V}`,
+    video2k: `${CDN}/voices-pendant-2k.mp4?v=${MEDIA_V}`,
+    video4k: `${CDN}/voices-pendant-4k.mp4?v=${MEDIA_V}`,
+    revealed: true,
   },
   {
     panel: 3,
