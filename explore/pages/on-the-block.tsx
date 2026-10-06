@@ -309,6 +309,13 @@ export default function OnTheBlockPage() {
               <li>
                 <strong>{BLOCK_AUCTION_HOURS} hours</strong> from the first bid
               </li>
+              <li>
+                Each new bid rises by <strong>{BLOCK_LISTING.minIncrement}</strong>
+              </li>
+              <li>
+                A bid in the final {BLOCK_LISTING.extension} adds{' '}
+                <strong>{BLOCK_LISTING.extension}</strong>
+              </li>
             </ul>
             <dl className="ex-block-stats">
               <div>
@@ -344,7 +351,16 @@ export default function OnTheBlockPage() {
             {walletNote ? <p className="ex-block-note">{walletNote}</p> : null}
             <p className="ex-block-note">
               The winning wallet receives Devil and Angel from the studio. One bid. One set.
-              {listingUrl ? ' Bids settle on Manifold Gallery from this desk.' : ''}
+              {listingUrl ? (
+                <>
+                  {' '}
+                  Bids settle on{' '}
+                  <a href={listingUrl} target="_blank" rel="noopener noreferrer">
+                    Manifold
+                  </a>
+                  .
+                </>
+              ) : null}
             </p>
           </section>
 

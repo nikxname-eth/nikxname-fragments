@@ -5,9 +5,9 @@
  * Panel 02 (center) is auctioned. Panels 01 (Devil) and 03 (Angel)
  * transfer to the winning wallet so the set leaves together.
  *
- * Tokens 5–7 are minted on the 1 of 1s contract. Set BLOCK_LISTING.manifoldId
- * when the Gallery listing is live. Studio listing: 48h from first bid, opens
- * Tuesday 1:00 PM Eastern.
+ * Tokens 5–7 are minted on the 1 of 1s contract. Panel 02 is listed on
+ * Manifold. The clock runs 48h from the first bid. Bidding on this desk
+ * opens Tuesday 1:00 PM Eastern.
  */
 
 export const BLOCK_SERIES = 'one-of-ones' as const;
@@ -38,6 +38,10 @@ export const BLOCK_REVEAL_AT = '2026-10-05T17:00:00-04:00';
 /** Bidding may open at this instant. Timer then runs 48h from first bid. */
 export const BLOCK_BID_OPENS_AT = '2026-10-06T13:00:00-04:00';
 export const BLOCK_AUCTION_HOURS = 48;
+export const BLOCK_RESERVE_ETH = '0.02 ETH';
+export const BLOCK_MIN_INCREMENT = '5%';
+export const BLOCK_BID_EXTENSION = '10 minutes';
+export const BLOCK_LISTING_URL = 'https://manifold.xyz/@nikxnames-art/id/3481329904';
 
 export type BlockStatus = 'framework' | 'scheduled' | 'live' | 'settled';
 export type BlockTier = '1080' | '2k' | '4k';
@@ -49,11 +53,13 @@ export const BLOCK_TIERS: { id: BlockTier; label: string }[] = [
 ];
 
 export const BLOCK_LISTING = {
-  manifoldId: null as string | null,
+  manifoldId: '3481329904',
   seaportHash: null as string | null,
   startsAt: BLOCK_BID_OPENS_AT,
   endsAt: null as string | null,
-  reserveEth: null as string | null,
+  reserveEth: BLOCK_RESERVE_ETH,
+  minIncrement: BLOCK_MIN_INCREMENT,
+  extension: BLOCK_BID_EXTENSION,
   timer: 'first-bid' as const,
   durationHours: BLOCK_AUCTION_HOURS,
   status: 'scheduled' as BlockStatus,
@@ -143,7 +149,7 @@ export function blockManifoldItem(tokenId: number | null): string | null {
 
 export function blockManifoldListingUrl(): string | null {
   if (!BLOCK_LISTING.manifoldId) return null;
-  return `https://gallery.manifold.xyz/listing?listingId=${BLOCK_LISTING.manifoldId}`;
+  return BLOCK_LISTING_URL;
 }
 
 export function blockStatusAt(now = Date.now()): BlockStatus {

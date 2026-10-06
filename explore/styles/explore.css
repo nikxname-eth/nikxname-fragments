@@ -3063,6 +3063,8 @@ button.ex-garden-fly{pointer-events:auto}
   margin:14px 0 0;font-style:italic;font-size:13px;line-height:1.5;
   color:var(--silver);opacity:0.7;max-width:48ch;
 }
+.ex-block-note a{color:var(--rose-gold);text-decoration:none}
+.ex-block-note a:hover{opacity:1}
 @media (max-width: 640px){
   .ex-block-stats{grid-template-columns:1fr;gap:14px}
 }
