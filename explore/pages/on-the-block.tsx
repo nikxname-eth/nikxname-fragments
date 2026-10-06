@@ -357,7 +357,7 @@ export default function OnTheBlockPage() {
               <div className="ex-would-set-grid">
                 {BLOCK_PANELS.map((p) => {
                   const open = blockPanelRevealed(p, now);
-                  const href = blockManifoldItem(p.tokenId) || blockOpenSeaItem(p.tokenId);
+                  const href = blockManifoldItem(p.tokenId);
                   const inner = (
                     <>
                       <span className="ex-card-media ex-would-set-media">
