@@ -17,8 +17,8 @@ import {
   BLOCK_TIERS,
   BLOCK_TITLE,
   BLOCK_WORK_TITLE,
+  blockManifoldItem,
   blockManifoldListingUrl,
-  blockOpenSeaItem,
   blockPanelRevealed,
   blockStatusAt,
   blockStatusLabel,
@@ -357,7 +357,7 @@ export default function OnTheBlockPage() {
               <div className="ex-would-set-grid">
                 {BLOCK_PANELS.map((p) => {
                   const open = blockPanelRevealed(p, now);
-                  const href = blockOpenSeaItem(p.tokenId);
+                  const href = blockManifoldItem(p.tokenId) || blockOpenSeaItem(p.tokenId);
                   const inner = (
                     <>
                       <span className="ex-card-media ex-would-set-media">
@@ -377,6 +377,7 @@ export default function OnTheBlockPage() {
                         <span className={`ex-would-status is-${p.role === 'auction' ? 'available' : 'soon'}`}>
                           <span className="ex-would-status-dot" aria-hidden="true" />
                           {p.role === 'auction' ? 'On the block' : 'Awarded with the win'}
+                          {p.tokenId != null ? ` · #${p.tokenId}` : ''}
                         </span>
                       </span>
                     </>

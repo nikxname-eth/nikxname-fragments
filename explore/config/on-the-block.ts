@@ -5,13 +5,14 @@
  * Panel 02 (center) is auctioned. Panels 01 (Devil) and 03 (Angel)
  * transfer to the winning wallet so the set leaves together.
  *
- * Token IDs stay null until mint. Set BLOCK_LISTING.manifoldId when the
- * Gallery listing is live. Studio listing: 48h from first bid, opens
+ * Tokens 5–7 are minted on the 1 of 1s contract. Set BLOCK_LISTING.manifoldId
+ * when the Gallery listing is live. Studio listing: 48h from first bid, opens
  * Tuesday 1:00 PM Eastern.
  */
 
 export const BLOCK_SERIES = 'one-of-ones' as const;
 export const BLOCK_CONTRACT = '0x07f3bfe5ca8d84108df5c020f885d1d6bf40585e';
+export const BLOCK_MANIFOLD_INSTANCE = '826945776';
 export const BLOCK_CHAIN = 'ethereum' as const;
 export const BLOCK_TREASURY = '0x81c306bcdc036f334ef4fb8f85a8e6be730a0763';
 export const BLOCK_COLLECTION_HREF = '/one-of-ones';
@@ -79,7 +80,7 @@ export const BLOCK_PANELS: BlockPanel[] = [
     panel: 1,
     role: 'awarded',
     label: '01 · Awarded with the win',
-    tokenId: null,
+    tokenId: 7,
     name: 'Devil',
     thumb: `/voices-of-time/devil-cover.gif?v=${MEDIA_V}`,
     still: `/voices-of-time/devil-still.webp?v=${MEDIA_V}`,
@@ -93,7 +94,7 @@ export const BLOCK_PANELS: BlockPanel[] = [
     panel: 2,
     role: 'auction',
     label: '02 · On the block',
-    tokenId: null,
+    tokenId: 6,
     name: 'Pendant',
     thumb: `/voices-of-time/pendant-cover.gif?v=${MEDIA_V}`,
     still: '/voices-of-time/unrevealed.webp',
@@ -107,7 +108,7 @@ export const BLOCK_PANELS: BlockPanel[] = [
     panel: 3,
     role: 'awarded',
     label: '03 · Awarded with the win',
-    tokenId: null,
+    tokenId: 5,
     name: 'Angel',
     thumb: `/voices-of-time/halo-cover.gif?v=${MEDIA_V}`,
     still: `/voices-of-time/halo-still.webp?v=${MEDIA_V}`,
@@ -133,6 +134,11 @@ export function blockPanelRevealed(panel: BlockPanel, now = Date.now()): boolean
 export function blockOpenSeaItem(tokenId: number | null): string | null {
   if (tokenId == null) return null;
   return `https://opensea.io/item/${BLOCK_CHAIN}/${BLOCK_CONTRACT}/${tokenId}`;
+}
+
+export function blockManifoldItem(tokenId: number | null): string | null {
+  if (tokenId == null) return null;
+  return `https://manifold.xyz/@nikxnames-art/contract/${BLOCK_MANIFOLD_INSTANCE}/${tokenId}`;
 }
 
 export function blockManifoldListingUrl(): string | null {

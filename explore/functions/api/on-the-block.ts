@@ -17,6 +17,7 @@ import {
   BLOCK_REVEAL_AT,
   BLOCK_TREASURY,
   BLOCK_WORK_TITLE,
+  blockManifoldItem,
   blockOpenSeaItem,
   blockPanelRevealed,
   blockStatusAt,
@@ -73,7 +74,8 @@ export const onRequestGet = async () => {
       name: p.name,
       tokenId: p.tokenId,
       revealed: blockPanelRevealed(p),
-      href: blockOpenSeaItem(p.tokenId),
+      href: blockManifoldItem(p.tokenId) || blockOpenSeaItem(p.tokenId),
+      openSea: blockOpenSeaItem(p.tokenId),
     })),
   });
 };
