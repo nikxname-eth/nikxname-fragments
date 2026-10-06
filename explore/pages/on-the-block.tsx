@@ -113,6 +113,7 @@ export default function OnTheBlockPage() {
   const [bidEth, setBidEth] = useState('');
   const [bidTouched, setBidTouched] = useState(false);
   const [bidding, setBidding] = useState(false);
+  const [thanks, setThanks] = useState<string | null>(null);
 
   const status = market.status || blockStatusAt(now);
   const statusLabel = market.statusLabel || blockStatusLabel(status as ReturnType<typeof blockStatusAt>);
@@ -225,17 +226,21 @@ export default function OnTheBlockPage() {
     setBidding(true);
     setWalletNote(null);
     try {
-      const hash = await sendAuctionBid(
+      await sendAuctionBid(
         eth,
         from,
         total,
         BigInt(market.currentBidWei || '0'),
         market.bidder || null,
       );
-      setWalletNote(`Bid sent. ${hash.slice(0, 10)}… is on its way.`);
+      setThanks(bidEth.trim());
+      setBidTouched(false);
+      setWalletNote(null);
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'The wallet declined the bid.';
-      setWalletNote(message.replace(/^Error:\s*/, ''));
+      const code = (err as { code?: number })?.code;
+      const raw = err instanceof Error ? err.message : String((err as { message?: string })?.message || '');
+      const declined = code === 4001 || /reject|denied|cancel/i.test(raw);
+      setWalletNote(declined ? 'The bid was not placed.' : 'The bid could not be placed. Please try again.');
     } finally {
       setBidding(false);
     }
@@ -247,7 +252,9 @@ export default function OnTheBlockPage() {
     setLook(true);
   };
 
-  const bidLabel = bidding ? 'Sending…' : live ? 'Place bid' : 'Not live';
+  const bidLabel = bidding ? 'Placing…' : live ? 'Place bid' : 'Not live';
+  const revealAt = Date.parse(BLOCK_REVEAL_AT);
+  const opensAt = Date.parse(BLOCK_BID_OPENS_AT);
 
   return (
     <>
@@ -355,12 +362,16 @@ export default function OnTheBlockPage() {
             <p className="ex-would-gold">Panel 02 is on the block</p>
             <p className={`ex-block-live is-${status}`}>{statusLabel}</p>
             <ul className="ex-block-schedule">
-              <li>
-                Center unveils <strong>{formatEastern(BLOCK_REVEAL_AT)}</strong>
-              </li>
-              <li>
-                Bidding opens <strong>{formatEastern(BLOCK_BID_OPENS_AT)}</strong>
-              </li>
+              {now < revealAt ? (
+                <li>
+                  Center unveils <strong>{formatEastern(BLOCK_REVEAL_AT)}</strong>
+                </li>
+              ) : null}
+              {now < opensAt ? (
+                <li>
+                  Bidding opens <strong>{formatEastern(BLOCK_BID_OPENS_AT)}</strong>
+                </li>
+              ) : null}
               <li>
                 <strong>{BLOCK_AUCTION_HOURS} hours</strong> from the first bid
               </li>
@@ -386,44 +397,61 @@ export default function OnTheBlockPage() {
                 <dd>{remain}</dd>
               </div>
             </dl>
-            <form
-              className="ex-block-bid"
-              onSubmit={(e) => {
-                e.preventDefault();
-                void placeBid();
-              }}
-            >
-              <label htmlFor="block-bid">Your bid</label>
-              <div className="ex-block-bid-row">
-                <input
-                  id="block-bid"
-                  inputMode="decimal"
-                  autoComplete="off"
-                  value={bidEth}
-                  placeholder={minBidEth}
-                  disabled={!live || bidding}
-                  onChange={(e) => {
-                    setBidTouched(true);
-                    setBidEth(e.target.value);
+            {thanks ? (
+              <div className="ex-block-thanks" role="status">
+                <em>Thank you.</em>
+                <span>Your bid of {thanks} ETH is with the work. Best of luck.</span>
+                <button
+                  type="button"
+                  className="ex-block-again"
+                  onClick={() => {
+                    setThanks(null);
+                    setWalletNote(null);
                   }}
-                />
-                <span>ETH</span>
-              </div>
-              <p className="ex-block-bid-min">Minimum {minBidEth} ETH</p>
-              <div className="ex-block-actions">
-                {wallet ? (
-                  <span className="ex-block-wallet">{shortWallet(wallet)}</span>
-                ) : (
-                  <button type="button" className="ex-read-more" onClick={() => void connectWallet()}>
-                    Connect wallet
-                  </button>
-                )}
-                <button type="submit" className="ex-garden-enter" disabled={!live || bidding}>
-                  {bidLabel}
+                >
+                  Place another bid
                 </button>
               </div>
-            </form>
-            {walletNote ? <p className="ex-block-note">{walletNote}</p> : null}
+            ) : (
+              <form
+                className="ex-block-bid"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  void placeBid();
+                }}
+              >
+                <label htmlFor="block-bid">Your bid</label>
+                <div className="ex-block-bid-row">
+                  <input
+                    id="block-bid"
+                    inputMode="decimal"
+                    autoComplete="off"
+                    value={bidEth}
+                    placeholder={minBidEth}
+                    disabled={!live || bidding}
+                    onChange={(e) => {
+                      setBidTouched(true);
+                      setBidEth(e.target.value);
+                    }}
+                  />
+                  <span>ETH</span>
+                </div>
+                <p className="ex-block-bid-min">Minimum {minBidEth} ETH</p>
+                <div className="ex-block-actions">
+                  {wallet ? (
+                    <span className="ex-block-wallet">{shortWallet(wallet)}</span>
+                  ) : (
+                    <button type="button" className="ex-read-more" onClick={() => void connectWallet()}>
+                      Connect wallet
+                    </button>
+                  )}
+                  <button type="submit" className="ex-garden-enter" disabled={!live || bidding}>
+                    {bidLabel}
+                  </button>
+                </div>
+              </form>
+            )}
+            {walletNote && !thanks ? <p className="ex-block-note">{walletNote}</p> : null}
             <p className="ex-block-note">
               The bid stays on this desk. The winning wallet receives Devil and Angel from the
               studio. One bid. One set.
