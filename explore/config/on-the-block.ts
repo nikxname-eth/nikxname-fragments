@@ -7,7 +7,7 @@
  *
  * Token IDs stay null until mint. Set BLOCK_LISTING.manifoldId when the
  * Gallery listing is live. Studio listing: 48h from first bid, opens
- * Tuesday 11:00 AM Eastern.
+ * Tuesday 1:00 PM Eastern.
  */
 
 export const BLOCK_SERIES = 'one-of-ones' as const;
@@ -35,7 +35,7 @@ const MEDIA_V = 'pendant';
 /** Center panel stays veiled until this instant (Eastern). */
 export const BLOCK_REVEAL_AT = '2026-10-05T17:00:00-04:00';
 /** Bidding may open at this instant. Timer then runs 48h from first bid. */
-export const BLOCK_BID_OPENS_AT = '2026-10-06T11:00:00-04:00';
+export const BLOCK_BID_OPENS_AT = '2026-10-06T13:00:00-04:00';
 export const BLOCK_AUCTION_HOURS = 48;
 
 export type BlockStatus = 'framework' | 'scheduled' | 'live' | 'settled';
