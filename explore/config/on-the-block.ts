@@ -168,7 +168,7 @@ export function blockStatusAt(now = Date.now()): BlockStatus {
 }
 
 export function blockStatusLabel(status: BlockStatus): string {
-  if (status === 'live') return 'Live';
+  if (status === 'live') return 'Auction';
   if (status === 'scheduled') return 'Scheduled';
   if (status === 'settled') return 'Settled';
   return 'Framework · not live';

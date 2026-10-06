@@ -56,9 +56,9 @@ export default function Home() {
             </div>
           </div>
           <div className="nav-right">
-            <a className="nav-live is-live" href={ON_THE_BLOCK_URL} aria-label="Live · Voices Of Time">
+            <a className="nav-live is-live" href={ON_THE_BLOCK_URL} aria-label="Auction · Voices Of Time">
               <span className="nav-live-dot" aria-hidden="true" />
-              Live
+              Auction
             </a>
             <a className="house-nav-garden" href={GARDEN_URL}>
               Garden
@@ -128,9 +128,9 @@ export default function Home() {
         <footer className="house-footer">
           <span>© {new Date().getFullYear()} Nikxname</span>
           <div className="house-footer-right">
-            <a className="nav-live is-live" href={ON_THE_BLOCK_URL} aria-label="Live · Voices Of Time">
+            <a className="nav-live is-live" href={ON_THE_BLOCK_URL} aria-label="Auction · Voices Of Time">
               <span className="nav-live-dot" aria-hidden="true" />
-              Live
+              Auction
             </a>
             <a href={SECONDARY_MARKET_URL} target="_blank" rel="noopener noreferrer">
               Secondary Market

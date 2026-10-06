@@ -7,9 +7,9 @@ type Props = {
 
 export function LivePill({ href = LIVE_HREF, onClick }: Props) {
   return (
-    <a className="ex-nav-live is-live" href={href} onClick={onClick} aria-label="Live · Voices Of Time">
+    <a className="ex-nav-live is-live" href={href} onClick={onClick} aria-label="Auction · Voices Of Time">
       <span className="ex-nav-live-dot" aria-hidden="true" />
-      Live
+      Auction
     </a>
   );
 }

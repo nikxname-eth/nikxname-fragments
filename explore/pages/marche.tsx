@@ -734,7 +734,7 @@ export default function MarchePage() {
         <span className="ex-marche-block-meta">
           <span className="ex-nav-live is-live" aria-hidden="true">
             <span className="ex-nav-live-dot" />
-            Live
+            Auction
           </span>
           <span className="ex-marche-block-copy">
             <em>On The Block</em>
