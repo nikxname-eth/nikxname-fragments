@@ -7,7 +7,7 @@ const META = {
   description:
     'A luxurious art theatre for Nikxname - enter the world, explore collections, and open works with care. Telling human stories through brushstrokes.',
   url: 'https://explore.nikxart.xyz',
-  ogImage: 'https://explore.nikxart.xyz/voices-of-time/share.jpg?v=framed',
+  ogImage: 'https://explore.nikxart.xyz/voices-of-time/share.jpg?v=panels',
   ogWidth: '2400',
   ogHeight: '1257',
 };

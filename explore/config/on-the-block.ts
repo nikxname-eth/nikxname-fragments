@@ -24,7 +24,7 @@ export const BLOCK_DESC =
   'Voices Of Time — a triptych: three canvases, one painting. A 1 of 1 on the 1 of 1s contract. The center is on the block; Devil and Angel follow the winning wallet.';
 export const BLOCK_WORK_TITLE = 'Voices Of Time';
 export const BLOCK_BLIP = "Mirror Mirror.. Who's whisper rings truer?";
-export const BLOCK_SHARE = '/voices-of-time/share.jpg?v=framed';
+export const BLOCK_SHARE = '/voices-of-time/share.jpg?v=panels';
 export const BLOCK_SHARE_W = '2400';
 export const BLOCK_SHARE_H = '1257';
 export const BLOCK_PLACEHOLDER = false;
@@ -42,6 +42,10 @@ export const BLOCK_RESERVE_ETH = '0.02 ETH';
 export const BLOCK_MIN_INCREMENT = '5%';
 export const BLOCK_BID_EXTENSION = '10 minutes';
 export const BLOCK_LISTING_URL = 'https://manifold.xyz/@nikxnames-art/id/3481329904';
+/** On-chain English auction. Bids are sent here. No redirect. */
+export const BLOCK_MARKETPLACE = '0x3A3548e060Be10c2614d0a4Cb0c03CC9093fD799';
+export const BLOCK_ONCHAIN_LISTING = 20872;
+export const BLOCK_INCREMENT_BPS = 500;
 
 export type BlockStatus = 'framework' | 'scheduled' | 'live' | 'settled';
 export type BlockTier = '1080' | '2k' | '4k';

@@ -14,7 +14,7 @@ import { getEmbersWorks, matchEmberWork } from '../lib/embersWorks';
 import { fetchTokenOwner, type OwnerResult } from '../lib/owner';
 import { getWillItWorks, matchWillItWork } from '../lib/willItWorks';
 import { catalogueThumbUrl, observeStillUrl } from '../lib/mediaUrl';
-import { BLOCK_BLIP, BLOCK_SHARE, BLOCK_WORK_TITLE } from '../config/on-the-block';
+import { BLOCK_SHARE, BLOCK_WORK_TITLE } from '../config/on-the-block';
 import { LivePill } from '../components/LivePill';
 
 type MarcheListing = {
@@ -739,7 +739,7 @@ export default function MarchePage() {
           <span className="ex-marche-block-copy">
             <em>On The Block</em>
             <strong>{BLOCK_WORK_TITLE}</strong>
-            <span>{BLOCK_BLIP}</span>
+            <span>Devil · Pendant · Angel</span>
           </span>
         </span>
       </a>

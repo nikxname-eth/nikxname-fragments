@@ -18,7 +18,6 @@ import {
   BLOCK_TITLE,
   BLOCK_WORK_TITLE,
   blockManifoldItem,
-  blockManifoldListingUrl,
   blockPanelRevealed,
   blockStatusAt,
   blockStatusLabel,
@@ -29,13 +28,23 @@ import {
 } from '../config/on-the-block';
 import { CanvasLook } from '../components/CanvasLook';
 import { LivePill } from '../components/LivePill';
+import { parseEth } from '../lib/blockAuction';
+import { sendAuctionBid } from '../lib/blockBidTx';
 
 type Market = {
   status?: string;
   statusLabel?: string;
   currentBid?: string | null;
+  currentBidWei?: string;
+  bidder?: string | null;
   bidCount?: number;
-  listing?: { reserveEth?: string | null; endsAt?: string | null; startsAt?: string | null };
+  listing?: {
+    reserveEth?: string | null;
+    endsAt?: string | null;
+    startsAt?: string | null;
+    minBid?: string | null;
+    minBidWei?: string | null;
+  };
 };
 
 type Eth = {
@@ -101,11 +110,14 @@ export default function OnTheBlockPage() {
   const [quiet, setQuiet] = useState(false);
   const [wallet, setWallet] = useState<string | null>(null);
   const [walletNote, setWalletNote] = useState<string | null>(null);
+  const [bidEth, setBidEth] = useState('');
+  const [bidTouched, setBidTouched] = useState(false);
+  const [bidding, setBidding] = useState(false);
 
   const status = market.status || blockStatusAt(now);
   const statusLabel = market.statusLabel || blockStatusLabel(status as ReturnType<typeof blockStatusAt>);
   const live = status === 'live';
-  const listingUrl = blockManifoldListingUrl();
+  const minBidEth = market.listing?.minBid || BLOCK_LISTING.reserveEth.replace(' ETH', '');
   const panel = BLOCK_PANELS.find((p) => p.panel === lookPanel) || BLOCK_PANELS[0];
   const panelOpen = blockPanelRevealed(panel, now);
   const centerOpen = blockPanelRevealed(BLOCK_PANELS[1], now);
@@ -134,16 +146,25 @@ export default function OnTheBlockPage() {
 
   useEffect(() => {
     let alive = true;
-    fetch('/api/on-the-block')
-      .then((r) => r.json())
-      .then((d: Market & { ok?: boolean }) => {
-        if (alive && d?.ok) setMarket(d);
-      })
-      .catch(() => {});
+    const load = () => {
+      fetch('/api/on-the-block')
+        .then((r) => r.json())
+        .then((d: Market & { ok?: boolean }) => {
+          if (alive && d?.ok) setMarket(d);
+        })
+        .catch(() => {});
+    };
+    load();
+    const id = window.setInterval(load, 20000);
     return () => {
       alive = false;
+      window.clearInterval(id);
     };
   }, []);
+
+  useEffect(() => {
+    if (!bidTouched && minBidEth) setBidEth(minBidEth);
+  }, [bidTouched, minBidEth]);
 
   useEffect(() => {
     const id = window.setInterval(() => setNow(Date.now()), 1000);
@@ -177,12 +198,46 @@ export default function OnTheBlockPage() {
   };
 
   const placeBid = async () => {
-    if (!wallet) {
+    const eth = (window as unknown as { ethereum?: Eth }).ethereum;
+    let from = wallet;
+    if (!from) {
       await connectWallet();
+      const accounts = eth
+        ? ((await eth.request({ method: 'eth_accounts' })) as string[])
+        : [];
+      from = accounts?.[0]?.toLowerCase() || null;
+      if (!from) return;
+    }
+    if (!eth) {
+      setWalletNote('Open this page in a wallet browser, or install a wallet.');
       return;
     }
-    if (listingUrl) {
-      window.open(listingUrl, '_blank', 'noopener,noreferrer');
+    const total = parseEth(bidEth);
+    const min = parseEth(minBidEth);
+    if (total == null) {
+      setWalletNote('Enter the bid in ETH.');
+      return;
+    }
+    if (min != null && total < min) {
+      setWalletNote(`The next bid must be at least ${minBidEth} ETH.`);
+      return;
+    }
+    setBidding(true);
+    setWalletNote(null);
+    try {
+      const hash = await sendAuctionBid(
+        eth,
+        from,
+        total,
+        BigInt(market.currentBidWei || '0'),
+        market.bidder || null,
+      );
+      setWalletNote(`Bid sent. ${hash.slice(0, 10)}… is on its way.`);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'The wallet declined the bid.';
+      setWalletNote(message.replace(/^Error:\s*/, ''));
+    } finally {
+      setBidding(false);
     }
   };
 
@@ -192,7 +247,7 @@ export default function OnTheBlockPage() {
     setLook(true);
   };
 
-  const bidLabel = live ? (wallet ? 'Place bid' : 'Connect to bid') : 'Not live';
+  const bidLabel = bidding ? 'Sending…' : live ? 'Place bid' : 'Not live';
 
   return (
     <>
@@ -331,36 +386,47 @@ export default function OnTheBlockPage() {
                 <dd>{remain}</dd>
               </div>
             </dl>
-            <div className="ex-block-actions">
-              {wallet ? (
-                <span className="ex-block-wallet">{shortWallet(wallet)}</span>
-              ) : (
-                <button type="button" className="ex-read-more" onClick={() => void connectWallet()}>
-                  Connect wallet
+            <form
+              className="ex-block-bid"
+              onSubmit={(e) => {
+                e.preventDefault();
+                void placeBid();
+              }}
+            >
+              <label htmlFor="block-bid">Your bid</label>
+              <div className="ex-block-bid-row">
+                <input
+                  id="block-bid"
+                  inputMode="decimal"
+                  autoComplete="off"
+                  value={bidEth}
+                  placeholder={minBidEth}
+                  disabled={!live || bidding}
+                  onChange={(e) => {
+                    setBidTouched(true);
+                    setBidEth(e.target.value);
+                  }}
+                />
+                <span>ETH</span>
+              </div>
+              <p className="ex-block-bid-min">Minimum {minBidEth} ETH</p>
+              <div className="ex-block-actions">
+                {wallet ? (
+                  <span className="ex-block-wallet">{shortWallet(wallet)}</span>
+                ) : (
+                  <button type="button" className="ex-read-more" onClick={() => void connectWallet()}>
+                    Connect wallet
+                  </button>
+                )}
+                <button type="submit" className="ex-garden-enter" disabled={!live || bidding}>
+                  {bidLabel}
                 </button>
-              )}
-              <button
-                type="button"
-                className="ex-garden-enter"
-                disabled={!live}
-                onClick={() => void placeBid()}
-              >
-                {bidLabel}
-              </button>
-            </div>
+              </div>
+            </form>
             {walletNote ? <p className="ex-block-note">{walletNote}</p> : null}
             <p className="ex-block-note">
-              The winning wallet receives Devil and Angel from the studio. One bid. One set.
-              {listingUrl ? (
-                <>
-                  {' '}
-                  Bids settle on{' '}
-                  <a href={listingUrl} target="_blank" rel="noopener noreferrer">
-                    Manifold
-                  </a>
-                  .
-                </>
-              ) : null}
+              The bid stays on this desk. The winning wallet receives Devil and Angel from the
+              studio. One bid. One set.
             </p>
           </section>
 
