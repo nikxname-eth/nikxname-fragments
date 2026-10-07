@@ -8,6 +8,7 @@ import {
   type AtelierRow,
 } from '../lib/collectors';
 import { AtelierDesk } from '../components/AtelierDesk';
+import { AtelierSound } from '../components/AtelierSound';
 import { Archivery } from '../components/Archivery';
 import { MaisonDesk } from '../components/MaisonDesk';
 import { ReviewHang } from '../components/ReviewHang';
@@ -174,6 +175,7 @@ export default function AtelierPage() {
 
           </div>
           <div className="ex-nav-right">
+            <AtelierSound />
             <button
               type="button"
               className="ex-theme-btn"
