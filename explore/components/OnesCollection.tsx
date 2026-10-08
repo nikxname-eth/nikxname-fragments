@@ -30,14 +30,27 @@ function hangFallback(work: ExploreWork) {
   return work.originCoverUrl || work.coverUrl || stillMasterUrl(work) || '';
 }
 
+/** Burn The Roses is 1920×1152. A 16:9 frame leaves a dark margin around it. */
+const HANG_RATIO: Record<string, string> = {
+  'one-of-ones-3': '5 / 3',
+};
+
+const VOICES_ORDER = ['one-of-ones-7', 'one-of-ones-6', 'one-of-ones-5'];
+
 function OnesHang({
   work,
   isActive,
   onSelect,
+  frameClass,
+  caption,
+  indexLabel,
 }: {
   work: ExploreWork;
   isActive?: boolean;
   onSelect: (w: ExploreWork) => void;
+  frameClass?: string;
+  caption?: string;
+  indexLabel?: string;
 }) {
   const frameRef = useRef<HTMLButtonElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -76,15 +89,20 @@ function OnesHang({
     else v.pause();
   }, [inView, armed, video]);
 
-  return (
-    <article className="ex-ones-hang">
-      <h3 className="ex-ones-hang-title">{work.title}</h3>
+  const frame = (
       <button
         ref={frameRef}
         type="button"
-        className={`ex-ones-hang-frame${isActive ? ' is-active' : ''}`}
+        className={`${frameClass || 'ex-ones-hang-frame'}${isActive ? ' is-active' : ''}`}
+        style={
+          frameClass
+            ? undefined
+            : HANG_RATIO[work.id]
+              ? { aspectRatio: HANG_RATIO[work.id] }
+              : undefined
+        }
         onClick={() => onSelect(work)}
-        aria-label={`Open ${work.title} in Theatre`}
+        aria-label={`Look closer at ${caption || work.title}`}
       >
         {video ? (
           // eslint-disable-next-line jsx-a11y/media-has-caption
@@ -112,28 +130,50 @@ function OnesHang({
             }}
           />
         )}
+        {indexLabel ? <em>{indexLabel}</em> : null}
+        {caption ? <span>{caption}</span> : null}
       </button>
+  );
+
+  if (frameClass) return frame;
+  return (
+    <article className="ex-ones-hang">
+      <h3 className="ex-ones-hang-title">{work.title}</h3>
+      {frame}
     </article>
   );
 }
 
-export function OnesVoices() {
+function VoicesTriptych({
+  works,
+  activeId,
+  onSelect,
+}: Props) {
+  const ordered = VOICES_ORDER.map((id) => works.find((w) => w.id === id)).filter(
+    (w): w is ExploreWork => Boolean(w),
+  );
+  if (!ordered.length) return null;
+
   return (
-    <section className="ex-afb-will" aria-label="Voices Of Time">
+    <section className="ex-voices-hang" aria-label="Voices Of Time">
       <div className="ex-section-head">
         <h2 className="ex-section-title">{BLOCK_WORK_TITLE}</h2>
       </div>
       <p className="ex-afb-will-sub">{BLOCK_BLIP}</p>
-      <div className="ex-afb-will-row" aria-hidden="true">
-        {BLOCK_PANELS.map((p) => {
-          const open = blockPanelRevealed(p);
+      <div className="ex-voices-row">
+        {ordered.map((work, i) => {
+          const panel = BLOCK_PANELS[i];
+          const open = panel ? blockPanelRevealed(panel) : true;
           return (
-            <span key={p.panel} className="ex-afb-will-cell">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={open ? p.thumb : p.still} alt="" loading="lazy" decoding="async" />
-              <em>{String(p.panel).padStart(2, '0')}</em>
-              {!open ? <span className="ex-would-veil">Unrevealed</span> : null}
-            </span>
+            <OnesHang
+              key={work.id}
+              work={work}
+              isActive={activeId === work.id}
+              onSelect={onSelect}
+              frameClass="ex-voices-cell"
+              caption={open ? work.subtitle || work.title : 'Unrevealed'}
+              indexLabel={String(i + 1).padStart(2, '0')}
+            />
           );
         })}
       </div>
@@ -146,16 +186,23 @@ export function OnesVoices() {
 }
 
 export function OnesCollection({ works, activeId, onSelect }: Props) {
+  const voices = works.filter((w) => VOICES_ORDER.includes(w.id));
+  const rest = works.filter((w) => !VOICES_ORDER.includes(w.id));
   return (
-    <section className="ex-ones-stack" aria-label="1 of 1s">
-      {works.map((work) => (
-        <OnesHang
-          key={work.id}
-          work={work}
-          isActive={activeId === work.id}
-          onSelect={onSelect}
-        />
-      ))}
-    </section>
+    <>
+      {rest.length ? (
+        <section className="ex-ones-stack" aria-label="1 of 1s">
+          {rest.map((work) => (
+            <OnesHang
+              key={work.id}
+              work={work}
+              isActive={activeId === work.id}
+              onSelect={onSelect}
+            />
+          ))}
+        </section>
+      ) : null}
+      <VoicesTriptych works={voices} activeId={activeId} onSelect={onSelect} />
+    </>
   );
 }

@@ -13,7 +13,7 @@ import { getAfbSpecialEditions } from '../lib/chainWorks';
 import { getEmbersWorks } from '../lib/embersWorks';
 import { AfbEmbers } from './AfbEmbers';
 import { VoidCollection } from './VoidCollection';
-import { OnesCollection, OnesVoices } from './OnesCollection';
+import { OnesCollection } from './OnesCollection';
 import { HOST_TO_SERIES, SERIES_IDS, collectionHref } from '../lib/sites';
 import { canonicalSlug, findWorkBySlug } from '../lib/workSlug';
 import { shareAssetsForSeries } from '../lib/shareAssets';
@@ -207,8 +207,7 @@ export function CollectionSite({ seriesId, itemSlug }: Props) {
           )}
           {seriesId === 'a-familiar-burn' ? <hr className="ex-afb-break" /> : null}
           {seriesId === 'a-familiar-burn' ? <AfbWillIt /> : null}
-          {seriesId === 'one-of-ones' ? <hr className="ex-afb-break" /> : null}
-          {seriesId === 'one-of-ones' ? <OnesVoices /> : null}
+
           {seriesId === 'a-familiar-burn' && embers.length ? (
             <>
               <hr className="ex-afb-break" />

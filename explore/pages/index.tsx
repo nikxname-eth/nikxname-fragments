@@ -14,7 +14,7 @@ import {
 } from '../config/catalog';
 import { getAfbSpecialEditions } from '../lib/chainWorks';
 import { VoidCollection } from '../components/VoidCollection';
-import { OnesCollection, OnesVoices } from '../components/OnesCollection';
+import { OnesCollection } from '../components/OnesCollection';
 import { getFeatureCacheItems, optimizeAssetUrl, resolveFeatureMedia } from '../lib/previews';
 import { WorkStage } from '../components/WorkStage';
 import { WorkCard } from '../components/WorkCard';
@@ -497,8 +497,7 @@ export default function ExploreHome() {
           )}
           {filter === 'a-familiar-burn' ? <hr className="ex-afb-break" /> : null}
           {filter === 'a-familiar-burn' ? <AfbWillIt /> : null}
-          {filter === 'one-of-ones' ? <hr className="ex-afb-break" /> : null}
-          {filter === 'one-of-ones' ? <OnesVoices /> : null}
+
           {filter === 'a-familiar-burn' && embers.length ? (
             <>
               <hr className="ex-afb-break" />
