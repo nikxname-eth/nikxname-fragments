@@ -1,14 +1,30 @@
 import { useEffect, useRef, useState } from 'react';
 
-const BEDS = [
-  { id: 'room', name: 'Room', src: '/atelier/sound/room.m4a' },
-  { id: 'piano', name: 'Piano', src: '/atelier/sound/piano.m4a' },
-  { id: 'night', name: 'Night', src: '/atelier/sound/night.m4a' },
-  { id: 'brush', name: 'Brush', src: '/atelier/sound/brush.m4a' },
+/** Add a rendered tune under public/atelier/sound, then a line here. */
+const TUNES = [
+  { id: 'prelude', name: 'Prelude', src: '/atelier/sound/prelude.m4a' },
+  { id: 'waltz', name: 'Waltz', src: '/atelier/sound/waltz.m4a' },
+  { id: 'nocturne', name: 'Nocturne', src: '/atelier/sound/nocturne.m4a' },
+  { id: 'ballad', name: 'Ballad', src: '/atelier/sound/ballad.m4a' },
   { id: 'air', name: 'Air', src: '/atelier/sound/air.m4a' },
 ] as const;
 
-const LEVEL = 0.42;
+type Tune = (typeof TUNES)[number];
+
+const LEVEL = 0.55;
+
+function shuffle(list: readonly Tune[], avoid?: string): Tune[] {
+  const next = [...list];
+  for (let i = next.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [next[i], next[j]] = [next[j], next[i]];
+  }
+  if (avoid && next.length > 1 && next[0].id === avoid) {
+    const j = 1 + Math.floor(Math.random() * (next.length - 1));
+    [next[0], next[j]] = [next[j], next[0]];
+  }
+  return next;
+}
 
 function fade(audio: HTMLAudioElement, to: number, ms: number) {
   const from = audio.volume;
@@ -24,74 +40,117 @@ function fade(audio: HTMLAudioElement, to: number, ms: number) {
   });
 }
 
-/** Private Atelier only. Each click moves to the next bed, then silence. */
+/** Private Atelier only. A click starts a shuffle; another click skips; the last skip is silence. */
 export function AtelierSound() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [index, setIndex] = useState(0);
-  const bed = index > 0 ? BEDS[index - 1] : null;
+  const orderRef = useRef<Tune[]>([]);
+  const indexRef = useRef(0);
+  const tuneRef = useRef<Tune | null>(null);
+  const settling = useRef(false);
+  const advanceRef = useRef<(ended: boolean) => void>(() => {});
+  const [tune, setTune] = useState<Tune | null>(null);
+  const [token, setToken] = useState(0);
+
+  const commit = (next: Tune | null) => {
+    tuneRef.current = next;
+    setTune(next);
+    setToken((n) => n + 1);
+  };
+
+  const playFrom = (order: Tune[], index: number) => {
+    orderRef.current = order;
+    indexRef.current = index;
+    commit(order[index] ?? null);
+  };
+
+  const stop = () => {
+    orderRef.current = [];
+    indexRef.current = 0;
+    commit(null);
+  };
+
+  advanceRef.current = (ended: boolean) => {
+    const order = orderRef.current;
+    if (!order.length) {
+      playFrom(shuffle(TUNES), 0);
+      return;
+    }
+    const i = indexRef.current + 1;
+    if (i < order.length) {
+      playFrom(order, i);
+      return;
+    }
+    if (ended) playFrom(shuffle(TUNES, tuneRef.current?.id), 0);
+    else stop();
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const onEnded = () => {
+      if (settling.current) return;
+      advanceRef.current(true);
+    };
+    audio.addEventListener('ended', onEnded);
+    return () => audio.removeEventListener('ended', onEnded);
+  }, []);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     let cancelled = false;
+    settling.current = true;
 
     const run = async () => {
-      if (!bed) {
+      if (!tune) {
         await fade(audio, 0, 500);
         if (!cancelled) audio.pause();
         return;
       }
-      const next = new URL(bed.src, window.location.href).href;
-      if (!audio.src.endsWith(bed.src) && audio.src !== next) {
-        await fade(audio, 0, 280);
-        if (cancelled) return;
-        audio.src = bed.src;
-        audio.loop = true;
-        audio.volume = 0;
-        try {
-          await audio.play();
-        } catch {
-          return;
-        }
-      } else if (audio.paused) {
-        audio.volume = 0;
-        try {
-          await audio.play();
-        } catch {
-          return;
-        }
+      await fade(audio, 0, 280);
+      if (cancelled) return;
+      audio.src = tune.src;
+      audio.loop = false;
+      audio.volume = 0;
+      try {
+        await audio.play();
+      } catch {
+        return;
       }
       if (!cancelled) await fade(audio, LEVEL, 700);
     };
 
-    void run();
+    void run().finally(() => {
+      if (!cancelled) settling.current = false;
+    });
+
     return () => {
       cancelled = true;
     };
-  }, [bed]);
+  }, [tune, token]);
 
   useEffect(() => {
     const onHide = () => {
       const audio = audioRef.current;
       if (!audio) return;
       if (document.hidden) audio.pause();
-      else if (bed) void audio.play().catch(() => {});
+      else if (tuneRef.current) void audio.play().catch(() => {});
     };
     document.addEventListener('visibilitychange', onHide);
     return () => document.removeEventListener('visibilitychange', onHide);
-  }, [bed]);
+  }, []);
 
   return (
-    <div className={`ex-sound${bed ? ' is-on' : ''}`}>
+    <div className={`ex-sound${tune ? ' is-on' : ''}`}>
       <button
         type="button"
         className="ex-sound-btn"
-        onClick={() => setIndex((n) => (n + 1) % (BEDS.length + 1))}
-        aria-label={bed ? `${bed.name}. Next sound.` : 'Sound off. Play Room.'}
+        onClick={() => advanceRef.current(false)}
+        aria-label={tune ? `${tune.name}. Next tune.` : 'Sound off. Play a tune.'}
       >
-        <Speaker on={!!bed} />
+        <Speaker on={!!tune} />
       </button>
-      {bed ? <span className="ex-sound-name">{bed.name}</span> : null}
+      {tune ? <span className="ex-sound-name">{tune.name}</span> : null}
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <audio ref={audioRef} preload="none" />
     </div>
