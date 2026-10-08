@@ -185,22 +185,53 @@ function VoicesTriptych({
   );
 }
 
+function OnesDesk({ works, activeId, onSelect }: Props) {
+  const [picked, setPicked] = useState(works[0]?.id ?? '');
+  const work = works.find((w) => w.id === picked) ?? works[0];
+  if (!work) return null;
+
+  return (
+    <section className="ex-ones-desk" aria-label="1 of 1s">
+      <div className="ex-ones-minis" role="tablist" aria-label="Choose a work">
+        {works.map((item) => {
+          const thumb = catalogueThumbUrl(item.coverUrl, 480) || item.coverUrl;
+          const on = item.id === work.id;
+          return (
+            <button
+              key={item.id}
+              type="button"
+              role="tab"
+              aria-selected={on}
+              className={`ex-ones-mini${on ? ' is-on' : ''}`}
+              onClick={() => setPicked(item.id)}
+            >
+              <span className="ex-ones-mini-frame">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={thumb} alt="" decoding="async" />
+              </span>
+              <span className="ex-ones-mini-name">{item.title}</span>
+            </button>
+          );
+        })}
+      </div>
+      <OnesHang
+        key={work.id}
+        work={work}
+        isActive={activeId === work.id}
+        onSelect={onSelect}
+      />
+      <p className="ex-ones-hint">Click the frame to look closer</p>
+    </section>
+  );
+}
+
 export function OnesCollection({ works, activeId, onSelect }: Props) {
   const voices = works.filter((w) => VOICES_ORDER.includes(w.id));
   const rest = works.filter((w) => !VOICES_ORDER.includes(w.id));
   return (
     <>
       {rest.length ? (
-        <section className="ex-ones-stack" aria-label="1 of 1s">
-          {rest.map((work) => (
-            <OnesHang
-              key={work.id}
-              work={work}
-              isActive={activeId === work.id}
-              onSelect={onSelect}
-            />
-          ))}
-        </section>
+        <OnesDesk works={rest} activeId={activeId} onSelect={onSelect} />
       ) : null}
       <VoicesTriptych works={voices} activeId={activeId} onSelect={onSelect} />
     </>
