@@ -71,18 +71,20 @@ export function asTheatreWork(token: GardenToken, catalog: ExploreWork[]): Explo
           : token.contentUrl || matched.originCoverUrl,
     };
   }
-  const video = /\.(mp4|webm)(\?|$)/i.test(token.contentUrl || '');
   const content = token.contentUrl || '';
   const preview = token.previewUrl || '';
+  const video = /\.(mp4|webm|mov)(\?|$)/i.test(content);
+  const image = /\.(gif|png|jpe?g|webp|avif)(\?|$)/i.test(content);
+  const still = image ? content : preview;
   return {
     id: `garden-${token.seriesId}-${token.tokenId}`,
     seriesId: (token.seriesId as ExploreWork['seriesId']) || 'one-of-ones',
     title: token.name,
     collectionLabel: token.collection,
     kind: 'edition',
-    coverUrl: preview || content,
-    originCoverUrl: video ? preview : content || preview,
-    mediaUrl: content || preview,
+    coverUrl: still || content,
+    originCoverUrl: still || preview,
+    mediaUrl: video ? content : still || content,
     mediaType: video ? 'video' : 'image',
     contractAddress: token.contract,
     tokenId: Number(token.tokenId),

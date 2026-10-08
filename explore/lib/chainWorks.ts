@@ -1,6 +1,7 @@
 import type { ExploreWork, SeriesId } from '../config/catalog';
 import { claimedEditionCount } from '../config/editionClaimed';
 import { resolveCatalogueCover } from './previews';
+import { getVoicesWorks } from './voicesWorks';
 
 export type ChainToken = {
   tokenId: number;
@@ -230,7 +231,12 @@ export function chainTokensToWorks(collection: ChainCollectionJson): ExploreWork
 export function getChainWorksForSeries(seriesId: string): ExploreWork[] {
   const col = getChainCollection(seriesId);
   if (!col) return [];
-  const works = chainTokensToWorks(col);
+  let works = chainTokensToWorks(col);
+  if (seriesId === 'one-of-ones') {
+    const voices = getVoicesWorks();
+    const ids = new Set(voices.map((w) => w.id));
+    works = [...works.filter((w) => !ids.has(w.id)), ...voices];
+  }
 
   if (seriesId === 'the-void') {
     return works.sort((a, b) => {

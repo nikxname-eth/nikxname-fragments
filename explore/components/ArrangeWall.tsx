@@ -316,6 +316,7 @@ export function ArrangeWall({ works, catalogue, seed, onClose, onObserve, closeL
   const [deepMat, setDeepMat] = useState(false);
   const [ratios, setRatios] = useState<Record<string, { w: number; h: number }>>({});
   const [quality, setQuality] = useState<Record<string, MediaTierId>>({});
+  const [stillOnly, setStillOnly] = useState<Record<string, boolean>>({});
   const [hang, setHang] = useState(0.72);
   const [sharing, setSharing] = useState(false);
   const [saveErr, setSaveErr] = useState<string | null>(null);
@@ -957,7 +958,9 @@ export function ArrangeWall({ works, catalogue, seed, onClose, onObserve, closeL
           {slots.map((work, i) => {
             const ar = slotArs[i] ?? EMPTY_AR;
             const tiers = work ? mediaTiersFor(work) : [];
-            const video = Boolean(work && isVideoWork(work) && tiers.some((t) => t.kind === 'video'));
+            const video = Boolean(
+              work && !stillOnly[work.id] && isVideoWork(work) && tiers.some((t) => t.kind === 'video'),
+            );
             const tierId = work ? quality[work.id] || defaultTierId(tiers) : '1080';
             return (
               <div
@@ -1070,6 +1073,8 @@ export function ArrangeWall({ works, catalogue, seed, onClose, onObserve, closeL
                               const lower = lowerTierId(tiers, tierId);
                               if (lower) {
                                 setQuality((prev) => ({ ...prev, [work.id]: lower }));
+                              } else {
+                                setStillOnly((prev) => ({ ...prev, [work.id]: true }));
                               }
                             }}
                           />

@@ -8,7 +8,7 @@ import {
   blockPanelRevealed,
 } from '../config/on-the-block';
 import { catalogueThumbUrl, isVideoWork, stillMasterUrl } from '../lib/mediaUrl';
-import { getFeatureCacheUrl } from '../lib/previews';
+import { getFeatureCacheItems } from '../lib/previews';
 
 type Props = {
   works: ExploreWork[];
@@ -17,8 +17,9 @@ type Props = {
 };
 
 function hangStill(work: ExploreWork) {
-  const cached =
-    work.seriesId && work.id ? getFeatureCacheUrl(work.seriesId, work.id) : null;
+  const cached = getFeatureCacheItems().find(
+    (item) => item.seriesId === work.seriesId && item.workId === work.id,
+  )?.featureUrl;
   const base =
     cached || work.originCoverUrl || stillMasterUrl(work) || work.coverUrl || '';
   if (/\.gif(\?|$)/i.test(base)) return base;

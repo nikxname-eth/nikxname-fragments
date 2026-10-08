@@ -17,6 +17,7 @@ import afbJson from '../data/collections/a-familiar-burn.json';
 import willItJson from '../data/will-it-tokens.json';
 import embersJson from '../data/embers-tokens.json';
 import { rasterPreviewUrl } from './contracts';
+import { BLOCK_PANELS, blockPanelRevealed } from '../config/on-the-block';
 
 export type AssetStore = 'Arweave' | 'IPFS' | 'R2' | 'CDN';
 
@@ -107,6 +108,27 @@ export function listKnownAssets(): AssetRecord[] {
   ];
   const seen = new Set(rows.map((r) => r.url));
   const today = '';
+  for (const panel of BLOCK_PANELS) {
+    const n = String(panel.panel).padStart(2, '0');
+    const open = blockPanelRevealed(panel);
+    const poster = open ? panel.look : panel.still;
+    push(rows, seen, {
+      name: `Voices Of Time · Panel ${n} · ${panel.name}`,
+      collection: '1/1s',
+      url: poster,
+      indexed: today,
+      kind: 'image',
+    });
+    if (open && panel.video) {
+      push(rows, seen, {
+        name: `Voices Of Time · Panel ${n} · ${panel.name} · 1080`,
+        collection: '1/1s',
+        url: panel.video,
+        indexed: today,
+        kind: 'video',
+      });
+    }
+  }
   push(rows, seen, {
     name: 'Blossom Fragments · Still',
     collection: 'A Familiar Burn',
